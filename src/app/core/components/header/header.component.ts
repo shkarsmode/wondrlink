@@ -14,8 +14,10 @@ export class HeaderComponent implements OnInit {
     public isHeaderIn: boolean = false;
     public isAuthenticated$: Observable<boolean>;
     public isLoggingOut: boolean = false;
+    public isAdmin: boolean;
 
     private previousValue: number = 0;
+
 
     constructor(
         private scrollTo: ScrollToService,
@@ -23,11 +25,12 @@ export class HeaderComponent implements OnInit {
     ) {}
 
     public ngOnInit(): void {
-        this.initAuthenticatedStream();
+        this.initAuthenticatedStreamAndSetRole();
     }
 
-    private initAuthenticatedStream(): void {
+    private initAuthenticatedStreamAndSetRole(): void {
         this.isAuthenticated$ = this.authService.isAuthenticated$;
+        this.isAdmin = this.authService.isAdmin;
     }
 
     public async logout(): Promise<void> {

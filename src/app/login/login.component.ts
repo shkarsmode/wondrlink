@@ -11,17 +11,16 @@ import { AuthService } from 'src/services/auth.service';
 })
 export class LoginComponent {
 
-    constructor(
-        private authService: AuthService,
-        private router: Router
-    ) {}
-
     public isShowPassword: boolean = false;
     public isShowError: boolean = false;
     public errorMessages: string[] = [];
     public email: string;
     public password: string;
 
+    constructor(
+        private authService: AuthService,
+        private router: Router
+    ) {}
     
     public onSubmitForm(): void {
         if (this.isEmptyForm)  return;
@@ -36,7 +35,13 @@ export class LoginComponent {
 
     private onSuccessfulLogIn(): void {
         this.errorMessages = [];
-        this.router.navigate(['/admin']);
+
+        if (this.authService.isAdmin) {
+            this.router.navigate(['/admin']);
+            return;
+        }
+
+        this.router.navigate(['/']);
     }
 
     private handleErrorAuthorization(error: ErrorLoginResponseDto): void {

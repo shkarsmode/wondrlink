@@ -3,6 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { ErrorLoginResponseDto } from 'src/interfaces/ErrorLoginResponse.dto';
+import { UserRoleEnum } from 'src/interfaces/UserRoleEnum';
 import { AUTH_PATH_API } from './variables';
 // import { ErrorNotificationService } from '../../shared/error-notification.service';
 // import { AUTH_PATH_API } from '../../variables';
@@ -20,6 +21,7 @@ export class AuthService {
     constructor(
         private jwtHelper: JwtHelperService,
         private http: HttpClient,
+        private jwt: JwtHelperService,
         // private errorNotificationService: ErrorNotificationService,
         @Inject(AUTH_PATH_API) authPathApi: string
     ) {
@@ -66,12 +68,28 @@ export class AuthService {
 
     public login(token: string): void {
         localStorage.setItem('token', token);
+        const role = this.getUserRoleFromToken(token);
+        if (role) localStorage.setItem('role', role);
+        
         this.isAuthenticatedSubject.next(true);
         this.checkTokenExpiration();
     }
 
+    private getUserRoleFromToken(token: string): UserRoleEnum | null {
+        try {
+            const decodedToken = this.jwt.decodeToken(token);
+            const role = decodedToken?.role as UserRoleEnum;
+            if (role) return role;
+
+            return null;
+        } catch(e) {
+            return null;
+        }
+    }
+
     public logout(): void {
         localStorage.removeItem('token');
+        localStorage.removeItem('role');
         this.isAuthenticatedSubject.next(false);
     }
 
@@ -102,5 +120,10 @@ export class AuthService {
     public get token(): string | null {
         const token = localStorage.getItem('token');
         return token;
+    }
+
+    public get isAdmin(): boolean {
+        const role = localStorage.getItem('role') as UserRoleEnum;
+        return role === UserRoleEnum.ADMIN;
     }
 }
