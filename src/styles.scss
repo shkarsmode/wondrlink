@@ -1,1 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+// * Import Poppins
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+// * Import reset styles
+@import './stylesheets/reset';
+
+* {
+	font-family: 'Poppins', sans-serif;
+	color: #152032;
+}
+
+body {
+	background: #F3F9F7;
+	height: 100%;
+}
+
+button.btn-green {
+	background: linear-gradient(345deg, #00e7a1, #00a5c9);
+	color: white;
+
+	border: none;
+	outline: none;
+
+	width: 72px;
+	height: 40px;
+	transition: all .3s;
+	cursor: pointer;
+
+	&:hover {
+		background: linear-gradient(0deg, #00e7a1, #00a5c9);
+	}
+
+	&:active {
+		background: linear-gradient(90deg, #00e7a1, #00a5c9);
+	}
+
+}

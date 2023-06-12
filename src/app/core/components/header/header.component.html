@@ -1,0 +1,39 @@
+<div 
+	class="wrap" 
+	[ngClass]="{'out': isHeaderOut, 'in': isHeaderIn}">
+	<header>
+		<div class="logo">
+			<img src="assets/img/logo-black.png" alt="wondrlink">
+		</div>
+		<ul>
+			<li>Blog</li>
+			<li>Patients</li>
+			<li>Physicians</li>
+			<li>Drug Developers</li>
+			<li (click)="scrollToElement('about')">About us</li>
+			<li (click)="scrollToElement('contact')">Contact us</li>
+			<li>
+				<ng-template [ngIf]="isAuthenticated$ | async">
+					<button 
+						class="btn-green" 
+						(click)="logout()">
+						<ng-template [ngIf]="!isLoggingOut">Logout</ng-template>
+						<ng-template [ngIf]="isLoggingOut">
+							<span class="material-symbols-outlined">sync</span>
+						</ng-template>
+					</button>
+					
+				</ng-template>
+				<ng-template [ngIf]="!(isAuthenticated$ | async)">
+					<button 
+						class="btn-green" 
+						routerLink="/login">
+						Login
+					</button>
+				</ng-template>
+				
+				
+			</li>
+		</ul>
+	</header>
+</div>

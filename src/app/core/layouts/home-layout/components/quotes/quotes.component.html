@@ -1,0 +1,76 @@
+<div class="wrap">
+	<div class="wrap-quotes" (mouseleave)="onMouseUp()">
+		<div 
+			(touchstart)="onMouseDown($event)"
+			(touchmove)="onTouchMove($event, 0)"
+			(touchend)="onTouchEnd()"
+			(mousedown)="onMouseDown($event)"
+			(mousemove)="onMouseMove($event, 0)"
+			(mouseup)="onMouseUp()"
+			#quote1
+			class="quote" 
+			[ngClass]="{
+				'active': activeIndex == 0, 
+				'skipped': activeIndex > 0
+			}">
+			<div>
+				“I was beyond impressed with my experience at this doctor’s office. My first contact was with Geoffrey and I was completely blown away by how helpful and kind he was and how fast he was at getting back to me! A lot of doctors don’t realize how important it is to have administration like Geoffrey. The first point of contact is crucial!”
+			</div>
+			<div>— 1Jonson King, Patient</div>
+		</div>
+		<div 
+			(touchstart)="onMouseDown($event)"
+			(touchmove)="onTouchMove($event, 1)"
+			(touchend)="onTouchEnd()"
+			(mousedown)="onMouseDown($event)"
+			(mousemove)="onMouseMove($event, 1)"
+			(mouseup)="onMouseUp()"
+			#quote2
+			class="quote" 
+			[ngClass]="{
+				'active': activeIndex == 1, 
+				'ready': activeIndex < 1, 
+				'skipped': activeIndex > 1}">
+			<div>
+				“I was beyond impressed with my experience at this doctor’s office. My first contact was with Geoffrey and I was completely blown away by how helpful and kind he was and how fast he was at getting back to me! A lot of doctors don’t realize how important it is to have administration like Geoffrey. The first point of contact is crucial!”
+			</div>
+			<div>— 2Jonson King, Patient</div>
+		</div>
+		<div 
+			(touchstart)="onMouseDown($event)"
+			(touchmove)="onTouchMove($event, 2)"
+			(touchend)="onTouchEnd()"
+			(mousedown)="onMouseDown($event)"
+			(mousemove)="onMouseMove($event, 2)"
+			(mouseup)="onMouseUp()"
+			#quote3
+			class="quote" 
+			[ngClass]="{
+				'active': activeIndex == 2, 
+				'ready': activeIndex < 2
+			}">
+			<div>
+				“I was beyond impressed with my experience at this doctor’s office. My first contact was with Geoffrey and I was completely blown away by how helpful and kind he was and how fast he was at getting back to me! A lot of doctors don’t realize how important it is to have administration like Geoffrey. The first point of contact is crucial!”
+			</div>
+			<div>— 3Jonson King, Patient</div>
+		</div>
+	</div>
+
+	<div class="navigation">
+		<div 
+			class="line"
+			[ngClass]="{'active': activeIndex == 0}"
+			(click)="chooseQuoteByIndex(0)">
+		</div>
+		<div 
+			class="line"
+			[ngClass]="{'active': activeIndex == 1}"
+			(click)="chooseQuoteByIndex(1)">
+		</div>
+		<div 
+			class="line"
+			[ngClass]="{'active': activeIndex == 2}"
+			(click)="chooseQuoteByIndex(2)">
+		</div>
+	</div>
+</div>

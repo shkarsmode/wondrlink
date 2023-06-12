@@ -1,0 +1,73 @@
+<div class="wrap">
+	<div class="content">
+		<header>
+			<img src="assets/img/logo-black.png" alt="wondrlink">
+		</header>
+
+		<div class="form-error" *ngIf="errorMessages.length">
+			<div *ngFor="let error of errorMessages">
+				<strong>Error:</strong>
+				<span>{{ error }}</span>
+			</div>
+		</div>
+
+		<form (ngSubmit)="onSubmitForm()" [ngClass]="{'shake': isShowError}">
+			<div class="group">
+				<label for="email">Email Address</label>
+				<input 
+					type="text" 
+					id="email" name="email" 
+					[(ngModel)]="email">
+			</div>
+
+			<div class="group">
+				<label for="password">Password</label>
+				<input 
+					[type]="isShowPassword ? 'text' : 'password'" 
+					id="password" name="password"
+					[(ngModel)]="password">
+
+				<div class="hide">
+					<span 
+						(click)="toggleShowingPassword()"
+						class="material-symbols-outlined" 
+						*ngIf="isShowPassword">
+						visibility
+					</span>
+					<span 
+						(click)="toggleShowingPassword()"
+						class="material-symbols-outlined" 
+						*ngIf="!isShowPassword">
+						visibility_off
+					</span>
+				</div>
+			</div>
+
+			<div class="group-checkbox">
+				<input type="checkbox" name="remember" id="remember">
+				<label for="remember">Remember Me</label>
+			</div>
+
+			<button 
+				type="submit" 
+				(submit)="onSubmitForm()" 
+				class="btn-green">
+				Log In
+			</button>
+
+		</form>
+
+		<div class="info">
+			<a routerLink="/">
+				<span class="material-symbols-outlined">
+					keyboard_backspace
+				</span>
+				Go to WondrLink
+			</a>
+		</div>
+
+		<div class="info">
+			<a routerLink="/privacy">Privacy Policy</a>
+		</div>
+	</div>
+</div>

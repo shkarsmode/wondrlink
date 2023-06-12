@@ -1,0 +1,49 @@
+.wrap {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 100%;
+	height: 90px;
+	transition: all .5s;
+
+	background-color: #000816;
+}
+
+header {
+	max-width: 1500px;
+	width: 100%;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.logo {
+	cursor: pointer;
+}
+
+ul {
+	display: flex;
+	column-gap: 40px;
+
+	li {
+		color: white;
+
+		cursor: pointer;
+
+		font-weight: 300;
+		font-size: 20px;
+
+		&:hover {
+			color: #01C1B9;
+		}
+
+		&:last-child {
+			opacity: 0.6;
+			cursor: unset;
+			color: white;
+		}
+		
+	}
+}
