@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './blog-layout.component.html',
   styleUrls: ['./blog-layout.component.scss']
 })
-export class BlogLayoutComponent {
-
-}
+export class BlogLayoutComponent {}

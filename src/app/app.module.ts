@@ -6,7 +6,7 @@ import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common
 import { environment } from 'src/environments/environment';
 import { ErrorInterceptor } from 'src/helpers/error.interceptor';
 import { JwtInterceptor } from 'src/helpers/jwt.interceptor';
-import { AUTH_PATH_API } from 'src/services/variables';
+import { AUTH_PATH_API, BASE_PATH_API } from 'src/services/variables';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -36,6 +36,7 @@ import { AppComponent } from './app.component';
 		},
 		{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
         { provide: AUTH_PATH_API, useValue: environment.authPathApi },
+        { provide: BASE_PATH_API, useValue: environment.basePathApi },
     ],
     bootstrap: [AppComponent]
 })

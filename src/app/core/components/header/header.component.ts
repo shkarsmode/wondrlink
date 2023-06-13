@@ -47,7 +47,7 @@ export class HeaderComponent implements OnInit {
             window.pageYOffset : 
             (document.documentElement || 
                 document.body.parentNode || 
-                document.body).scrollTop;
+                document.body as any).scrollTop;
     
 		this.isHeaderOut = scrollTop > 50 ? true : false;
         this.isHeaderIn = 

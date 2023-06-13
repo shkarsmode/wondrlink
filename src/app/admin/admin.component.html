@@ -1,2 +1,17 @@
-<p>admin works!</p>
-<button class="btn-green" (click)="authService.logout()">Logout</button>
+<ng-template [ngIf]="user">
+
+	<h1>
+		{{ user.firstName }} {{ user.lastName }}
+	</h1>  
+	<h2>Role: {{ user.role }}</h2>
+	<img [src]="user.avatar" alt="avatar" *ngIf="user.avatar">
+	<br>
+	<button class="btn-green" (click)="authService.logout()">Logout</button>
+
+	<br /> 
+	<br />
+
+	<input type="file" accept=".png,.jpg" (change)="onFileChanged($event)">
+	<button (click)="uploadAndUpdateUserAvatar()">Send</button>
+	
+</ng-template>

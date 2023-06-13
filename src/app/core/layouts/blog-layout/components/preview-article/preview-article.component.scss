@@ -1,0 +1,52 @@
+.wrap {
+	display: flex;
+	justify-content: center;
+	column-gap: 40px;
+	margin-bottom: 60px;
+	cursor: pointer;
+
+	&:hover {
+		img {
+			transform: scale(1.05);
+		}
+	}
+}
+
+.left-side {
+	width: 400px;
+	height: 300px;
+	border-radius: 20px;
+	overflow: hidden;
+}
+
+img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: all .4s;
+}
+
+.right-side {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 60%;
+}
+
+.info {
+	margin-bottom: 20px;
+	font-size: 20px;
+	opacity: 0.6;
+}
+
+.header {
+	font-size: 30px;
+	margin-bottom: 15px;
+	font-weight: 600;
+}
+
+.sub-header {
+	font-size: 22px;
+	line-height: 28px;
+	opacity: .9;
+}

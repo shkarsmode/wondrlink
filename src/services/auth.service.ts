@@ -17,6 +17,7 @@ export class AuthService {
     private isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     public isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
+    public userId: number | null;
     
     constructor(
         private jwtHelper: JwtHelperService,
@@ -69,10 +70,25 @@ export class AuthService {
     public login(token: string): void {
         localStorage.setItem('token', token);
         const role = this.getUserRoleFromToken(token);
+        const id = this.getUserIdFromToken(token);
+
         if (role) localStorage.setItem('role', role);
+        if (id) this.userId = id;
         
         this.isAuthenticatedSubject.next(true);
         this.checkTokenExpiration();
+    }
+
+    private getUserIdFromToken(token: string): number | null {
+        try {
+            const decodedToken = this.jwt.decodeToken(token);
+            const id = decodedToken?.id;
+            if (id) return id;
+
+            return null;
+        } catch(e) {
+            return null;
+        }
     }
 
     private getUserRoleFromToken(token: string): UserRoleEnum | null {
@@ -90,6 +106,7 @@ export class AuthService {
     public logout(): void {
         localStorage.removeItem('token');
         localStorage.removeItem('role');
+        this.userId = null;
         this.isAuthenticatedSubject.next(false);
     }
 

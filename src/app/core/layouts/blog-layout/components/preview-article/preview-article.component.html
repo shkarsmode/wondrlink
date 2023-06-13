@@ -1,0 +1,13 @@
+<div class="wrap" (click)="onPostClick()">
+	<div class="left-side">
+		<img [src]="post.mainPicture" [alt]="post.header">
+	</div>
+	<div class="right-side">
+		<div class="info">
+			<span>{{ post.createdAt | date:'MMM dd, yyyy' }}, </span>
+			<span>{{ post.user.firstName }} {{ post.user.lastName }}</span>
+		</div>
+		<div class="header">{{ post.header }}</div>
+		<div class="sub-header">{{ post.subHeader }}</div>
+	</div>
+</div>

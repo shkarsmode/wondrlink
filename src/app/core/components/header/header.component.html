@@ -2,11 +2,11 @@
 	class="wrap" 
 	[ngClass]="{'out': isHeaderOut, 'in': isHeaderIn}">
 	<header>
-		<div class="logo">
+		<div class="logo" routerLink="/">
 			<img src="assets/img/logo-black.png" alt="wondrlink">
 		</div>
 		<ul>
-			<li>Blog</li>
+			<li routerLink="/blog">Blog</li>
 			<li>Patients</li>
 			<li>Physicians</li>
 			<li>Drug Developers</li>
