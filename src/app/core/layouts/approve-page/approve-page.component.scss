@@ -1,0 +1,30 @@
+.wrap {
+	display: flex;
+	justify-content: center;
+	background-color: #f3f9f7;
+	padding-top: 205px;
+	padding-bottom: 250px;
+}
+
+.content {
+	max-width: 1500px;
+	width: 100%;
+}
+
+h1 {
+	font-size: 42px;
+	margin-bottom: 30px;
+}
+
+.description {
+	max-width: 1000px;
+	width: 100%;
+	line-height: 27px;
+	font-size: 16px;
+
+	a {
+		text-decoration: none;
+		cursor: pointer;
+		color: #7bdcb5;
+	}
+}

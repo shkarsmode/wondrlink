@@ -8,7 +8,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, catchError, throwError } from 'rxjs';
-import { AuthService } from 'src/services/auth.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 // import { ErrorNotificationService } from '../services/shared/error-notification.service';
 
 

@@ -4,6 +4,18 @@
 // * Import reset styles
 @import './stylesheets/reset';
 
+.mat-typography * {
+	font-family: 'Poppins', sans-serif !important;
+}
+
+.mat-typography {
+	line-height: unset;
+}
+
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined' !important;
+}
+
 * {
 	font-family: 'Poppins', sans-serif;
 	color: #152032;
@@ -34,4 +46,16 @@ button.btn-green {
 		background: linear-gradient(90deg, #00e7a1, #00a5c9);
 	}
 
+}
+// html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+	border-radius: 20px !important;
+}
+
+.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+    opacity: 1;
+    background: #152032;
+    opacity: 0.7;
 }

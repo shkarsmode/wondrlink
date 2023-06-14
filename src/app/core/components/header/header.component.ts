@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ScrollToService } from 'src/utils/scroll-to.service';
-import { AuthService } from '../../../../services/auth.service';
+import { ScrollToService } from 'src/app/shared/utils/scroll-to.service';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
     selector: 'app-header',

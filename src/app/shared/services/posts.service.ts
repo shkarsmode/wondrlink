@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AllPostsResponseDto } from 'src/interfaces/AllPostsResponse.dto';
+import { AllPostsResponseDto } from 'src/app/shared/interfaces/AllPostsResponse.dto';
 import { BASE_PATH_API } from './variables';
 
 @Injectable({
@@ -21,5 +21,5 @@ export class PostsService {
         return this.http.get<AllPostsResponseDto>(
             `${this.basePathApi}/${this.postsPath}/all?limit=${limit}&page=${page}` 
         );
-    } 
+    }
 }

@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
+
 
 interface ScrollOptions {
     startY: number;
@@ -16,10 +17,19 @@ export class ScrollToService {
 
     private options: ScrollOptions;
 
+    private renderer: Renderer2;
+
     constructor(
         @Inject(DOCUMENT) private document: Document,
         private router: Router
     ) {}
+
+    /**
+    * Scrolls the page to the top when a link is clicked.
+    */
+    public scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
     /**
     * Scrolls the window to a specified element on the page.

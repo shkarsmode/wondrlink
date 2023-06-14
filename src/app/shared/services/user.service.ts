@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IUser } from 'src/interfaces/IUser';
+import { IUser } from 'src/app/shared/interfaces/IUser';
 import { BASE_PATH_API } from './variables';
 
 @Injectable({

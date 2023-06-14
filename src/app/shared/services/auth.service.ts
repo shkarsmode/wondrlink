@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { ErrorLoginResponseDto } from 'src/interfaces/ErrorLoginResponse.dto';
-import { UserRoleEnum } from 'src/interfaces/UserRoleEnum';
+import { ErrorLoginResponseDto } from 'src/app/shared/interfaces/ErrorLoginResponse.dto';
+import { UserRoleEnum } from 'src/app/shared/interfaces/UserRoleEnum';
 import { AUTH_PATH_API } from './variables';
 // import { ErrorNotificationService } from '../../shared/error-notification.service';
 // import { AUTH_PATH_API } from '../../variables';
@@ -77,6 +77,14 @@ export class AuthService {
         
         this.isAuthenticatedSubject.next(true);
         this.checkTokenExpiration();
+    }
+
+    public registration(body: any): Observable<any> {
+        return this.http.post(`${this.authPathApi}/registration`, body);
+    }
+
+    public approveUserProfile(token: string): Observable<any> {
+        return this.http.get(`${this.authPathApi}/approve?token=${token}`);
     }
 
     private getUserIdFromToken(token: string): number | null {

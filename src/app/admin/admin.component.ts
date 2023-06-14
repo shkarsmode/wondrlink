@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { IUser } from 'src/interfaces/IUser';
-import { ImageUrlResponseDto } from 'src/interfaces/imageUrlResponse.dto';
-import { AuthService } from 'src/services/auth.service';
-import { UserService } from 'src/services/user.service';
-import { CloudinaryService } from '../../services/cloudinary.service';
+import { IUser } from 'src/app/shared/interfaces/IUser';
+import { ImageUrlResponseDto } from 'src/app/shared/interfaces/imageUrlResponse.dto';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { UserService } from 'src/app/shared/services/user.service';
+import { CloudinaryService } from '../shared/services/cloudinary.service';
 
 @Component({
     selector: 'app-admin',

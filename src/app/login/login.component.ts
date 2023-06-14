@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
-import { ErrorLoginResponseDto } from 'src/interfaces/ErrorLoginResponse.dto';
-import { AuthService } from 'src/services/auth.service';
+import { ErrorLoginResponseDto } from 'src/app/shared/interfaces/ErrorLoginResponse.dto';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
     selector: 'app-login',

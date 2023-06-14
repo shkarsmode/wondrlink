@@ -6,7 +6,7 @@ import {
 } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 // import { ErrorNotificationService } from '../services/shared/error-notification.service';
-import { AuthService } from 'src/services/auth.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 
 @Injectable({

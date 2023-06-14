@@ -3,23 +3,29 @@ import { BrowserModule } from '@angular/platform-browser';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ErrorInterceptor } from 'src/app/shared/helpers/error.interceptor';
+import { JwtInterceptor } from 'src/app/shared/helpers/jwt.interceptor';
+import { AUTH_PATH_API, BASE_PATH_API } from 'src/app/shared/services/variables';
 import { environment } from 'src/environments/environment';
-import { ErrorInterceptor } from 'src/helpers/error.interceptor';
-import { JwtInterceptor } from 'src/helpers/jwt.interceptor';
-import { AUTH_PATH_API, BASE_PATH_API } from 'src/services/variables';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CheckEmailComponent } from './shared/dialogs/check-email/check-email.component';
+import { MaterialModule } from './shared/materials/material.module';
 
 
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        CheckEmailComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
-        HttpClientModule
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MaterialModule
     ],
     providers: [
         JwtHelperService,
