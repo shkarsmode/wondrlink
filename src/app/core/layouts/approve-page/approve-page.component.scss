@@ -28,3 +28,9 @@ h1 {
 		color: #7bdcb5;
 	}
 }
+
+::ng-deep body:has(app-approve-page) app-footer {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+}
