@@ -1,12 +1,12 @@
 <div class="wrap">
-	<div class="card">
-		<img src="assets/img/patient.png" alt="patients">
+	<div class="card" *ngFor="let post of posts">
+		<img [src]="post.mainPicture" [alt]="post.header">
 		<div class="content">
-			<h3>A Devious Cellular Trick Cancers Can Use to Escape Your Immune System</h3>
+			<h3>{{ post.header }}</h3>
 			<div class="description">
-				A researcher discovered that giant cells under a microscope were actually cancer cells hiding inside other cancer cells...
+				{{ post.subHeader }}
 			</div>
-			<button >
+			<button [routerLink]="'/blog/' + post.id">
 				Read more 
 				<svg width="14" height="14">
 					<path 
@@ -15,25 +15,6 @@
 				</svg>
 			</button>
 		</div>
-	</div>
-
-	<div class="card">
-		<img src="assets/img/patient.png" alt="patients">
-		<div class="content">
-			<h3>A Devious Cellular Trick Cancers Can Use to Escape Your Immune System</h3>
-			<div class="description">
-				A researcher discovered that giant cells under a microscope were actually cancer cells hiding inside other cancer cells...
-			</div>
-			<button >
-				Read more 
-				<svg width="14" height="14">
-					<path 
-						d="M0.292893 11.6066C-0.0976311 11.9971 -0.0976311 12.6303 0.292893 13.0208C0.683418 13.4114 1.31658 13.4114 1.70711 13.0208L0.292893 11.6066ZM13.3137 1.00001C13.3137 0.447727 12.866 1.2137e-05 12.3137 1.18841e-05L3.31371 1.26849e-05C2.76142 1.23477e-05 2.31371 0.447728 2.31371 1.00001C2.31371 1.5523 2.76142 2.00001 3.31371 2.00001L11.3137 2.00001L11.3137 10C11.3137 10.5523 11.7614 11 12.3137 11C12.866 11 13.3137 10.5523 13.3137 10L13.3137 1.00001ZM1.70711 13.0208L13.0208 1.70712L11.6066 0.292906L0.292893 11.6066L1.70711 13.0208Z" 
-						fill="#01C1B9"/>
-				</svg>
-			</button>
-		</div>
-	</div>
-	
+	</div>	
 </div>
 

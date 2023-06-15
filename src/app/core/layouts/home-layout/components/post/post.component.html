@@ -1,0 +1,76 @@
+<div class="wrap">
+	<div class="content" *ngIf="post">
+		<div class="top" (click)="goBack()">
+			<span 
+				class="material-symbols-outlined">
+				west
+			</span>
+			back
+		</div>
+
+		<div class="post">
+			<div class="left-side">
+				<div class="date">
+					{{ post.createdAt | date: 'MMM dd, YYYY' }}
+				</div>
+				<h2>{{ post.header }}</h2>
+				<div class="sub-header">
+					{{ post.subHeader }}
+				</div>
+				<div class="owner">
+					<img 
+						*ngIf="post.user.avatar" 
+						[src]="post.user.avatar" 
+						[alt]="post.user.firstName">
+					<div class="owner-info">
+						<div class="name">
+							{{ post.user.firstName }} 
+							{{ post.user.lastName }}
+						</div>
+						<div class="sign">
+							Associate writer for Well at The Times
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="right-side">
+				<img [src]="post.mainPicture" [alt]="post.header">
+			</div>
+		</div>
+
+		<quill-view-html  [content]='post.htmlContent'></quill-view-html>
+
+		<div class="wrap-end-center">
+			<div class="wrap-end">
+				<div class="left">
+					Share this post
+				</div>
+				<div class="right">
+					<div class="block" (click)="copyCurrentPost()">
+						<ng-template [ngIf]="!isCopied">
+							<span class="material-symbols-outlined" *ngIf="!isCopied">
+								file_copy
+							</span>
+							Copy link
+						</ng-template>
+						
+						<ng-template [ngIf]="isCopied">
+							<span class="material-symbols-outlined" *ngIf="isCopied">
+								library_add_check
+							</span>
+							Copied link
+						</ng-template>
+							
+						
+						
+					</div>
+					<img src="assets/socials/inst.png" alt="inst">
+					<img src="assets/socials/twitter.png" alt="twitter">
+					<img src="assets/socials/fb.png" alt="fb">
+					<img src="assets/socials/linkedin.png" alt="linkedin">
+				</div>
+			</div>
+		</div>
+		<!-- <quill-editor [(ngModel)]="html"></quill-editor> -->
+	</div>
+</div>

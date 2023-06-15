@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AllPostsResponseDto } from 'src/app/shared/interfaces/AllPostsResponse.dto';
+import { IPost } from '../interfaces/IPost';
 import { BASE_PATH_API } from './variables';
 
 @Injectable({
@@ -20,6 +21,12 @@ export class PostsService {
     public getPosts(limit: number, page: number): Observable<AllPostsResponseDto> {
         return this.http.get<AllPostsResponseDto>(
             `${this.basePathApi}/${this.postsPath}/all?limit=${limit}&page=${page}` 
+        );
+    }
+
+    public getPostById(id: number): Observable<IPost> {
+        return this.http.get<IPost>(
+            `${this.basePathApi}/${this.postsPath}/${id}` 
         );
     }
 }

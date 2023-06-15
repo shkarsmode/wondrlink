@@ -4,6 +4,11 @@
 // * Import reset styles
 @import './stylesheets/reset';
 
+// * Import styles for quill editor
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.snow.css';
+
+
 .mat-typography * {
 	font-family: 'Poppins', sans-serif !important;
 }

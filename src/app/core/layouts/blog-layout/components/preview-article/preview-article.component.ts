@@ -13,8 +13,6 @@ export class PreviewArticleComponent {
 
     constructor(private router: Router) {}
 
-    public onPostClick(): void {
-        // this.router.navigate(['post', this.post.id]);
-        console.log(this.post.id);
-    }
+    public onPostClick = () => this.router.navigate(['blog', this.post.id]);
+    
 }

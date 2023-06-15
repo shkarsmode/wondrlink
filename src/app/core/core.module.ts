@@ -1,11 +1,14 @@
+import { ClipboardModule } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { QuillModule } from 'ngx-quill';
 import { MaterialModule } from '../shared/materials/material.module';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CoreRoutingModule } from './core-routing.module';
 import { CoreComponent } from './core.component';
+import { ApprovePageComponent } from './layouts/approve-page/approve-page.component';
 import { ArticleLayoutComponent } from './layouts/article-layout/article-layout.component';
 import { ArticleBannerComponent } from './layouts/article-layout/components/article-banner/article-banner.component';
 import { ArticleComponent } from './layouts/article-layout/components/article/article.component';
@@ -20,10 +23,10 @@ import { BannerComponent } from './layouts/home-layout/components/banner/banner.
 import { ContactUsComponent } from './layouts/home-layout/components/contact-us/contact-us.component';
 import { FoundationsComponent } from './layouts/home-layout/components/foundations/foundations.component';
 import { InfoComponent } from './layouts/home-layout/components/info/info.component';
+import { PostComponent } from './layouts/home-layout/components/post/post.component';
 import { PreviewBlogComponent } from './layouts/home-layout/components/preview-blog/preview-blog.component';
 import { QuotesComponent } from './layouts/home-layout/components/quotes/quotes.component';
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
-import { ApprovePageComponent } from './layouts/approve-page/approve-page.component';
 
 @NgModule({
     declarations: [
@@ -47,14 +50,20 @@ import { ApprovePageComponent } from './layouts/approve-page/approve-page.compon
         ArticleComponent,
         ArticleBannerComponent,
         FormComponent,
-        ApprovePageComponent
+        ApprovePageComponent,
+        PostComponent
     ],
     imports: [
         CommonModule, 
         CoreRoutingModule,
         FormsModule,
-        MaterialModule
+        MaterialModule,
+        QuillModule.forRoot(),
+        FormsModule,
+        ReactiveFormsModule,
+        ClipboardModule
     ],
+    exports: [QuillModule],
     bootstrap: [CoreComponent],
 })
 export class CoreModule {}
