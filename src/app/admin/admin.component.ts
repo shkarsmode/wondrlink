@@ -4,6 +4,7 @@ import { ImageUrlResponseDto } from 'src/app/shared/interfaces/imageUrlResponse.
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { CloudinaryService } from '../shared/services/cloudinary.service';
+import { PostsService } from '../shared/services/posts.service';
 
 @Component({
     selector: 'app-admin',
@@ -14,16 +15,21 @@ export class AdminComponent {
 
     public avatarFile: any;
     public user: IUser;
+    public isOpened: boolean = false;
+    public countOfPosts: number = 0;
 
     constructor(
         public authService: AuthService,
         private userService: UserService,
+        private postsService: PostsService,
         private cloudinaryService: CloudinaryService
     ) {}
 
     public ngOnInit(): void {
-        this.getUser();
+        this.getUserAnCountOfPosts();
     }
+
+    public toggleBurgerMenu = () => this.isOpened = !this.isOpened;
 
     public uploadAndUpdateUserAvatar(): void {
         this.cloudinaryService.uplodaImageAndGetUrl(this.avatarFile)
@@ -36,13 +42,21 @@ export class AdminComponent {
 
         this.userService.updateUserAvatar(userId, image.imageUrl.url)
             .subscribe(affected => 
-                (affected.affected ? this.getUser : null)?.call(this)
+                (affected.affected ? this.getUserAnCountOfPosts : null)?.call(this)
             );
     }
 
-    private getUser(): void {
+    private getUserAnCountOfPosts(): void {
         this.userService.getUser()
-            .subscribe(user => this.user = user);
+            .subscribe(user => {
+                this.user = user;
+                this.getCountOfPosts(user.id);
+            });
+    }
+
+    private getCountOfPosts(id: number): void {
+        this.postsService.getCountOfPostsByUserId(id)
+            .subscribe(count => this.countOfPosts = count);
     }
 
     public onFileChanged(event: any): void{

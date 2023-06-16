@@ -17,7 +17,7 @@
 				<div class="sub-header">
 					{{ post.subHeader }}
 				</div>
-				<div class="owner">
+				<div class="owner" *ngIf="post.user">
 					<img 
 						*ngIf="post.user.avatar" 
 						[src]="post.user.avatar" 

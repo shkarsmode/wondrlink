@@ -1,0 +1,145 @@
+<h1>Create new post</h1>
+
+<form 
+	[formGroup]="form" 
+	(ngSubmit)="uploadPost()" 
+	[ngClass]="{'loading': isLoading}">
+	<div class="d-flex">
+		<div class="card">
+			<div class="title">Header</div>
+			<div class="content">
+				<input type="text" formControlName="header">
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="title">Subheader</div>
+			<div class="content">
+				<input type="text" formControlName="subHeader">
+			</div>
+		</div>
+	</div>
+
+	<div class="card">
+		<div class="title">Main picture</div>
+		<div class="content">
+			<div class="uploadOuter">
+				<label for="uploadFile">
+					Upload Image
+				</label>
+				<strong>OR</strong>
+				<span class="dragBox" [ngClass]="{'draging': isDrag}">
+					Drag and Drop image here
+					<input 
+						formControlName="picture"
+						type="file" 
+						(change)="dragNdrop($event)" 
+						(dragover)="drag()" 
+						(drop)="drop()"
+						accept="image/png, image/gif, image/jpeg" id="uploadFile" />
+				</span>
+			</div>
+			<div id="preview"></div>
+		</div>
+	</div>
+
+	<div class="card">
+		<div class="title">Content</div>
+		<div class="content">
+			<quill-editor formControlName="content"></quill-editor>
+		</div>
+	</div>
+
+	<div class="card links">
+		<div class="title">Social links</div>
+		<div class="content">
+			<mat-accordion>
+				<mat-expansion-panel>
+					<mat-expansion-panel-header>
+						<mat-panel-title>
+							Instagram
+						</mat-panel-title>
+						<mat-panel-description>
+							<span class="material-symbols-outlined">
+								<ng-template [ngIf]="inst.value">
+									link
+								</ng-template>
+								<ng-template [ngIf]="!inst.value">
+									link_off
+								</ng-template>
+							</span>
+						</mat-panel-description>
+					</mat-expansion-panel-header>
+					<input type="text" placeholder="https://www.instagram.com/username/" #inst>
+				</mat-expansion-panel>
+				<mat-expansion-panel>
+					<mat-expansion-panel-header>
+						<mat-panel-title>
+							Twitter
+						</mat-panel-title>
+						<mat-panel-description>
+							<span class="material-symbols-outlined">
+								<ng-template [ngIf]="twitter.value">
+									link
+								</ng-template>
+								<ng-template [ngIf]="!twitter.value">
+									link_off
+								</ng-template>
+							</span>
+						</mat-panel-description>
+					</mat-expansion-panel-header>
+					<input type="text" placeholder="https://www.twitter.com/username/" #twitter>
+				</mat-expansion-panel>
+				<mat-expansion-panel>
+					<mat-expansion-panel-header>
+						<mat-panel-title>
+							LinkedIn
+						</mat-panel-title>
+						<mat-panel-description>
+							<span class="material-symbols-outlined">
+								<ng-template [ngIf]="lnkid.value">
+									link
+								</ng-template>
+								<ng-template [ngIf]="!lnkid.value">
+									link_off
+								</ng-template>
+							</span>
+						</mat-panel-description>
+					</mat-expansion-panel-header>
+					<input type="text" placeholder="https://www.linkedin.com/username/" #lnkid>
+				</mat-expansion-panel>
+				<mat-expansion-panel>
+					<mat-expansion-panel-header>
+						<mat-panel-title>
+							Facebook
+						</mat-panel-title>
+						<mat-panel-description>
+							<span class="material-symbols-outlined">
+								<ng-template [ngIf]="fb.value">
+									link
+								</ng-template>
+								<ng-template [ngIf]="!fb.value">
+									link_off
+								</ng-template>
+							</span>
+						</mat-panel-description>
+					</mat-expansion-panel-header>
+					<input type="text" placeholder="https://www.facebook.com/username/" #fb>
+				</mat-expansion-panel>
+			</mat-accordion>
+		</div>
+	</div>
+
+
+	<div class="flex-end">
+		<button 
+			[disabled]="form.invalid || isLoading"
+			type="submit" 
+			class="effect effect-1" 
+			title="Upload post">
+			Upload
+		</button>
+	</div>
+
+	<mat-spinner *ngIf="isLoading"></mat-spinner>
+</form>

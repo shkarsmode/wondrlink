@@ -1,4 +1,4 @@
-<ng-template [ngIf]="user">
+<!-- <ng-template [ngIf]="user">
 
 	<h1>
 		{{ user.firstName }} {{ user.lastName }}
@@ -14,4 +14,119 @@
 	<input type="file" accept=".png,.jpg" (change)="onFileChanged($event)">
 	<button (click)="uploadAndUpdateUserAvatar()">Send</button>
 	
-</ng-template>
+</ng-template> -->
+
+<div [ngClass]="{'sidebar-is-reduced': !isOpened, 'sidebar-is-expanded': isOpened}">
+	<header class="l-header">
+		<div class="l-header__inner clearfix">
+			<div class="c-header-icon js-hamburger" (click)="toggleBurgerMenu()">
+				<div
+					class="hamburger-toggle" 
+					[ngClass]="{'is-opened': isOpened}">
+					<span class="bar-top"></span>
+					<span class="bar-mid"></span>
+					<span class="bar-bot"></span>
+				</div>
+			</div>
+			<div class="c-header-icon has-dropdown">
+				<span
+					class="c-badge c-badge--red c-badge--header-icon animated swing">13</span><i class="fa fa-bell"></i>
+				<div class="c-dropdown c-dropdown--notifications">
+					<div class="c-dropdown__header"></div>
+					<div class="c-dropdown__content"></div>
+				</div>
+			</div>
+			<div class="c-search">
+				<input class="c-search__input u-input" placeholder="Search..." type="text" />
+			</div>
+			<div class="header-icons-group">
+				<div class="c-header-icon basket avatar">
+					<span class="c-badge c-badge--red c-badge--header-icon animated swing">
+						{{ countOfPosts }}
+					</span>
+					<img [src]="user.avatar" alt="avatar" *ngIf="user.avatar">
+					{{ user.firstName }} {{ user.lastName }}
+				</div>
+				<div class="c-header-icon logout">
+					<span class="material-symbols-outlined">
+						logout
+					</span>
+				</div>
+			</div>
+		</div>
+	</header>
+	<div class="l-sidebar">
+		<div class="logo">
+			<div class="logo__txt">
+				W <span>ondrlink</span>
+			</div>
+		</div>
+		<div class="l-sidebar__content">
+			<nav class="c-menu js-menu">
+				<ul class="u-list">
+					<li 
+						class="c-menu__item" 
+						routerLink="/admin/new-post" 
+						routerLinkActive="is-active" 
+						data-toggle="tooltip" title="Flights">
+						<div class="c-menu__item__inner">
+							<span class="material-symbols-outlined">
+								post_add
+							</span>
+							<div class="c-menu-item__title"><span>Add new post</span></div>
+						</div>
+					</li>
+					<li 
+						class="c-menu__item has-submenu"
+						routerLink="/admin/tables" 
+						routerLinkActive="is-active" 
+						data-toggle="tooltip" 
+						title="Modules">
+						<div class="c-menu__item__inner">
+							<span class="material-symbols-outlined">
+								toc
+							</span>
+							<div class="c-menu-item__title"><span>Tables</span></div>
+							<div class="c-menu-item__expand js-expand-submenu"><i class="fa fa-angle-down"></i></div>
+						</div>
+						<ul class="c-menu__submenu u-list">
+							<li>Payments</li>
+							<li>Maps</li>
+							<li>Notifications</li>
+						</ul>
+					</li>
+					<!-- <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Statistics">
+						<div class="c-menu__item__inner"><i class="far fa-chart-bar"></i>
+							<div class="c-menu-item__title"><span>Statistics</span></div>
+						</div>
+					</li>
+					<li class="c-menu__item has-submenu" data-toggle="tooltip" title="Gifts">
+						<div class="c-menu__item__inner"><i class="fa fa-gift"></i>
+							<div class="c-menu-item__title"><span>Gifts</span></div>
+						</div>
+					</li> -->
+					<li 
+						routerLink="/admin/settings" 
+						routerLinkActive="is-active"
+						class="c-menu__item has-submenu" 
+						data-toggle="tooltip" 
+						title="Settings">
+						<div class="c-menu__item__inner">
+							<span class="material-symbols-outlined">
+								settings
+							</span>
+							<div class="c-menu-item__title"><span>Settings</span></div>
+						</div>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<main class="l-main">
+	<div class="content-wrapper content-wrapper--with-bg">
+		<!-- <h1 class="page-title">Dashboard</h1>
+		<div class="page-content">Content goes here</div> -->
+		<router-outlet></router-outlet>
+	</div>
+</main>

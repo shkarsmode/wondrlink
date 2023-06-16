@@ -24,9 +24,21 @@ export class PostsService {
         );
     }
 
+    public getCountOfPostsByUserId(userId: number): Observable<number> {
+        return this.http.get<number>(
+            `${this.basePathApi}/${this.postsPath}/count?id=${userId}` 
+        );
+    }
+
     public getPostById(id: number): Observable<IPost> {
         return this.http.get<IPost>(
             `${this.basePathApi}/${this.postsPath}/${id}` 
+        );
+    }
+
+    public uploadPost(post: IPost): Observable<IPost> {
+        return this.http.post<IPost>(
+            `${this.basePathApi}/${this.postsPath}`, post
         );
     }
 }

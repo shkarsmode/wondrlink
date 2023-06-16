@@ -2,7 +2,7 @@
 	<div class="left-side">
 		<img [src]="post.mainPicture" [alt]="post.header">
 	</div>
-	<div class="right-side">
+	<div class="right-side" *ngIf="post.user">
 		<div class="info">
 			<span>{{ post.createdAt | date:'MMM dd, yyyy' }}, </span>
 			<span>{{ post.user.firstName }} {{ post.user.lastName }}</span>
