@@ -9,15 +9,9 @@ const routes: Routes = [
   {
     path: '', component: AdminComponent, children: [
       { path: '', redirectTo: '/admin/new-post', pathMatch: 'full' },
-      {
-        path: 'new-post', component: AddingPostComponent
-      },
-      {
-        path: 'tables', component: TablesComponent
-      },
-      {
-        path: 'settings', component: SettingsComponent
-      }
+      { path: 'new-post', component: AddingPostComponent },
+      { path: 'tables', component: TablesComponent },
+      { path: 'settings', component: SettingsComponent }
     ],
   }
 ];

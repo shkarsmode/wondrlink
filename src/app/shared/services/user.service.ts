@@ -16,7 +16,6 @@ export class UserService {
         @Inject(BASE_PATH_API) private basePathApi: string
     ) { }
 
-
     public getUser(): Observable<IUser> {
         return this.http.get<IUser>(
             `${this.basePathApi}/${this.userPath}/my`

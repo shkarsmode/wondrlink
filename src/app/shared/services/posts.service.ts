@@ -17,7 +17,6 @@ export class PostsService {
         @Inject(BASE_PATH_API) private basePathApi: string
     ) { }
 
-
     public getPosts(limit: number, page: number): Observable<AllPostsResponseDto> {
         return this.http.get<AllPostsResponseDto>(
             `${this.basePathApi}/${this.postsPath}/all?limit=${limit}&page=${page}` 

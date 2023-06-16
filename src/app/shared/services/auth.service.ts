@@ -31,7 +31,6 @@ export class AuthService {
         this.initializeAuth();
     }
 
-
     // public registerWithAMail(
     //     email: string,
     //     userName: string,
