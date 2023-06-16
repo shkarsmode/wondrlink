@@ -1,5 +1,5 @@
 export const environment = {
 	production: true,
-	basePathApi: 'https://vercel/api/',
-	authPathApi: 'https://vercel/api/auth'
+	basePathApi: 'https://wondrlink-back-zshkarrr-gmailcom-wondrlink.vercel.app/api/',
+	authPathApi: 'https://wondrlink-back-zshkarrr-gmailcom-wondrlink.vercel.app/api/auth'
 };
