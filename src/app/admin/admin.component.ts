@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { IUser } from 'src/app/shared/interfaces/IUser';
 import { ImageUrlResponseDto } from 'src/app/shared/interfaces/imageUrlResponse.dto';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -22,7 +23,8 @@ export class AdminComponent {
         public authService: AuthService,
         private userService: UserService,
         private postsService: PostsService,
-        private cloudinaryService: CloudinaryService
+        private cloudinaryService: CloudinaryService,
+        private router: Router
     ) {}
 
     public ngOnInit(): void {
@@ -61,5 +63,10 @@ export class AdminComponent {
 
     public onFileChanged(event: any): void{
         this.avatarFile = event.target.files[0];
+    }
+
+    public logout(): void {
+        this.router.navigate(['/login']);
+        this.authService.logout();
     }
 }

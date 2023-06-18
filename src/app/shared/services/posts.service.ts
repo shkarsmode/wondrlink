@@ -40,4 +40,17 @@ export class PostsService {
             `${this.basePathApi}/${this.postsPath}`, post
         );
     }
+
+    public updatePostById(post: IPost): Observable<{ affected: number }> {
+        return this.http.post<{ affected: number }>(
+            `${this.basePathApi}/${this.postsPath}/update`, 
+            post
+        );
+    }
+    
+    public deletePostById(id: number): Observable<{ affected: number }> {
+        return this.http.delete<{ affected: number }>(
+            `${this.basePathApi}/${this.postsPath}/delete/${id}`
+        );
+    }
 }

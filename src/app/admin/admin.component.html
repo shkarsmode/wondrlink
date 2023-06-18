@@ -16,7 +16,9 @@
 	
 </ng-template> -->
 
-<div [ngClass]="{'sidebar-is-reduced': !isOpened, 'sidebar-is-expanded': isOpened}">
+<div 
+	*ngIf="user"
+	[ngClass]="{'sidebar-is-reduced': !isOpened, 'sidebar-is-expanded': isOpened}">
 	<header class="l-header">
 		<div class="l-header__inner clearfix">
 			<div class="c-header-icon js-hamburger" (click)="toggleBurgerMenu()">
@@ -44,10 +46,10 @@
 					<span class="c-badge c-badge--red c-badge--header-icon animated swing">
 						{{ countOfPosts }}
 					</span>
-					<img [src]="user.avatar" alt="avatar" *ngIf="user.avatar">
+					<img [src]="user.avatar" alt="avatar" *ngIf="user?.avatar">
 					{{ user.firstName }} {{ user.lastName }}
 				</div>
-				<div class="c-header-icon logout">
+				<div class="c-header-icon logout" (click)="logout()">
 					<span class="material-symbols-outlined">
 						logout
 					</span>
@@ -78,15 +80,15 @@
 					</li>
 					<li 
 						class="c-menu__item has-submenu"
-						routerLink="/admin/tables" 
+						routerLink="/admin/posts" 
 						routerLinkActive="is-active" 
 						data-toggle="tooltip" 
-						title="Modules">
+						title="Posts">
 						<div class="c-menu__item__inner">
 							<span class="material-symbols-outlined">
 								toc
 							</span>
-							<div class="c-menu-item__title"><span>Tables</span></div>
+							<div class="c-menu-item__title"><span>Posts</span></div>
 							<div class="c-menu-item__expand js-expand-submenu"><i class="fa fa-angle-down"></i></div>
 						</div>
 						<ul class="c-menu__submenu u-list">
@@ -123,10 +125,11 @@
 		</div>
 	</div>
 </div>
-<main class="l-main">
+<main class="l-main" *ngIf="user">
 	<div class="content-wrapper content-wrapper--with-bg">
 		<!-- <h1 class="page-title">Dashboard</h1>
 		<div class="page-content">Content goes here</div> -->
 		<router-outlet></router-outlet>
 	</div>
 </main>
+

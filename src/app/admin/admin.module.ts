@@ -6,8 +6,8 @@ import { MaterialModule } from '../shared/materials/material.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { AddingPostComponent } from './components/adding-post/adding-post.component';
+import { PostsComponent } from './components/posts/posts.component';
 import { SettingsComponent } from './components/settings/settings.component';
-import { TablesComponent } from './components/tables/tables.component';
 
 
 
@@ -15,7 +15,7 @@ import { TablesComponent } from './components/tables/tables.component';
     declarations: [
         AdminComponent,
         AddingPostComponent,
-        TablesComponent,
+        PostsComponent,
         SettingsComponent
     ],
     imports: [
