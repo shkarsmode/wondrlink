@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ImageUrlResponseDto } from 'src/app/shared/interfaces/imageUrlResponse.dto';
@@ -16,6 +16,7 @@ export class AddingPostComponent {
     public form: FormGroup;
     public isLoading: boolean = false;
     private userId: number;
+    @ViewChild('preview') preview: ElementRef;
 
     constructor(
         private fb: FormBuilder,
@@ -89,6 +90,7 @@ export class AddingPostComponent {
             .subscribe(res => {
                 this.isLoading = false;
                 this.form.reset();
+                this.preview.nativeElement.innerHTML = null;
             });
     }
 

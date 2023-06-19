@@ -39,33 +39,35 @@ h1 {
 /* Typewriter effect 1 */
 @keyframes typing {
 
-	0.0000%, 27.3488% { content: ""; }
-	1.1395%, 26.2093% { content: "t"; }
-	2.2791%, 25.0698% { content: "to"; }
-	3.4186%, 23.9302% { content: "tod"; }
-	4.5581%, 22.7907% { content: "toda"; }
-	5.6977%, 21.6512% { content: "today"; }
+	5.0000% { content: ""; }
+	12.1395%  { content: "t"; }
+	18.2791% { content: "to"; }
+	25.4186% { content: "tod"; }
+	30.5581% { content: "toda"; }
+	35.6977% { content: "today"; }
 
-	30.7674%, 51.2791% { content: ""; }
-	31.9070%, 50.1395% { content: "t"; }
-	33.0465%, 49.0000% { content: "to"; }
-	34.1860%, 47.8605% { content: "tod"; }
-	35.3256%, 46.7209% { content: "toda"; }
-	36.4651%, 45.5814% { content: "today"; }
+	100% { content: "today"; }
 
-	54.6977%, 75.2093% { content: ""; }
-	55.8372%, 74.0698% { content: "t"; }
-	56.9767%, 72.9302% { content: "to"; }
-	58.1163%, 71.7907% { content: "tod"; }
-	59.2558%, 70.6512% { content: "toda"; }
-	60.3953%, 69.5116% { content: "today"; }
+	// 30.7674%, 51.2791% { content: ""; }
+	// 31.9070%, 50.1395% { content: "t"; }
+	// 33.0465%, 49.0000% { content: "to"; }
+	// 34.1860%, 47.8605% { content: "tod"; }
+	// 35.3256%, 46.7209% { content: "toda"; }
+	// 36.4651%, 45.5814% { content: "today"; }
 
-	78.6279%, 96.8605% { content: ""; }
-	79.7674%, 95.7209% { content: "t"; }
-	80.9070%, 94.5814% { content: "to"; }
-	82.0465%, 93.4419% { content: "tod"; }
-	83.1860%, 92.3023% { content: "toda"; }
-	84.3256%, 91.1628% { content: "today"; }
+	// 54.6977%, 75.2093% { content: ""; }
+	// 55.8372%, 74.0698% { content: "t"; }
+	// 56.9767%, 72.9302% { content: "to"; }
+	// 58.1163%, 71.7907% { content: "tod"; }
+	// 59.2558%, 70.6512% { content: "toda"; }
+	// 60.3953%, 69.5116% { content: "today"; }
+
+	// 78.6279%, 96.8605% { content: ""; }
+	// 79.7674%, 95.7209% { content: "t"; }
+	// 80.9070%, 94.5814% { content: "to"; }
+	// 82.0465%, 93.4419% { content: "tod"; }
+	// 83.1860%, 92.3023% { content: "toda"; }
+	// 84.3256%, 91.1628% { content: "today"; }
 }
 
 @keyframes blink {
@@ -79,13 +81,13 @@ h1 {
 
 .typewriter::before {
 	content: "";
-	animation: typing 12s infinite;
+	animation: typing 6s infinite;
 }
 
 .typewriter::after {
 	content: "";
 	border-right: 1px solid var(--caret);
-	animation: blink 0.5s linear infinite;
+	animation: blink 1s linear infinite;
 }
 
 

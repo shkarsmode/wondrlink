@@ -1,6 +1,7 @@
-<h1>Create new post</h1>
+<h1>Update post</h1>
 
 <form 
+	*ngIf="post"
 	[formGroup]="form" 
 	(ngSubmit)="uploadPost()" 
 	[ngClass]="{'loading': isLoading}">
@@ -39,7 +40,9 @@
 						accept="image/png, image/gif, image/jpeg" id="uploadFile" />
 				</span>
 			</div>
-			<div id="preview" #preview></div>
+			<div id="preview" #preview>
+				<img [src]="post.mainPicture" [alt]="post.header">
+			</div>
 		</div>
 	</div>
 
@@ -133,13 +136,28 @@
 
 	<div class="flex-end">
 		<button 
+			(mousedown)="startDeleteTimeout(post.id!)"
+			(mouseup)="clearDeleteTimeout()"
+			(mouseout)="clearDeleteTimeout()"
+			[ngClass]="{'deleting': isDeleting && activeDeletingIndex === post.id!}"
+			mat-fab color="warn"
+			type="button"
+			matTooltip="Press to delete"
+			matTooltipShowDelay="300">
+			<span class="material-symbols-outlined">
+				delete
+			</span>
+		</button>
+		<button 
 			[disabled]="form.invalid || isLoading"
 			type="submit" 
 			class="effect effect-1" 
 			title="Upload post">
-			Upload
+			Save
 		</button>
 	</div>
 
 	<mat-spinner *ngIf="isLoading"></mat-spinner>
 </form>
+
+<h2 *ngIf="errorMessage">{{ errorMessage }}</h2>

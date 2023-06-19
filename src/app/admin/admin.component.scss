@@ -629,3 +629,15 @@ main.l-main {
 
 	@include transition(padding 0.5s ease-in-out);
 }
+
+mat-spinner {
+	position: fixed;
+	top: calc(50% - 50px);
+	left: calc(50% - 50px);
+	z-index: 10;
+}
+
+:host ::ng-deep.mat-mdc-progress-spinner 
+.mdc-circular-progress__indeterminate-circle-graphic {
+    stroke: #102c58;
+}

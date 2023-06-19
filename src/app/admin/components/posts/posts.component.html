@@ -27,7 +27,7 @@
 					{{ post.user?.firstName }} {{ post.user?.lastName }}
 				</td>
 				<td class="wrap-buttons">
-					<button mat-stroked-button>
+					<button mat-stroked-button routerLink="/admin/edit-post/{{post.id}}">
 						Edit
 					</button>
 					<button 

@@ -8,6 +8,7 @@ import { AdminComponent } from './admin.component';
 import { AddingPostComponent } from './components/adding-post/adding-post.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { EditPostComponent } from './components/edit-post/edit-post.component';
 
 
 
@@ -16,7 +17,8 @@ import { SettingsComponent } from './components/settings/settings.component';
         AdminComponent,
         AddingPostComponent,
         PostsComponent,
-        SettingsComponent
+        SettingsComponent,
+        EditPostComponent
     ],
     imports: [
         CommonModule,
