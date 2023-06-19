@@ -65,3 +65,8 @@ html { height: 100%; }
     background: #152032;
     opacity: 0.7;
 }
+
+.mdc-tooltip__surface {
+    background-color: #102C58 !important;
+	pointer-events: none;
+}

@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorInterceptor } from 'src/app/shared/helpers/error.interceptor';
 import { JwtInterceptor } from 'src/app/shared/helpers/jwt.interceptor';
@@ -11,6 +12,7 @@ import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CheckEmailComponent } from './shared/dialogs/check-email/check-email.component';
+import { SignUpComponent } from './shared/dialogs/sign-up/sign-up.component';
 import { MaterialModule } from './shared/materials/material.module';
 
 
@@ -18,14 +20,16 @@ import { MaterialModule } from './shared/materials/material.module';
 @NgModule({
     declarations: [
         AppComponent,
-        CheckEmailComponent
+        CheckEmailComponent,
+        SignUpComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
         BrowserAnimationsModule,
-        MaterialModule
+        MaterialModule,
+        FormsModule
     ],
     providers: [
         JwtHelperService,

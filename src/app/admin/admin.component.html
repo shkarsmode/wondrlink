@@ -62,7 +62,12 @@
 		</div>
 	</header>
 	<div class="l-sidebar">
-		<div class="logo">
+		<div 
+			class="logo" 
+			routerLink="/"
+			matTooltipPosition="right"
+			matTooltip="Move to the main page" 
+			matTooltipShowDelay="500">
 			<div class="logo__txt">
 				W <span>ondrlink</span>
 			</div>
@@ -74,7 +79,10 @@
 						class="c-menu__item" 
 						routerLink="/admin/new-post" 
 						routerLinkActive="is-active" 
-						data-toggle="tooltip" title="Flights">
+						data-toggle="tooltip" 
+						matTooltip="Add a new post" 
+						matTooltipShowDelay="400"
+						matTooltipPosition="right">
 						<div class="c-menu__item__inner">
 							<span class="material-symbols-outlined">
 								post_add
@@ -87,7 +95,9 @@
 						routerLink="/admin/posts" 
 						routerLinkActive="is-active" 
 						data-toggle="tooltip" 
-						title="Posts">
+						matTooltip="Posts database" 
+						matTooltipShowDelay="400"
+						matTooltipPosition="right">
 						<div class="c-menu__item__inner">
 							<span class="material-symbols-outlined">
 								toc
@@ -116,7 +126,9 @@
 						routerLinkActive="is-active"
 						class="c-menu__item has-submenu" 
 						data-toggle="tooltip" 
-						title="Settings">
+						matTooltip="Settings" 
+						matTooltipShowDelay="400"
+						matTooltipPosition="right">
 						<div class="c-menu__item__inner">
 							<span class="material-symbols-outlined">
 								settings

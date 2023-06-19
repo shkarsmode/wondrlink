@@ -1,16 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { CheckEmailComponent } from 'src/app/shared/dialogs/check-email/check-email.component';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { AuthService } from '../../services/auth.service';
+import { CheckEmailComponent } from '../check-email/check-email.component';
 
 const commonRequiredFields = ['email', 'firstName', 'lastName', 'phone', 'password', 'location'];
 
 @Component({
-    selector: 'app-form',
-    templateUrl: './form.component.html',
-    styleUrls: ['./form.component.scss']
+    selector: 'app-sign-up',
+    templateUrl: './sign-up.component.html',
+    styleUrls: ['./sign-up.component.scss']
 })
-export class FormComponent implements OnInit {
+export class SignUpComponent implements OnInit {
+
+    public isFirstStep: boolean = true;
+    public isLoaded: boolean = false;
+    public isSending: boolean = false;
 
     public isShowPassword: boolean = false;
     public password: any;
@@ -24,7 +28,7 @@ export class FormComponent implements OnInit {
     public isMySelf: boolean = true;
     public isAgreeTerms: boolean = false;
 
-    @Input() public statusForm: 'Patient' | 'Physician' | 'Industry';
+    public statusForm: 'Patient' | 'Physician' | 'Industry';
     private dialogConfig: MatDialogConfig = new MatDialogConfig();
 
     private readonly patientRequiredFields = [...commonRequiredFields, 'isMySelf'];
@@ -33,11 +37,33 @@ export class FormComponent implements OnInit {
 
     constructor(
         private dialog: MatDialog,
-        private authService: AuthService
+        private authService: AuthService,
+        private dialogRef: MatDialogRef<SignUpComponent>
     ) {}
 
+
     public ngOnInit(): void {
+        this.removeBugAfterInit();
         this.initDialogConfig();
+    }
+
+    private async removeBugAfterInit(): Promise<void> {
+        await new Promise(resolve => setTimeout(resolve, 400));
+
+        this.isLoaded = true;
+    }
+
+    public previousStep(): void {
+        this.isFirstStep = true;
+    }
+
+    public nextStep(state: 'Patient' | 'Physician' | 'Industry'): void {
+        this.isFirstStep = false;
+        this.statusForm = state;
+    }
+
+    public close(): void {
+        this.dialogRef.close();
     }
 
     public toggleShowingPassword(): void {
@@ -55,6 +81,10 @@ export class FormComponent implements OnInit {
     }
 
     public onSubmitButton(formName: 'Patient' | 'Physician' | 'Industry'): void {
+        if (this.isSending) return;
+
+        this.isSending = true;
+
         let requiredFields: string[] = [];
         switch(formName) {
             case 'Patient': requiredFields = this.patientRequiredFields; break;
@@ -83,23 +113,26 @@ export class FormComponent implements OnInit {
             .every(value => value !== undefined && value !== '');
         console.log(filteredBody);
 
-        if (!allFieldsFilled) return;
+        if (!allFieldsFilled) {
+            this.isSending = false;
+            return;
+        }
 
         this.authService.registration(body)
-            .subscribe(res =>{
-                console.log(res);
-                this.openCheckEmailModalWindow();
+            .subscribe({
+                next: _ => {
+                    this.openCheckEmailModalWindow();
+                    this.isSending = false;
+                },
+                error: _ => this.isSending = false
             });
         
     }
 
 
     public openCheckEmailModalWindow(): void {
-        const dialogRef = 
-            this.dialog.open(CheckEmailComponent, this.dialogConfig);
-
-        dialogRef.afterClosed().subscribe(() => {
-            // this.isRegisterButtonClicked = false
-        });
+        this.dialog.open(CheckEmailComponent, this.dialogConfig);
+        this.close();
     }
+
 }

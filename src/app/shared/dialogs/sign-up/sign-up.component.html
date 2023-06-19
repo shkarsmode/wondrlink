@@ -1,0 +1,382 @@
+<div class="wrap">
+	<div class="top">
+		<span class="material-symbols-outlined" (click)="close()">
+			close
+		</span>
+	</div>
+	<div class="content">
+		<div class="step1" [ngClass]="{'skipped': !isFirstStep}">
+			<h2>Get Started</h2>
+			<div class="description">
+				Tell us who you are
+			</div>
+
+			<ol class="wrap-options">
+				<li (click)="nextStep('Patient')">
+					<div class="left">
+						<img src="assets/img/heart.png" alt="heart">
+					</div>
+					<div class="right">
+						<h4>Patient/Caregiver</h4>
+						<div class="sub-title">Looking for novel therapies</div>
+					</div>
+				</li>
+				<li (click)="nextStep('Physician')">
+					<div class="left">
+						<img src="assets/img/union.png" alt="union">
+					</div>
+					<div class="right">
+						<h4>Physician/Healthcare provider</h4>
+						<div class="sub-title">Willing to treat using new therapies</div>
+					</div>
+				</li>
+				<li (click)="nextStep('Industry')">
+					<div class="left">
+						<img src="assets/img/telescope.png" alt="telescope">
+					</div>
+					<div class="right">
+						<h4>Industry/Research institute</h4>
+						<div class="sub-title">Working on novel therapies</div>
+					</div>
+				</li>
+			</ol>
+		</div>
+
+		<div *ngIf="isLoaded" class="step2" [ngClass]="{'active': !isFirstStep}" #step2>
+			<span (click)="previousStep()" class="material-symbols-outlined">
+				west
+			</span>
+			<div class="wrap-form">
+				
+				<!-- * Patient Signup -->
+				<form *ngIf="statusForm === 'Patient'" (ngSubmit)="onSubmitButton('Patient')">
+					<h2>Patient Signup</h2>
+					<label>I'm signing up for</label>
+					<div class="wrap-checkboxes">
+						<div 
+							(click)="chooseSigningUpFor(true)"
+							class="checkbox" 
+							[ngClass]="{'active': isMySelf}">
+							Myself
+						</div>
+						<div 
+							(click)="chooseSigningUpFor(false)"
+							class="checkbox" 
+							[ngClass]="{'active': !isMySelf}">
+							Someone else
+						</div>
+					</div>
+			
+					<div class="wrap-inputs">
+						<div class="left-side">
+							<div class="group">
+								<label for="firstName">Patient name</label>
+								<input 
+									type="text" required
+									placeholder="First"
+									id="firstName" name="firstName"
+									[(ngModel)]="firstName">
+							</div>
+							<div class="group">
+								<label for="lastName" style="opacity: 0">Patient Name</label>
+								<input 
+									type="text" required
+									placeholder="Last"
+									id="lastName" name="lastName"
+									[(ngModel)]="lastName">
+							</div>
+						</div> 
+						<div class="right-side">
+							<div class="group">
+								<label for="phone">Phone</label>
+								<input 
+									type="tel" required
+									placeholder="+1 212 001 002"
+									id="phone" name="phone"
+									[(ngModel)]="phone">
+							</div>
+							<div class="group">
+								<label for="location">Location</label>
+								<input 
+									type="text" required
+									placeholder="Miami, FL"
+									id="location" name="location"
+									[(ngModel)]="location">
+							</div>
+							<div class="group">
+								<label for="email">Email</label>
+								<input 
+									type="text" required
+									placeholder="name@email.com"
+									id="email" name="email"
+									[(ngModel)]="email">
+							</div>
+							<div class="group">
+								<label for="password">Password</label>
+								<input 
+									required
+									[type]="isShowPassword ? 'text' : 'password'" 
+									id="password" name="password"
+									placeholder="*min 8 characters"
+									minlength="8"
+									[(ngModel)]="password">
+			
+								<div class="hide">
+									<span 
+										(click)="toggleShowingPassword()"
+										class="material-symbols-outlined" 
+										*ngIf="isShowPassword">
+										visibility
+									</span>
+									<span 
+										(click)="toggleShowingPassword()"
+										class="material-symbols-outlined"
+										*ngIf="!isShowPassword">
+										visibility_off
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+			
+					<div class="group-checkbox">
+						<input type="checkbox" name="remember" id="remember" [(ngModel)]="isAgreeTerms">
+						<label for="remember">I understand the terms and privacy policy</label>
+					</div>
+			
+					<div class="wrap-btn">
+						<button 
+							type="submit"
+							class="btn-green" 
+							[disabled]="!isAgreeTerms || isSending" >
+							<ng-template [ngIf]="isSending">
+								<mat-spinner></mat-spinner>
+							</ng-template>
+
+							<ng-template [ngIf]="!isSending">
+								Submit
+							</ng-template>				
+						</button>
+					</div>
+				</form>
+				<!-- * END Patient Signup -->
+			
+				<!-- * Physician Signup -->
+				<form *ngIf="statusForm === 'Physician'" (ngSubmit)="onSubmitButton('Physician')">
+					<h2>Physician Signup</h2>
+			
+					<div class="wrap-inputs">
+						<div class="left-side">
+							<div class="group">
+								<label for="firstName">Name</label>
+								<input 
+									type="text" required
+									placeholder="First"
+									id="firstName" name="firstName"
+									[(ngModel)]="firstName">
+							</div>
+							<div class="group">
+								<label for="lastName" style="opacity: 0">Patient Name</label>
+								<input 
+									type="text" required
+									placeholder="Last"
+									id="lastName" name="lastName"
+									[(ngModel)]="lastName">
+							</div>
+						</div> 
+						<div class="right-side">
+							<div class="group">
+								<label for="email">Email</label>
+								<input 
+									type="email" required
+									placeholder="name@email.com"
+									id="email" name="email"
+									[(ngModel)]="email">
+							</div>
+							<div class="group">
+								<label for="location">Location</label>
+								<input 
+									type="text" required
+									placeholder="Miami, FL"
+									id="location" name="location"
+									[(ngModel)]="location">
+							</div>
+							<div class="group">
+								<label for="phone">Phone</label>
+								<input 
+									type="tel" required
+									placeholder="+1 212 001 002"
+									id="phone" name="phone"
+									[(ngModel)]="phone">
+							</div>
+							<div class="group">
+								<label for="hospital">Hospital name</label>
+								<input 
+									type="text" required
+									placeholder="Hospital/clinic name"
+									id="hospital" name="hospital"
+									[(ngModel)]="hospital">
+							</div>
+							<div class="group">
+								<label for="password">Password</label>
+								<input 
+									required
+									[type]="isShowPassword ? 'text' : 'password'" 
+									id="password" name="password"
+									minlength="8"
+									[(ngModel)]="password">
+			
+								<div class="hide">
+									<span 
+										(click)="toggleShowingPassword()"
+										class="material-symbols-outlined" 
+										*ngIf="isShowPassword">
+										visibility
+									</span>
+									<span 
+										(click)="toggleShowingPassword()"
+										class="material-symbols-outlined" 
+										*ngIf="!isShowPassword">
+										visibility_off
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+			
+					<div class="group-checkbox">
+						<input 
+							type="checkbox" 
+							name="remember" 
+							id="remember" 
+							required
+							[(ngModel)]="isAgreeTerms">
+						<label for="remember">I understand the terms and privacy policy</label>
+					</div>
+			
+					<div class="wrap-btn">
+						<button 
+							class="btn-green" 
+							[disabled]="!isAgreeTerms || isSending" >
+							<ng-template [ngIf]="isSending">
+								<mat-spinner></mat-spinner>
+							</ng-template>
+
+							<ng-template [ngIf]="!isSending">
+								Submit
+							</ng-template>
+						</button>
+					</div>
+				</form>
+				<!-- * END Physician Signup -->
+			
+				<!-- * Industry Signup -->
+				<form *ngIf="statusForm === 'Industry'" (ngSubmit)="onSubmitButton('Industry')">
+					<h2>Industry Signup</h2>
+			
+					<div class="wrap-inputs">
+						<div class="left-side">
+							<div class="group">
+								<label for="firstName">Name</label>
+								<input 
+									type="text" required
+									placeholder="First"
+									id="firstName" name="firstName"
+									[(ngModel)]="firstName">
+							</div>
+							<div class="group">
+								<label for="lastName" style="opacity: 0">Patient Name</label>
+								<input 
+									type="text" required
+									placeholder="Last"
+									id="lastName" name="lastName"
+									[(ngModel)]="lastName">
+							</div>
+						</div> 
+						<div class="right-side">
+							<div class="group">
+								<label for="email">Email</label>
+								<input 
+									type="email" required
+									placeholder="name@email.com"
+									id="email" name="email"
+									[(ngModel)]="email">
+							</div>
+							<div class="group">
+								<label for="location">Location</label>
+								<input 
+									type="text" required
+									placeholder="Miami, FL"
+									id="location" name="location"
+									[(ngModel)]="location">
+							</div>
+							<div class="group">
+								<label for="phone">Phone</label>
+								<input 
+									type="tel" required
+									placeholder="+1 212 001 002"
+									id="phone" name="phone"
+									[(ngModel)]="phone">
+							</div>
+							<div class="group">
+								<label for="company">Company name</label>
+								<input 
+									type="text" required
+									placeholder="Company/institute name"
+									id="company" name="company"
+									[(ngModel)]="company">
+							</div>
+							<div class="group">
+								<label for="password">Password</label>
+								<input 
+									required
+									[type]="isShowPassword ? 'text' : 'password'" 
+									id="password" name="password"
+									placeholder="*min 8 characters"
+									minlength="8"
+									[(ngModel)]="password">
+			
+								<div class="hide">
+									<span 
+										(click)="toggleShowingPassword()"
+										class="material-symbols-outlined" 
+										*ngIf="isShowPassword">
+										visibility
+									</span>
+									<span 
+										(click)="toggleShowingPassword()"
+										class="material-symbols-outlined" 
+										*ngIf="!isShowPassword">
+										visibility_off
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+			
+					<div class="group-checkbox">
+						<input type="checkbox" name="remember" id="remember" [(ngModel)]="isAgreeTerms">
+						<label for="remember">I understand the terms and privacy policy</label>
+					</div>
+			
+					<div class="wrap-btn">
+						<button 
+							class="btn-green" 
+							[disabled]="!isAgreeTerms || isSending" >
+							<ng-template [ngIf]="isSending">
+								<mat-spinner></mat-spinner>
+							</ng-template>
+
+							<ng-template [ngIf]="!isSending">
+								Submit
+							</ng-template>
+						</button>
+					</div>
+				</form>
+				<!-- * END Industry Signup -->
+			</div>
+		</div>
+
+		<!-- <button class="btn-green" (click)="close()">Okay</button> -->
+	</div>
+</div>

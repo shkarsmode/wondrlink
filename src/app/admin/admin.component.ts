@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IUser } from 'src/app/shared/interfaces/IUser';
 import { ImageUrlResponseDto } from 'src/app/shared/interfaces/imageUrlResponse.dto';
@@ -12,7 +12,7 @@ import { PostsService } from '../shared/services/posts.service';
     templateUrl: './admin.component.html',
     styleUrls: ['./admin.component.scss'],
 })
-export class AdminComponent {
+export class AdminComponent implements OnInit {
 
     public avatarFile: any;
     public user: IUser;

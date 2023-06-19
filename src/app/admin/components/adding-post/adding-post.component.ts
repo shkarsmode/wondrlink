@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ImageUrlResponseDto } from 'src/app/shared/interfaces/imageUrlResponse.dto';
@@ -11,7 +11,7 @@ import { CloudinaryService } from '../../../shared/services/cloudinary.service';
     templateUrl: './adding-post.component.html',
     styleUrls: ['./adding-post.component.scss']
 })
-export class AddingPostComponent {
+export class AddingPostComponent implements OnInit {
 
     public form: FormGroup;
     public isLoading: boolean = false;

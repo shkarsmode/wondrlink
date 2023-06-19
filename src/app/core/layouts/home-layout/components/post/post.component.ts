@@ -1,6 +1,6 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
 import { IPost } from 'src/app/shared/interfaces/IPost';
@@ -11,7 +11,7 @@ import { PostsService } from 'src/app/shared/services/posts.service';
     templateUrl: './post.component.html',
     styleUrls: ['./post.component.scss']
 })
-export class PostComponent {
+export class PostComponent implements OnInit {
 
     public post: IPost;
     public isCopied: boolean = false; 

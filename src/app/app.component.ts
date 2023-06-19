@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { ScrollToService } from './shared/utils/scroll-to.service';
 
@@ -7,7 +7,7 @@ import { ScrollToService } from './shared/utils/scroll-to.service';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     constructor(
         private router: Router,
         private scrollToService: ScrollToService

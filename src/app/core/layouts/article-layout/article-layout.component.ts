@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IInfo } from 'src/app/shared/interfaces/IInfo';
 
@@ -8,7 +8,7 @@ import { IInfo } from 'src/app/shared/interfaces/IInfo';
     templateUrl: './article-layout.component.html',
     styleUrls: ['./article-layout.component.scss']
 })
-export class ArticleLayoutComponent {
+export class ArticleLayoutComponent implements OnInit {
 
     public articleId: string;
     public info: IInfo[];

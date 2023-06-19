@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
 import { IPost } from 'src/app/shared/interfaces/IPost';
 import { PostsService } from 'src/app/shared/services/posts.service';
@@ -8,7 +8,7 @@ import { PostsService } from 'src/app/shared/services/posts.service';
     templateUrl: './preview-blog.component.html',
     styleUrls: ['./preview-blog.component.scss']
 })
-export class PreviewBlogComponent {
+export class PreviewBlogComponent implements OnInit {
 
     public posts: IPost[]
     private limit: number = 2;
