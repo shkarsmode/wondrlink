@@ -24,7 +24,19 @@
 	<div class="card">
 		<div class="title">Main picture</div>
 		<div class="content">
-			<div class="uploadOuter">
+			<mat-chip-listbox aria-label="Upload image" >
+				<mat-chip-option 
+					(click)="toggleUploadImageType()"
+					[selected]="isUploadImageSelected">
+					Upload image
+				</mat-chip-option>
+				<mat-chip-option 
+					(click)="toggleUploadImageType()"
+					[selected]="!isUploadImageSelected">
+					Image by url
+				</mat-chip-option>
+			</mat-chip-listbox>
+			<div class="uploadOuter" *ngIf="isUploadImageSelected">
 				<label for="uploadFile">
 					Upload Image
 				</label>
@@ -40,10 +52,27 @@
 						accept="image/png, image/gif, image/jpeg" id="uploadFile" />
 				</span>
 			</div>
+			<div class="upload-by-url" *ngIf="!isUploadImageSelected">
+				<input 
+					type="text" 
+					formControlName="picture"
+					placeholder="https://picsum.photos/200/300.jpg">
+				<button 
+					type="button"
+					[disabled]="picture.invalid"
+					mat-stroked-button 
+					(click)="handleUrlImage()">
+					Preview Image
+					<span class="material-symbols-outlined">
+						preview
+					</span>
+				</button>
+			</div>
 			<div id="preview" #preview>
 				<img [src]="post.mainPicture" [alt]="post.header">
 			</div>
 		</div>
+		
 	</div>
 
 	<div class="card">

@@ -99,6 +99,27 @@ input {
 	}
 }
 
+.upload-by-url {
+	input {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	button {
+		border: 1px solid #ccc;
+		margin-bottom: 20px;
+
+		::ng-deep .mdc-button__label {
+			display: flex;
+			align-items: center;
+
+			span {
+				margin-left: 10px;
+			}
+		}
+	}
+}
+
 .flex-end {
 	display: flex;
 	justify-content: flex-end;
@@ -354,6 +375,15 @@ form ::ng-deep.mat-mdc-progress-spinner
 			
 		}
 	}
+}
+
+.mat-mdc-standard-chip.mat-primary.mat-mdc-chip-selected {
+    --mdc-chip-elevated-container-color: #102c58;;
+    --mdc-chip-elevated-disabled-container-color: #102c58;;
+}
+
+::ng-deep.mdc-evolution-chip__checkmark path {
+	stroke: white;
 }
 
 @keyframes delete-anim {

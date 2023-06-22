@@ -14,7 +14,7 @@ export class PostsComponent implements OnInit {
     public isLoading: boolean = false;
     public pagesCount: number;
 
-    private limit: number = 3; // Number of items per page
+    private limit: number = 10; // Number of items per page
     public page: number = 0; // Current page number    
     private deleteTimeout: any;
     public isDeleting: boolean = false;

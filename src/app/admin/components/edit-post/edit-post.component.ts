@@ -23,6 +23,7 @@ export class EditPostComponent implements OnInit {
     public activeDeletingIndex: number = -1;
     public isDrag: boolean = false;
     public isUpdatedPicture: boolean = false;
+    public isUploadImageSelected: boolean = true;
 
     private deleteTimeout: any;
     private userId: number;
@@ -60,6 +61,7 @@ export class EditPostComponent implements OnInit {
         if (!this.postId) return;
 
         this.postsService.getPostById(this.postId)
+            .pipe(take(1))
             .subscribe({
                 next: post => {
                     this.post = post;
@@ -76,6 +78,28 @@ export class EditPostComponent implements OnInit {
             picture: [this.post.mainPicture, [Validators.required]],
             content: [this.post.htmlContent, Validators.required]
         });
+    }
+
+    public toggleUploadImageType(): void {
+        this.isUploadImageSelected = !this.isUploadImageSelected;
+
+        if (this.isUpdatedPicture) {
+            this.form.patchValue({
+                picture: null
+            });
+            this.preview.nativeElement.innerHTML = null;
+        }
+    }
+
+    public handleUrlImage() {
+        if (!this.picture.value) return;
+        
+        const preview = document.getElementById('preview');
+        const previewImg = document.createElement('img');
+        previewImg.setAttribute("src", this.picture.value);
+        preview!.innerHTML = '';
+        preview!.appendChild(previewImg);
+        this.isUpdatedPicture = true;
     }
 
     public uploadPost(): void {
@@ -96,7 +120,7 @@ export class EditPostComponent implements OnInit {
     }
 
     private uploadAngGetPictureUrl(): void {
-        if (!this.isUpdatedPicture) {
+        if (!this.isUpdatedPicture || !this.isUploadImageSelected) {
             this.updatePostWithImage(this.picture.value);
             return;
         }
@@ -123,16 +147,18 @@ export class EditPostComponent implements OnInit {
             }
         };
 
-        this.postsService.updatePostById(body)
-            .subscribe({
-                next: res => {
-                    this.isLoading = false;
-                },
-                error: error =>{
-                    alert('Something went wrong: ' + error.message);
-                    this.isLoading = false;
-                }
-            });
+        console.log(body);
+
+        // this.postsService.updatePostById(body)
+        //     .subscribe({
+        //         next: res => {
+        //             this.isLoading = false;
+        //         },
+        //         error: error =>{
+        //             alert('Something went wrong: ' + error.message);
+        //             this.isLoading = false;
+        //         }
+        //     });
     }
 
     public dragNdrop(event: any) {
