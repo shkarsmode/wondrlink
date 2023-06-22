@@ -9,6 +9,7 @@ import { PostsService } from 'src/app/shared/services/posts.service';
     styleUrls: ['./posts.component.scss']
 })
 export class PostsComponent implements OnInit {
+    
     public posts: IPost[];
     public allPostsCount: number;
     public isLoading: boolean = false;

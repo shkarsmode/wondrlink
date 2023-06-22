@@ -26,10 +26,19 @@
 
 .content {
 	padding: 0 45px;
+
+	display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+	justify-content: space-between;
+	
+    height: 100%;
 }
 
 img {
 	margin-bottom: 33px;
+	max-height: 350px;
+    object-fit: cover;
 }
 
 h3 {
