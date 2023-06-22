@@ -1,3 +1,4 @@
+<!-- * PC header -->
 <div 
 	class="wrap" 
 	[ngClass]="{'out': isHeaderOut, 'in': isHeaderIn}">
@@ -49,3 +50,69 @@
 		</ul>
 	</header>
 </div>
+
+<!-- * END PC header -->
+
+<!-- * Phone header -->
+<div 
+	class="wrap phone" 
+	[ngClass]="{'out': isHeaderOut && !isOpenBurger, 'in': isHeaderIn}">
+	<header>
+		<div class="logo" routerLink="/">
+			<img src="assets/img/logo-black.png" alt="wondrlink">
+		</div>
+		<div 
+			class="burger" 
+			[ngClass]="{'open': isOpenBurger}" 
+			(click)="toggleNavigation()">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</header>
+	<div class="wrap-navigation" [ngClass]="{'show': isOpenBurger}">
+		<ul>
+			<li routerLink="/blog" style="--i:0s;">Blog</li>
+			<li routerLink="articles/patients" style="--i:.12s;">Patients</li>
+			<li routerLink="articles/physicians" style="--i:.14s;">Physicians</li>
+			<li routerLink="articles/industry" style="--i:.16s;">Drug Developers</li>
+			<li (click)="scrollToElement('about')" style="--i:.18s;">About us</li>
+			<li (click)="scrollToElement('contact')" style="--i:.2s;">Contact us</li>
+			<li style="--i:.3s;">
+				<ng-template [ngIf]="!isAdmin">
+					<ng-template [ngIf]="isAuthenticated$ | async">
+						<button 
+							class="btn-green" 
+							(click)="logout()">
+							<ng-template [ngIf]="!isLoggingOut">Logout</ng-template>
+							<ng-template [ngIf]="isLoggingOut">
+								<span class="material-symbols-outlined">sync</span>
+							</ng-template>
+						</button>
+						
+					</ng-template>
+				</ng-template>
+
+				<ng-template [ngIf]="isAdmin">
+					<ng-template [ngIf]="isAuthenticated$ | async">
+						<button 
+							class="btn-green" routerLink="/admin">
+							Go to Panel
+						</button>
+					</ng-template>
+				</ng-template>
+
+				<ng-template [ngIf]="!(isAuthenticated$ | async)">
+					<button 
+						class="btn-green" 
+						routerLink="/login">
+						Login
+					</button>
+				</ng-template>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<!-- * END Phone header -->

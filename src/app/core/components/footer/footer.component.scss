@@ -8,15 +8,18 @@
 	transition: all .5s;
 
 	background-color: #000816;
+	margin-top: 100px;
 }
 
-header {
+footer {
 	max-width: 1500px;
 	width: 100%;
 
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	transition: all .3s;
+	position: relative;
 }
 
 .logo {
@@ -34,6 +37,7 @@ ul {
 
 		font-weight: 300;
 		font-size: 20px;
+		transition: all .3s;
 
 		&:hover {
 			color: #01C1B9;
@@ -45,5 +49,67 @@ ul {
 			color: white;
 		}
 		
+	}
+}
+
+/* Media Queries
+====================*/
+
+@media (max-width: 1700px) {
+	footer {
+		max-width: 1300px;
+	}
+
+}
+
+@media (max-width: 1500px) {
+	footer {
+		max-width: 1200px;
+	}
+
+	ul li {
+		font-size: 18px;
+	}
+
+}
+
+@media (max-width: 1200px) {
+	footer {
+		padding: 0 15px;
+	}
+}
+
+@media (max-width: 1000px) {
+	footer {
+		flex-direction: column;
+		row-gap: 15px;
+		padding-bottom: 5px;
+	}
+
+	.wrap {
+		height: 140px;
+	}
+}
+
+@media (max-width: 700px) {
+	.logo img {
+		height: 45px;
+	}
+
+	ul li {
+		font-size: 16px;
+
+		&:last-child {
+			position: absolute;
+			bottom: -20px;
+			font-size: 12px;
+			left: calc(50% - 54.5px);
+		}
+	}
+}
+
+@media (max-width: 500px) {
+	.logo img {
+		height: 45px;
 	}
 }

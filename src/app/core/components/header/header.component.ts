@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
     public isAuthenticated$: Observable<boolean>;
     public isLoggingOut: boolean = false;
     public isAdmin: boolean;
+    public isOpenBurger: boolean = false;
 
     private previousValue: number = 0;
 
@@ -66,4 +67,7 @@ export class HeaderComponent implements OnInit {
 
         this.scrollTo.scroll(selector, 1000);
     }
+
+    public toggleNavigation = () => this.isOpenBurger = !this.isOpenBurger;
+    
 }
