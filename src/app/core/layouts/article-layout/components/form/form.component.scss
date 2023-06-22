@@ -13,6 +13,27 @@ form {
 	box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.05);
 	border-radius: 20px;
 	padding: 80px 110px;
+	position: relative;
+
+	&:before {
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		left: 0px;
+		top: 0px;
+		opacity: 0;
+		backdrop-filter: blur(0px);
+		z-index: 1;
+		pointer-events: none;
+		transition: all .4s;
+	}
+
+	&.is-sending:before {
+		opacity: 1;
+		backdrop-filter: blur(2px);
+		pointer-events: unset;
+	}
 }
 
 .wrap-inputs {
@@ -193,4 +214,24 @@ button {
 input.ng-dirty.ng-invalid {
 	border: 1px solid red;
 	color: red;
+}
+
+mat-spinner {
+	position: absolute;
+	top: calc(50% - 80px);
+    left: calc(50% - 50px);
+	z-index: 2;
+}
+
+.error-message {
+	position: absolute;
+	transform: translateY(-26px);
+	color: red;
+	opacity: 0.9;
+	font-size: 13px;
+}
+
+:host ::ng-deep.mat-mdc-progress-spinner 
+.mdc-circular-progress__indeterminate-circle-graphic {
+    stroke: #00e7a1;
 }

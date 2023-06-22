@@ -23,6 +23,8 @@ export class FormComponent implements OnInit {
     public company: any;
     public isMySelf: boolean = true;
     public isAgreeTerms: boolean = false;
+    public isSending: boolean = false;
+    public errorMessage: string;
 
     @Input() public statusForm: 'Patient' | 'Physician' | 'Industry';
     private dialogConfig: MatDialogConfig = new MatDialogConfig();
@@ -55,6 +57,8 @@ export class FormComponent implements OnInit {
     }
 
     public onSubmitButton(formName: 'Patient' | 'Physician' | 'Industry'): void {
+        this.isSending = true;
+        this.errorMessage = '';
         let requiredFields: string[] = [];
         switch(formName) {
             case 'Patient': requiredFields = this.patientRequiredFields; break;
@@ -83,12 +87,23 @@ export class FormComponent implements OnInit {
             .every(value => value !== undefined && value !== '');
         console.log(filteredBody);
 
-        if (!allFieldsFilled) return;
+        if (!allFieldsFilled) {
+            this.isSending = false;
+            this.errorMessage = 'Please fill all the fields';
+            return;
+        }
 
         this.authService.registration(body)
-            .subscribe(res =>{
-                console.log(res);
-                this.openCheckEmailModalWindow();
+            .subscribe({
+                next: res => {
+                    console.log(res);
+                    this.isSending = false;
+                    this.openCheckEmailModalWindow();
+                },
+                error: error => {
+                    this.errorMessage = error.message;
+                    this.isSending = false;
+                }
             });
         
     }
