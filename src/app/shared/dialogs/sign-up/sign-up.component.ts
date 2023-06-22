@@ -15,6 +15,7 @@ export class SignUpComponent implements OnInit {
     public isFirstStep: boolean = true;
     public isLoaded: boolean = false;
     public isSending: boolean = false;
+    public errorMessage: string;
 
     public isShowPassword: boolean = false;
     public password: any;
@@ -27,6 +28,7 @@ export class SignUpComponent implements OnInit {
     public company: any;
     public isMySelf: boolean = true;
     public isAgreeTerms: boolean = false;
+    
 
     public statusForm: 'Patient' | 'Physician' | 'Industry';
     private dialogConfig: MatDialogConfig = new MatDialogConfig();
@@ -82,6 +84,7 @@ export class SignUpComponent implements OnInit {
 
     public onSubmitButton(formName: 'Patient' | 'Physician' | 'Industry'): void {
         if (this.isSending) return;
+        this.errorMessage = '';
 
         this.isSending = true;
 
@@ -115,6 +118,7 @@ export class SignUpComponent implements OnInit {
 
         if (!allFieldsFilled) {
             this.isSending = false;
+            this.errorMessage = 'Please fill all the fields';
             return;
         }
 
@@ -123,8 +127,12 @@ export class SignUpComponent implements OnInit {
                 next: _ => {
                     this.openCheckEmailModalWindow();
                     this.isSending = false;
+                    this.errorMessage = '';
                 },
-                error: _ => this.isSending = false
+                error: error => {
+                    this.isSending = false;
+                    this.errorMessage = error.message;
+                }
             });
         
     }

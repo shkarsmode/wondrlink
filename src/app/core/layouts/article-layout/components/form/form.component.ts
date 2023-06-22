@@ -98,6 +98,7 @@ export class FormComponent implements OnInit {
                 next: res => {
                     console.log(res);
                     this.isSending = false;
+                    this.errorMessage = '';
                     this.openCheckEmailModalWindow();
                 },
                 error: error => {

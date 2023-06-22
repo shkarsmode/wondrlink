@@ -116,7 +116,10 @@
 	<!-- * END Patient Signup -->
 
 	<!-- * Physician Signup -->
-	<form *ngIf="statusForm === 'Physician'" (ngSubmit)="onSubmitButton('Physician')">
+	<form 
+		[ngClass]="{'is-sending': isSending}"
+		*ngIf="statusForm === 'Physician'" 
+		(ngSubmit)="onSubmitButton('Physician')">
 		<div class="error-message" *ngIf="errorMessage">
 			{{ errorMessage }}
 		</div>
@@ -219,11 +222,16 @@
 				Submit
 			</button>
 		</div>
+
+		<mat-spinner *ngIf="isSending"></mat-spinner>
 	</form>
 	<!-- * END Physician Signup -->
 
 	<!-- * Industry Signup -->
-	<form *ngIf="statusForm === 'Industry'" (ngSubmit)="onSubmitButton('Industry')">
+	<form 
+		[ngClass]="{'is-sending': isSending}"
+		*ngIf="statusForm === 'Industry'" 
+		(ngSubmit)="onSubmitButton('Industry')">
 		<div class="error-message" *ngIf="errorMessage">
 			{{ errorMessage }}
 		</div>
@@ -322,6 +330,8 @@
 				Submit
 			</button>
 		</div>
+
+		<mat-spinner *ngIf="isSending"></mat-spinner>
 	</form>
 	<!-- * END Industry Signup -->
 

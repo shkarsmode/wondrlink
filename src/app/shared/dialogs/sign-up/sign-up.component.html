@@ -49,7 +49,13 @@
 			<div class="wrap-form">
 				
 				<!-- * Patient Signup -->
-				<form *ngIf="statusForm === 'Patient'" (ngSubmit)="onSubmitButton('Patient')">
+				<form 
+					*ngIf="statusForm === 'Patient'" 
+					(ngSubmit)="onSubmitButton('Patient')">
+					<div class="error-message" *ngIf="errorMessage">
+						{{ errorMessage }}
+					</div>
+
 					<h2>Patient Signup</h2>
 					<label>I'm signing up for</label>
 					<div class="wrap-checkboxes">
@@ -162,7 +168,13 @@
 				<!-- * END Patient Signup -->
 			
 				<!-- * Physician Signup -->
-				<form *ngIf="statusForm === 'Physician'" (ngSubmit)="onSubmitButton('Physician')">
+				<form 
+					*ngIf="statusForm === 'Physician'" 
+					(ngSubmit)="onSubmitButton('Physician')">
+					<div class="error-message" *ngIf="errorMessage">
+						{{ errorMessage }}
+					</div>
+
 					<h2>Physician Signup</h2>
 			
 					<div class="wrap-inputs">
@@ -271,7 +283,13 @@
 				<!-- * END Physician Signup -->
 			
 				<!-- * Industry Signup -->
-				<form *ngIf="statusForm === 'Industry'" (ngSubmit)="onSubmitButton('Industry')">
+				<form 
+					*ngIf="statusForm === 'Industry'" 
+					(ngSubmit)="onSubmitButton('Industry')">
+					<div class="error-message" *ngIf="errorMessage">
+						{{ errorMessage }}
+					</div>
+
 					<h2>Industry Signup</h2>
 			
 					<div class="wrap-inputs">
