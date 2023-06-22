@@ -86,10 +86,34 @@ input {
 }
 
 #preview {
+	display: flex;
+    justify-content: center;
 	text-align: center;
 
-	img {
-		max-width: 100%
+	::ng-deep img {
+		max-width: 500px;
+		max-height: 500px;
+	}
+}
+
+.upload-by-url {
+	input {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	button {
+		border: 1px solid #ccc;
+		margin-bottom: 20px;
+
+		::ng-deep .mdc-button__label {
+			display: flex;
+			align-items: center;
+
+			span {
+				margin-left: 10px;
+			}
+		}
 	}
 }
 
@@ -301,4 +325,13 @@ form ::ng-deep.mat-mdc-progress-spinner
 			box-shadow: 3px 6px 13px 0px rgb(219 219 219 / 47%);
 		}
 	}
+}
+
+.mat-mdc-standard-chip.mat-primary.mat-mdc-chip-selected {
+    --mdc-chip-elevated-container-color: #102c58;;
+    --mdc-chip-elevated-disabled-container-color: #102c58;;
+}
+
+::ng-deep.mdc-evolution-chip__checkmark path {
+	stroke: white;
 }

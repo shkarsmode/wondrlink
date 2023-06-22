@@ -15,6 +15,9 @@ export class AddingPostComponent implements OnInit {
 
     public form: FormGroup;
     public isLoading: boolean = false;
+    public isUploadImageSelected: boolean = true;
+    public isDrag: boolean = false;
+
     private userId: number;
     @ViewChild('preview') preview: ElementRef;
 
@@ -51,7 +54,10 @@ export class AddingPostComponent implements OnInit {
         if (this.form.invalid) return;
 
         this.isLoading = true;
-        this.uploadAngGetPictureUrl();
+        (this.isUploadImageSelected ? 
+            this.uploadAngGetPictureUrl : 
+            this.uploadPostWithImage
+        ).call(this);
     }
 
     public onFileSelected(event: Event): void {
@@ -71,8 +77,12 @@ export class AddingPostComponent implements OnInit {
             })
     }
 
-    private uploadPostWithImage(response: ImageUrlResponseDto): void {
-        const mainPicture = response.imageUrl.url;
+    private uploadPostWithImage(response?: ImageUrlResponseDto): void {
+        let mainPicture: string;
+
+        if (response) mainPicture = response.imageUrl.url;
+        else mainPicture = this.picture.value;
+
         const createdAt = new Date().toISOString();
         const body = {
             createdAt,
@@ -104,14 +114,33 @@ export class AddingPostComponent implements OnInit {
 
         this.onFileSelected(event);
     }
+
+    public handleUrlImage() {
+        if (!this.picture.value) return;
+        
+        const preview = document.getElementById('preview');
+        const previewImg = document.createElement('img');
+        previewImg.setAttribute("src", this.picture.value);
+        preview!.innerHTML = '';
+        preview!.appendChild(previewImg);
+    }
     
-    public isDrag: boolean = false;
     public drag() {
         this.isDrag = true;
     }
 
     public drop() {
         this.isDrag = false;
+    }
+
+    public toggleUploadImageType(): void {
+        this.isUploadImageSelected = !this.isUploadImageSelected;
+        
+        this.form.patchValue({
+            picture: null
+        });
+
+        this.preview.nativeElement.innerHTML = null;
     }
 
     // Convenience getters for easy access to form controls

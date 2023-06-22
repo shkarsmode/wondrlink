@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -10,7 +11,8 @@ const Materials = [
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatButtonModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatChipsModule
 ];
 
 @NgModule({

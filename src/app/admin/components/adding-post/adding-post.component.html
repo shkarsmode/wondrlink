@@ -8,14 +8,20 @@
 		<div class="card">
 			<div class="title">Header</div>
 			<div class="content">
-				<input type="text" formControlName="header">
+				<input 
+					type="text" 
+					formControlName="header"
+					placeholder="Cancer rules rewritten by air-pollution discovery">
 			</div>
 		</div>
 
 		<div class="card">
 			<div class="title">Subheader</div>
 			<div class="content">
-				<input type="text" formControlName="subHeader">
+				<input 
+					type="text" 
+					formControlName="subHeader"
+					placeholder="Researchers say they have cracked how air pollution leads to cancer, in a discovery that completely...">
 			</div>
 		</div>
 	</div>
@@ -23,7 +29,19 @@
 	<div class="card">
 		<div class="title">Main picture</div>
 		<div class="content">
-			<div class="uploadOuter">
+			<mat-chip-listbox aria-label="Upload image" >
+				<mat-chip-option 
+					(click)="toggleUploadImageType()"
+					[selected]="isUploadImageSelected">
+					Upload image
+				</mat-chip-option>
+				<mat-chip-option 
+					(click)="toggleUploadImageType()"
+					[selected]="!isUploadImageSelected">
+					Image by url
+				</mat-chip-option>
+			</mat-chip-listbox>
+			<div class="uploadOuter" *ngIf="isUploadImageSelected">
 				<label for="uploadFile">
 					Upload Image
 				</label>
@@ -38,6 +56,21 @@
 						(drop)="drop()"
 						accept="image/png, image/gif, image/jpeg" id="uploadFile" />
 				</span>
+			</div>
+			<div class="upload-by-url" *ngIf="!isUploadImageSelected">
+				<input 
+					type="text" 
+					formControlName="picture"
+					placeholder="https://picsum.photos/200/300.jpg">
+				<button 
+					[disabled]="picture.invalid"
+					mat-stroked-button 
+					(click)="handleUrlImage()">
+					Preview Image
+					<span class="material-symbols-outlined">
+						preview
+					</span>
+				</button>
 			</div>
 			<div id="preview" #preview></div>
 		</div>
