@@ -17,7 +17,9 @@ export class ImageProloaderService {
         'about-us.png',
         'care.png',
         'commitment.png',
-        
+        'heart.png',
+        'telescope.png',
+        'union.png'
     ];
     private loadedLenght: number = 0;
 
