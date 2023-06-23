@@ -47,7 +47,12 @@
 					Share this post
 				</div>
 				<div class="right">
-					<div class="block" (click)="copyCurrentPost()">
+					<div 
+						class="block"
+						[title]="post.header"
+						[description]="post.header"
+						tags="WondrLink" 
+						shareButton="copy" (click)="copyCurrentPost()">
 						<ng-template [ngIf]="!isCopied">
 							<span class="material-symbols-outlined" *ngIf="!isCopied">
 								file_copy

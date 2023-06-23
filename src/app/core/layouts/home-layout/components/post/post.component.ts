@@ -30,9 +30,8 @@ export class PostComponent implements OnInit {
 
     public async copyCurrentPost() {
         this.isCopied = true;
-        const currentUrl = window.location.href;
-        this.clipboard.copy(currentUrl);
-
+        // const currentUrl = window.location.href;
+        // this.clipboard.copy(currentUrl);
         await new Promise(resolve => setTimeout(resolve, 2000));
         
         this.isCopied = false;
