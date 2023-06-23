@@ -29,7 +29,8 @@
 			<div class="left-side">
 				<div class="group">
 					<label for="firstName">Patient name</label>
-					<input 
+					<input 		
+						tabindex="1"
 						type="text" required
 						placeholder="First"
 						id="firstName" name="firstName"
@@ -38,6 +39,7 @@
 				<div class="group">
 					<label for="phone">Phone</label>
 					<input 
+						tabindex="3"
 						type="tel" required
 						placeholder="+1 212 001 002"
 						id="phone" name="phone"
@@ -46,6 +48,7 @@
 				<div class="group">
 					<label for="location">Location</label>
 					<input 
+						tabindex="5"
 						type="text" required
 						placeholder="Miami, FL"
 						id="location" name="location"
@@ -56,6 +59,7 @@
 				<div class="group">
 					<label for="lastName" style="opacity: 0">Patient Name</label>
 					<input 
+						tabindex="2"
 						type="text" required
 						placeholder="Last"
 						id="lastName" name="lastName"
@@ -64,6 +68,7 @@
 				<div class="group">
 					<label for="email">Email</label>
 					<input 
+						tabindex="4"
 						type="text" required
 						placeholder="name@email.com"
 						id="email" name="email"
@@ -72,6 +77,7 @@
 				<div class="group">
 					<label for="password">Password</label>
 					<input 
+						tabindex="6"
 						required
 						[type]="isShowPassword ? 'text' : 'password'" 
 						id="password" name="password"
@@ -98,7 +104,12 @@
 		</div>
 
 		<div class="group-checkbox">
-			<input type="checkbox" name="remember" id="remember" [(ngModel)]="isAgreeTerms">
+			<input 
+				tabindex="7" 
+				type="checkbox" 
+				name="remember" 
+				id="remember" 
+				[(ngModel)]="isAgreeTerms">
 			<label for="remember">I understand the terms and privacy policy</label>
 		</div>
 
@@ -131,6 +142,7 @@
 				<div class="group">
 					<label for="firstName">Name</label>
 					<input 
+						tabindex="1"
 						type="text" required
 						placeholder="First"
 						id="firstName" name="firstName"
@@ -139,6 +151,7 @@
 				<div class="group">
 					<label for="phone">Phone</label>
 					<input 
+						tabindex="3"
 						type="tel" required
 						placeholder="+1 212 001 002"
 						id="phone" name="phone"
@@ -147,6 +160,7 @@
 				<div class="group">
 					<label for="hospital">Hospital name</label>
 					<input 
+						tabindex="5"
 						type="text" required
 						placeholder="Hospital/clinic name"
 						id="hospital" name="hospital"
@@ -155,6 +169,7 @@
 				<div class="group">
 					<label for="password">Password</label>
 					<input 
+						tabindex="7"
 						required
 						[type]="isShowPassword ? 'text' : 'password'" 
 						id="password" name="password"
@@ -181,6 +196,7 @@
 				<div class="group">
 					<label for="lastName" style="opacity: 0">Patient Name</label>
 					<input 
+						tabindex="2"
 						type="text" required
 						placeholder="Last"
 						id="lastName" name="lastName"
@@ -189,6 +205,7 @@
 				<div class="group">
 					<label for="email">Email</label>
 					<input 
+						tabindex="4"
 						type="email" required
 						placeholder="name@email.com"
 						id="email" name="email"
@@ -197,6 +214,7 @@
 				<div class="group">
 					<label for="location">Location</label>
 					<input 
+						tabindex="6"
 						type="text" required
 						placeholder="Miami, FL"
 						id="location" name="location"
@@ -243,6 +261,7 @@
 				<div class="group">
 					<label for="firstName">Name</label>
 					<input 
+						tabindex="1"
 						type="text" required
 						placeholder="First"
 						id="firstName" name="firstName"
@@ -250,7 +269,8 @@
 				</div>
 				<div class="group">
 					<label for="phone">Phone</label>
-					<input 
+					<input
+						tabindex="3" 
 						type="tel" required
 						placeholder="+1 212 001 002"
 						id="phone" name="phone"
@@ -259,6 +279,7 @@
 				<div class="group">
 					<label for="company">Company name</label>
 					<input 
+						tabindex="5"
 						type="text" required
 						placeholder="Company/institute name"
 						id="company" name="company"
@@ -266,7 +287,8 @@
 				</div>
 				<div class="group">
 					<label for="password">Password</label>
-					<input 
+					<input
+						tabindex="7"
 						required
 						[type]="isShowPassword ? 'text' : 'password'" 
 						id="password" name="password"
@@ -294,6 +316,7 @@
 				<div class="group">
 					<label for="lastName" style="opacity: 0">Patient Name</label>
 					<input 
+						tabindex="2"
 						type="text" required
 						placeholder="Last"
 						id="lastName" name="lastName"
@@ -302,6 +325,7 @@
 				<div class="group">
 					<label for="email">Email</label>
 					<input 
+						tabindex="4"
 						type="email" required
 						placeholder="name@email.com"
 						id="email" name="email"
@@ -310,6 +334,7 @@
 				<div class="group">
 					<label for="location">Location</label>
 					<input 
+						tabindex="6"
 						type="text" required
 						placeholder="Miami, FL"
 						id="location" name="location"
