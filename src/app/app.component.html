@@ -1,4 +1,11 @@
 <router-outlet></router-outlet>
+<div class="preloader" [ngClass]="{'show': (loading$ | async)}">
+	<div>
+		<img src="assets/img/Vector.png" alt="logo">
+		<h1>WondrLink</h1>
+		<h2>fighting together</h2>
+	</div>
+</div>
 <img hidden *ngFor="let img of imgs;" [src]="img" (load)="loadedImg()" />
 
 <!-- 

@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IInfo } from 'src/app/shared/interfaces/IInfo';
+import { ArticleService } from '../../../shared/services/article-service.service';
 
 @Component({
     selector: 'app-article-layout',
@@ -11,13 +11,13 @@ import { IInfo } from 'src/app/shared/interfaces/IInfo';
 export class ArticleLayoutComponent implements OnInit {
 
     public articleId: string;
-    public info: IInfo[];
+    
     public currentInfo: IInfo;
     public statusForm: 'Patient' | 'Physician' | 'Industry' = 'Patient';
 
     constructor(
         private route: ActivatedRoute,
-        private http: HttpClient
+        private articleService: ArticleService
     ) {}
 
     public ngOnInit(): void {
@@ -34,18 +34,11 @@ export class ArticleLayoutComponent implements OnInit {
 
     private getArticleById(): void {
         if (!this.articleId) return;
-
-        this.http.get('assets/data/info.json')
-            .subscribe((info: any) => {
-                this.info = info.data;
-                this.getCurrentArticle();
-            });
+        this.getCurrentArticle();
     }
 
     private getCurrentArticle(): void {
-        this.currentInfo = this.info.filter(info => 
-            info.header.toLowerCase() === this.articleId.toLowerCase()
-        )[0];
+        this.currentInfo = this.articleService.getCurrentArticle(this.articleId);
         this.determineStatusForForm();
     }
 
@@ -53,7 +46,7 @@ export class ArticleLayoutComponent implements OnInit {
         const header = this.currentInfo.header;
         if (header.indexOf('Physicians') === 0) {
             this.statusForm = 'Physician';
-        }else if (header.indexOf('Patients') === 0) {
+        } else if (header.indexOf('Patients') === 0) {
             this.statusForm = 'Patient';
         } else if (header.indexOf('Industry') === 0) {
             this.statusForm = 'Industry';

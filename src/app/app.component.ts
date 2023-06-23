@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ArticleService } from './shared/services/article-service.service';
 import { ImageProloaderService } from './shared/services/image-proloader.service';
+import { LoadingService } from './shared/services/loading-service.service';
 import { ScrollToService } from './shared/utils/scroll-to.service';
 
 @Component({
@@ -9,13 +12,21 @@ import { ScrollToService } from './shared/utils/scroll-to.service';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+
+    public loading$: Observable<boolean>;
+
     constructor(
         private router: Router,
         private scrollToService: ScrollToService,
-        private imageProloaderService: ImageProloaderService
-    ) {}
+        private imageProloaderService: ImageProloaderService,
+        private loadingService: LoadingService,
+        private articleService: ArticleService
+    ) {
+        this.loading$ = loadingService.loading$;
+    }
 
     public ngOnInit(): void {
+        this.initAllArticles();
         this.listenRoutesTransition();
         this.preloadAllBGImages();
     }
@@ -27,15 +38,20 @@ export class AppComponent implements OnInit {
                 this.scrollToService.scrollToTop();
             }
         });
-        
+    }
+
+    private initAllArticles(): void {
+        this.articleService.setAllArticles();
     }
 
     public imgs: string[] | null;
     private preloadAllBGImages(): void {
+        this.loadingService.start();
         this.imgs = this.imageProloaderService.getAllBGImagesPath();
     }
 
     public loadedImg(): void {
-        this.imageProloaderService.loaded();
+        const isLoaded = this.imageProloaderService.isloadedAll();
+        if (isLoaded) this.loadingService.end();
     }
 }

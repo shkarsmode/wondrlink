@@ -12,17 +12,24 @@ export class ImageProloaderService {
         'Industry.png', 
         'Patients.png',
         'Physicians.png',
-        'providers.png'
+        'providers.png',
+        'Vector.png',
+        'about-us.png',
+        'care.png',
+        'commitment.png',
+        
     ];
     private loadedLenght: number = 0;
 
     constructor() { }
 
-    public loaded(): void {
+    public isloadedAll(): boolean {
         this.loadedLenght++;
         if (this.images.length === this.loadedLenght){
-            console.log('loaded');
+            return true;
         }
+
+        return false;
     }
 
     public getAllBGImagesPath(): string[] {
