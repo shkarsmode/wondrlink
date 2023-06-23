@@ -1,6 +1,7 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
 import { IPost } from 'src/app/shared/interfaces/IPost';
@@ -21,11 +22,19 @@ export class PostComponent implements OnInit {
         private router: Router,
         private postsService: PostsService,
         private location: Location,
-        private clipboard: Clipboard
+        private clipboard: Clipboard,
+        private meta: Meta, private title: Title
     ) {}
 
     public ngOnInit(): void {
         this.listenPostIdFromRoute();
+        this.title.setTitle('contenttitle1234');
+
+        this.meta.updateTag({ property: 'twitter:card', content: 'summary_large_image' });
+        this.meta.updateTag({ property: 'twitter:site', content: 'WondrLink' });
+        this.meta.updateTag({ property: 'twitter:title', content: 'asdfasdf' });
+        this.meta.updateTag({ property: 'twitter:description', content: 'dessadfasdf' });
+        this.meta.updateTag({ property: 'twitter:image:src', content: 'https://dynaimage.cdn.cnn.com/cnn/digital-images/org/1585ce23-16c0-4db4-b3a2-8d5d6efa8f89.jpg' });
     }
 
     public async copyCurrentPost() {
