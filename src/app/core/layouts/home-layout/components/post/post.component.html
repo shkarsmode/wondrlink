@@ -1,4 +1,5 @@
 <div class="wrap">
+	<!-- * Main content -->
 	<div class="content" *ngIf="post">
 		<div class="top" (click)="goBack()">
 			<span 
@@ -67,16 +68,38 @@
 					<!-- <button shareButton2="facebook">Share</button>
 					<button shareButton2="twitter">Tweet</button>
 					<button shareButton2="pinterest">Pin</button> -->
-					<img src="assets/socials/inst.png" alt="inst">
-					<img src="assets/socials/twitter.png" alt="twitter">
-					<img src="assets/socials/fb.png" alt="fb">
-					<img src="assets/socials/linkedin.png" alt="linkedin">
+					<img 
+						[title]="post.header"
+						shareButton="email"
+						src="assets/socials/inst.png" 
+						alt="inst">
+					<img 
+						shareButton="twitter"
+						[title]="post.header"
+						[image]="post.mainPicture"
+						tags="WondrLink"
+						src="assets/socials/twitter.png" 
+						alt="twitter" >
+					<img 
+						shareButton="facebook" 
+						[title]="post.header"
+						[image]="post.mainPicture"
+						src="assets/socials/fb.png" 
+						alt="fb" >
+					<img 
+						src="assets/socials/linkedin.png" 
+						alt="linkedin" 
+						shareButton="linkedin"
+						[image]="post.mainPicture"
+						[description]="post.header">
 				</div>
 			</div>
 		</div>
 		<!-- <quill-editor [(ngModel)]="html"></quill-editor> -->
 	</div>
+	<!-- * End content -->
 
+	<!-- * Placeholder for Loading  -->
 	<div class="content loading" *ngIf="!post">
 		<div class="top">
 			<span 
@@ -145,7 +168,7 @@
 					<button shareButton2="twitter">Tweet</button>
 					<button shareButton2="pinterest">Pin</button> -->
 					<img src="assets/socials/inst.png" alt="inst">
-					<img src="assets/socials/twitter.png" alt="twitter">
+					<img src="assets/socials/twitter.png" alt="twitter" >
 					<img src="assets/socials/fb.png" alt="fb">
 					<img src="assets/socials/linkedin.png" alt="linkedin">
 				</div>
@@ -153,4 +176,5 @@
 		</div>
 		<!-- <quill-editor [(ngModel)]="html"></quill-editor> -->
 	</div>
+	<!-- * END Placeholder for Loading  -->
 </div>

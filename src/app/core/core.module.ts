@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
+import { ShareModule } from 'ngx-sharebuttons';
 import { MaterialModule } from '../shared/materials/material.module';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -61,7 +62,8 @@ import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component
         QuillModule.forRoot(),
         FormsModule,
         ReactiveFormsModule,
-        ClipboardModule
+        ClipboardModule,
+        ShareModule
     ],
     exports: [QuillModule],
     bootstrap: [CoreComponent],
