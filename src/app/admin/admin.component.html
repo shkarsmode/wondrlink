@@ -91,7 +91,7 @@
 						</div>
 					</li>
 					<li 
-						class="c-menu__item has-submenu"
+						class="c-menu__item"
 						routerLink="/admin/posts" 
 						routerLinkActive="is-active" 
 						data-toggle="tooltip" 
@@ -102,14 +102,27 @@
 							<span class="material-symbols-outlined">
 								toc
 							</span>
-							<div class="c-menu-item__title"><span>Posts</span></div>
-							<div class="c-menu-item__expand js-expand-submenu"><i class="fa fa-angle-down"></i></div>
+							<div class="c-menu-item__title">
+								<span>Posts</span>
+							</div>
 						</div>
-						<ul class="c-menu__submenu u-list">
-							<li>Payments</li>
-							<li>Maps</li>
-							<li>Notifications</li>
-						</ul>
+					</li>
+					<li 
+						class="c-menu__item"
+						routerLink="/admin/users" 
+						routerLinkActive="is-active" 
+						data-toggle="tooltip" 
+						matTooltip="Users database"
+						matTooltipShowDelay="400"
+						matTooltipPosition="right">
+						<div class="c-menu__item__inner">
+							<span class="material-symbols-outlined">
+								group
+							</span>
+							<div class="c-menu-item__title">
+								<span>Users</span>
+							</div>
+						</div>
 					</li>
 					<!-- <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Statistics">
 						<div class="c-menu__item__inner"><i class="far fa-chart-bar"></i>

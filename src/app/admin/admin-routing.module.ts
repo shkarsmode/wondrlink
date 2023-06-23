@@ -13,6 +13,7 @@ const routes: Routes = [
       { path: 'new-post', component: AddingPostComponent },
       { path: 'edit-post/:id', component: EditPostComponent },
       { path: 'posts', component: PostsComponent },
+      // { path: 'users', component: UsersComponent },
       { path: 'settings', component: SettingsComponent }
     ],
   }

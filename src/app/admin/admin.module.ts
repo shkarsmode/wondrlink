@@ -9,6 +9,7 @@ import { AddingPostComponent } from './components/adding-post/adding-post.compon
 import { PostsComponent } from './components/posts/posts.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { EditPostComponent } from './components/edit-post/edit-post.component';
+import { UsersComponent } from './components/users/users.component';
 
 
 
@@ -18,7 +19,8 @@ import { EditPostComponent } from './components/edit-post/edit-post.component';
         AddingPostComponent,
         PostsComponent,
         SettingsComponent,
-        EditPostComponent
+        EditPostComponent,
+        UsersComponent
     ],
     imports: [
         CommonModule,

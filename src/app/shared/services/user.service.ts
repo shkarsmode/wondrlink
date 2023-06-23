@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IUser } from 'src/app/shared/interfaces/IUser';
+import { UserTypeEnum } from '../interfaces/UserTypeEnum';
+import { UsersResponseDto } from '../interfaces/UsersResponse.dto';
 import { BASE_PATH_API } from './variables';
 
 @Injectable({
@@ -29,6 +31,19 @@ export class UserService {
                 userId,
                 avatarUrl
             }
+        );
+    }
+
+    public getUserWithPagination(
+        limit: number,
+        page: number,
+        type: UserTypeEnum | null = null
+    ): Observable<UsersResponseDto> {
+        let query = `limit=${limit}&page=${page}`;
+        if (type) query += `&type=${type}`
+        
+        return this.http.get<UsersResponseDto>(
+            `${this.basePathApi}/${this.userPath}/all?${query}`
         );
     }
 }

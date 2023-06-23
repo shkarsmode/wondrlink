@@ -1,4 +1,5 @@
 import { UserRoleEnum } from "./UserRoleEnum";
+import { UserTypeEnum } from "./UserTypeEnum";
 
 export interface IUser {
 	readonly id: number;
@@ -12,4 +13,6 @@ export interface IUser {
 	readonly companyName: string;
 	readonly location: string;
 	readonly avatar: string;
+	readonly type: UserTypeEnum;
+	readonly status: string;
 }
