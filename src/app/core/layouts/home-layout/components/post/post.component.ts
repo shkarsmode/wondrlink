@@ -24,17 +24,41 @@ export class PostComponent implements OnInit {
         private location: Location,
         private clipboard: Clipboard,
         private meta: Meta, private title: Title
-    ) {}
+    ) {
+        this.setTwitterCardTags('Title', 'Description', 'http://res.cloudinary.com/dtuz6x3n7/image/upload/v1687193432/kjp6lnvwaijlt3qqlwcn.webp')
+    }
 
     public ngOnInit(): void {
         this.listenPostIdFromRoute();
-        this.title.setTitle('contenttitle1234');
+        // this.title.setTitle('contenttitle1234');
 
-        this.meta.updateTag({ property: 'twitter:card', content: 'summary_large_image' });
-        this.meta.updateTag({ property: 'twitter:site', content: 'WondrLink' });
-        this.meta.updateTag({ property: 'twitter:title', content: 'asdfasdf' });
-        this.meta.updateTag({ property: 'twitter:description', content: 'dessadfasdf' });
-        this.meta.updateTag({ property: 'twitter:image:src', content: 'https://dynaimage.cdn.cnn.com/cnn/digital-images/org/1585ce23-16c0-4db4-b3a2-8d5d6efa8f89.jpg' });
+        // this.meta.updateTag({ property: 'twitter:card', content: 'summary_large_image' });
+        // this.meta.updateTag({ property: 'twitter:site', content: 'WondrLink' });
+        // this.meta.updateTag({ property: 'twitter:title', content: 'asdfasdf' });
+        // this.meta.updateTag({ property: 'twitter:description', content: 'dessadfasdf' });
+        // this.meta.updateTag({ property: 'twitter:image:src', content: 'https://dynaimage.cdn.cnn.com/cnn/digital-images/org/1585ce23-16c0-4db4-b3a2-8d5d6efa8f89.jpg' });
+    }
+
+    setTwitterCardTags(title: string, description: string, imageUrl: string) {
+        const metaTags = [
+            { property: 'twitter:card', content: 'summary_large_image' },
+            { property: 'twitter:site', content: 'WondrLink' },
+            { property: 'twitter:title', content: title },
+            { property: 'twitter:description', content: description },
+            { property: 'twitter:image:src', content: imageUrl }
+        ];
+    
+        metaTags.forEach(tag => {
+            const existingTag = document.querySelector(`meta[property="${tag.property}"]`);
+            if (existingTag) {
+                existingTag.setAttribute('content', tag.content);
+            } else {
+            const newTag = document.createElement('meta');
+            newTag.setAttribute('property', tag.property);
+            newTag.setAttribute('content', tag.content);
+            document.head.appendChild(newTag);
+            }
+        });
     }
 
     public async copyCurrentPost() {
