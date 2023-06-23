@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { ImageProloaderService } from './shared/services/image-proloader.service';
 import { ScrollToService } from './shared/utils/scroll-to.service';
 
 @Component({
@@ -10,11 +11,13 @@ import { ScrollToService } from './shared/utils/scroll-to.service';
 export class AppComponent implements OnInit {
     constructor(
         private router: Router,
-        private scrollToService: ScrollToService
+        private scrollToService: ScrollToService,
+        private imageProloaderService: ImageProloaderService
     ) {}
 
     public ngOnInit(): void {
         this.listenRoutesTransition();
+        this.preloadAllBGImages();
     }
 
     private async listenRoutesTransition(): Promise<void> {
@@ -25,5 +28,14 @@ export class AppComponent implements OnInit {
             }
         });
         
+    }
+
+    public imgs: string[] | null;
+    private preloadAllBGImages(): void {
+        this.imgs = this.imageProloaderService.getAllBGImagesPath();
+    }
+
+    public loadedImg(): void {
+        this.imageProloaderService.loaded();
     }
 }
