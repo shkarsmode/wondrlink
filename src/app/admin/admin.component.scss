@@ -105,6 +105,11 @@ h3 {
 	font-size: 18px;
 }
 
+.swing {
+	transition: all .4s;
+	opacity: 1;
+}
+
 .u-list {
 	margin: 0;
 	padding: 0;
@@ -270,7 +275,7 @@ h3 {
 			left: 0px;
 			top: 0px;
 			width: 100%;
-			height: 80px;
+			height: 58px;
 			backdrop-filter: blur(3px);
 			opacity: 0;
 			pointer-events: none;
@@ -279,6 +284,10 @@ h3 {
 
 		&.loading-avatar:after {
 			opacity: 1;
+		}
+
+		&.loading-avatar .swing {
+			opacity: 0;
 		}
 
 		img {
