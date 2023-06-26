@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { take } from 'rxjs';
 import { IUser } from 'src/app/shared/interfaces/IUser';
 import { UserTypeEnum } from 'src/app/shared/interfaces/UserTypeEnum';
 import { UserService } from '../../../shared/services/user.service';
@@ -12,7 +13,8 @@ export class UsersComponent {
 
     public users: IUser[];
     public allUsersCount: number;
-    public isLoading: boolean = false;
+    public isLoading: boolean = true;
+    public isLoadingMore: boolean = false;
     public pagesCount: number;
     public sortBy: UserTypeEnum | string = 'all';
     public userTypeEnum: typeof UserTypeEnum = UserTypeEnum;
@@ -43,7 +45,7 @@ export class UsersComponent {
     }
 
     public getUsers(isAddToExciting: boolean = false): void {
-        this.isLoading = true;
+        this.isLoading = !this.isLoadingMore ? true : false;
         const sortBy = (this.sortBy === 'all' ? null : this.sortBy) as UserTypeEnum;
         
         this.userService.getUserWithPagination(this.limit, this.page, sortBy)
@@ -57,7 +59,8 @@ export class UsersComponent {
                 this.allUsersCount = response.allUsersCount;
                 
                 this.setPagesCount();
-                this.isLoading = true;
+                this.isLoading = false;
+                this.isLoadingMore = false;
             });
     }
 
@@ -72,40 +75,39 @@ export class UsersComponent {
     }
 
     public onButtonMoreClick(): void {
+        this.isLoadingMore = true;
         this.page++;
         this.getUsers(true);
     }
 
     private deleteUserByID(id: number): void {
         
-        return;
-        const postToDelete = this.users.filter(user => user.id === id)[0];
-        const indexPostToDelete = this.users.indexOf(postToDelete);
+        const userToDelete = this.users.filter(user => user.id === id)[0];
+        const indexUserToDelete = this.users.indexOf(userToDelete);
         this.users = this.users.filter(user => user.id !== id);
 
-        // this.userService.deleteUserById(id)
-        //     .pipe(take(1))
-        //     .subscribe({
-        //         next: _ => {
-        //             const tempLimit = this.limit;
-        //             const tempPage = this.page;
+        this.userService.deleteUserById(id)
+            .pipe(take(1))
+            .subscribe({
+                next: _ => {
+                    const tempLimit = this.limit;
+                    const tempPage = this.page;
 
-        //             this.limit = 1;
-        //             this.page = this.users.length;
+                    this.limit = 1;
+                    this.page = this.users.length;
 
-        //             this.getPosts(true);
+                    this.isLoadingMore = true;
+                    this.getUsers(true);
 
-        //             this.limit = tempLimit;
-        //             this.page = tempPage;
+                    this.limit = tempLimit;
+                    this.page = tempPage;
 
-
-        //             console.log('Post was deleted')
-        //         },
-        //         error: _ => {
-        //             this.users.splice(indexPostToDelete, 0, postToDelete);
-        //             alert(`Something went wrong. Can't delete this user ${indexPostToDelete + 1}`);
-        //         }
-        //     });
+                },
+                error: _ => {
+                    this.users.splice(indexUserToDelete, 0, userToDelete);
+                    alert(`Something went wrong. Can't delete this user ${indexUserToDelete + 1}`);
+                }
+            });
     }
 
     public startDeleteTimeout(index: number): void {

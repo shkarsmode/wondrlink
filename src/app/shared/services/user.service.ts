@@ -35,6 +35,12 @@ export class UserService {
         );
     }
 
+    public deleteUserById(userId: number): Observable<{ affected: number }> {
+        return this.http.delete<{ affected: number }>(
+            `${this.basePathApi}/${this.userPath}/${userId}`
+        );
+    }
+
     public getUserWithPagination(
         limit: number,
         page: number,

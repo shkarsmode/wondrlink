@@ -214,6 +214,26 @@ td {
 	}
 }
 
+.loading {
+	border: 3px solid white;
+	animation: loading-tr 2s linear infinite;
+	margin-bottom: 2px;
+}
+
+@keyframes loading-tr {
+	0% {
+		background-color: #ececec;
+	}
+
+	50% {
+		background-color: #ffffff;
+	}
+
+	100% {
+		background-color: #ececec;
+	}
+}
+
 :host ::ng-deep {
 	.mdc-text-field--filled:not(.mdc-text-field--disabled) {
 		background-color: transparent !important;
