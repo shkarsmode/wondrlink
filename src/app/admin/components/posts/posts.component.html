@@ -3,7 +3,7 @@
 <div class="card">
 	<div class="title">Last posts</div>
 	<div class="content">
-		<table *ngIf="posts">
+		<table>
 			<tr>
 				<th>№</th>
 				<th>Post name</th>
@@ -11,39 +11,51 @@
 				<th>User name</th>
 				<th>Actions</th>
 			</tr>
-			<tr *ngFor="let post of posts; index as i">
-				<td>
-					{{ i + 1 }}
-				</td>
-				<td 
-					[matTooltip]="post.header"
-					matTooltipShowDelay="300">
-					{{ post.header }}
-				</td>
-				<td class="creation-date">
-					{{ post.createdAt | date:'MMM dd, yyyy HH:mm' }}
-				</td>
-				<td>
-					{{ post.user?.firstName }} {{ post.user?.lastName }}
-				</td>
-				<td class="wrap-buttons">
-					<button mat-stroked-button routerLink="/admin/edit-post/{{post.id}}">
-						Edit
-					</button>
-					<button 
-						(mousedown)="startDeleteTimeout(post.id!)"
-						(mouseup)="clearDeleteTimeout()"
-						(mouseout)="clearDeleteTimeout()"
-						[ngClass]="{'deleting': isDeleting && activeDeletingIndex === post.id!}"
-						mat-fab color="warn" 
-						matTooltip="Press to delete"
+
+			<ng-template [ngIf]="!isLoading">
+				<tr *ngFor="let post of posts; index as i">
+					<td>
+						{{ i + 1 }}
+					</td>
+					<td 
+						[matTooltip]="post.header"
 						matTooltipShowDelay="300">
-						<span class="material-symbols-outlined">
-							delete
-						</span>
-					</button>
-				</td>
-			</tr>
+						{{ post.header }}
+					</td>
+					<td class="creation-date">
+						{{ post.createdAt | date:'MMM dd, yyyy HH:mm' }}
+					</td>
+					<td>
+						{{ post.user?.firstName }} {{ post.user?.lastName }}
+					</td>
+					<td class="wrap-buttons">
+						<button mat-stroked-button routerLink="/admin/edit-post/{{post.id}}">
+							Edit
+						</button>
+						<button 
+							(mousedown)="startDeleteTimeout(post.id!)"
+							(mouseup)="clearDeleteTimeout()"
+							(mouseout)="clearDeleteTimeout()"
+							[ngClass]="{'deleting': isDeleting && activeDeletingIndex === post.id!}"
+							mat-fab color="warn" 
+							matTooltip="Press to delete"
+							matTooltipShowDelay="300">
+							<span class="material-symbols-outlined">
+								delete
+							</span>
+						</button>
+					</td>
+				</tr>
+			</ng-template>
+
+			<ng-template [ngIf]="isLoading || isLoadingMore">
+				<tr class="loading" *ngFor="let i of [1, 2, 3, 4, 5, 6, 7]">
+					<td 
+						*ngFor="let tdClass of ['', '', 'creation-date', '', 'wrap-buttons']"
+						[class]="tdClass">
+					</td>
+				</tr>
+			</ng-template>
 		</table>
 	</div>
 </div>
