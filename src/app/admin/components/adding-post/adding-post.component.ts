@@ -4,6 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { ImageUrlResponseDto } from 'src/app/shared/interfaces/imageUrlResponse.dto';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { PostsService } from 'src/app/shared/services/posts.service';
+import { UserService } from 'src/app/shared/services/user.service';
 import { CloudinaryService } from '../../../shared/services/cloudinary.service';
 
 @Component({
@@ -26,7 +27,8 @@ export class AddingPostComponent implements OnInit {
         private cloudinaryService: CloudinaryService,
         private postsService: PostsService,
         private authService: AuthService,
-        private jwt: JwtHelperService
+        private jwt: JwtHelperService,
+        private userService: UserService
     ) {}
 
     public ngOnInit(): void {
@@ -101,6 +103,9 @@ export class AddingPostComponent implements OnInit {
                 this.isLoading = false;
                 this.form.reset();
                 this.preview.nativeElement.innerHTML = null;
+
+                this.userService.profileUpdated$.next(true);
+
             });
     }
 

@@ -4,6 +4,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 const Materials = [
@@ -12,7 +13,8 @@ const Materials = [
     MatProgressSpinnerModule,
     MatButtonModule,
     MatTooltipModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSelectModule
 ];
 
 @NgModule({

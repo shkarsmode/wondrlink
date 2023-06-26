@@ -1,5 +1,6 @@
 export enum UserTypeEnum {
 	Patient = 'Patient',
 	Physician = 'Physician',
-	Industry = 'Industry'
+	Industry = 'Industry',
+	None = 'none'
 }

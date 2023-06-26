@@ -262,6 +262,24 @@ h3 {
 		width: fit-content;
 		padding: 0 10px;
 		font-weight: 500;
+		position: relative;
+
+		&:after {
+			content: '';
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			width: 100%;
+			height: 80px;
+			backdrop-filter: blur(3px);
+			opacity: 0;
+			pointer-events: none;
+			transition: all .4s;
+		}
+
+		&.loading-avatar:after {
+			opacity: 1;
+		}
 
 		img {
 			width: 40px;

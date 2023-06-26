@@ -1,7 +1,34 @@
 <h1>Users Database</h1>
 
 <div class="card">
-	<div class="title">Last users</div>
+	<div class="title">
+		<div>Last users</div>
+		<div>
+			<mat-form-field 
+				matTooltip="Choice will be remembered"
+				matTooltipShowDelay="400"
+				matTooltipPosition="above">
+				<mat-label>Sorty by</mat-label>
+				<mat-select
+					(selectionChange)="onSelectionChange()" 
+					[(value)]="sortBy">
+					<mat-option value="all">All</mat-option>
+					<mat-option 
+						[value]="userTypeEnum.Patient">
+						Patients
+					</mat-option>
+					<mat-option 
+						[value]="userTypeEnum.Industry">
+						Industries
+					</mat-option>
+					<mat-option 
+						[value]="userTypeEnum.Physician">
+						Physicians
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+	</div>
 	<div class="content">
 		<table *ngIf="users">
 			<tr>

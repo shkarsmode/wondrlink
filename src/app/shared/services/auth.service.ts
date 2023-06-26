@@ -86,7 +86,7 @@ export class AuthService {
         return this.http.get(`${this.authPathApi}/approve?token=${token}`);
     }
 
-    private getUserIdFromToken(token: string): number | null {
+    public getUserIdFromToken(token: string): number | null {
         try {
             const decodedToken = this.jwt.decodeToken(token);
             const id = decodedToken?.id;

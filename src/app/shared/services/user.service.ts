@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { IUser } from 'src/app/shared/interfaces/IUser';
 import { UserTypeEnum } from '../interfaces/UserTypeEnum';
 import { UsersResponseDto } from '../interfaces/UsersResponse.dto';
@@ -11,6 +11,7 @@ import { BASE_PATH_API } from './variables';
 })
 export class UserService {
 
+    public profileUpdated$: Subject<boolean> = new Subject();
     private readonly userPath: string = 'users';
 
     constructor(
@@ -44,6 +45,19 @@ export class UserService {
         
         return this.http.get<UsersResponseDto>(
             `${this.basePathApi}/${this.userPath}/all?${query}`
+        );
+    }
+
+    public getUserById(id: number): Observable<IUser> {
+        return this.http.get<IUser>(
+            `${this.basePathApi}/${this.userPath}/${id}`
+        );
+    }
+
+    public updateUserById(id: number, body: IUser): Observable<{ affected: number }> {
+        return this.http.put<{ affected: number }>(
+            `${this.basePathApi}/${this.userPath}/${id}`,
+            body
         );
     }
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
 import { IPost } from 'src/app/shared/interfaces/IPost';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { PostsService } from 'src/app/shared/services/posts.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
     selector: 'app-posts',
@@ -22,7 +24,9 @@ export class PostsComponent implements OnInit {
     public activeDeletingIndex: number = -1;
 
     constructor(
-        private postsService: PostsService
+        private postsService: PostsService,
+        private authService: AuthService,
+        private userService: UserService
     ) {}
 
     public ngOnInit(): void {
@@ -78,7 +82,9 @@ export class PostsComponent implements OnInit {
     private deletePostByID(id: number): void {
         const postToDelete = this.posts.filter(post => post.id === id)[0];
         const indexPostToDelete = this.posts.indexOf(postToDelete);
+
         this.posts = this.posts.filter(post => post.id !== id);
+        
 
         this.postsService.deletePostById(id)
             .pipe(take(1))
@@ -95,6 +101,11 @@ export class PostsComponent implements OnInit {
                     this.limit = tempLimit;
                     this.page = tempPage;
 
+                    const token = localStorage.getItem('token') as string;
+                    const myId = this.authService.getUserIdFromToken(token);
+                    if (myId === postToDelete.user?.id) {
+                        this.userService.profileUpdated$.next(true);
+                    }
 
                     console.log('Post was deleted')
                 },

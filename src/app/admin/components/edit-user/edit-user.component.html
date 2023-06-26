@@ -1,0 +1,212 @@
+<h1>Update user</h1>
+
+<form 
+	*ngIf="user"
+	[formGroup]="form" 
+	(ngSubmit)="updateUser()" 
+	[ngClass]="{'loading': isLoading}">
+
+	<div class="d-flex">
+		<div class="wrap-column">
+			<div class="d-flex">
+				<div class="card">
+					<div class="title">First name</div>
+					<div class="content">
+						<input type="text" formControlName="firstName">
+					</div>
+				</div>
+	
+				<div class="card">
+					<div class="title">Last Name</div>
+					<div class="content">
+						<input type="text" formControlName="lastName">
+					</div>
+				</div>
+			</div>
+			
+			<div class="card">
+				<div class="title">Email</div>
+				<div class="content">
+					<input type="text" formControlName="email">
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="title">Phone</div>
+				<div class="content">
+					<input type="text" formControlName="phone">
+				</div>
+			</div>
+		</div>
+
+		<div class="card not-required">
+			<div class="title">Avatar</div>
+			<div class="content">
+				<mat-chip-listbox aria-label="Upload image" >
+					<mat-chip-option 
+						(click)="toggleUploadImageType()"
+						[selected]="isUploadImageSelected">
+						Upload image
+					</mat-chip-option>
+					<mat-chip-option 
+						(click)="toggleUploadImageType()"
+						[selected]="!isUploadImageSelected">
+						Image by url
+					</mat-chip-option>
+				</mat-chip-listbox>
+				<div class="uploadOuter" *ngIf="isUploadImageSelected">
+					<label for="uploadFile">
+						Upload Image
+					</label>
+					<strong>OR</strong>
+					<span class="dragBox" [ngClass]="{'draging': isDrag}">
+						Drag and Drop image here
+						<input 
+							formControlName="picture"
+							type="file" 
+							(change)="dragNdrop($event)" 
+							(dragover)="drag()" 
+							(drop)="drop()"
+							accept="image/png, image/gif, image/jpeg" id="uploadFile" />
+					</span>
+				</div>
+				<div class="upload-by-url" *ngIf="!isUploadImageSelected">
+					<input 
+						type="text" 
+						formControlName="picture"
+						placeholder="https://picsum.photos/200/300.jpg">
+					<button 
+						type="button"
+						[disabled]="picture.invalid || !isValidUrl"
+						mat-stroked-button 
+						(click)="handleUrlImage()">
+						Preview Avatar
+						<span class="material-symbols-outlined">
+							preview
+						</span>
+					</button>
+				</div>
+				<div id="preview" #preview>
+					<img *ngIf="user.avatar" [src]="user.avatar" [alt]="user.lastName">
+				</div>
+				<div class="error-message" *ngIf="!preview.innerHTML.includes('img')">
+					Avatar wasn't uploaded
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+	<div class="d-flex">
+		<div class="card">
+			<div class="title">Role</div>
+			<div class="content">
+				<mat-form-field>
+					<mat-label>Role</mat-label>
+					<mat-select formControlName="role">
+						<mat-option value="ADMIN">
+							Admin
+						</mat-option>
+						<mat-option value="USER">
+							User
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+		</div>
+
+		<div class="card" *ngIf="role.value !== userStatus.ADMIN">
+			<div class="title">Type</div>
+			<div class="content">
+				<mat-form-field>
+					<mat-label>Type</mat-label>
+					<mat-select
+						formControlName="type">
+						<mat-option 
+							[value]="userTypeEnum.None">
+							None
+						</mat-option>
+						<mat-option 
+							[value]="userTypeEnum.Patient">
+							Patient
+						</mat-option>
+						<mat-option 
+							[value]="userTypeEnum.Industry">
+							Industry
+						</mat-option>
+						<mat-option 
+							[value]="userTypeEnum.Physician">
+							Physician
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+		</div>
+	</div>
+
+	<div class="d-flex" *ngIf="role.value !== userStatus.ADMIN">
+		<div class="card not-required">
+			<div class="title">
+				<ng-template [ngIf]="type.value === userTypeEnum.Patient">
+					{{ userTypeEnum.Patient }}
+				</ng-template>
+				
+				<ng-template [ngIf]="type.value === userTypeEnum.Physician">
+					{{ userTypeEnum.Physician }}
+				</ng-template>
+
+				<ng-template [ngIf]="type.value === userTypeEnum.Industry">
+					{{ userTypeEnum.Physician }}
+				</ng-template>
+
+				<ng-template [ngIf]="type.value === userTypeEnum.None">
+					User
+				</ng-template>
+
+				location
+			</div>
+			<div class="content">
+				<input type="text" formControlName="location">
+			</div>
+		</div>
+		<div class="card not-required" *ngIf="type.value === userTypeEnum.Physician">
+			<div class="title">Hospital name</div>
+			<div class="content">
+				<input type="text" formControlName="location">
+			</div>
+		</div>
+		<div class="card not-required" *ngIf="type.value === userTypeEnum.Industry">
+			<div class="title">Company name</div>
+			<div class="content">
+				<input type="text" formControlName="companyName">
+			</div>
+		</div>
+	</div>
+
+	<div class="flex-end">
+		<button 
+			(mousedown)="startDeleteTimeout(user.id!)"
+			(mouseup)="clearDeleteTimeout()"
+			(mouseout)="clearDeleteTimeout()"
+			[ngClass]="{'deleting': isDeleting && activeDeletingIndex === user.id!}"
+			mat-fab color="warn"
+			type="button"
+			matTooltip="Press to delete"
+			matTooltipShowDelay="300">
+			<span class="material-symbols-outlined">
+				delete
+			</span>
+		</button>
+		<button 
+			[disabled]="form.invalid || isLoading"
+			type="submit" 
+			class="effect effect-1" 
+			matTooltip="Update user"
+			matTooltipShowDelay="300">
+			Save
+		</button>
+	</div>
+
+	<mat-spinner *ngIf="isLoading"></mat-spinner>
+	
+</form>

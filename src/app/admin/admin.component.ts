@@ -18,6 +18,7 @@ export class AdminComponent implements OnInit {
     public user: IUser;
     public isOpened: boolean = false;
     public countOfPosts: number = 0;
+    public isLoadingUser: boolean = false;
 
     constructor(
         public authService: AuthService,
@@ -28,7 +29,13 @@ export class AdminComponent implements OnInit {
     ) {}
 
     public ngOnInit(): void {
-        this.getUserAnCountOfPosts();
+        this.getUserAndCountOfPosts();
+        this.subscribeOnUserChanginges();
+    }
+
+    private subscribeOnUserChanginges(): void {
+        this.userService.profileUpdated$
+            .subscribe(this.getUserAndCountOfPosts.bind(this))
     }
 
     public toggleBurgerMenu = () => this.isOpened = !this.isOpened;
@@ -44,11 +51,12 @@ export class AdminComponent implements OnInit {
 
         this.userService.updateUserAvatar(userId, image.imageUrl.url)
             .subscribe(affected => 
-                (affected.affected ? this.getUserAnCountOfPosts : null)?.call(this)
+                (affected.affected ? this.getUserAndCountOfPosts : null)?.call(this)
             );
     }
 
-    private getUserAnCountOfPosts(): void {
+    private getUserAndCountOfPosts(): void {
+        this.isLoadingUser = true;
         this.userService.getUser()
             .subscribe(user => {
                 this.user = user;
@@ -58,7 +66,10 @@ export class AdminComponent implements OnInit {
 
     private getCountOfPosts(id: number): void {
         this.postsService.getCountOfPostsByUserId(id)
-            .subscribe(count => this.countOfPosts = count);
+            .subscribe(count => {
+                this.countOfPosts = count;
+                this.isLoadingUser = false;
+            });
     }
 
     public onFileChanged(event: any): void{

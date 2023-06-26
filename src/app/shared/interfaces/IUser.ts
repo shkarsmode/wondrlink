@@ -9,10 +9,10 @@ export interface IUser {
 	readonly lastName: string;
 	readonly email: string;
 	readonly phone: string;
-	readonly hospital_name: string;
+	readonly hospitalName: string;
 	readonly companyName: string;
 	readonly location: string;
 	readonly avatar: string;
-	readonly type: UserTypeEnum;
+	type: UserTypeEnum;
 	readonly status: string;
 }

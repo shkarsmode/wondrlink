@@ -44,7 +44,9 @@
 				<input class="c-search__input u-input" placeholder="Search..." type="text" />
 			</div>
 			<div class="header-icons-group">
-				<div class="c-header-icon basket avatar">
+				<div 
+					class="c-header-icon basket avatar" 
+					[ngClass]="{'loading-avatar': isLoadingUser}">
 					<span 
 						matTooltip="Your count of posts"
 						class="c-badge c-badge--red c-badge--header-icon animated swing">

@@ -4,8 +4,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
 import { IPost } from 'src/app/shared/interfaces/IPost';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { CloudinaryService } from 'src/app/shared/services/cloudinary.service';
 import { PostsService } from 'src/app/shared/services/posts.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
     selector: 'app-edit-post',
@@ -36,7 +38,9 @@ export class EditPostComponent implements OnInit {
         private fb: FormBuilder,
         private cloudinaryService: CloudinaryService,
         private postsService: PostsService,
-        private location: Location
+        private location: Location,
+        private authService: AuthService,
+        private userService: UserService
     ) {}
 
     public ngOnInit(): void {
@@ -149,16 +153,16 @@ export class EditPostComponent implements OnInit {
 
         console.log(body);
 
-        // this.postsService.updatePostById(body)
-        //     .subscribe({
-        //         next: res => {
-        //             this.isLoading = false;
-        //         },
-        //         error: error =>{
-        //             alert('Something went wrong: ' + error.message);
-        //             this.isLoading = false;
-        //         }
-        //     });
+        this.postsService.updatePostById(body)
+            .subscribe({
+                next: res => {
+                    this.isLoading = false;
+                },
+                error: error =>{
+                    alert('Something went wrong: ' + error.message);
+                    this.isLoading = false;
+                }
+            });
     }
 
     public dragNdrop(event: any) {
@@ -186,6 +190,12 @@ export class EditPostComponent implements OnInit {
             .subscribe({
                 next: _ => {
                     console.log('Post was deleted')
+
+                    const token = localStorage.getItem('token') as string;
+                    const myId = this.authService.getUserIdFromToken(token);
+                    if (myId === this.post.user?.id) {
+                        this.userService.profileUpdated$.next(true);
+                    }
                     this.location.back();
                 },
                 error: _ => {

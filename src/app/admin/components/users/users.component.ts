@@ -14,6 +14,8 @@ export class UsersComponent {
     public allUsersCount: number;
     public isLoading: boolean = false;
     public pagesCount: number;
+    public sortBy: UserTypeEnum | string = 'all';
+    public userTypeEnum: typeof UserTypeEnum = UserTypeEnum;
 
     private limit: number = 10; // Number of items per page
     public page: number = 0; // Current page number    
@@ -27,17 +29,24 @@ export class UsersComponent {
     ) {}
 
     public ngOnInit(): void {
+        this.getLocalStorageSortBy();
         this.getUsers();
+    }
+
+    private getLocalStorageSortBy(): void {
+        const sortBy = localStorage.getItem('users-sort');
+        this.sortBy = sortBy ? sortBy : 'all';
     }
 
     private setPagesCount(): void {
         this.pagesCount = Math.ceil(this.allUsersCount / this.limit);
-        console.log(this.pagesCount)
     }
 
-    private getUsers(isAddToExciting: boolean = false): void {
+    public getUsers(isAddToExciting: boolean = false): void {
         this.isLoading = true;
-        this.userService.getUserWithPagination(this.limit, this.page, this.type)
+        const sortBy = (this.sortBy === 'all' ? null : this.sortBy) as UserTypeEnum;
+        
+        this.userService.getUserWithPagination(this.limit, this.page, sortBy)
             .subscribe(response => {
                 if (isAddToExciting) {
                     response.users.forEach(user => this.users.push(user));
@@ -50,6 +59,11 @@ export class UsersComponent {
                 this.setPagesCount();
                 this.isLoading = true;
             });
+    }
+
+    public onSelectionChange(): void {
+        this.onPageChange(0);
+        localStorage.setItem('users-sort', this.sortBy);
     }
 
     public onPageChange(pageNumber: number) {

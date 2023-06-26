@@ -10,6 +10,7 @@ import { PostsComponent } from './components/posts/posts.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { EditPostComponent } from './components/edit-post/edit-post.component';
 import { UsersComponent } from './components/users/users.component';
+import { EditUserComponent } from './components/edit-user/edit-user.component';
 
 
 
@@ -20,7 +21,8 @@ import { UsersComponent } from './components/users/users.component';
         PostsComponent,
         SettingsComponent,
         EditPostComponent,
-        UsersComponent
+        UsersComponent,
+        EditUserComponent
     ],
     imports: [
         CommonModule,
