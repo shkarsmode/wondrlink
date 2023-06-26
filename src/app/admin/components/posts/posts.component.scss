@@ -197,3 +197,23 @@ td {
 		font-weight: 600;
 	}
 }
+
+.loading {
+	border: 3px solid white;
+	animation: loading-tr 2s linear infinite;
+	margin-bottom: 2px;
+}
+
+@keyframes loading-tr {
+	0% {
+		background-color: #ececec;
+	}
+
+	50% {
+		background-color: #ffffff;
+	}
+
+	100% {
+		background-color: #ececec;
+	}
+}

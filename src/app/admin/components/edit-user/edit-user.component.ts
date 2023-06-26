@@ -223,17 +223,16 @@ export class EditUserComponent  implements OnInit {
     }
 
     private deleteUserByID(id: number): void {
-        // this.postsService.deletePostById(id)
-        //     .pipe(take(1))
-        //     .subscribe({
-        //         next: _ => {
-        //             console.log('Post was deleted')
-        //             this.locationService.back();
-        //         },
-        //         error: _ => {
-        //             alert('Something went wrong. Can`t delete this post');
-        //         }
-        //     });
+        this.userService.deleteUserById(id)
+            .pipe(take(1))
+            .subscribe({
+                next: _ => {
+                    this.locationService.back();
+                },
+                error: _ => {
+                    alert('Something went wrong. Can`t delete this post');
+                }
+            });
     }
 
     public startDeleteTimeout(index: number): void {

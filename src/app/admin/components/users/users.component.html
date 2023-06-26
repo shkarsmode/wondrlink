@@ -97,7 +97,7 @@
 	<button 
 		mat-raised-button 
 		(click)="onButtonMoreClick()" 
-		*ngIf="pagesCount !== page + 1 && users.length && !isLoading">
+		*ngIf="pagesCount !== page + 1 && users?.length && !isLoading">
 		Show more
 	</button>
 </div>

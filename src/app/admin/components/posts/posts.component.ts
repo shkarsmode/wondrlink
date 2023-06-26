@@ -14,8 +14,9 @@ export class PostsComponent implements OnInit {
     
     public posts: IPost[];
     public allPostsCount: number;
-    public isLoading: boolean = false;
+    public isLoading: boolean = true;
     public pagesCount: number;
+    public isLoadingMore: boolean = false;
 
     private limit: number = 10; // Number of items per page
     public page: number = 0; // Current page number    
@@ -39,7 +40,8 @@ export class PostsComponent implements OnInit {
     }
 
     private getPosts(isAddToExciting: boolean = false): void {
-        this.isLoading = true;
+        this.isLoading = !this.isLoadingMore ? true : false;
+
         this.postsService.getPosts(this.limit, this.page)
             .subscribe(response => {
                 if (isAddToExciting) {
@@ -51,7 +53,8 @@ export class PostsComponent implements OnInit {
                 this.allPostsCount = response.allPostsCount;
                 
                 this.setPagesCount();
-                this.isLoading = true;
+                this.isLoading = false;
+                this.isLoadingMore = false;
             });
     }
 
@@ -62,6 +65,7 @@ export class PostsComponent implements OnInit {
 
     public onButtonMoreClick(): void {
         this.page++;
+        this.isLoadingMore = true;
         this.getPosts(true);
     }
 
@@ -96,6 +100,7 @@ export class PostsComponent implements OnInit {
                     this.limit = 1;
                     this.page = this.posts.length;
 
+                    this.isLoadingMore = true;
                     this.getPosts(true);
 
                     this.limit = tempLimit;
