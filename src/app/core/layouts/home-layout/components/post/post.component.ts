@@ -48,7 +48,7 @@ export class PostComponent implements OnInit {
 
     public async copyCurrentPost() {
         this.isCopied = true;
-        this.clipboard.copy(this.copyLink + '/' + this.post.id);
+        this.clipboard.copy(this.copyLink + this.post.id);
         
         await new Promise(resolve => setTimeout(resolve, 2000));
         
