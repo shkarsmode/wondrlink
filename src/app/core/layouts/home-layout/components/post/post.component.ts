@@ -7,6 +7,17 @@ import { take } from 'rxjs';
 import { IPost } from 'src/app/shared/interfaces/IPost';
 import { PostsService } from 'src/app/shared/services/posts.service';
 
+interface ShareLinks {
+    twitterShareLink: string;
+    facebookShareLink: string;
+    // Add more properties if needed
+}
+
+const shareLinks = {
+    twitter: "https://twitter.com/intent/tweet?url=",
+    facebook: "https://www.facebook.com/sharer/sharer.php?u=",
+    linkedin: "https://www.linkedin.com/sharing/share-offsite/?url="
+}
 @Component({
     selector: 'app-post',
     templateUrl: './post.component.html',
@@ -16,7 +27,10 @@ export class PostComponent implements OnInit {
 
     public post: IPost;
     public isCopied: boolean = false;
-    private readonly copyLink: string = 'https://wondrlink-back.vercel.app/api/posts/shared';
+    public twitterShareLink: string;
+    public facebookShareLink: string;
+    public linkedinShareLink: string;
+    private readonly copyLink: string = 'https://wondrlink-back.vercel.app/api/posts/shared/';
 
     constructor(
         private route: ActivatedRoute,
@@ -44,8 +58,22 @@ export class PostComponent implements OnInit {
     private listenPostIdFromRoute(): void {
         this.route.params.subscribe(params => {
             const id = +params['id'];
+            this.initShareLinksForSocials(id);
             this.getPostDetailsByid(id);
         });
+    }
+
+    private initShareLinksForSocials(id: number): void {
+        const sharePlatforms: { [key: string]: string } = shareLinks;
+        for (const platform in sharePlatforms) {
+            if (Object.prototype.hasOwnProperty.call(shareLinks, platform)) {
+                const propertyKey = `${platform}ShareLink`;
+                this[propertyKey as keyof ShareLinks] = 
+                    `${sharePlatforms[platform]}${this.copyLink}${id}`;
+
+                console.log(this[propertyKey as keyof ShareLinks]);
+            }
+        }
     }
 
     private getPostDetailsByid(id: number): void {

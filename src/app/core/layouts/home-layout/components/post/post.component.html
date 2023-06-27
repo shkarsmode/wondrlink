@@ -73,27 +73,27 @@
 					<!-- <button shareButton2="facebook">Share</button>
 					<button shareButton2="twitter">Tweet</button>
 					<button shareButton2="pinterest">Pin</button> -->
-					<img 
+					<!-- <img 
 						[title]="post.header"
 						shareButton="email"
 						src="assets/socials/inst.png" 
 						alt="inst">
-					<img 
-						shareButton="twitter"
-						[title]="post.header"
-						tags="WondrLink"
-						src="assets/socials/twitter.png" 
-						alt="twitter" >
-					<img 
-						shareButton="facebook" 
-						[title]="post.header"
-						src="assets/socials/fb.png" 
-						alt="fb" >
-					<img 
-						src="assets/socials/linkedin.png" 
-						alt="linkedin" 
-						shareButton="linkedin"
-						[description]="post.header">
+					-->
+					<a [href]="twitterShareLink" target="_blank">
+						<img 
+							src="assets/socials/twitter.png" 
+							alt="twitter">
+					</a>
+					<a [href]="facebookShareLink" target="_blank">
+						<img
+							src="assets/socials/fb.png" 
+							alt="fb" >
+					</a>
+					<a [href]="linkedinShareLink + '&summary=' + post.header" target="_blank">
+						<img 
+							src="assets/socials/linkedin.png" 
+							alt="linkedin">
+					</a>
 				</div>
 			</div>
 		</div>
