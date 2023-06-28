@@ -5,6 +5,7 @@
 	width: 100%;
 
 	margin-bottom: 200px;
+	padding: 0 15px;
 }
 
 h3 {
@@ -29,4 +30,69 @@ img {
 	justify-content: space-between;
 	max-width: 1500px;
 	width: 100%;
+}
+
+.marquee {
+	overflow: hidden;
+	column-gap: 0px;
+	display: none;
+}
+
+.marquee__line {
+	display: flex;
+	column-gap: 10px;
+	flex-shrink: 0;
+	margin: 0;
+	min-width: 100%;
+	white-space: nowrap;
+	animation-name: marqueeLine;
+	animation-duration: 10s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+
+@keyframes marqueeLine {
+	from {
+		transform: translateX(0);
+	}
+
+	to {
+		transform: translateX(-100%);
+	}
+}
+
+@media (max-width: 1300px) {
+	img {
+		transform: scale(0.8);
+	}
+}
+
+@media (max-width: 1200px) {
+	img {
+		transform: scale(0.7);
+	}
+
+	.wrap {
+		margin-bottom: 140px;
+	}
+}
+
+@media (max-width: 1070px) {
+	img {
+		transform: scale(0.7);
+	}
+}
+
+@media (max-width: 1025px) {
+	.container {
+		display: none;
+	}
+
+	.marquee {
+		display: flex;
+
+		img {
+			filter: grayscale(0);
+		}
+	}
 }

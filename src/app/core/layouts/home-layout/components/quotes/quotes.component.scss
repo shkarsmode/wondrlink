@@ -20,6 +20,7 @@
 	width: 100%;
 	height: 50%;
 	position: relative;
+	transition: all .3s;
 }
 
 .quote {
@@ -94,5 +95,84 @@
 			opacity: 1;
 		}
 
+	}
+}
+
+@media (max-width: 1300px) {
+	.wrap-quotes {
+		max-width: 880px;
+	}
+
+	.quote {
+		width: 100%;
+	}
+
+	.quote div:first-child {
+		font-size: 24px;
+	}
+
+	.quote div:last-child {
+		font-size: 20px;
+	}
+}
+
+@media (max-width: 1100px) {
+	.wrap {
+		margin-bottom: 90px;
+	}
+}
+
+@media (max-width: 990px) {
+	.wrap-quotes {
+		max-width: 760px;
+	}
+
+	.quote {
+		padding: 0 15px;
+	}
+
+	.quote div:first-child {
+		font-size: 22px;
+	}
+
+	.quote div:last-child {
+		font-size: 18px;
+	}
+}
+
+@media (max-width: 777px) {
+	.wrap-quotes {
+		max-width: 550px;
+		height: 300px;
+	}
+
+	.quote div:first-child {
+		font-size: 20px;
+		line-height: 30px;
+	}
+
+	.quote div:last-child {
+		font-size: 16px;
+	}
+}
+
+@media (max-width: 525px) {
+	.wrap-quotes {
+		max-width: 100%;
+	}
+
+	.quote div:first-child {
+		font-size: 18px;
+		line-height: 30px;
+	}
+
+	.quote div:last-child {
+		font-size: 16px;
+	}
+}
+
+@media (max-width: 470px) {
+	.quote div:first-child {
+		line-height: 25px;
 	}
 }

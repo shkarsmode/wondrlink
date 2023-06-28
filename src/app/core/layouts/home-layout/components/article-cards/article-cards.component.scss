@@ -5,6 +5,7 @@
 	column-gap: 80px;
 
 	padding: 180px 0 200px 0px;
+	transition: all .3s;
 }
 
 .card {
@@ -20,6 +21,7 @@
 
 .content {
 	padding: 0 45px;
+	transition: all .3s;
 }
 
 img {
@@ -47,4 +49,25 @@ h3 {
 	height: 70px;
 	margin-bottom: 50px;
 	font-size: 24px;
+}
+
+@media (max-width: 1450px) {
+	.wrap {
+		column-gap: 50px;
+		padding: 180px 15px 200px;
+	}
+
+	.content {
+		padding: 0 20px;
+	}
+}
+
+@media (max-width: 1230px) {
+	.wrap {
+		padding: 180px 15px 120px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		row-gap: 50px;
+	}
 }

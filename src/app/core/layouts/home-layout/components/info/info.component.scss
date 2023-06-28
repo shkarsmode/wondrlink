@@ -4,6 +4,7 @@
 	width: 100%;
 
 	margin-bottom: 220px;
+	transition: all .3s;
 }
 
 .content {
@@ -11,8 +12,6 @@
 	justify-content: space-between;
 	max-width: 1500px;
 	width: 100%;
-
-
 }
 
 .info {
@@ -43,6 +42,7 @@ h4 {
 	font-size: 32px;
 	font-weight: 500;
 	margin-bottom: 15px;
+	transition: all .3s;
 }
 
 .description {
@@ -52,4 +52,33 @@ h4 {
 	font-weight: 300;
 	font-size: 21px;
 	line-height: 24px;
+	transition: all .3s;
+}
+
+@media (max-width: 1300px) {
+	.info {
+		.description {
+			font-size: 18px;
+		}
+
+		h4 {
+			font-size: 28px;
+		}
+	}
+}
+
+@media (max-width: 1100px) {
+	.content {
+		display: flex;
+		flex-direction: column;
+		row-gap: 40px;
+	}
+
+	.description {
+		font-size: 16px;
+	}
+
+	.wrap {
+		margin-bottom: 90px;
+	}
 }
