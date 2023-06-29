@@ -149,3 +149,20 @@ h1 {
 	}
 }
 
+@media (max-width: 400px) {
+	h1 {
+		font-size: 28px;
+		text-align: center;
+	}
+
+	.typewriter {
+		width: 85px;
+		display: inline-flex;
+	}
+
+	button {
+		width: 100% !important;
+		margin-top: 20px;
+		height: 50px;
+	}
+}

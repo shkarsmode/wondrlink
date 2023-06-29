@@ -3,6 +3,7 @@
 	justify-content: center;
 	width: 100%;
 	margin-bottom: 100px;
+	padding: 0 15px;
 }
 
 form {
@@ -14,6 +15,7 @@ form {
 	border-radius: 20px;
 	padding: 80px 110px;
 	position: relative;
+	transition: all .3s;
 
 	&:before {
 		content: '';
@@ -41,8 +43,6 @@ form {
 	justify-content: space-between;
 	column-gap: 25px;
 }
-
-
 
 .right-side, .left-side {
 	width:100%
@@ -234,4 +234,39 @@ mat-spinner {
 :host ::ng-deep.mat-mdc-progress-spinner 
 .mdc-circular-progress__indeterminate-circle-graphic {
     stroke: #00e7a1;
+}
+
+@media (max-width: 765px) {
+	form {
+		padding: 60px;
+		height: unset;
+	}
+}
+
+@media (max-width: 550px) {
+	form {
+		padding: 40px 25px;
+	}
+
+	.wrap-inputs {
+		column-gap: 10px;
+	}
+
+	.group-checkbox label {
+		font-size: 12px;
+	}
+
+	input {
+		padding: 14px 14px 14px 13px;
+	}
+}
+
+@media (max-width: 400px) {
+	.wrap {
+		padding: 0 7px;
+	}
+
+	form {
+		padding: 35px 15px;
+	}
 }

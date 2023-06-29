@@ -10,6 +10,7 @@
 .content {
 	max-width: 850px;
 	width: 100%;
+	transition: all .3s;
 
 	::ng-deep h2 {
 		font-size: 30px;
@@ -24,4 +25,33 @@
 		opacity: .9;
 	}
 }
+
+@media (max-width: 970px) {
+	.content {
+		padding: 0 15px;
+	}
+}
+
+@media (max-width: 650px) {
+	.content {
+		::ng-deep h2 {
+			text-align: center;
+			font-size: 28px;
+		}
+	
+		::ng-deep p {
+			font-size: 20px;
+			line-height: 32px;
+			margin-bottom: 15px;
+			text-align: justify;
+		}
+	}
+}
+
+@media (max-width: 400px) {
+	.wrap {
+		margin-top: 25px;
+	}
+}
+
 

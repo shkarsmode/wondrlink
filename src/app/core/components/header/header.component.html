@@ -72,7 +72,7 @@
 		</div>
 	</header>
 	<div class="wrap-navigation" [ngClass]="{'show': isOpenBurger}">
-		<ul>
+		<ul (click)="isOpenBurger = false">
 			<li routerLink="/blog" style="--i:0s;">Blog</li>
 			<li routerLink="articles/patients" style="--i:.12s;">Patients</li>
 			<li routerLink="articles/physicians" style="--i:.14s;">Physicians</li>

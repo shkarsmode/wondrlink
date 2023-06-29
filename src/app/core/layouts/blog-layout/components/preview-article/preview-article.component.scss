@@ -55,3 +55,55 @@ img {
 	line-height: 28px;
 	opacity: .9;
 }
+
+@media (max-width: 950px) {
+	.wrap {
+		flex-direction: column;
+		align-items: center;
+		margin-bottom: 80px;
+	}
+
+	.left-side, .right-side {
+		width: 100%;
+		max-width: 600px;
+	}
+
+	.left-side {
+		height: 260px;
+	}
+
+	.right-side {
+		margin-top: 10px;
+	}
+
+	.header {
+		font-size: 24px;
+		line-height: 30px;
+		text-align: justify;
+	}
+
+	.sub-header {
+		font-size: 18px;
+		line-height: 28px;
+		opacity: .9;
+		text-align: justify;
+	}
+
+	.info {
+		font-size: 17px;
+		opacity: 0.9;
+		font-weight: 300;
+	}
+}
+
+@media (max-width: 400px) {
+	.header {
+		font-size: 22px;
+		line-height: 28px;
+	}
+
+	.sub-header {
+		font-size: 17px;
+		line-height: 26px;
+	}
+}

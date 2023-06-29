@@ -7,6 +7,7 @@
 	align-items: center;
 	padding: 32px;
 	overflow: hidden;
+	transition: all .3s;
 }
 
 .top {
@@ -21,6 +22,7 @@
 	align-items: center;
 	padding: 50px 0px;
 	position: relative;
+	transition: all .3s;
 }
 
 img {
@@ -148,6 +150,7 @@ form {
 	// height: 690px;
 	padding: 30px 60px 40px 60px;
 	border-radius: 20px;
+	transition: all .3s;
 
 	&:before {
 		content: '';
@@ -368,4 +371,34 @@ input.ng-dirty.ng-invalid {
 	color: red;
 	opacity: 0.9;
 	font-size: 13px;
+}
+
+@media (max-width: 500px) {
+	.wrap {
+		padding: 0 15px;
+	}
+
+	form {
+		padding: 45px 0 40px;
+	}
+
+	.wrap:has(.step2.active) {
+		padding: 32px 20px;
+	}
+
+	.wrap-options li {
+		width: 100%;
+		padding-right: 13px;
+		padding-left: 13px;
+
+		.right h4 {
+			font-size: 16px;
+			line-height: 18px;
+			margin-bottom: 6px;
+		}
+	}
+	
+	.group-checkbox label {
+		font-size: 12px;
+	}
 }

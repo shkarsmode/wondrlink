@@ -4,12 +4,14 @@
 	width: 100%;
 	padding-top: 170px;
 	margin-bottom: 100px;
+	transition: all .3s;
 }
 
 
 .content {
 	width: 100%;
 	max-width: 1500px;
+	transition: all .3s;
 } 
 
 .top {
@@ -205,6 +207,12 @@ h2 {
 			margin-right: 40px;
 			cursor: pointer;
 		}
+
+		a:last-child {
+			img {
+				margin-right: 0px;
+			}
+		}
 	}
 }
 
@@ -265,4 +273,149 @@ $loading-animation: loading 1.8s linear infinite;
 		opacity: 1;
 	}
 
+}
+
+/* Media Queries
+====================*/
+
+@media (max-width: 1700px) {
+	.content {
+		max-width: 1300px;
+	}
+
+}
+
+@media (max-width: 1500px) {
+	.content {
+		max-width: 1200px;
+	}
+
+}
+
+@media (max-width: 1400px) {
+	.post {
+		flex-direction: column-reverse;
+	}
+
+	.right-side {
+		height: 300px;
+		max-width: 620px;
+		width: 100%;
+	}
+
+	.top {
+		margin-bottom: 50px;
+	}
+
+	.wrap {
+		padding-top: 130px;
+	}
+
+	.left-side {
+		margin-top: 8px;
+	}
+
+	h2 {
+		text-align: justify;
+		font-size: 29px;
+	}
+
+	.sub-header {
+		font-size: 18px;
+		line-height: 26px;
+		margin-bottom: 40px;
+	}
+
+	.post {
+		margin-bottom: 70px;
+	}
+
+	quill-view-html ::ng-deep.ql-editor {
+		padding: 0 !important;
+	}
+}
+
+
+@media (max-width: 1250px) {
+	.content {
+		padding: 0 15px;
+	}
+}
+
+@media (max-width: 660px) {
+	.wrap-end {
+		flex-direction: column;
+		align-items: center;
+		row-gap: 15px;
+		padding-top: 35px;
+
+		a {
+			display: flex;
+		}
+
+		.left {
+			font-size: 20px;
+		}
+
+		.right .block {
+			font-size: 20px;
+			span {
+				font-size: 24px;
+			}
+		}
+
+		img {
+			max-width: 30px;
+			max-height: 25px;
+		}
+	}
+}
+
+@media (max-width: 440px) {
+	h2 {
+		font-size: 24px;
+	}
+
+	.sub-header {
+		font-size: 17px;
+	}
+}
+
+/* Quill media styles
+===================*/
+
+@media (max-width: 600px) {
+	quill-view-html ::ng-deep {
+		p {
+			font-size: 20px !important;
+		}
+
+		h1 {
+			font-size: 23px !important;
+		}
+
+		img {
+			height: auto !important;
+		}
+
+		blockquote {
+			font-size: 19px !important;
+		}
+	}
+}
+
+@media (max-width: 450px) {
+	quill-view-html ::ng-deep {
+		p {
+			font-size: 18px !important;
+		}
+
+		h1 {
+			font-size: 20px !important;
+		}
+
+		blockquote {
+			font-size: 17px !important;
+		}
+	}
 }

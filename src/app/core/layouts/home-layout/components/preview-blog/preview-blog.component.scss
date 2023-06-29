@@ -143,3 +143,9 @@ button {
 		max-width: 100%;
 	}
 }
+
+@media (max-width: 500px) {
+	.content {
+		padding: 0 22px;
+	}
+}

@@ -14,6 +14,7 @@
 .content {
 	max-width: 1500px;
 	width: 100%;
+	transition: all .3s;
 
 	div {
 		max-width: 520px;
@@ -112,6 +113,28 @@ h1 {
 // 	}
 // }
 
+/* Media Queries
+====================*/
+
+@media (max-width: 1700px) {
+	.content {
+		max-width: 1300px;
+	}
+
+}
+
+@media (max-width: 1500px) {
+	.content {
+		max-width: 1200px;
+	}
+
+}
+
+@media (max-width: 1250px) {
+	.content {
+		padding: 0 15px;
+	}
+}
 
 @media (max-width: 770px) {
 	.wrap {
@@ -130,3 +153,19 @@ h1 {
 		font-size: 18px;
 	}
 }
+
+@media (max-width: 400px) {
+	h1 {
+		font-size: 32px;
+		text-align: center;
+		line-height: 22px;
+	}
+
+	.content div {
+		font-size: 19px;
+		line-height: 24px;
+		text-align: center;
+	}
+
+}
+
