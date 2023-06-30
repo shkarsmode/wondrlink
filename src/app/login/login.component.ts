@@ -14,8 +14,10 @@ export class LoginComponent {
     public isShowPassword: boolean = false;
     public isShowError: boolean = false;
     public errorMessages: string[] = [];
+    public recoveryEmail: string;
     public email: string;
     public password: string;
+    public isLostPassword: boolean = false;
 
     constructor(
         private authService: AuthService,
@@ -23,7 +25,7 @@ export class LoginComponent {
     ) {}
     
     public onSubmitForm(): void {
-        if (this.isEmptyForm)  return;
+        if (this.isEmptyForm) return;
         
         this.authService.loginWithAMail(this.email, this.password)
             .pipe(take(1))
@@ -31,6 +33,22 @@ export class LoginComponent {
                 next: this.onSuccessfulLogIn.bind(this),
                 error: this.handleErrorAuthorization.bind(this)
             });
+    }
+
+    public onSubmitRecoveryForm(): void {
+        if (this.isEmptyForm) return;
+        this.authService.recoveryEmail(this.email)
+            .pipe(take(1))
+            .subscribe({
+                next: res => console.log(res),
+                error: () => {}
+            });
+    }
+
+    public toggleLostPasswordFlow(): void {
+        this.isLostPassword = !this.isLostPassword;
+        this.isShowError = false;
+        this.errorMessages = [];
     }
 
     private onSuccessfulLogIn(): void {
@@ -58,6 +76,16 @@ export class LoginComponent {
     private get isEmptyForm(): boolean {
         this.errorMessages = [];
 
+        if (this.isLostPassword) {
+            if (!this.recoveryEmail) {
+                this.errorMessages.push('Please enter a email');
+                this.notifyAboutError();
+                return true;
+            }
+
+            return false;
+        }
+
         if (!this.email) this.errorMessages.push('Please enter a email');
         if (!this.password) this.errorMessages.push('Please enter a password');
 
@@ -65,6 +93,7 @@ export class LoginComponent {
             this.notifyAboutError();
             return true;
         }
+        
         return false;
     }
 

@@ -129,7 +129,7 @@ form {
 
 }
 
-.form-error {
+.form-error, .info-instruction {
 	padding: 12px;
 
     margin-left: 0;
@@ -155,6 +155,13 @@ form {
 	}
 }
 
+.info-instruction {
+	border-left: 4px solid #72aee6;
+	div {
+		font-size: 13px;
+	}
+}
+
 
 @keyframes shake {
 	25% {
@@ -173,6 +180,7 @@ form {
 .info {
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 	
 	width: 100%;
 	margin-bottom: 40px;
@@ -184,6 +192,10 @@ form {
 		color: #00A5C9;
 		font-size: 13px;
 		text-decoration: none;
+		cursor: pointer;
+		&:hover {
+			span {transform: translateX(-4px);}
+		}
 	}
 
 	span {
@@ -192,10 +204,7 @@ form {
 		color: #00A5C9;
 		transition: all .1s;
 		cursor: pointer;
-	}
-
-	&:hover {
-		span {
+		&:hover {
 			transform: translateX(-4px);
 		}
 	}

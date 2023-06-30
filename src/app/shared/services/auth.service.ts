@@ -50,6 +50,13 @@ export class AuthService {
     //         }));
     // }
 
+    public recoveryEmail(email: string): Observable<any | ErrorLoginResponseDto> {
+        return this.http.post<any>(
+            `${this.authPathApi}/recoveryWithEmail`, 
+            { email}
+        );
+    }
+
     public loginWithAMail(
         email: string,
         password: string,

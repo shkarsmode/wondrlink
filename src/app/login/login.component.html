@@ -4,6 +4,12 @@
 			<img src="assets/img/logo-black.png" alt="wondrlink">
 		</header>
 
+		<div class="info-instruction" *ngIf="isLostPassword">
+			<div>
+				Please enter your email address. You will receive an email message with instructions on how to reset your password.
+			</div>
+		</div>
+
 		<div class="form-error" *ngIf="errorMessages.length">
 			<div *ngFor="let error of errorMessages">
 				<strong>Error:</strong>
@@ -11,7 +17,10 @@
 			</div>
 		</div>
 
-		<form (ngSubmit)="onSubmitForm()" [ngClass]="{'shake': isShowError}">
+		<form 
+			(ngSubmit)="onSubmitForm()" 
+			[ngClass]="{'shake': isShowError}" 
+			*ngIf="!isLostPassword">
 			<div class="group">
 				<label for="email">Email Address</label>
 				<input 
@@ -57,12 +66,39 @@
 
 		</form>
 
+		<form 
+			(ngSubmit)="onSubmitRecoveryForm()" 
+			[ngClass]="{'shake': isShowError}" 
+			*ngIf="isLostPassword">
+			<div class="group">
+				<label for="email">Email Address</label>
+				<input 
+					type="text" 
+					id="email" name="email" 
+					[(ngModel)]="recoveryEmail">
+			</div>
+
+			<button 
+				type="submit" 
+				(submit)="onSubmitRecoveryForm()" 
+				class="btn-green">
+				Get New Password
+			</button>
+
+		</form>
+
 		<div class="info">
 			<a routerLink="/">
 				<span class="material-symbols-outlined">
 					keyboard_backspace
 				</span>
 				Go to WondrLink
+			</a>
+			<a (click)="toggleLostPasswordFlow()" *ngIf="!isLostPassword">
+				Lost your password?
+			</a>
+			<a (click)="toggleLostPasswordFlow()" *ngIf="isLostPassword">
+				Log in
 			</a>
 		</div>
 
