@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MaterialModule } from '../shared/materials/material.module';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 
@@ -13,7 +14,8 @@ import { LoginComponent } from './login.component';
   imports: [
     CommonModule,
     LoginRoutingModule,
-    FormsModule
+    FormsModule,
+    MaterialModule
   ]
 })
 export class LoginModule { }

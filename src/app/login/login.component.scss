@@ -120,11 +120,20 @@ form {
 	}
 
 	button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		height: 55px;
 		width: 100%;
 		margin-top: 25px;
 		font-size: 18px;
 		font-weight: 500;
+
+		&[disabled] {
+			opacity: 0.8;
+			pointer-events: none;
+			user-select: none;
+		}
 	}
 
 }
@@ -153,6 +162,11 @@ form {
 		line-height: 18px;
 		margin-left: 5px;
 	}
+
+	a {
+		text-decoration: underline !important;
+		cursor: pointer;
+	}
 }
 
 .info-instruction {
@@ -176,6 +190,14 @@ form {
 		transform: translateX(0);
 	}
 }
+
+mat-spinner {
+	height: 35px !important;
+	width: 35px !important;
+
+	--mdc-circular-progress-active-indicator-color: #fff !important;
+}
+
 
 .info {
 	display: flex;

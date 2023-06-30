@@ -1,5 +1,5 @@
-<div class="wrap">
-	<div class="content">
+<div class="wrap" *ngIf="!recoveryToken">
+	<div class="content" *ngIf="!isCheckEmail">
 		<header>
 			<img src="assets/img/logo-black.png" alt="wondrlink">
 		</header>
@@ -58,10 +58,17 @@
 			</div>
 
 			<button 
-				type="submit" 
+				type="submit"
+				[disabled]="isSending"
 				(submit)="onSubmitForm()" 
 				class="btn-green">
-				Log In
+				<ng-template [ngIf]="isSending">
+					<mat-spinner></mat-spinner>
+				</ng-template>
+
+				<ng-template [ngIf]="!isSending">
+					Log In
+				</ng-template>
 			</button>
 
 		</form>
@@ -80,9 +87,16 @@
 
 			<button 
 				type="submit" 
+				[disabled]="isSending"
 				(submit)="onSubmitRecoveryForm()" 
 				class="btn-green">
-				Get New Password
+				<ng-template [ngIf]="isSending">
+					<mat-spinner></mat-spinner>
+				</ng-template>
+
+				<ng-template [ngIf]="!isSending">
+					Get New Password
+				</ng-template>
 			</button>
 
 		</form>
@@ -99,6 +113,162 @@
 			</a>
 			<a (click)="toggleLostPasswordFlow()" *ngIf="isLostPassword">
 				Log in
+			</a>
+		</div>
+
+		<div class="info">
+			<a routerLink="/privacy">Privacy Policy</a>
+		</div>
+	</div>
+
+	<div class="content" *ngIf="isCheckEmail">
+		<header>
+			<img src="assets/img/logo-black.png" alt="wondrlink">
+		</header>
+
+		<div class="info-instruction">
+			<div>
+				Check your email for the confirmation link, then visit the 
+				<a (click)="isCheckEmail = false; isLostPassword = false;">login page</a>.
+			</div>
+		</div>
+
+		<div class="info">
+			<a routerLink="/">
+				<span class="material-symbols-outlined">
+					keyboard_backspace
+				</span>
+				Go to WondrLink
+			</a>
+		</div>
+
+		<div class="info">
+			<a routerLink="/privacy">Privacy Policy</a>
+		</div>
+	</div>
+</div>
+
+<div class="wrap" *ngIf="recoveryToken">
+	<div class="content" *ngIf="!isPasswordChanged">
+		<header>
+			<img src="assets/img/logo-black.png" alt="wondrlink">
+		</header>
+
+		<div class="info-instruction">
+			<div>
+				Enter your new password twice
+			</div>
+		</div>
+
+		<div class="form-error" *ngIf="errorMessages.length">
+			<div *ngFor="let error of errorMessages">
+				<strong>Error:</strong>
+				<span>{{ error }}</span>
+			</div>
+		</div>
+
+		<form 
+			(ngSubmit)="onSubmitNewPasswordForm()" 
+			[ngClass]="{'shake': isShowError}">
+
+			<div class="group">
+				<label for="password">New Password</label>
+				<input 
+					[type]="isShowPassword ? 'text' : 'password'" 
+					id="new-password" name="new-password"
+					[(ngModel)]="newPassword">
+
+				<div class="hide">
+					<span 
+						(click)="toggleShowingPassword()"
+						class="material-symbols-outlined" 
+						*ngIf="isShowPassword">
+						visibility
+					</span>
+					<span 
+						(click)="toggleShowingPassword()"
+						class="material-symbols-outlined" 
+						*ngIf="!isShowPassword">
+						visibility_off
+					</span>
+				</div>
+			</div>
+
+			<div class="group">
+				<label for="password">Repeat Password</label>
+				<input 
+					[type]="isShowPassword ? 'text' : 'password'" 
+					id="repeat-password" name="repeat-password"
+					[(ngModel)]="repeatPassword">
+
+				<div class="hide">
+					<span 
+						(click)="toggleShowingPassword()"
+						class="material-symbols-outlined" 
+						*ngIf="isShowPassword">
+						visibility
+					</span>
+					<span 
+						(click)="toggleShowingPassword()"
+						class="material-symbols-outlined" 
+						*ngIf="!isShowPassword">
+						visibility_off
+					</span>
+				</div>
+			</div>
+
+			<button 
+				type="submit"
+				[disabled]="isSending"
+				(submit)="onSubmitNewPasswordForm()" 
+				class="btn-green">
+				<ng-template [ngIf]="isSending">
+					<mat-spinner></mat-spinner>
+				</ng-template>
+
+				<ng-template [ngIf]="!isSending">
+					Update Password
+				</ng-template>
+			</button>
+
+		</form>
+
+		<div class="info">
+			<a routerLink="/">
+				<span class="material-symbols-outlined">
+					keyboard_backspace
+				</span>
+				Go to WondrLink
+			</a>
+			<a routerLink="/login">
+				Log in
+			</a>
+		</div>
+
+		<div class="info">
+			<a routerLink="/privacy">Privacy Policy</a>
+		</div>
+	</div>
+
+	<div class="content" *ngIf="isPasswordChanged">
+		<header>
+			<img src="assets/img/logo-black.png" alt="wondrlink">
+		</header>
+
+		<div class="info-instruction">
+			<div>
+				Your password was successfully changed. Visit the 
+				<a (click)="isPasswordChanged = false; recoveryToken = ''">login page</a>
+			</div>
+		</div>
+
+
+		<div class="info">
+			<a routerLink="/">
+				<span class="material-symbols-outlined">
+					keyboard_backspace
+				</span>
+				Go to WondrLink
 			</a>
 		</div>
 

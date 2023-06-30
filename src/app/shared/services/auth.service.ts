@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
@@ -49,6 +49,16 @@ export class AuthService {
     //             return response;
     //         }));
     // }
+
+    public updatePassword(password: string, token: string): Observable<any> {
+        const headers = new HttpHeaders().set('token', token); // Set the 'token' header
+
+        return this.http.post<any>(
+            `${this.authPathApi}/updatePassword`,
+            { password },
+            { headers }
+        );
+    }
 
     public recoveryEmail(email: string): Observable<any | ErrorLoginResponseDto> {
         return this.http.post<any>(
