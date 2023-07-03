@@ -78,3 +78,8 @@ button {
 		}
 	}
 }
+
+:host ::ng-deep.mat-mdc-progress-spinner 
+.mdc-circular-progress__indeterminate-circle-graphic {
+    stroke: #102c58;
+}

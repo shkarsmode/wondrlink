@@ -1,11 +1,11 @@
 <div class="wrap">
-	<div class="content">
+	<div class="content" *ngIf="!isLoading">
 		<app-preview-article 
 			*ngFor="let post of posts"
 			[post]="post">
 		</app-preview-article>
 
-		<div class="wrap-navigation" *ngIf="posts">
+		<div class="wrap-navigation">
 			<button
 				class="btn-green" 
 				*ngIf="pagesCount !== page + 1"
@@ -33,5 +33,9 @@
 				</span>
 			</div>
 		</div>
+	</div>
+
+	<div class="content" *ngIf="isLoading">
+		<mat-spinner></mat-spinner>
 	</div>
 </div>

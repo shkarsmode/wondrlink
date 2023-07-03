@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { take } from 'rxjs';
 import { IPost } from 'src/app/shared/interfaces/IPost';
 import { PostsService } from 'src/app/shared/services/posts.service';
 
@@ -9,7 +10,7 @@ import { PostsService } from 'src/app/shared/services/posts.service';
 })
 export class BlogComponent implements OnInit {
 
-    public posts: IPost[];
+    public posts: IPost[] = [];
     public allPostsCount: number;
     public isLoading: boolean = false;
     public pagesCount: number;
@@ -33,6 +34,7 @@ export class BlogComponent implements OnInit {
     private getPosts(isAddToExciting: boolean = false): void {
         this.isLoading = true;
         this.postsService.getPosts(this.limit, this.page)
+            .pipe(take(1))
             .subscribe(response => {
                 if (isAddToExciting) {
                     response.posts.forEach(post => this.posts.push(post));
@@ -43,7 +45,7 @@ export class BlogComponent implements OnInit {
                 this.allPostsCount = response.allPostsCount;
                 
                 this.setPagesCount();
-                this.isLoading = true;
+                this.isLoading = false;
             });
     }
 
