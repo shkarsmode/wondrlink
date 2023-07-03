@@ -20,7 +20,7 @@ export class ArticleService {
     }
 
     public getCurrentArticle(id: string): IInfo {
-        return this.info.filter(info => 
+        return this.info?.filter(info => 
             info.header.toLowerCase() === id.toLowerCase()
         )[0];
     }
