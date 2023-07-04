@@ -1,7 +1,7 @@
 <div class="wrap">
 
 	<!-- * Patient Signup -->
-	<form 
+	<form
 		[ngClass]="{'is-sending': isSending}"
 		*ngIf="statusForm === 'Patient'" 
 		(ngSubmit)="onSubmitButton('Patient')">
@@ -25,12 +25,12 @@
 			</div>
 		</div>
 
-		<div class="wrap-inputs">
+		<!-- <div class="wrap-inputs"> -->
 			<div class="left-side">
 				<div class="group">
 					<label for="firstName">Patient name</label>
 					<input
-						autocomplete="on"		
+						autocomplete="given-name"	
 						tabindex="1"
 						type="text" required
 						placeholder="First"
@@ -38,36 +38,24 @@
 						[(ngModel)]="firstName">
 				</div>
 				<div class="group">
+					<label for="lastName">Patient Name</label>
+					<input
+						autocomplete="family-name" 
+						tabindex="2"
+						type="text" required
+						placeholder="Last"
+						id="lastName" name="family-name"
+						[(ngModel)]="lastName">
+				</div>
+				<div class="group">
 					<label for="phone">Phone</label>
 					<input
-						autocomplete="on"
+						autocomplete="phone"
 						tabindex="3"
 						type="tel" required
 						placeholder="+1 212 001 002"
 						id="phone" name="phone"
 						[(ngModel)]="phone">
-				</div>
-				<div class="group">
-					<label for="location">Location</label>
-					<input
-						autocomplete="on" 
-						tabindex="5"
-						type="text" required
-						placeholder="Miami, FL"
-						id="location" name="location"
-						[(ngModel)]="location">
-				</div>
-			</div> 
-			<div class="right-side">
-				<div class="group">
-					<label for="lastName" style="opacity: 0">Patient Name</label>
-					<input 
-						autocomplete="on"
-						tabindex="2"
-						type="text" required
-						placeholder="Last"
-						id="lastName" name="lastName"
-						[(ngModel)]="lastName">
 				</div>
 				<div class="group">
 					<label for="email">Email</label>
@@ -80,9 +68,23 @@
 						[(ngModel)]="email">
 				</div>
 				<div class="group">
+					<label for="location">Location</label>
+					<input
+						autocomplete="address-line1"
+						tabindex="5"
+						type="text" required
+						placeholder="Miami, FL"
+						id="location" name="location"
+						[(ngModel)]="location">
+				</div>
+			<!-- </div>  -->
+			<!-- <div class="right-side"> -->
+				
+				
+				<div class="group">
 					<label for="password">Password</label>
 					<input 
-						autocomplete="on"
+						autocomplete="off"
 						tabindex="6"
 						required
 						[type]="isShowPassword ? 'text' : 'password'" 
@@ -106,7 +108,7 @@
 						</span>
 					</div>
 				</div>
-			</div>
+			<!-- </div> -->
 		</div>
 
 		<div class="group-checkbox">
@@ -134,6 +136,7 @@
 
 	<!-- * Physician Signup -->
 	<form 
+		autocomplete="on"
 		[ngClass]="{'is-sending': isSending}"
 		*ngIf="statusForm === 'Physician'" 
 		(ngSubmit)="onSubmitButton('Physician')">
@@ -144,10 +147,11 @@
 		<h2>Physician Signup</h2>
 
 		<div class="wrap-inputs">
-			<div class="left-side">
+			<!-- <div class="left-side"> -->
 				<div class="group">
 					<label for="firstName">Name</label>
 					<input 
+						autocomplete="given-name"
 						tabindex="1"
 						type="text" required
 						placeholder="First"
@@ -155,8 +159,19 @@
 						[(ngModel)]="firstName">
 				</div>
 				<div class="group">
-					<label for="phone">Phone</label>
+					<label for="lastName">Last name</label>
 					<input 
+						autocomplete="family-name" 
+						tabindex="2"
+						type="text" required
+						placeholder="Last"
+						id="lastName" name="lastName"
+						[(ngModel)]="lastName">
+				</div>
+				<div class="group">
+					<label for="phone">Phone</label>
+					<input
+						autocomplete="phone"
 						tabindex="3"
 						type="tel" required
 						placeholder="+1 212 001 002"
@@ -164,13 +179,33 @@
 						[(ngModel)]="phone">
 				</div>
 				<div class="group">
+					<label for="email">Email</label>
+					<input 
+						tabindex="4"
+						type="email" required
+						placeholder="name@email.com"
+						id="email" name="email"
+						[(ngModel)]="email">
+				</div>
+				<div class="group">
 					<label for="hospital">Hospital name</label>
 					<input 
+						autocomplete="organization"
 						tabindex="5"
 						type="text" required
 						placeholder="Hospital/clinic name"
 						id="hospital" name="hospital"
 						[(ngModel)]="hospital">
+				</div>
+				<div class="group">
+					<label for="location">Location</label>
+					<input 
+						autocomplete="address-line1"
+						tabindex="6"
+						type="text" required
+						placeholder="Miami, FL"
+						id="location" name="location"
+						[(ngModel)]="location">
 				</div>
 				<div class="group">
 					<label for="password">Password</label>
@@ -197,36 +232,11 @@
 						</span>
 					</div>
 				</div>
-			</div> 
-			<div class="right-side">
-				<div class="group">
-					<label for="lastName" style="opacity: 0">Patient Name</label>
-					<input 
-						tabindex="2"
-						type="text" required
-						placeholder="Last"
-						id="lastName" name="lastName"
-						[(ngModel)]="lastName">
-				</div>
-				<div class="group">
-					<label for="email">Email</label>
-					<input 
-						tabindex="4"
-						type="email" required
-						placeholder="name@email.com"
-						id="email" name="email"
-						[(ngModel)]="email">
-				</div>
-				<div class="group">
-					<label for="location">Location</label>
-					<input 
-						tabindex="6"
-						type="text" required
-						placeholder="Miami, FL"
-						id="location" name="location"
-						[(ngModel)]="location">
-				</div>
-			</div>
+			<!-- </div>  -->
+			<!-- <div class="right-side"> -->
+				
+				
+			<!-- </div> -->
 		</div>
 
 		<div class="group-checkbox">
@@ -263,10 +273,11 @@
 		<h2>Industry Signup</h2>
 
 		<div class="wrap-inputs">
-			<div class="left-side">
+			<!-- <div class="left-side"> -->
 				<div class="group">
 					<label for="firstName">Name</label>
-					<input 
+					<input
+						autocomplete="given-name" 
 						tabindex="1"
 						type="text" required
 						placeholder="First"
@@ -274,8 +285,19 @@
 						[(ngModel)]="firstName">
 				</div>
 				<div class="group">
+					<label for="lastName">Last name</label>
+					<input 
+						autocomplete="family-name" 
+						tabindex="2"
+						type="text" required
+						placeholder="Last"
+						id="lastName" name="lastName"
+						[(ngModel)]="lastName">
+				</div>
+				<div class="group">
 					<label for="phone">Phone</label>
 					<input
+						autocomplete="phone"
 						tabindex="3" 
 						type="tel" required
 						placeholder="+1 212 001 002"
@@ -283,13 +305,33 @@
 						[(ngModel)]="phone">
 				</div>
 				<div class="group">
-					<label for="company">Company name</label>
+					<label for="email">Email</label>
 					<input 
+						tabindex="4"
+						type="email" required
+						placeholder="name@email.com"
+						id="email" name="email"
+						[(ngModel)]="email">
+				</div>
+				<div class="group">
+					<label for="company">Company name</label>
+					<input
+						autocomplete="organization"
 						tabindex="5"
 						type="text" required
 						placeholder="Company/institute name"
 						id="company" name="company"
 						[(ngModel)]="company">
+				</div>
+				<div class="group">
+					<label for="location">Location</label>
+					<input
+						autocomplete="address-line1" 
+						tabindex="6"
+						type="text" required
+						placeholder="Miami, FL"
+						id="location" name="location"
+						[(ngModel)]="location">
 				</div>
 				<div class="group">
 					<label for="password">Password</label>
@@ -317,36 +359,12 @@
 						</span>
 					</div>
 				</div>
-			</div> 
-			<div class="right-side">
-				<div class="group">
-					<label for="lastName" style="opacity: 0">Patient Name</label>
-					<input 
-						tabindex="2"
-						type="text" required
-						placeholder="Last"
-						id="lastName" name="lastName"
-						[(ngModel)]="lastName">
-				</div>
-				<div class="group">
-					<label for="email">Email</label>
-					<input 
-						tabindex="4"
-						type="email" required
-						placeholder="name@email.com"
-						id="email" name="email"
-						[(ngModel)]="email">
-				</div>
-				<div class="group">
-					<label for="location">Location</label>
-					<input 
-						tabindex="6"
-						type="text" required
-						placeholder="Miami, FL"
-						id="location" name="location"
-						[(ngModel)]="location">
-				</div>
-			</div>
+			<!-- </div>  -->
+			<!-- <div class="right-side"> -->
+				
+				
+				
+			<!-- </div> -->
 		</div>
 
 		<div class="group-checkbox">
