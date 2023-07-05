@@ -102,6 +102,10 @@ export class UsersComponent {
                     this.limit = tempLimit;
                     this.page = tempPage;
 
+                    if (userToDelete.status === 'approved') {
+                        this.userService.approvedUsersUpdated$.next(true);
+                    }
+
                 },
                 error: _ => {
                     this.users.splice(indexUserToDelete, 0, userToDelete);

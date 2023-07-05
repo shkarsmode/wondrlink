@@ -32,9 +32,14 @@
 			</div>
 			<div class="c-header-icon has-dropdown">
 				<span
-					matTooltip="Something count"
-					class="c-badge c-badge--red c-badge--header-icon animated swing">13</span>
-					<i class="fa fa-bell"></i>
+					*ngIf="activeUsersCount"
+					matTooltip="Count of approved users"
+					class="c-badge c-badge--red c-badge--header-icon animated swing">
+					{{ activeUsersCount }}
+				</span>
+				<span class="material-symbols-outlined">
+					group
+				</span>
 				<div class="c-dropdown c-dropdown--notifications">
 					<div class="c-dropdown__header"></div>
 					<div class="c-dropdown__content"></div>
@@ -47,7 +52,8 @@
 				<div 
 					class="c-header-icon basket avatar" 
 					[ngClass]="{'loading-avatar': isLoadingUser}">
-					<span 
+					<span
+						*ngIf="countOfPosts" 
 						matTooltip="Your count of posts"
 						class="c-badge c-badge--red c-badge--header-icon animated swing">
 						{{ countOfPosts }}

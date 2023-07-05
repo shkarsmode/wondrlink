@@ -228,6 +228,9 @@ export class EditUserComponent  implements OnInit {
             .subscribe({
                 next: _ => {
                     this.locationService.back();
+                    if (this.user.status === 'approved') {
+                        this.userService.approvedUsersUpdated$.next(true);
+                    }
                 },
                 error: _ => {
                     alert('Something went wrong. Can`t delete this post');

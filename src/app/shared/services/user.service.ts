@@ -12,6 +12,7 @@ import { BASE_PATH_API } from './variables';
 export class UserService {
 
     public profileUpdated$: Subject<boolean> = new Subject();
+    public approvedUsersUpdated$: Subject<boolean> = new Subject();
     private readonly userPath: string = 'users';
 
     constructor(
@@ -22,6 +23,12 @@ export class UserService {
     public getUser(): Observable<IUser> {
         return this.http.get<IUser>(
             `${this.basePathApi}/${this.userPath}/my`
+        );
+    }
+
+    public getActiveUsersCount(): Observable<{ count: number }> {
+        return this.http.get<{ count: number }>(
+            `${this.basePathApi}/${this.userPath}/count-of-approved-users`
         );
     }
 

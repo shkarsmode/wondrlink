@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
 import { IUser } from 'src/app/shared/interfaces/IUser';
 import { ImageUrlResponseDto } from 'src/app/shared/interfaces/imageUrlResponse.dto';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -16,6 +17,7 @@ export class AdminComponent implements OnInit {
 
     public avatarFile: any;
     public user: IUser;
+    public activeUsersCount: number = 0;
     public isOpened: boolean = false;
     public countOfPosts: number = 0;
     public isLoadingUser: boolean = false;
@@ -30,12 +32,22 @@ export class AdminComponent implements OnInit {
 
     public ngOnInit(): void {
         this.getUserAndCountOfPosts();
+        this.getActiveUsersCount();
         this.subscribeOnUserChanginges();
+    }
+
+    public getActiveUsersCount(): void {
+        this.userService.getActiveUsersCount()
+            .pipe(take(1))
+            .subscribe(response => this.activeUsersCount = response.count);
     }
 
     private subscribeOnUserChanginges(): void {
         this.userService.profileUpdated$
             .subscribe(this.getUserAndCountOfPosts.bind(this))
+
+        this.userService.approvedUsersUpdated$
+        .subscribe(this.getActiveUsersCount.bind(this))
     }
 
     public toggleBurgerMenu = () => this.isOpened = !this.isOpened;
