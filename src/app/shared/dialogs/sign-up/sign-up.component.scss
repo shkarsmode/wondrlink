@@ -184,7 +184,7 @@ form {
 }
 
 .right-side, .left-side {
-	width:100%
+	width: 100%
 }
 
 h2 {
@@ -371,6 +371,10 @@ input.ng-dirty.ng-invalid {
 	color: red;
 	opacity: 0.9;
 	font-size: 13px;
+}
+
+.wrap:has(.step2:not(.active)) {
+	max-height: 630px;
 }
 
 @media (max-width: 500px) {
