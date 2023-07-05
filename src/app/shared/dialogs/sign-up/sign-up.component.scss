@@ -253,6 +253,10 @@ input {
 
 	&[type=password] {
 		font-size: 26px;
+		position: relative;
+		padding-top: 0px;
+		padding-bottom: 0px;
+
 		&::placeholder {
 			font-size: 12px;
 			position: absolute;
