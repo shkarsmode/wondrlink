@@ -270,6 +270,11 @@ button {
 	.phone {
 		display: flex;
 	}
+
+	::ng-deep body:has(app-header):has(.phone .show) {
+		overflow: hidden;
+	}
+
 }
 
 @media (max-width: 500px) {
