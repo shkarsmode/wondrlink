@@ -21,8 +21,8 @@ export class BannerComponent implements OnInit {
 
     private initDialogConfig(): void {
         this.dialogConfig.width = '100%';
+        // this.dialogConfig.height = '100%';
         this.dialogConfig.maxWidth = '630px';
-        this.dialogConfig.minHeight = '400px';
         this.dialogConfig.maxHeight = '800px';
         // this.dialogConfig.disableClose = true;
     }

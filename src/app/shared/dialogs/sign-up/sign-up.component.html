@@ -1,8 +1,15 @@
 <div class="wrap">
 	<div class="top">
-		<span class="material-symbols-outlined" (click)="close()">
-			close
-		</span>
+		<div (click)="previousStep()" class="left">
+			<span class="material-symbols-outlined" *ngIf="!isFirstStep">
+				west
+			</span>
+		</div>
+		<div (click)="close()" class="right">
+			<span class="material-symbols-outlined right">
+				close
+			</span>
+		</div>
 	</div>
 	<div class="content">
 		<div class="step1" [ngClass]="{'skipped': !isFirstStep}">
@@ -43,9 +50,6 @@
 		</div>
 
 		<div *ngIf="isLoaded" class="step2" [ngClass]="{'active': !isFirstStep}" #step2>
-			<span (click)="previousStep()" class="material-symbols-outlined">
-				west
-			</span>
 			<div class="wrap-form">
 				
 				<!-- * Patient Signup -->

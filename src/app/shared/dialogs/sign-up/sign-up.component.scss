@@ -6,14 +6,29 @@
 	justify-content: center;
 	align-items: center;
 	padding: 32px;
-	overflow: hidden;
+	overflow-x: hidden;
 	transition: all .3s;
 }
 
 .top {
 	position: absolute;
-	top: 20px; right: 20px;
-	cursor: pointer;
+	top: 20px;
+	width: 100%;
+	z-index: 1;
+
+	div {
+		position: absolute;
+		top: 0px;
+		cursor: pointer;
+
+		&.left {
+			left: 15px;
+		}
+
+		&.right {
+			right: 15px;
+		}
+	}
 }
 
 .content {
@@ -106,12 +121,8 @@ button {
 	transform: translateX(700px);
 	position: absolute;
 	width: 100%;
-
-	> span {
-		position: absolute;
-		top: -12px;
-	}
 }
+
 
 .active {
 	transform: translateX(0px);
@@ -130,6 +141,7 @@ button {
 
 .content:has(.active) {
 	width: 100%;
+	height: 100%;
 	padding: 125px 0;
 }
 
@@ -179,8 +191,8 @@ form {
 }
 
 .left-side {
-	display: flex;
-	column-gap: 10px;
+	// display: flex;
+	// column-gap: 10px;
 }
 
 .right-side, .left-side {
@@ -408,5 +420,12 @@ input.ng-dirty.ng-invalid {
 	
 	.group-checkbox label {
 		font-size: 12px;
+	}
+
+}
+
+@media (max-height: 780px) {
+	::ng-deep .cdk-overlay-pane:has(app-sign-up):has(.active) {
+		height: 100% !important;
 	}
 }
