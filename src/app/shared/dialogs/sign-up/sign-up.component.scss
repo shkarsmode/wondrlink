@@ -8,6 +8,19 @@
 	padding: 32px;
 	overflow-x: hidden;
 	transition: all .3s;
+
+	&::-webkit-scrollbar {
+		width: 8px;
+	}
+	
+	&::-webkit-scrollbar-track {
+		width: 8px;
+		background: white;
+	}
+	
+	&::-webkit-scrollbar-thumb {
+		background: #01C1B9; 
+	}
 }
 
 .top {
@@ -424,8 +437,14 @@ input.ng-dirty.ng-invalid {
 
 }
 
-@media (max-height: 780px) {
-	::ng-deep .cdk-overlay-pane:has(app-sign-up):has(.active) {
-		height: 100% !important;
-	}
+:ng-deep .cdk-overlay-pane:has(app-sign-up) {
+	transition: all .4s;
+}
+
+::ng-deep .cdk-overlay-pane:has(app-sign-up):has(.active) {
+	height: 100% !important;
+}
+
+.overflow-hidden {
+	overflow: hidden;
 }

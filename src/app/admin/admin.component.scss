@@ -629,6 +629,10 @@ main.l-main {
 		height: 100%;
 		overflow: auto;
 
+		&::-webkit-scrollbar-thumb {
+			background: #102C58;
+		}
+
 		.page-content {
 			border-top: 1px solid $light-grey;
 			padding-top: 25px;

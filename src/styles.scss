@@ -26,10 +26,23 @@
 	color: #152032;
 }
 
-
 body {
 	background: #F3F9F7;
 	height: 100%;
+
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-track {
+	width: 8px;
+	background: rgb(243 249 247);
+}
+
+::-webkit-scrollbar-thumb {
+	background: #01C1B9; 
 }
 
 button.btn-green {

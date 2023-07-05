@@ -1,4 +1,4 @@
-<div class="wrap">
+<div class="wrap" [ngClass]="{'overflow-hidden': isFirstStep}">
 	<div class="top">
 		<div (click)="previousStep()" class="left">
 			<span class="material-symbols-outlined" *ngIf="!isFirstStep">
