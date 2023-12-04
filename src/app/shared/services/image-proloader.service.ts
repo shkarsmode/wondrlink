@@ -7,11 +7,11 @@ export class ImageProloaderService {
 
     private readonly path: string = 'assets/img/';
     private readonly images: string[] = [
-        'bg.png', 
-        'blog-banner.png', 
-        'Industry.png', 
-        'Patients.png',
-        'Physicians.png',
+        'bg.png',
+        'blog-banner.png',
+        'drug-developers.png',
+        'patients.png',
+        'ecosystem.png',
         'providers.png',
         'Vector.png',
         'about-us.png',

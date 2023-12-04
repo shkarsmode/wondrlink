@@ -11,16 +11,16 @@ export class ArticleBannerComponent {
     @ViewChild('wrap', { static: true }) wrap: ElementRef<HTMLDivElement>;
     @Input() article: IInfo;
     private articleId: string;
-    
+
 
     public ngDoCheck(): void {
-        if (this.article?.header && this.articleId === this.article?.header) return;
-        this.articleId = this.article?.header;
+        if (this.article?.id && this.articleId === this.article?.id) return;
+        this.articleId = this.article?.id;
 
         this.setBackgroundImage();
     }
 
-    private setBackgroundImage(): void {        
+    private setBackgroundImage(): void {
         this.wrap.nativeElement.style.backgroundImage = `url('/assets/img/${this.articleId}.png')`;
     }
 }

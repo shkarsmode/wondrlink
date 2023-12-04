@@ -11,7 +11,7 @@ import { ArticleService } from '../../../shared/services/article-service.service
 export class ArticleLayoutComponent implements OnInit {
 
     public articleId: string;
-    
+
     public currentInfo: IInfo;
     public statusForm: 'Patient' | 'Physician' | 'Industry' = 'Patient';
 
@@ -27,14 +27,14 @@ export class ArticleLayoutComponent implements OnInit {
 
     private getInfoOfRoute(): void {
         this.route.paramMap.subscribe(params => {
-            this.articleId = params.get('articleId') || 'Partients'
-            this.getArticleById();
+          this.articleId = params.get('articleId') || 'patients';
+          this.getArticleById();
         });
     }
 
     private getArticleById(): void {
-        if (!this.articleId) return;
-        this.getCurrentArticle();
+      if (!this.articleId) return;
+      this.getCurrentArticle();
     }
 
     private getCurrentArticle(): void {
