@@ -3,7 +3,7 @@
 	<!-- * Patient Signup -->
 	<form
 		[ngClass]="{'is-sending': isSending}"
-		*ngIf="statusForm === 'Patient'" 
+		*ngIf="statusForm === 'Patient'"
 		(ngSubmit)="onSubmitButton('Patient')">
 		<div class="error-message" *ngIf="errorMessage">
 			{{ errorMessage }}
@@ -11,15 +11,15 @@
 		<h2>Patient Signup</h2>
 		<label>I'm signing up for</label>
 		<div class="wrap-checkboxes">
-			<div 
+			<div
 				(click)="chooseSigningUpFor(true)"
-				class="checkbox" 
+				class="checkbox"
 				[ngClass]="{'active': isMySelf}">
 				Myself
 			</div>
-			<div 
+			<div
 				(click)="chooseSigningUpFor(false)"
-				class="checkbox" 
+				class="checkbox"
 				[ngClass]="{'active': !isMySelf}">
 				Someone else
 			</div>
@@ -30,7 +30,7 @@
 				<div class="group">
 					<label for="firstName">Patient name</label>
 					<input
-						autocomplete="given-name"	
+						autocomplete="given-name"
 						tabindex="1"
 						type="text" required
 						placeholder="First"
@@ -40,7 +40,7 @@
 				<div class="group">
 					<label for="lastName">Patient Name</label>
 					<input
-						autocomplete="family-name" 
+						autocomplete="family-name"
 						tabindex="2"
 						type="text" required
 						placeholder="Last"
@@ -59,7 +59,7 @@
 				</div>
 				<div class="group">
 					<label for="email">Email</label>
-					<input 
+					<input
 						autocomplete="on"
 						tabindex="4"
 						type="text" required
@@ -79,28 +79,28 @@
 				</div>
 			<!-- </div>  -->
 			<!-- <div class="right-side"> -->
-				
-				
+
+
 				<div class="group">
 					<label for="password">Password</label>
-					<input 
+					<input
 						autocomplete="off"
 						tabindex="6"
 						required
-						[type]="isShowPassword ? 'text' : 'password'" 
+						[type]="isShowPassword ? 'text' : 'password'"
 						id="password" name="password"
 						placeholder="*min 8 characters"
 						minlength="8"
 						[(ngModel)]="password">
 
 					<div class="hide">
-						<span 
+						<span
 							(click)="toggleShowingPassword()"
-							class="material-symbols-outlined" 
+							class="material-symbols-outlined"
 							*ngIf="isShowPassword">
 							visibility
 						</span>
-						<span 
+						<span
 							(click)="toggleShowingPassword()"
 							class="material-symbols-outlined"
 							*ngIf="!isShowPassword">
@@ -112,19 +112,19 @@
 		</div>
 
 		<div class="group-checkbox">
-			<input 
-				tabindex="7" 
-				type="checkbox" 
-				name="remember" 
-				id="remember" 
+			<input
+				tabindex="7"
+				type="checkbox"
+				name="remember"
+				id="remember"
 				[(ngModel)]="isAgreeTerms">
 			<label for="remember">I understand the terms and privacy policy</label>
 		</div>
 
 		<div class="wrap-btn">
-			<button 
+			<button
 				type="submit"
-				class="btn-green" 
+				class="btn-green"
 				[disabled]="!isAgreeTerms" >
 				Submit
 			</button>
@@ -135,10 +135,10 @@
 	<!-- * END Patient Signup -->
 
 	<!-- * Physician Signup -->
-	<form 
+	<form
 		autocomplete="on"
 		[ngClass]="{'is-sending': isSending}"
-		*ngIf="statusForm === 'Physician'" 
+		*ngIf="statusForm === 'Physician'"
 		(ngSubmit)="onSubmitButton('Physician')">
 		<div class="error-message" *ngIf="errorMessage">
 			{{ errorMessage }}
@@ -150,7 +150,7 @@
 			<!-- <div class="left-side"> -->
 				<div class="group">
 					<label for="firstName">Name</label>
-					<input 
+					<input
 						autocomplete="given-name"
 						tabindex="1"
 						type="text" required
@@ -160,8 +160,8 @@
 				</div>
 				<div class="group">
 					<label for="lastName">Last name</label>
-					<input 
-						autocomplete="family-name" 
+					<input
+						autocomplete="family-name"
 						tabindex="2"
 						type="text" required
 						placeholder="Last"
@@ -180,7 +180,7 @@
 				</div>
 				<div class="group">
 					<label for="email">Email</label>
-					<input 
+					<input
 						tabindex="4"
 						type="email" required
 						placeholder="name@email.com"
@@ -189,7 +189,7 @@
 				</div>
 				<div class="group">
 					<label for="hospital">Hospital name</label>
-					<input 
+					<input
 						autocomplete="organization"
 						tabindex="5"
 						type="text" required
@@ -199,7 +199,7 @@
 				</div>
 				<div class="group">
 					<label for="location">Location</label>
-					<input 
+					<input
 						autocomplete="address-line1"
 						tabindex="6"
 						type="text" required
@@ -209,24 +209,24 @@
 				</div>
 				<div class="group">
 					<label for="password">Password</label>
-					<input 
+					<input
 						tabindex="7"
 						required
-						[type]="isShowPassword ? 'text' : 'password'" 
+						[type]="isShowPassword ? 'text' : 'password'"
 						id="password" name="password"
 						minlength="8"
 						[(ngModel)]="password">
 
 					<div class="hide">
-						<span 
+						<span
 							(click)="toggleShowingPassword()"
-							class="material-symbols-outlined" 
+							class="material-symbols-outlined"
 							*ngIf="isShowPassword">
 							visibility
 						</span>
-						<span 
+						<span
 							(click)="toggleShowingPassword()"
-							class="material-symbols-outlined" 
+							class="material-symbols-outlined"
 							*ngIf="!isShowPassword">
 							visibility_off
 						</span>
@@ -234,24 +234,24 @@
 				</div>
 			<!-- </div>  -->
 			<!-- <div class="right-side"> -->
-				
-				
+
+
 			<!-- </div> -->
 		</div>
 
 		<div class="group-checkbox">
-			<input 
-				type="checkbox" 
-				name="remember" 
-				id="remember" 
+			<input
+				type="checkbox"
+				name="remember"
+				id="remember"
 				required
 				[(ngModel)]="isAgreeTerms">
 			<label for="remember">I understand the terms and privacy policy</label>
 		</div>
 
 		<div class="wrap-btn">
-			<button 
-				class="btn-green" 
+			<button
+				class="btn-green"
 				[disabled]="!isAgreeTerms">
 				Submit
 			</button>
@@ -262,22 +262,22 @@
 	<!-- * END Physician Signup -->
 
 	<!-- * Industry Signup -->
-	<form 
+	<form
 		[ngClass]="{'is-sending': isSending}"
-		*ngIf="statusForm === 'Industry'" 
+		*ngIf="statusForm === 'Industry'"
 		(ngSubmit)="onSubmitButton('Industry')">
 		<div class="error-message" *ngIf="errorMessage">
 			{{ errorMessage }}
 		</div>
 
-		<h2>Industry Signup</h2>
+		<h2>Industry and Research Groups</h2>
 
 		<div class="wrap-inputs">
 			<!-- <div class="left-side"> -->
 				<div class="group">
 					<label for="firstName">Name</label>
 					<input
-						autocomplete="given-name" 
+						autocomplete="given-name"
 						tabindex="1"
 						type="text" required
 						placeholder="First"
@@ -286,8 +286,8 @@
 				</div>
 				<div class="group">
 					<label for="lastName">Last name</label>
-					<input 
-						autocomplete="family-name" 
+					<input
+						autocomplete="family-name"
 						tabindex="2"
 						type="text" required
 						placeholder="Last"
@@ -298,7 +298,7 @@
 					<label for="phone">Phone</label>
 					<input
 						autocomplete="phone"
-						tabindex="3" 
+						tabindex="3"
 						type="tel" required
 						placeholder="+1 212 001 002"
 						id="phone" name="phone"
@@ -306,7 +306,7 @@
 				</div>
 				<div class="group">
 					<label for="email">Email</label>
-					<input 
+					<input
 						tabindex="4"
 						type="email" required
 						placeholder="name@email.com"
@@ -326,7 +326,7 @@
 				<div class="group">
 					<label for="location">Location</label>
 					<input
-						autocomplete="address-line1" 
+						autocomplete="address-line1"
 						tabindex="6"
 						type="text" required
 						placeholder="Miami, FL"
@@ -338,22 +338,22 @@
 					<input
 						tabindex="7"
 						required
-						[type]="isShowPassword ? 'text' : 'password'" 
+						[type]="isShowPassword ? 'text' : 'password'"
 						id="password" name="password"
 						placeholder="*min 8 characters"
 						minlength="8"
 						[(ngModel)]="password">
 
 					<div class="hide">
-						<span 
+						<span
 							(click)="toggleShowingPassword()"
-							class="material-symbols-outlined" 
+							class="material-symbols-outlined"
 							*ngIf="isShowPassword">
 							visibility
 						</span>
-						<span 
+						<span
 							(click)="toggleShowingPassword()"
-							class="material-symbols-outlined" 
+							class="material-symbols-outlined"
 							*ngIf="!isShowPassword">
 							visibility_off
 						</span>
@@ -361,9 +361,9 @@
 				</div>
 			<!-- </div>  -->
 			<!-- <div class="right-side"> -->
-				
-				
-				
+
+
+
 			<!-- </div> -->
 		</div>
 
@@ -373,8 +373,8 @@
 		</div>
 
 		<div class="wrap-btn">
-			<button 
-				class="btn-green" 
+			<button
+				class="btn-green"
 				[disabled]="!isAgreeTerms">
 				Submit
 			</button>
