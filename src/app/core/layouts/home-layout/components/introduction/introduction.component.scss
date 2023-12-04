@@ -1,0 +1,55 @@
+
+p {
+  margin: 0;
+  padding: 0;
+  color: #152032;
+  text-align: center;
+  font-family: Sofia Pro;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 48px; /* 120% */
+  letter-spacing: normal;
+  max-width: 1128px;
+}
+
+.introduction-wrap {
+  display: flex;
+  place-content: center;
+  padding: 0 15px;
+  margin: 200px 0 0 0;
+}
+
+
+@media (max-width: 1450px) {
+	.introduction-wrap {
+		margin: 180px 0 0 0;
+	}
+
+}
+
+@media (max-width: 1230px) {
+	.introduction-wrap {
+		margin: 120px 0 0 0;
+	}
+
+  p {
+    font-size: 2em;
+  }
+}
+
+@media (max-width: 900px) {
+  p {
+    font-size: 1.5em;
+    line-height: 35px;
+  }
+
+  br {
+    display: none;
+  }
+}
+
+
+
+
+

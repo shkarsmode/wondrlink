@@ -28,6 +28,7 @@ import { PostComponent } from './layouts/home-layout/components/post/post.compon
 import { PreviewBlogComponent } from './layouts/home-layout/components/preview-blog/preview-blog.component';
 import { QuotesComponent } from './layouts/home-layout/components/quotes/quotes.component';
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
+import { IntroductionComponent } from './layouts/home-layout/components/introduction/introduction.component';
 
 @NgModule({
     declarations: [
@@ -52,7 +53,8 @@ import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component
         ArticleBannerComponent,
         FormComponent,
         ApprovePageComponent,
-        PostComponent
+        PostComponent,
+        IntroductionComponent
     ],
     imports: [
         CommonModule, 
