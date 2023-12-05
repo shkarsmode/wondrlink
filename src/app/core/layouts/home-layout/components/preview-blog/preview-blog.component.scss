@@ -33,7 +33,7 @@
     flex-direction: column;
     align-items: flex-start;
 	justify-content: space-between;
-	
+
     height: 100%;
 }
 
@@ -114,11 +114,16 @@ button {
 	}
 }
 
+@media (max-width: 1230px) {
+  .wrap {
+    padding-bottom: 120px;
+  }
+}
+
 @media (max-width: 1200px) {
 	.wrap {
 		background-position-y: 0px;
-		padding: 0 15px;
-		padding-bottom: 200px;
+		padding: 0 15px 120px 15px;
 	}
 }
 
