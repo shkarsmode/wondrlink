@@ -19,7 +19,8 @@ export class ImageProloaderService {
         'commitment.png',
         'heart.png',
         'telescope.png',
-        'union.png'
+        'ecosystem-icon.png',
+        // 'union.png'
     ];
     private loadedLenght: number = 0;
 
