@@ -26,7 +26,7 @@ export class FormComponent implements OnInit {
     public isSending: boolean = false;
     public errorMessage: string;
 
-    @Input() public statusForm: 'Patient' | 'Physician' | 'Industry';
+    @Input() public statusForm: 'patients' | 'drug-developers' | 'ecosystem';
     private dialogConfig: MatDialogConfig = new MatDialogConfig();
 
     private readonly patientRequiredFields = [...commonRequiredFields, 'isMySelf'];
@@ -106,12 +106,12 @@ export class FormComponent implements OnInit {
                     this.isSending = false;
                 }
             });
-        
+
     }
 
 
     public openCheckEmailModalWindow(): void {
-        const dialogRef = 
+        const dialogRef =
             this.dialog.open(CheckEmailComponent, this.dialogConfig);
 
         dialogRef.afterClosed().subscribe(() => {

@@ -3,7 +3,7 @@
 	<!-- * Patient Signup -->
 	<form
 		[ngClass]="{'is-sending': isSending}"
-		*ngIf="statusForm === 'Patient'"
+		*ngIf="statusForm === 'patients'"
 		(ngSubmit)="onSubmitButton('Patient')">
 		<div class="error-message" *ngIf="errorMessage">
 			{{ errorMessage }}
@@ -138,7 +138,7 @@
 	<form
 		autocomplete="on"
 		[ngClass]="{'is-sending': isSending}"
-		*ngIf="statusForm === 'Physician'"
+		*ngIf="statusForm === 'ecosystem'"
 		(ngSubmit)="onSubmitButton('Physician')">
 		<div class="error-message" *ngIf="errorMessage">
 			{{ errorMessage }}
@@ -264,7 +264,7 @@
 	<!-- * Industry Signup -->
 	<form
 		[ngClass]="{'is-sending': isSending}"
-		*ngIf="statusForm === 'Industry'"
+		*ngIf="statusForm === 'drug-developers'"
 		(ngSubmit)="onSubmitButton('Industry')">
 		<div class="error-message" *ngIf="errorMessage">
 			{{ errorMessage }}

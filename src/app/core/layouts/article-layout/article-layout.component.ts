@@ -13,7 +13,7 @@ export class ArticleLayoutComponent implements OnInit {
     public articleId: string;
 
     public currentInfo: IInfo;
-    public statusForm: 'Patient' | 'Physician' | 'Industry' = 'Patient';
+    public statusForm: 'patients' | 'drug-developers' | 'ecosystem' = 'patients';
 
     constructor(
         private route: ActivatedRoute,
@@ -43,13 +43,13 @@ export class ArticleLayoutComponent implements OnInit {
     }
 
     private determineStatusForForm(): void {
-        const header = this.currentInfo.header;
-        if (header.indexOf('Physicians') === 0) {
-            this.statusForm = 'Physician';
-        } else if (header.indexOf('Patients') === 0) {
-            this.statusForm = 'Patient';
-        } else if (header.indexOf('Industry') === 0) {
-            this.statusForm = 'Industry';
+        const articleId = this.currentInfo.id;
+        if (articleId === "patients") {
+            this.statusForm = 'patients';
+        } else if (articleId === "ecosystem") {
+            this.statusForm = 'ecosystem';
+        } else if (articleId === "drug-developers") {
+            this.statusForm = 'drug-developers';
         }
     }
 }
