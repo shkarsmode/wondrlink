@@ -6,7 +6,7 @@
 
 	position: relative;
 
-	height: 520px;
+	height: 600px;
 	width: 100%;
 	background: linear-gradient(90.02deg, #00A5C9 5.36%, #00E7A1 109.9%);
 
@@ -30,7 +30,7 @@
 	top: 0px;
 	left: 0px;
 	transition: all .7s;
-	
+
 	div {
 		color: white;
 		pointer-events: none;
@@ -80,7 +80,7 @@
 			opacity: 0.7;
 		}
 
-		
+
 		&:after {
 			content: '';
 			position: absolute;
@@ -125,6 +125,7 @@
 @media (max-width: 990px) {
 	.wrap-quotes {
 		max-width: 760px;
+    height: 60%;
 	}
 
 	.quote {
@@ -143,7 +144,7 @@
 @media (max-width: 777px) {
 	.wrap-quotes {
 		max-width: 550px;
-		height: 300px;
+		// height: 400px;
 	}
 
 	.quote div:first-child {
@@ -171,8 +172,25 @@
 	}
 }
 
-@media (max-width: 470px) {
+@media (max-width: 475px) {
 	.quote div:first-child {
 		line-height: 25px;
 	}
+
+  .wrap {
+    height: 620px;
+  }
 }
+
+@media (max-width: 395px) {
+	.wrap {
+    height: 650px;
+  }
+}
+
+@media (max-width: 360px) {
+  .wrap-quotes {
+    height: 68%;
+  }
+}
+
