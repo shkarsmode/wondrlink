@@ -1,0 +1,78 @@
+[
+  {
+    "id": "ecosystem",
+    "title": "Ecosystem Signup",
+    "subtitle": "Tell us who you are",
+    "list": [
+      {
+        "title": "Healthcare providers",
+        "subtitle": "Everyone else helping bring care, hope and support to patients needing novel therapies",
+        "icon": "healthcare.svg"
+      },
+      {
+        "title": "Patient Support",
+        "subtitle": "Social workers, Advocacy groups, Chaplains, Spiritual care services",
+        "icon": "handshake.svg"
+      },
+      {
+        "title": "Licensing and Venture",
+        "subtitle": "Licensing offices, technology transfer, VC/Investors helping accelerate new novel drugs",
+        "icon": "license.svg"
+      },
+      {
+        "title": "Philanthropy/Donors",
+        "subtitle": "Supporting access to novel therapies",
+        "icon": "aorta.svg"
+      }
+    ]
+  },
+  {
+    "id": "drug-developers",
+    "title": "Drug Developer Signup",
+    "subtitle": "Select organization type",
+    "list": [
+      {
+        "title": "Biotech",
+        "icon": "biotech.svg"
+      },
+      {
+        "title": "Pharma",
+        "icon": "pharma.svg"
+      },
+      {
+        "title": "Research Organization",
+        "icon": "research.svg"
+      },
+      {
+        "title": "University/Academic Institution",
+        "icon": "university.svg"
+      }
+    ]
+  },
+  {
+    "id": "patients",
+    "title": "How would you describe your situation?",
+    "subtitle": "I'm currently in need of:",
+    "list": [
+      {
+        "title": "Research/Investigation",
+        "subtitle": "You have a condition that wasn't easily diagnosed and needs to be investigated further",
+        "icon": "bulb.svg"
+      },
+      {
+        "title": "Compassionate Use/Clinical Trial",
+        "subtitle": "You need access to a novel therapy not publicly available",
+        "icon": "handheart.svg"
+      },
+      {
+        "title": "Access to Approved Therapy",
+        "subtitle": "You need access to an approved therapy that's currently unavailable to you",
+        "icon": "key.svg"
+      },
+      {
+        "title": "Something Else",
+        "icon": "ambulance.svg"
+      }
+    ]
+  }
+]
