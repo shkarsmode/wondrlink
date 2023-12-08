@@ -10,7 +10,7 @@ import { FlowSelectService } from 'src/app/shared/services/flow-select.service';
   styleUrls: ['./flow-select.component.scss']
 })
 export class FlowSelectComponent {
-  @Output() step = new EventEmitter<TFlowSteps>();
+  @Output() step = new EventEmitter<number>();
   @Input() flowType: TFLow = 'patients';
 
   public selectOptions: boolean[] = [false, false, false, false];

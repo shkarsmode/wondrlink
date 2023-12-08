@@ -1,0 +1,14 @@
+.back, .close {
+  position: absolute;
+  cursor: pointer;
+}
+
+.back {
+  top: 20px;
+  left: 20px;
+}
+
+.close {
+  top: 20px;
+  right: 20px;
+}

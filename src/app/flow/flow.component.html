@@ -1,0 +1,17 @@
+<!-- navigation -->
+<img src="assets/svg/arrowback.svg" alt="back" class="back" (click)="stepBack(step)"
+  *ngIf="step === 1 ? false : isFlowStartsFromInit === true && step === 2 ? false : true">
+
+<!-- flow control -->
+<div [ngSwitch]="step">
+  <div *ngSwitchCase="'step1'">
+
+  </div>
+  <div *ngSwitchCase="'step2'">
+
+
+  </div>
+  <div *ngSwitchCase="'step3'">
+
+  </div>
+</div>
