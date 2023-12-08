@@ -1,0 +1,28 @@
+<button
+    *ngIf="pagesCount !== page + 1"
+    class="navigation__btn-more btn-green" 
+    (click)="onButtonMoreClick()">
+    Show More
+</button>
+
+<div class="navigation__pagination">
+    <span 
+        [class.disabled]="1 === page + 1"
+        class="pagination__element material-symbols-outlined"
+        (click)="onBackButtonClick()">
+        west
+    </span>
+
+    <span class="pagination__element pagination__element-active">
+        {{ page + 1 }}
+    </span>
+    <span class="pagination__element"> / </span>
+    <span class="pagination__element">{{ pagesCount }}</span>
+
+    <span 
+        class="pagination__element material-symbols-outlined"
+        [class.disabled]="pagesCount === page + 1"
+        (click)="onForwardButtonClick()">
+        east
+    </span>
+</div>

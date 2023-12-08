@@ -1,41 +1,31 @@
-<div class="wrap">
-	<div class="content" *ngIf="!isLoading">
-		<app-preview-article 
-			*ngFor="let post of posts"
-			[post]="post">
-		</app-preview-article>
+<div 
+    *ngIf="!isLoading"
+    class="content"
+    [@fadeIn]>
+    <app-preview-article 
+        *ngFor="let post of posts"
+        [post]="post">
+    </app-preview-article>
 
-		<div class="wrap-navigation">
-			<button
-				class="btn-green" 
-				*ngIf="pagesCount !== page + 1"
-				(click)="onButtonMoreClick()">
-				Show More
-			</button>
+    <app-blog-navigation
+        *ngIf="posts.length"
+        [page]="page"
+        [pagesCount]="pagesCount"
+        [@fadeIn]
+        (back)="back()"
+        (forward)="forward()"
+        (loadMore)="onButtonMoreClick()">
+    </app-blog-navigation>
 
-			<div class="navigation">
-				<span 
-					(click)="back()"
-					class="material-symbols-outlined"
-					[ngClass]="{'disabled': 1 === page + 1}">
-					west
-				</span>
+    <app-blog-coming-soon 
+        *ngIf="!posts.length"
+        [@fadeIn]>
+    </app-blog-coming-soon>
+</div>
 
-				<span class="active-page">{{ page + 1 }}</span>
-				<span> / </span>
-				<span>{{ pagesCount }}</span>
-
-				<span 
-					(click)="forward()"
-					class="material-symbols-outlined"
-					[ngClass]="{'disabled': pagesCount === page + 1}">
-					east
-				</span>
-			</div>
-		</div>
-	</div>
-
-	<div class="content" *ngIf="isLoading">
-		<mat-spinner></mat-spinner>
-	</div>
+<div 
+    *ngIf="isLoading"
+    class="content"
+    [@fadeIn]>
+    <mat-spinner></mat-spinner>
 </div>

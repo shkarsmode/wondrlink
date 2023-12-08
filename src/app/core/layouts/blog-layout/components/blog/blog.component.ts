@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
 import { IPost } from 'src/app/shared/interfaces/IPost';
@@ -6,20 +7,26 @@ import { PostsService } from 'src/app/shared/services/posts.service';
 @Component({
     selector: 'app-blog',
     templateUrl: './blog.component.html',
-    styleUrls: ['./blog.component.scss']
+    styleUrls: ['./blog.component.scss'],
+    animations: [
+        trigger('fadeIn', [
+            transition(':enter', [
+            style({ opacity: '0' }),
+            animate('.5s ease-in-out', style({ opacity: '1' })),
+        ])
+    ])]
 })
 export class BlogComponent implements OnInit {
-
-    public posts: IPost[] = [];
-    public allPostsCount: number;
-    public isLoading: boolean = false;
+    public page: number = 0;
     public pagesCount: number;
+    public allPostsCount: number;
+    public posts: IPost[] = [];
+    public isLoading: boolean = false;
 
-    private limit: number = 10; // Number of items per page
-    public page: number = 0; // Current page number    
+    private readonly limit: number = 10;
 
     constructor(
-        private postsService: PostsService
+        private readonly postsService: PostsService
     ) {}
 
     public ngOnInit(): void {
@@ -28,7 +35,6 @@ export class BlogComponent implements OnInit {
 
     private setPagesCount(): void {
         this.pagesCount = Math.ceil(this.allPostsCount / this.limit);
-        console.log(this.pagesCount)
     }
 
     private getPosts(isAddToExciting: boolean = false): void {
@@ -36,12 +42,8 @@ export class BlogComponent implements OnInit {
         this.postsService.getPosts(this.limit, this.page)
             .pipe(take(1))
             .subscribe(response => {
-                if (isAddToExciting) {
-                    response.posts.forEach(post => this.posts.push(post));
-                } else {
-                    this.posts = response.posts;
-                }
-                
+                this.posts = isAddToExciting ? [...this.posts, ...response.posts] : response.posts;
+            
                 this.allPostsCount = response.allPostsCount;
                 
                 this.setPagesCount();
