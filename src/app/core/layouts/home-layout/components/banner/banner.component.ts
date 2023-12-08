@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { SignUpComponent } from 'src/app/shared/dialogs/sign-up/sign-up.component';
+import { FlowDialogComponent } from 'src/app/flow/components/flow-dialog/flow-dialog.component';
 
 @Component({
     selector: 'app-banner',
@@ -18,17 +18,19 @@ export class BannerComponent implements OnInit {
     public ngOnInit(): void {
         this.initDialogConfig();
     }
-
+// тут воркинг в этом окне основной
     private initDialogConfig(): void {
-        this.dialogConfig.width = '100%';
+        // this.dialogConfig.width = '100%';
         // this.dialogConfig.height = '100%';
         this.dialogConfig.maxWidth = '630px';
-        this.dialogConfig.maxHeight = '800px';
+        this.dialogConfig.maxHeight = '850px';
+        this.dialogConfig.minHeight = '300px';
+        this.dialogConfig.minWidth = '300px';
         // this.dialogConfig.disableClose = true;
     }
 
 
     public openSignUpDialog(): void {
-        const dialogRef = this.dialog.open(SignUpComponent, this.dialogConfig);
+        const dialogRef = this.dialog.open(FlowDialogComponent, this.dialogConfig);
     }
 }

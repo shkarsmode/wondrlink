@@ -8,6 +8,7 @@ import { MaterialModule } from '../shared/materials/material.module';
 import { FlowFormComponent } from './components/flow-form/flow-form.component';
 import { FlowSelectComponent } from './components/flow-select/flow-select.component';
 import { FlowInitComponent } from './components/flow-init/flow-init.component';
+import { FlowDialogComponent } from './components/flow-dialog/flow-dialog.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { FlowInitComponent } from './components/flow-init/flow-init.component';
     FlowComponent,
     FlowFormComponent,
     FlowSelectComponent,
-    FlowInitComponent
+    FlowInitComponent,
+    FlowDialogComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { FlowInitComponent } from './components/flow-init/flow-init.component';
     FlowComponent,
     FlowFormComponent,
     FlowSelectComponent,
-    FlowInitComponent
+    FlowInitComponent,
+    FlowDialogComponent,
   ]
 })
 export class FlowModule { }
