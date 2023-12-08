@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { TFLow } from '../shared/interfaces/TFLow';
-import { TFlowSteps } from '../shared/interfaces/TFlowSteps';
 
 @Component({
   selector: 'app-flow',
@@ -16,15 +15,15 @@ export class FlowComponent {
 
   ngOnInit(): void {}
 
-  public onFormFlowInited(newFlow: TFLow) {
+  public onFlowChange(newFlow: TFLow) {
     this.flow = newFlow;
   }
 
-  public stepBack(currentStep: number) {
-    this.step = currentStep - 1;
+  public onStepBack() {
+    this.step--;
   }
 
-  public onStepChange(nextStep: number) {
-    this.step = nextStep;
+  public onNextStep(isNextStep: boolean) {
+    if(isNextStep) this.step++;
   }
 }

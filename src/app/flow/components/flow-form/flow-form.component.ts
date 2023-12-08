@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogConfig } from '@angular/material/dialog';
 import { TFLow } from 'src/app/shared/interfaces/TFLow';
@@ -14,6 +14,7 @@ const commonRequiredFields = ['email', 'firstName', 'lastName', 'phone', 'passwo
 })
 export class FlowFormComponent {
   @Input() public formType: TFLow = 'patients';
+  @Output() public next = new EventEmitter<boolean>();
 
   public contactForm: FormGroup;
 
@@ -79,6 +80,7 @@ export class FlowFormComponent {
 
   public onNextStep(): void {
     console.log(this.contactForm.value)
+    this.next.emit(true);
   }
 
   onContactFormSubmit(): void {

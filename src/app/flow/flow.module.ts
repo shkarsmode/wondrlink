@@ -24,6 +24,7 @@ import { FlowInitComponent } from './components/flow-init/flow-init.component';
     ReactiveFormsModule,
   ],
   exports: [
+    FlowComponent,
     FlowFormComponent,
     FlowSelectComponent,
     FlowInitComponent

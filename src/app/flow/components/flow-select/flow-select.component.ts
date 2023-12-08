@@ -10,7 +10,7 @@ import { FlowSelectService } from 'src/app/shared/services/flow-select.service';
   styleUrls: ['./flow-select.component.scss']
 })
 export class FlowSelectComponent {
-  @Output() step = new EventEmitter<number>();
+  @Output() next = new EventEmitter<boolean>();
   @Input() flowType: TFLow = 'patients';
 
   public selectOptions: boolean[] = [false, false, false, false];
@@ -60,7 +60,7 @@ export class FlowSelectComponent {
 
   public onNextStepButton(): void {
       console.log(this.checkedItem);
-      //emit next step
+      this.next.emit(true);
   }
 
   // write login with next step, sending data into parent

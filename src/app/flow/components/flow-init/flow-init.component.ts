@@ -9,10 +9,10 @@ import { TFlowSteps } from 'src/app/shared/interfaces/TFlowSteps';
 })
 export class FlowInitComponent {
   @Output() flow = new EventEmitter<TFLow>();
-  @Output() step = new EventEmitter<number>();
+  @Output() next = new EventEmitter<boolean>();
 
   nextStep(newFlow: TFLow) {
     this.flow.emit(newFlow);
-    this.step.emit(2)
+    this.next.emit(true);
   }
 }

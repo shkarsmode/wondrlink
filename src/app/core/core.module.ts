@@ -32,6 +32,7 @@ import { PostComponent } from './layouts/home-layout/components/post/post.compon
 import { PreviewBlogComponent } from './layouts/home-layout/components/preview-blog/preview-blog.component';
 import { QuotesComponent } from './layouts/home-layout/components/quotes/quotes.component';
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
+import { FlowModule } from '../flow/flow.module';
 
 @NgModule({
     declarations: [
@@ -64,13 +65,14 @@ import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component
     imports: [
         ShareModule,
         FormsModule,
-        CommonModule, 
+        CommonModule,
         MaterialModule,
         ClipboardModule,
         CoreRoutingModule,
         ReactiveFormsModule,
         QuillModule.forRoot(),
         AngularSvgIconModule.forRoot(),
+        FlowModule
     ],
     exports: [QuillModule],
     bootstrap: [CoreComponent],
