@@ -5,6 +5,7 @@ import { ArticleService } from './shared/services/article-service.service';
 import { ImageProloaderService } from './shared/services/image-proloader.service';
 import { LoadingService } from './shared/services/loading-service.service';
 import { ScrollToService } from './shared/utils/scroll-to.service';
+import { FlowSelectService } from './shared/services/flow-select.service';
 
 @Component({
     selector: 'app-root',
@@ -20,13 +21,15 @@ export class AppComponent implements OnInit {
         private scrollToService: ScrollToService,
         private imageProloaderService: ImageProloaderService,
         private loadingService: LoadingService,
-        private articleService: ArticleService
+        private articleService: ArticleService,
+        private flowSelectService: FlowSelectService,
     ) {
         this.loading$ = loadingService.loading$;
     }
 
     public ngOnInit(): void {
         this.initAllArticles();
+        this.initAllFlowSelectData();
         this.listenRoutesTransition();
         this.preloadAllBGImages();
     }
@@ -42,6 +45,10 @@ export class AppComponent implements OnInit {
 
     private initAllArticles(): void {
         this.articleService.setAllArticles();
+    }
+
+    private initAllFlowSelectData() {
+      this.flowSelectService.setAllFlowSelectData()
     }
 
     public imgs: string[] | null;

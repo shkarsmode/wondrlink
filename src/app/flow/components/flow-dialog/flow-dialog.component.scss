@@ -1,0 +1,33 @@
+.wrap {
+  position: relative;
+  padding: 80px 100px;
+  height: 850px;
+  overflow-x: hidden;
+
+	&::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	&::-webkit-scrollbar-track {
+		width: 8px;
+		background: white;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: #01C1B9;
+	}
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+
+@media screen and (max-height: 850px) {
+  .wrap {
+    height: 90dvh;
+  }
+}

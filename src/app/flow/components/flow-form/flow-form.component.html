@@ -1,0 +1,127 @@
+
+
+<form
+  [ngClass]="{'is-sending': isSending}"
+  (ngSubmit)="onContactFormSubmit()"
+  [formGroup]="contactForm">
+
+  <h2 [ngSwitch]="formType">
+    <span *ngSwitchCase="'patients'">
+      Patient Signup
+    </span>
+    <span *ngSwitchDefault>
+      Contact Details
+    </span>
+  </h2>
+
+  <label *ngIf="formType === 'patients'">
+      I’m signing up for
+  </label>
+
+  <div class="wrap-checkboxes" *ngIf="formType === 'patients'">
+    <div
+      (click)="chooseSigningUpFor(true)"
+      class="checkbox"
+      [ngClass]="{'active': isMySelf}">
+      Myself
+    </div>
+    <div
+      (click)="chooseSigningUpFor(false)"
+      class="checkbox"
+      [ngClass]="{'active': !isMySelf}">
+      Someone else
+    </div>
+  </div>
+
+  <div class="wrap-inputs">
+    <!-- < BEFORE BACKK WILL DONE company, now it's organization  -->
+    <div class="group" *ngIf="formType === 'drug-developers' || formType === 'ecosystem'">
+      <label for="company">Organization name</label>
+      <input
+        autocomplete="organization"
+        tabindex="5"
+        type="text" required
+        placeholder="Type name"
+        id="company" name="company"
+        formControlName="companyName">
+    </div>
+    <!-- </ BEFORE BACKK WILL change company, now it's organization  -->
+    <div class="group">
+      <label for="firstName" >
+        {{ formType === 'patients' ? 'Patient' : '' }}  First name
+      </label>
+      <input
+        autocomplete="given-name"
+        tabindex="1"
+        type="text" required
+        placeholder="First"
+        id="firstName" name="firstName"
+        formControlName="firstName">
+    </div>
+    <div class="group">
+      <label for="lastName">
+        {{ formType === 'patients' ? 'Patient' : '' }} Second name
+      </label>
+      <input
+        autocomplete="family-name"
+        tabindex="2"
+        type="text" required
+        placeholder="Last"
+        id="lastName" name="family-name"
+        formControlName="lastName">
+    </div>
+    <div class="group">
+      <label for="phone">Phone</label>
+      <input
+        autocomplete="phone"
+        tabindex="3"
+        type="tel" required
+        placeholder="+1 212 001 002"
+        id="phone" name="phone"
+        formControlName="phone">
+    </div>
+    <div class="group">
+      <label for="email">Email</label>
+      <input
+        autocomplete="on"
+        tabindex="4"
+        type="text" required
+        placeholder="name@email.com"
+        id="email" name="email"
+        formControlName="email">
+    </div>
+    <div class="group">
+      <label for="location">Location</label>
+      <input
+        autocomplete="address-line1"
+        tabindex="5"
+        type="text" required
+        placeholder="Miami, FL"
+        id="location" name="location"
+        formControlName="location">
+    </div>
+  </div>
+
+
+  <div class="wrap-btn" [ngSwitch]="formType">
+    <button
+      (click)="onNextStep()"
+      *ngSwitchCase="'patients'"
+      type="button"
+      class="btn-green"
+      [disabled]="!this.contactForm.valid" >
+      Next
+    </button>
+    <button
+      *ngSwitchCase="'drug-developers' || 'ecosystem'"
+      type="submit"
+      class="btn-green"
+      [disabled]="!this.contactForm.valid" >
+      Submit
+    </button>
+  </div>
+
+  <mat-spinner *ngIf="isSending"></mat-spinner>
+</form>
+
+

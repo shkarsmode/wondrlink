@@ -2,6 +2,7 @@
 	<div class="content" *ngIf="article">
 		<h1 [innerHTML]="article.header"></h1>
 		<div [innerHTML]="article.subHeader"></div>
-		<button class="btn-green">Get Started</button>
+		<button class="btn-green"
+      (click)="openFlowDialog(flow, isInit, step)">Get Started</button>
 	</div>
 </div>
