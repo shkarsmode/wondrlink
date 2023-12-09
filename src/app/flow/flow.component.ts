@@ -10,6 +10,7 @@ export class FlowComponent {
   @Input() flow: TFLow = 'patients';
   @Input() step: number = 1;
   @Input() isFlowStartsFromInit: boolean = false;
+  @Input() isDialog: boolean = false;
 
   constructor() {}
 

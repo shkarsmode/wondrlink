@@ -33,6 +33,7 @@ import { PreviewBlogComponent } from './layouts/home-layout/components/preview-b
 import { QuotesComponent } from './layouts/home-layout/components/quotes/quotes.component';
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { FlowModule } from '../flow/flow.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
     declarations: [
@@ -72,7 +73,8 @@ import { FlowModule } from '../flow/flow.module';
         ReactiveFormsModule,
         QuillModule.forRoot(),
         AngularSvgIconModule.forRoot(),
-        FlowModule
+        FlowModule,
+        MatDialogModule,
     ],
     exports: [QuillModule],
     bootstrap: [CoreComponent],

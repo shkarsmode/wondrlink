@@ -42,7 +42,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-	background: #01C1B9; 
+	background: #01C1B9;
 }
 
 button.btn-green {
@@ -82,4 +82,9 @@ html { height: 100%; }
 .mdc-tooltip__surface {
     background-color: #102C58 !important;
 	pointer-events: none;
+}
+
+body ::ng-deep app-flow-dialog 	app-flow-form {
+    display: block;
+    min-width: 630px;
 }

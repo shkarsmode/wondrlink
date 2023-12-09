@@ -1,11 +1,8 @@
 .wrap {
-	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 80px 110px;
-	overflow-x: hidden;
-	transition: all .3s;
+  position: relative;
+  padding: 80px 100px;
+  height: 850px;
+  overflow-x: hidden;
 
 	&::-webkit-scrollbar {
 		width: 8px;
@@ -28,27 +25,9 @@
   cursor: pointer;
 }
 
-// ::ng-deep .cdk-overlay-pane:has(app-flow-dialog) {
-//   app-flow-dialog {
-//     display: block;
-//     max-width: 600px;
-//     max-height: 850px;
-//   }
-// }
 
-::ng-deep .cdk-overlay-pane:has(app-flow-dialog) {
-	transition: all .4s;
+@media screen and (max-height: 850px) {
+  .wrap {
+    height: 90dvh;
+  }
 }
-
-::ng-deep .cdk-overlay-pane:has(app-flow-dialog):has(app-flow-form) {
-  max-width: 600px;
-  min-width: 300px;
-	max-height: 850px;
-  min-height: 650px;
-}
-
-
-// .wrap:has(:not(.active)) {
-//   max-height: 850px;
-//   min-height: 650px;
-// }

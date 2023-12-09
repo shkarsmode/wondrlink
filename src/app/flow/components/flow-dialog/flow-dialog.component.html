@@ -1,4 +1,4 @@
 <div class="wrap">
   <img src="assets/svg/close.svg" alt="close" class="close" (click)="close()">
-  <app-flow></app-flow>
+  <app-flow [flow]="flow" [isFlowStartsFromInit]="isInit" [step]="step"></app-flow>
 </div>

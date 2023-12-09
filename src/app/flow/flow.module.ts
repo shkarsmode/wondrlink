@@ -9,6 +9,7 @@ import { FlowFormComponent } from './components/flow-form/flow-form.component';
 import { FlowSelectComponent } from './components/flow-select/flow-select.component';
 import { FlowInitComponent } from './components/flow-init/flow-init.component';
 import { FlowDialogComponent } from './components/flow-dialog/flow-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { FlowDialogComponent } from './components/flow-dialog/flow-dialog.compon
     FormsModule,
     MaterialModule,
     ReactiveFormsModule,
+    MatDialogModule,
   ],
   exports: [
     FlowComponent,

@@ -58,7 +58,7 @@ export class FlowFormComponent {
         });
         break;
       }
-      case 'drug-developers' || 'ecosystem': {
+      default: {
         console.log('contact init');
         this.contactForm = this.fb.group({
           companyName: [''],

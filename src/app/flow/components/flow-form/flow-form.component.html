@@ -1,37 +1,37 @@
 
 
 <form
-[ngClass]="{'is-sending': isSending}"
-(ngSubmit)="onContactFormSubmit()"
-[formGroup]="contactForm">
+  [ngClass]="{'is-sending': isSending}"
+  (ngSubmit)="onContactFormSubmit()"
+  [formGroup]="contactForm">
 
-<h2 [ngSwitch]="formType">
-  <span *ngSwitchCase="'patients'">
-    Patient Signup
-  </span>
-  <span *ngSwitchCase="'drug-developers' || 'ecosystem'">
-    Contact Details
-  </span>
-</h2>
+  <h2 [ngSwitch]="formType">
+    <span *ngSwitchCase="'patients'">
+      Patient Signup
+    </span>
+    <span *ngSwitchDefault>
+      Contact Details
+    </span>
+  </h2>
 
-<label *ngIf="formType === 'patients'">
-    I’m signing up for
-</label>
+  <label *ngIf="formType === 'patients'">
+      I’m signing up for
+  </label>
 
-<div class="wrap-checkboxes" *ngIf="formType === 'patients'">
-  <div
-    (click)="chooseSigningUpFor(true)"
-    class="checkbox"
-    [ngClass]="{'active': isMySelf}">
-    Myself
+  <div class="wrap-checkboxes" *ngIf="formType === 'patients'">
+    <div
+      (click)="chooseSigningUpFor(true)"
+      class="checkbox"
+      [ngClass]="{'active': isMySelf}">
+      Myself
+    </div>
+    <div
+      (click)="chooseSigningUpFor(false)"
+      class="checkbox"
+      [ngClass]="{'active': !isMySelf}">
+      Someone else
+    </div>
   </div>
-  <div
-    (click)="chooseSigningUpFor(false)"
-    class="checkbox"
-    [ngClass]="{'active': !isMySelf}">
-    Someone else
-  </div>
-</div>
 
   <div class="wrap-inputs">
     <!-- < BEFORE BACKK WILL DONE company, now it's organization  -->
