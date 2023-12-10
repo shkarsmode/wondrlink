@@ -20,14 +20,43 @@
 
 .close {
   position: absolute;
+  z-index: 1000;
   top: 20px;
   right: 20px;
   cursor: pointer;
 }
 
 
-@media screen and (max-height: 850px) {
+
+@media screen and (max-height: 1000px) {
   .wrap {
     height: 90dvh;
   }
 }
+
+@media screen and (max-height: 700px) and (max-width: 500px) {
+  .wrap {
+    height: 100dvh;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .wrap {
+    padding: 50px 30px;
+
+    &::-webkit-scrollbar {
+      width: 0px;
+    }
+
+    &::-webkit-scrollbar-track {
+      width: 0px;
+    }
+  }
+
+  .close {
+    top: 10px;
+    right: 10px;
+  }
+
+}
+

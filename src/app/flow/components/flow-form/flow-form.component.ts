@@ -4,9 +4,6 @@ import { MatDialogConfig } from '@angular/material/dialog';
 import { TFLow } from 'src/app/shared/interfaces/TFLow';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
-const commonRequiredFields = ['email', 'firstName', 'lastName', 'phone', 'password', 'location'];
-
-
 @Component({
   selector: 'app-flow-form',
   templateUrl: './flow-form.component.html',
@@ -49,7 +46,6 @@ export class FlowFormComponent {
     switch(this.formType) {
       case 'patients': {
         this.contactForm = this.fb.group({
-          isMySelf: [this.isMySelf],
           firstName: [''],
           lastName: [''],
           phone: [''],
@@ -78,7 +74,14 @@ export class FlowFormComponent {
   }
 
   public onNextStep(): void {
-    console.log(this.contactForm.value)
+    let currentIsMySelft  = this.isMySelf;
+    let password = this.password;
+    console.log(
+      Object.assign(this.contactForm.value, {
+        'isMySelf': currentIsMySelft,
+        'password': password
+      })
+    );
     this.next.emit(true);
   }
 
