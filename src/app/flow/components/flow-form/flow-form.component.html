@@ -35,7 +35,7 @@
 
   <div class="wrap-inputs">
     <!-- < BEFORE BACKK WILL DONE company, now it's organization  -->
-    <div class="group" *ngIf="formType === 'drug-developers' || formType === 'ecosystem'">
+    <div class="group" *ngIf="formType === 'drug-developers' || formType === 'ecosystem' ? true : false">
       <label for="company">Organization name</label>
       <input
         autocomplete="organization"

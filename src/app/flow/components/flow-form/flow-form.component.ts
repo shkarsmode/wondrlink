@@ -59,7 +59,6 @@ export class FlowFormComponent {
         break;
       }
       default: {
-        console.log('contact init');
         this.contactForm = this.fb.group({
           companyName: [''],
           firstName: [''],
