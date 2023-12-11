@@ -20,6 +20,8 @@ export class ImageProloaderService {
         'heart.png',
         'telescope.png',
         'ecosystem-icon.png',
+        'close.svg',
+        'arrowback.svg'
         // 'union.png'
     ];
     private loadedLenght: number = 0;
