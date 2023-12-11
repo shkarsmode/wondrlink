@@ -229,6 +229,10 @@ button {
 	}
 }
 
+li:last-child {
+    opacity: 0;
+}
+
 /* Media Queries
 ====================*/
 
@@ -306,7 +310,7 @@ button {
 		width: 0%;
 		left: 50%;
 	}
-	
+
 }
 
 @media (max-width: 400px) {
