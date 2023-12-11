@@ -72,21 +72,21 @@ select, textarea {
 select {
   cursor: pointer;
   padding: 0 28px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
-// .group[data-select]::after {
-//   content: "";
-//   position: absolute;
-//   top: 50%;
-//   right: 10px;
-//   transform: translateY(-50%);
-//   width: 0;
-//   height: 0;
-//   border-style: solid;
-//   border-width: 8px 6px 0;
-//   border-color: #555 transparent transparent transparent;
-//   cursor: pointer;
-// }
+.group[data-select]::after {
+    content: "";
+    position: absolute;
+    z-index: 200;
+    width: 16px;
+    height: 16px;
+    background-image: url("/assets/img/dropdown.png");
+    right: 12px;
+    bottom: 12px;
+    pointer-events: none;
+  }
 
 textarea {
   padding: 13px 20px;
