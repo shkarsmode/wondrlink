@@ -21,7 +21,8 @@ export class ImageProloaderService {
         'telescope.png',
         'ecosystem-icon.png',
         'close.svg',
-        'arrowback.svg'
+        'arrowback.svg',
+        'dropdown.png'
         // 'union.png'
     ];
     private loadedLenght: number = 0;

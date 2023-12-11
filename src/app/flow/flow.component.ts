@@ -26,5 +26,6 @@ export class FlowComponent {
 
   public onNextStep(isNextStep: boolean) {
     if(isNextStep) this.step++;
+    console.log(this.step);
   }
 }

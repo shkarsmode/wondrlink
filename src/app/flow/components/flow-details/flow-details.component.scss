@@ -1,10 +1,11 @@
 
-
 form {
 	width: 100%;
-	background: #FFFFFF;
 	position: relative;
 	transition: all .3s;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
 	&:before {
 		content: '';
@@ -27,51 +28,14 @@ form {
 	}
 }
 
-
-.right-side, .left-side {
-	width:100%
-}
-
-.wrap-inputs {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-bottom: 50px;
-}
-
-h2 {
+h1 {
 	font-size: 32px;
 	font-weight: 600;
 	margin-bottom: 20px;
 }
 
-.wrap-checkboxes {
-	display: flex;
-	user-select: none;
-	margin-bottom: 20px;
-
-	.checkbox {
-		display: flex;
-		align-items: center;
-		margin-right: 12px;
-		height: 40px;
-		padding: 0 20px;
-		background: #F3F9F7;
-		border: 1px solid rgba(1, 193, 185, 0.2);
-		color: #0f0f11;
-		opacity: 0.6;
-		cursor: pointer;
-
-		&.active {
-			background: rgba(1, 193, 185, 0.1);
-			border: 1px solid #01C1B9;
-			opacity: 1;
-			cursor: unset;
-		}
-	}
-}
-
 .group {
+  position: relative;
 	display: flex;
 	flex-direction: column;
 	position: relative;
@@ -88,24 +52,45 @@ label {
 	user-select: none;
 }
 
-input {
-	font-size: 14px;
+select, textarea {
+	font-size: 16px;
 	font-weight: 400;
 	line-height: 1.38;
 	border-radius: 0;
 	border: 1px solid rgba(1, 193, 185, 0.1);
 	background-color: #F3F9F7;
 	outline: none;
-	padding: 14px 13px;
 	width: 100%;
 	height: 40px;
-
-	padding-right: 40px;
 
 	&:focus {
 		border: 1px solid rgba(1, 193, 185, 1);
 	}
 
+}
+
+select {
+  cursor: pointer;
+  padding: 0 28px;
+}
+
+// .group[data-select]::after {
+//   content: "";
+//   position: absolute;
+//   top: 50%;
+//   right: 10px;
+//   transform: translateY(-50%);
+//   width: 0;
+//   height: 0;
+//   border-style: solid;
+//   border-width: 8px 6px 0;
+//   border-color: #555 transparent transparent transparent;
+//   cursor: pointer;
+// }
+
+textarea {
+  padding: 13px 20px;
+  height: 150px;
 }
 
 button {
@@ -125,11 +110,6 @@ button {
 	display: flex;
 	justify-content: center;
 	width: 100%;
-}
-
-input.ng-dirty.ng-invalid {
-	border: 1px solid red;
-	color: red;
 }
 
 mat-spinner {
@@ -153,14 +133,11 @@ mat-spinner {
 
 @media (max-width: 550px) {
 
-	.wrap-inputs {
+	form {
 		column-gap: 10px;
 	}
 
-	input {
-		padding: 14px 14px 14px 13px;
+	textarea {
+		padding: 14px 10px;
 	}
 }
-
-
-

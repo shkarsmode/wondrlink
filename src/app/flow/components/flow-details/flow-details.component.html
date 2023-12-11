@@ -1,0 +1,48 @@
+<h1>Disease Details</h1>
+<form [formGroup]="detailsForm"
+  [ngClass]="{'is-sending': isSending}"
+  (submit)="onFormSubmit()">
+  <div class="group" data-select="true">
+    <label for="disease_category">Disease Category</label>
+    <select
+      id="disease_category"
+      name="disease_category"
+      tabindex="1"
+      formControlName="diseaseCategory">
+      <option value="" disabled selected hidden>Select category</option>
+      <option *ngFor="let category of diseaseCatogories" [value]="category">
+        {{ category }}
+      </option>
+    </select>
+  </div>
+  <div class="group" *ngIf="isCancerTypeSelect">
+    <label for="cancer_type" id="cancer">Cancer Type</label>
+    <select
+      id="cancer_type"
+      name="cancer_type"
+      tabindex="2"
+      formControlName="cancerType">
+      <option value="" disabled selected hidden>Select type</option>
+      <option *ngFor="let type of cancerTypes" [value]="type">
+        {{ type }}
+      </option>
+    </select>
+  </div>
+  <div class="group">
+    <label for="disease details">Details</label>
+    <textarea
+      name="disease details"
+      placeholder="Add any notes or details what would like to share"
+      formControlName="details"
+      tabindex="3">
+    </textarea>
+  </div>
+  <div class="wrap-btn">
+    <button
+      type="submit"
+      class="btn-green"
+      [disabled]="!this.detailsForm.valid" >
+      Submit
+    </button>
+  </div>
+</form>

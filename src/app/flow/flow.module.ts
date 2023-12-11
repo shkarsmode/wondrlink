@@ -10,6 +10,7 @@ import { FlowSelectComponent } from './components/flow-select/flow-select.compon
 import { FlowInitComponent } from './components/flow-init/flow-init.component';
 import { FlowDialogComponent } from './components/flow-dialog/flow-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { FlowDetailsComponent } from './components/flow-details/flow-details.component';
 
 
 @NgModule({
@@ -18,13 +19,14 @@ import { MatDialogModule } from '@angular/material/dialog';
     FlowFormComponent,
     FlowSelectComponent,
     FlowInitComponent,
-    FlowDialogComponent
+    FlowDialogComponent,
+    FlowDetailsComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    MaterialModule,
     ReactiveFormsModule,
+    MaterialModule,
     MatDialogModule,
   ],
   exports: [

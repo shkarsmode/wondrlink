@@ -2,7 +2,7 @@ import { Component, Output, Input, EventEmitter } from '@angular/core';
 import { IFlowSelect } from 'src/app/shared/interfaces/IFlowSelect';
 import { TFLow } from 'src/app/shared/interfaces/TFLow';
 import { TFlowSteps } from 'src/app/shared/interfaces/TFlowSteps';
-import { FlowSelectService } from 'src/app/shared/services/flow-select.service';
+import { FlowDataService } from 'src/app/shared/services/flow-data.service';
 
 @Component({
   selector: 'app-flow-select',
@@ -17,10 +17,10 @@ export class FlowSelectComponent {
   public checkedItem: string = '';
 
   public currentFlowData: IFlowSelect;
-  private oldFlowType: TFLow
+  private oldFlowType: TFLow;
 
   constructor(
-    private flowSelectService: FlowSelectService
+    private flowSelectService: FlowDataService
   ) {}
 
   ngOnInit(): void {

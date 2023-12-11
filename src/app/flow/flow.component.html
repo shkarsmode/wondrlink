@@ -29,11 +29,16 @@
 
   <div *ngSwitchCase="3">
     <app-flow-select [flowType]="flow"
+      (next)="onNextStep($event)"
       *ngIf="flow === 'patients'; else anotherFlow">
     </app-flow-select>
     <ng-template #anotherFlow>
       <app-flow-form [formType]="flow"></app-flow-form>
     </ng-template>
+  </div>
+
+  <div *ngSwitchCase="4">
+    <app-flow-details></app-flow-details>
   </div>
 
 

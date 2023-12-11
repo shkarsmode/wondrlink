@@ -91,6 +91,11 @@ body ::ng-deep app-flow-dialog 	app-flow-form {
     min-width: 630px;
 }
 
+body ::ng-deep app-flow-dialog 	app-flow-details {
+  display: block;
+  min-width: 630px;
+}
+
 @media screen and (max-width: 800px) {
   .mat-mdc-dialog-container .mdc-dialog__surface {
     border-radius: 10px !important;
