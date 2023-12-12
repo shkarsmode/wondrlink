@@ -16,15 +16,15 @@
 					<mat-option value="all">All</mat-option>
 					<mat-option 
 						[value]="userTypeEnum.Patient">
-						Patients
+						{{ userTypeEnum.Patient }}
 					</mat-option>
 					<mat-option 
 						[value]="userTypeEnum.Industry">
-						Industries
+						{{ userTypeEnum.Industry }}
 					</mat-option>
 					<mat-option 
 						[value]="userTypeEnum.Physician">
-						Physicians
+						{{ userTypeEnum.Physician }}
 					</mat-option>
 				</mat-select>
 			</mat-form-field>
@@ -63,8 +63,12 @@
 						{{ user.status }}
 					</td>
 					<td class="wrap-buttons">
-						<button mat-stroked-button routerLink="/admin/edit-user/{{ user.id }}">
-							Edit
+						<button 
+                            mat-stroked-button
+                            matTooltip="Show more / Edit"
+                            matTooltipShowDelay="300"
+                            routerLink="/admin/edit-user/{{ user.id }}">
+                            Show more
 						</button>
 						<button 
 							(mousedown)="startDeleteTimeout(user.id!)"
