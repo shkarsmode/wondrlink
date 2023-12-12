@@ -32,7 +32,7 @@ export class AdminComponent implements OnInit {
 
     public ngOnInit(): void {
         this.getUserAndCountOfPosts();
-        // this.getActiveUsersCount();
+        this.getActiveUsersCount();
         this.subscribeOnUserChanginges();
     }
 
