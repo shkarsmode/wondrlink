@@ -40,7 +40,7 @@ form {
 }
 
 h2 {
-	font-size: 32px;
+	font-size: 30px;
 	font-weight: 600;
 	margin-bottom: 20px;
 }
@@ -49,6 +49,7 @@ h2 {
 	display: flex;
 	user-select: none;
 	margin-bottom: 20px;
+    font-weight: 600;
 
 	.checkbox {
 		display: flex;
@@ -79,6 +80,7 @@ h2 {
 }
 
 label {
+    font-weight: 500;
 	color: rgba(0, 0, 0, 0.85);
 	font-size: 14px;
 	line-height: 1.5;
@@ -143,6 +145,16 @@ mat-spinner {
 :host ::ng-deep.mat-mdc-progress-spinner
 .mdc-circular-progress__indeterminate-circle-graphic {
     stroke: #00e7a1;
+}
+
+
+@media screen and (max-width: 800px) {
+    button {
+        width: 65%;
+        height: 45px;
+        font-size: 18px;
+        font-weight: 500;
+    }
 }
 
 @media (max-width: 765px) {

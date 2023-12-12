@@ -1,7 +1,6 @@
 import { Component, Output, Input, EventEmitter } from '@angular/core';
 import { IFlowSelect } from 'src/app/shared/interfaces/IFlowSelect';
 import { TFLow } from 'src/app/shared/interfaces/TFLow';
-import { TFlowSteps } from 'src/app/shared/interfaces/TFlowSteps';
 import { FlowDataService } from 'src/app/shared/services/flow-data.service';
 
 @Component({
@@ -44,6 +43,7 @@ export class FlowSelectComponent {
 
   public toggleCheck(index: number, itemName: string) {
     this.checkedItem = itemName;
+    
     this.selectOptions.map((el, i) => {
       if(index === i) {
         this.selectOptions[i] = true;
@@ -52,6 +52,7 @@ export class FlowSelectComponent {
         this.selectOptions[i] = false;
       }
     });
+    this.onNextStepButton();
   }
 
   private resetSelectOptions() {

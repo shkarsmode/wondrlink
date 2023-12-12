@@ -29,7 +29,7 @@ form {
 }
 
 h1 {
-	font-size: 32px;
+	font-size: 30px;
 	font-weight: 600;
 	margin-bottom: 20px;
 }
@@ -46,6 +46,7 @@ label {
 	color: rgba(0, 0, 0, 0.85);
 	font-size: 14px;
 	line-height: 1.5;
+    font-weight: 500;
 	display: inline-block;
 	margin-bottom: 8px;
 	cursor: pointer;
@@ -53,7 +54,7 @@ label {
 }
 
 select, textarea {
-	font-size: 16px;
+    font-size: 16px;
 	font-weight: 400;
 	line-height: 1.38;
 	border-radius: 0;
@@ -66,7 +67,6 @@ select, textarea {
 	&:focus {
 		border: 1px solid rgba(1, 193, 185, 1);
 	}
-
 }
 
 select {
@@ -89,8 +89,9 @@ select {
   }
 
 textarea {
-  padding: 13px 20px;
-  height: 150px;
+    resize: vertical;
+    padding: 13px 20px;
+    height: 150px;
 }
 
 button {
@@ -107,16 +108,17 @@ button {
 }
 
 .wrap-btn {
+    margin-top: 50px;
 	display: flex;
 	justify-content: center;
 	width: 100%;
 }
 
 mat-spinner {
-	position: absolute;
-	top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 	z-index: 2;
 }
 

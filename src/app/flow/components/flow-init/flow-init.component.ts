@@ -1,6 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { TFLow } from 'src/app/shared/interfaces/TFLow';
-import { TFlowSteps } from 'src/app/shared/interfaces/TFlowSteps';
 
 @Component({
   selector: 'app-flow-init',
