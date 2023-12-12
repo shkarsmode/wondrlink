@@ -20,5 +20,6 @@ export interface IUser {
     readonly diseaseCategory: string | null;
     readonly cancerType: string | null;
     readonly diseaseDetails: string | null;
+	readonly updatedAt: Date;
     type: UserTypeEnum;
 }
