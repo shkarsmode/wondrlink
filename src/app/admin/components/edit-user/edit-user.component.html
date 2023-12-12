@@ -9,36 +9,29 @@
 	<div class="d-flex">
 		<div class="wrap-column">
 			<div class="d-flex">
-				<div class="card">
-					<div class="title">First name</div>
-					<div class="content">
-						<input type="text" formControlName="firstName">
-					</div>
-				</div>
-	
-				<div class="card">
-					<div class="title">Last Name</div>
-					<div class="content">
-						<input type="text" formControlName="lastName">
-					</div>
-				</div>
-			</div>
-			
-			<div class="card">
-				<div class="title">Email</div>
-				<div class="content">
-					<input type="text" formControlName="email">
-				</div>
+                <app-edit-user-card 
+                    title="First name" 
+                    formControlName="firstName">
+                </app-edit-user-card>
+
+                <app-edit-user-card 
+                    title="Last Name" 
+                    formControlName="lastName">
+                </app-edit-user-card>
 			</div>
 
-			<div class="card">
-				<div class="title">Phone</div>
-				<div class="content">
-					<input type="text" formControlName="phone">
-				</div>
-			</div>
+            <app-edit-user-card 
+                title="Email" 
+                formControlName="email">
+            </app-edit-user-card>
+		
+            <app-edit-user-card 
+                title="Phone" 
+                formControlName="phone">
+            </app-edit-user-card>
 		</div>
 
+        <!-- ! Separate in another component -->
 		<div class="card not-required">
 			<div class="title">Avatar</div>
 			<div class="content">
@@ -62,7 +55,6 @@
 					<span class="dragBox" [ngClass]="{'draging': isDrag}">
 						Drag and Drop image here
 						<input 
-							formControlName="picture"
 							type="file" 
 							(change)="dragNdrop($event)" 
 							(dragover)="drag()" 
@@ -98,6 +90,7 @@
 	</div>
 
 	<div class="d-flex">
+        <!-- Separate in another component -->
 		<div class="card">
 			<div class="title">Role</div>
 			<div class="content">
@@ -128,15 +121,15 @@
 						</mat-option>
 						<mat-option 
 							[value]="userTypeEnum.Patient">
-							Patient
+                            {{ userTypeEnum.Patient }}
 						</mat-option>
 						<mat-option 
 							[value]="userTypeEnum.Industry">
-							Industry
+							{{ userTypeEnum.Industry }}
 						</mat-option>
 						<mat-option 
 							[value]="userTypeEnum.Physician">
-							Physician
+                            {{ userTypeEnum.Physician }}
 						</mat-option>
 					</mat-select>
 				</mat-form-field>
@@ -144,45 +137,104 @@
 		</div>
 	</div>
 
-	<div class="d-flex" *ngIf="role.value !== userStatus.ADMIN">
-		<div class="card not-required">
-			<div class="title">
-				<ng-template [ngIf]="type.value === userTypeEnum.Patient">
-					{{ userTypeEnum.Patient }}
-				</ng-template>
-				
-				<ng-template [ngIf]="type.value === userTypeEnum.Physician">
-					{{ userTypeEnum.Physician }}
-				</ng-template>
+	<ng-container 
+        *ngIf="role.value !== userStatus.ADMIN && type.value !== userTypeEnum.None">
+        <app-edit-user-card 
+            [title]="(type.value === userTypeEnum.None ? 'User' : type.value) + ' location'" 
+            formControlName="location"
+            [isRequired]="false">
+        </app-edit-user-card>
+        
+        <ng-container *ngIf="type.value === userTypeEnum.Patient">
+            <div class="d-flex">
+                <div class="card not-required">
+                    <div class="title">Patient situation</div> <!-- PatientSituationTypeEnum -->
+                    <div class="content">
+                        <mat-form-field>
+                            <mat-label>Patient situation type</mat-label>
+                            <mat-select formControlName="patientSituationType">
+                                <mat-option 
+                                    *ngFor="let type of Object.values(patientSituationTypeEnum)"
+                                    [value]="type">
+                                    {{ type }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="card not-required">
+                    <div class="title">Disease category</div>
+                    <div class="content">
+                        <mat-form-field>
+                            <mat-label>Disease category</mat-label>
+                            <mat-select formControlName="diseaseCategory">
+                                <mat-option 
+                                    *ngFor="let category of diseaseCatogories" 
+                                    [value]="category">
+                                    {{ category }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="card not-required">
+                    <div class="title">Cancer Type</div>
+                    <div class="content">
+                        <mat-form-field>
+                            <mat-label>Patient situation type</mat-label>
+                            <mat-select formControlName="cancerType">
+                                <mat-option 
+                                    *ngFor="let type of cancerTypeEnum" 
+                                    [value]="type">
+                                    {{ type }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="card not-required">
+                    <div class="title">Disease details</div>
+                    <div class="content">
+                        <textarea 
+                            type="text"
+                            rows="5" 
+                            formControlName="diseaseDetails">
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
 
-				<ng-template [ngIf]="type.value === userTypeEnum.Industry">
-					{{ userTypeEnum.Physician }}
-				</ng-template>
+        <div 
+            *ngIf="type.value === userTypeEnum.Industry || type.value === userTypeEnum.Physician"
+            class="d-flex">
+            <app-edit-user-card 
+                title="Company name" 
+                formControlName="companyName"
+                [isRequired]="false">
+            </app-edit-user-card>
 
-				<ng-template [ngIf]="type.value === userTypeEnum.None">
-					User
-				</ng-template>
+            <div class="card not-required">
+                <div class="title">Company type</div>
+                <div class="content">
+                    <mat-form-field>
+                        <mat-label>Company type</mat-label>
+                        <mat-select formControlName="companyType">
+                            <mat-option 
+                                *ngFor="let type of Object.values(companyTypeEnum)" 
+                                [value]="type">
+                                {{ type }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+	</ng-container>
 
-				location
-			</div>
-			<div class="content">
-				<input type="text" formControlName="location">
-			</div>
-		</div>
-		<div class="card not-required" *ngIf="type.value === userTypeEnum.Physician">
-			<div class="title">Hospital name</div>
-			<div class="content">
-				<input type="text" formControlName="location">
-			</div>
-		</div>
-		<div class="card not-required" *ngIf="type.value === userTypeEnum.Industry">
-			<div class="title">Company name</div>
-			<div class="content">
-				<input type="text" formControlName="companyName">
-			</div>
-		</div>
-	</div>
-
+    <!-- * Delete / Save flow * -->
 	<div class="flex-end">
 		<button 
 			(mousedown)="startDeleteTimeout(user.id!)"
@@ -206,6 +258,7 @@
 			Save
 		</button>
 	</div>
+    <!-- * END Delete / Save flow * -->
 
 	<mat-spinner *ngIf="isLoading"></mat-spinner>
 	

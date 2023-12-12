@@ -11,6 +11,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { EditPostComponent } from './components/edit-post/edit-post.component';
 import { UsersComponent } from './components/users/users.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { EditUserCardComponent } from './components/edit-user/components/edit-user-card/edit-user-card.component';
 
 
 
@@ -22,7 +23,8 @@ import { EditUserComponent } from './components/edit-user/edit-user.component';
         SettingsComponent,
         EditPostComponent,
         UsersComponent,
-        EditUserComponent
+        EditUserComponent,
+        EditUserCardComponent
     ],
     imports: [
         CommonModule,

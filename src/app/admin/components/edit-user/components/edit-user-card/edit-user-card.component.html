@@ -1,0 +1,11 @@
+<div 
+    class="card"
+    [class.not-required]="!isRequired">
+    <div class="title">{{ title }}</div>
+    <div class="content">
+        <input 
+            [value]="value"
+            type="text" 
+            (input)="onInputChange($event)">
+    </div>
+</div>

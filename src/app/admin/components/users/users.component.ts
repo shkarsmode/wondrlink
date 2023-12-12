@@ -48,19 +48,27 @@ export class UsersComponent {
         this.isLoading = !this.isLoadingMore ? true : false;
         const sortBy = (this.sortBy === 'all' ? null : this.sortBy) as UserTypeEnum;
         
-        this.userService.getUserWithPagination(this.limit, this.page, sortBy)
-            .subscribe(response => {
-                if (isAddToExciting) {
-                    response.users.forEach(user => this.users.push(user));
-                } else {
-                    this.users = response.users;
+        this.userService
+            .getUserWithPagination(this.limit, this.page, sortBy)
+            .subscribe({
+                next: (response) => {
+                    if (isAddToExciting) {
+                        response.users.forEach((user) => this.users.push(user));
+                    } else {
+                        this.users = response.users;
+                    }
+
+                    this.allUsersCount = response.allUsersCount;
+
+                    this.setPagesCount();
+                    this.isLoading = false;
+                    this.isLoadingMore = false;
+                },
+                error: _ => {
+                    this.users = [];
+                    this.isLoading = false;
+                    this.isLoadingMore = false;
                 }
-                
-                this.allUsersCount = response.allUsersCount;
-                
-                this.setPagesCount();
-                this.isLoading = false;
-                this.isLoadingMore = false;
             });
     }
 

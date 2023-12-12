@@ -1,6 +1,6 @@
 export const environment = {
-	production: false,
-	basePathApi: 'http://localhost:3000/api',
-	authPathApi: 'http://localhost:3000/api/auth'
-	// basePathApi: 'localhost'
+    production: false,
+    basePathApi: 'https://wondrlink-back.vercel.app/api',
+    authPathApi: 'https://wondrlink-back.vercel.app/api/auth',
+    // basePathApi: 'localhost'
 };
