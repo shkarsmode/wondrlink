@@ -90,51 +90,18 @@
 	</div>
 
 	<div class="d-flex">
-        <!-- Separate in another component -->
-		<div class="card">
-			<div class="title">Role</div>
-			<div class="content">
-				<mat-form-field>
-					<mat-label>Role</mat-label>
-					<mat-select formControlName="role">
-						<mat-option value="ADMIN">
-							Admin
-						</mat-option>
-						<mat-option value="USER">
-							User
-						</mat-option>
-					</mat-select>
-				</mat-form-field>
-			</div>
-		</div>
+        <app-edit-user-card-select
+            title="Role"
+            formControlName="role"
+            [iterableListToConvert]="['ADMIN', 'USER']">
+        </app-edit-user-card-select>
 
-		<div class="card" *ngIf="role.value !== userStatus.ADMIN">
-			<div class="title">Type</div>
-			<div class="content">
-				<mat-form-field>
-					<mat-label>Type</mat-label>
-					<mat-select
-						formControlName="type">
-						<mat-option 
-							[value]="userTypeEnum.None">
-							None
-						</mat-option>
-						<mat-option 
-							[value]="userTypeEnum.Patient">
-                            {{ userTypeEnum.Patient }}
-						</mat-option>
-						<mat-option 
-							[value]="userTypeEnum.Industry">
-							{{ userTypeEnum.Industry }}
-						</mat-option>
-						<mat-option 
-							[value]="userTypeEnum.Physician">
-                            {{ userTypeEnum.Physician }}
-						</mat-option>
-					</mat-select>
-				</mat-form-field>
-			</div>
-		</div>
+        <app-edit-user-card-select
+            *ngIf="role.value !== userStatus.ADMIN"
+            title="Type"
+            formControlName="type"
+            [iterableListToConvert]="userTypeEnum">
+        </app-edit-user-card-select>
 	</div>
 
 	<ng-container 
@@ -147,63 +114,34 @@
         
         <ng-container *ngIf="type.value === userTypeEnum.Patient">
             <div class="d-flex">
-                <div class="card not-required">
-                    <div class="title">Patient situation</div> <!-- PatientSituationTypeEnum -->
-                    <div class="content">
-                        <mat-form-field>
-                            <mat-label>Patient situation type</mat-label>
-                            <mat-select formControlName="patientSituationType">
-                                <mat-option 
-                                    *ngFor="let type of Object.values(patientSituationTypeEnum)"
-                                    [value]="type">
-                                    {{ type }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="card not-required">
-                    <div class="title">Disease category</div>
-                    <div class="content">
-                        <mat-form-field>
-                            <mat-label>Disease category</mat-label>
-                            <mat-select formControlName="diseaseCategory">
-                                <mat-option 
-                                    *ngFor="let category of diseaseCatogories" 
-                                    [value]="category">
-                                    {{ category }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
+                <app-edit-user-card-select
+                    title="Patient situation"
+                    formControlName="patientSituationType"
+                    [isRequired]="false"
+                    [iterableListToConvert]="patientSituationTypeEnum">
+                </app-edit-user-card-select>
+
+                <app-edit-user-card-select
+                    title="Disease category"
+                    formControlName="diseaseCategory"
+                    [isRequired]="false"
+                    [iterableListToConvert]="diseaseCatogories">
+                </app-edit-user-card-select>
             </div>
             <div class="d-flex">
-                <div class="card not-required">
-                    <div class="title">Cancer Type</div>
-                    <div class="content">
-                        <mat-form-field>
-                            <mat-label>Patient situation type</mat-label>
-                            <mat-select formControlName="cancerType">
-                                <mat-option 
-                                    *ngFor="let type of cancerTypeEnum" 
-                                    [value]="type">
-                                    {{ type }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="card not-required">
-                    <div class="title">Disease details</div>
-                    <div class="content">
-                        <textarea 
-                            type="text"
-                            rows="5" 
-                            formControlName="diseaseDetails">
-                        </textarea>
-                    </div>
-                </div>
+                <app-edit-user-card-select
+                    title="Cancer Type"
+                    formControlName="cancerType"
+                    [isRequired]="false"
+                    [iterableListToConvert]="cancerTypeEnum">
+                </app-edit-user-card-select>
+
+                <app-edit-user-card
+                    title="Disease details"
+                    formControlName="diseaseDetails"
+                    [isRequired]="false"
+                    [isTextArea]="true">
+                </app-edit-user-card>
             </div>
         </ng-container>
 
@@ -216,21 +154,12 @@
                 [isRequired]="false">
             </app-edit-user-card>
 
-            <div class="card not-required">
-                <div class="title">Company type</div>
-                <div class="content">
-                    <mat-form-field>
-                        <mat-label>Company type</mat-label>
-                        <mat-select formControlName="companyType">
-                            <mat-option 
-                                *ngFor="let type of Object.values(companyTypeEnum)" 
-                                [value]="type">
-                                {{ type }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
+            <app-edit-user-card-select
+                title="Company type"
+                formControlName="companyType"
+                [isRequired]="false"
+                [iterableListToConvert]="companyTypeEnum">
+            </app-edit-user-card-select>
         </div>
 	</ng-container>
 
@@ -261,5 +190,4 @@
     <!-- * END Delete / Save flow * -->
 
 	<mat-spinner *ngIf="isLoading"></mat-spinner>
-	
 </form>

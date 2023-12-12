@@ -12,6 +12,7 @@ import { EditPostComponent } from './components/edit-post/edit-post.component';
 import { UsersComponent } from './components/users/users.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { EditUserCardComponent } from './components/edit-user/components/edit-user-card/edit-user-card.component';
+import { EditUserCardSelectComponent } from './components/edit-user/components/edit-user-card-select/edit-user-card-select.component';
 
 
 
@@ -24,7 +25,8 @@ import { EditUserCardComponent } from './components/edit-user/components/edit-us
         EditPostComponent,
         UsersComponent,
         EditUserComponent,
-        EditUserCardComponent
+        EditUserCardComponent,
+        EditUserCardSelectComponent
     ],
     imports: [
         CommonModule,

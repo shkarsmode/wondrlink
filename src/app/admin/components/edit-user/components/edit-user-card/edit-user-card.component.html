@@ -3,9 +3,20 @@
     [class.not-required]="!isRequired">
     <div class="title">{{ title }}</div>
     <div class="content">
-        <input 
-            [value]="value"
-            type="text" 
-            (input)="onInputChange($event)">
+        <ng-container *ngIf="isTextArea; else inputAreaRef">
+            <textarea 
+                type="text"
+                rows="5" 
+                [value]="value"
+                (input)="onInputChange($event)">
+            </textarea>
+        </ng-container>
+
+        <ng-template #inputAreaRef>
+            <input 
+                [value]="value"
+                type="text" 
+                (input)="onInputChange($event)">
+        </ng-template>
     </div>
 </div>
