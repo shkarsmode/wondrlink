@@ -1,7 +1,8 @@
 <h1>Disease Details</h1>
-<form [formGroup]="detailsForm"
+<form
   [ngClass]="{'is-sending': isSending}"
-  (submit)="onFormSubmit()">
+  [formGroup]="detailsForm"
+  (ngSubmit)="onFormSubmit()">
   <div class="group" data-select="true">
     <label for="disease_category">Disease Category</label>
     <select
@@ -45,4 +46,6 @@
       Submit
     </button>
   </div>
+
+  <mat-spinner *ngIf="isSending"></mat-spinner>
 </form>
