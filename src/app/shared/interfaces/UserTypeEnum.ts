@@ -1,6 +1,6 @@
 export enum UserTypeEnum {
 	Patient = 'Patient',
-	Physician = 'Physician',
-	Industry = 'Industry',
+	Physician = 'Ecosystem',
+	Industry = 'Drug Developers', // to Drug Devlopers
 	None = 'none'
 }

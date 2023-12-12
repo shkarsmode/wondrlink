@@ -2,6 +2,7 @@ import { Component, Output, Input, EventEmitter } from '@angular/core';
 import { IFlowSelect } from 'src/app/shared/interfaces/IFlowSelect';
 import { TFLow } from 'src/app/shared/interfaces/TFLow';
 import { FlowDataService } from 'src/app/shared/services/flow-data.service';
+import { FlowData } from '../../flow.component';
 
 @Component({
   selector: 'app-flow-select',
@@ -9,7 +10,7 @@ import { FlowDataService } from 'src/app/shared/services/flow-data.service';
   styleUrls: ['./flow-select.component.scss']
 })
 export class FlowSelectComponent {
-  @Output() next = new EventEmitter<boolean>();
+  @Output() next = new EventEmitter<FlowData>();
   @Input() flowType: TFLow = 'patients';
 
   public selectOptions: boolean[] = [false, false, false, false];
@@ -43,7 +44,7 @@ export class FlowSelectComponent {
 
   public toggleCheck(index: number, itemName: string) {
     this.checkedItem = itemName;
-    
+
     this.selectOptions.map((el, i) => {
       if(index === i) {
         this.selectOptions[i] = true;
@@ -60,9 +61,11 @@ export class FlowSelectComponent {
   }
 
   public onNextStepButton(): void {
-      console.log(this.checkedItem);
-      this.next.emit(true);
+    const checkedItem = this.checkedItem;
+    if(this.flowType === 'patients') this.next.emit({patientSituationType: checkedItem});
+    else this.next.emit({companyType: checkedItem})
   }
+
 
   // write login with next step, sending data into parent
 

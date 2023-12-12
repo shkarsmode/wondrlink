@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FlowDataService } from 'src/app/shared/services/flow-data.service';
+import { FlowData } from '../../flow.component';
 
 @Component({
   selector: 'app-flow-details',
@@ -8,6 +9,7 @@ import { FlowDataService } from 'src/app/shared/services/flow-data.service';
   styleUrls: ['./flow-details.component.scss']
 })
 export class FlowDetailsComponent {
+  @Input() public flowData: FlowData[];
 
   public detailsForm: FormGroup;
 
@@ -42,7 +44,7 @@ export class FlowDetailsComponent {
     this.detailsForm = this.fb.group({
       diseaseCategory: ['', Validators.required],
       cancerType: [''],
-      details: ['',]
+      diseaseDetails: [null, Validators.maxLength(500)]
     })
   }
 
@@ -65,16 +67,17 @@ export class FlowDetailsComponent {
       this.detailsForm.get('cancerType')?.setValue("");
       close();
     }
-
   }
 
   private initCancerTypes() {
     this.cancerTypes = this.flowDataService.getCancerTypes();
-    console.log(this.cancerTypes)
   }
 
   public onFormSubmit(): void {
-    console.log(this.detailsForm.value)
+    const cancerTypeValue = this.detailsForm.get('cancerType')?.value;
+
+    let body = Object.assign(this.detailsForm.value, ...this.flowData, {cancerType: cancerTypeValue || null });
+    console.log(body);
   }
 
 }

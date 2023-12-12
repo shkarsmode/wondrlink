@@ -1,8 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { CheckEmailComponent } from 'src/app/shared/dialogs/check-email/check-email.component';
 import { TFLow } from 'src/app/shared/interfaces/TFLow';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { FlowData } from '../../flow.component';
 
 @Component({
   selector: 'app-flow-form',
@@ -11,7 +13,8 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class FlowFormComponent {
   @Input() public formType: TFLow = 'patients';
-  @Output() public next = new EventEmitter<boolean>();
+  @Output() public next = new EventEmitter<FlowData>();
+  @Input() public flowData: FlowData[];
 
   public contactForm: FormGroup;
 
@@ -23,14 +26,18 @@ export class FlowFormComponent {
   // untill back will done
   private password: any = 'test' + Math.floor(Math.random() * 100) + 1;
   private oldFormType: TFLow;
+  private dialogConfig: MatDialogConfig = new MatDialogConfig()
 
   constructor(
       private authService: AuthService,
       private fb: FormBuilder,
+      private dialog: MatDialog,
+      private dialogRef: MatDialogRef<CheckEmailComponent>
   ) {}
 
   ngOnInit(): void {
     this.initContactForm();
+    this.initDialogConfig();
     this.oldFormType = this.formType;
   }
 
@@ -76,20 +83,50 @@ export class FlowFormComponent {
   public onNextStep(): void {
     let currentIsMySelft  = this.isMySelf;
     let password = this.password;
-    console.log(
-      Object.assign(this.contactForm.value, {
-        'isMySelf': currentIsMySelft,
-        'password': password
-      })
-    );
-    this.next.emit(true);
+
+    let flowData = Object.assign(this.contactForm.value, {
+            'isMySelf': currentIsMySelft,
+            'password': password})
+    this.next.emit(flowData);
+  }
+
+  private initDialogConfig(): void {
+    this.dialogConfig.width = '630px';
+    this.dialogConfig.height = '500px';
+    this.dialogConfig.disableClose = true;
   }
 
   onContactFormSubmit(): void {
-    // this.isSending = true;
-    // const formValues = this.contactForm.value;
-    console.log(this.contactForm.value);
- }
+    this.isSending = true;
+
+    let password = this.password;
+
+    let body = Object.assign(
+        this.contactForm.value,
+        ...this.flowData,
+        { password: password }
+    );
+
+    console.log(body);
+
+//     this.authService.registration(body)
+//         .subscribe({
+//             next: res => {
+//                 console.log(res);
+//                 this.isSending = false;
+//                 this.openCheckEmailModalWindow();
+//             },
+//             error: error => {
+//                 console.log(error.message);
+//                 this.isSending = false;
+//             }
+//         });
+    }
+
+    public openCheckEmailModalWindow(): void {
+        this.dialog.open(CheckEmailComponent, this.dialogConfig);
+        if(this.dialogRef) this.dialogRef.close();
+    }
 
 
 //   public onSubmitButton(formName: 'Patient' | 'Physician' | 'Industry'): void {
