@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { CheckEmailComponent } from './shared/dialogs/check-email/check-email.component';
 import { SignUpComponent } from './shared/dialogs/sign-up/sign-up.component';
 import { MaterialModule } from './shared/materials/material.module';
+import { ThankYouComponent } from './shared/dialogs/thank-you/thank-you.component';
 
 
 
@@ -21,7 +22,8 @@ import { MaterialModule } from './shared/materials/material.module';
     declarations: [
         AppComponent,
         CheckEmailComponent,
-        SignUpComponent
+        SignUpComponent,
+        ThankYouComponent
     ],
     imports: [
         BrowserModule,

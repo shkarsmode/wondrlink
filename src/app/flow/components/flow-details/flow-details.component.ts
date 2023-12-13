@@ -86,6 +86,7 @@ export class FlowDetailsComponent {
   }
 
   public onFormSubmit(): void {
+    this.isSending = true;
     const cancerTypeValue = this.detailsForm.get('cancerType')?.value;
 
     let body = Object.assign(this.detailsForm.value, ...this.flowData, {cancerType: cancerTypeValue || null });

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { IUser } from 'src/app/shared/interfaces/IUser';
+import { ApprovalService } from 'src/app/shared/services/approval.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -18,7 +19,9 @@ export class ApprovePageComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private authService: AuthService
+        private router: Router,
+        private authService: AuthService,
+        private approvalService: ApprovalService
     ) {}
 
     public ngOnInit(): void {
@@ -34,7 +37,7 @@ export class ApprovePageComponent implements OnInit {
 
 
     private candidateValidationApprovalToken(): void {
-        if (!this.token) {
+         if (!this.token) {
             this.isStatusOk = false;
             this.isLoading = false;
             return;
@@ -44,7 +47,15 @@ export class ApprovePageComponent implements OnInit {
             .subscribe({
                 next: user => {
                     this.user = user;
-                    this.isStatusOk = true;
+                    this.approvalService.accessApprovedDialog(true);
+
+                    const navigationExtras: NavigationExtras = {
+                        replaceUrl: true
+                    }
+
+                    this.router.navigate([''], navigationExtras);
+
+                    // this.isStatusOk = true;
                     this.isLoading = false;
                 },
                 error: err => {
