@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorInterceptor } from 'src/app/shared/helpers/error.interceptor';
 import { JwtInterceptor } from 'src/app/shared/helpers/jwt.interceptor';
-import { AUTH_PATH_API, BASE_PATH_API } from 'src/app/shared/services/variables';
+import { AUTH_PATH_API, BASE_PATH_API, GEO_API_KEY, GEO_PATH_API } from 'src/app/shared/services/variables';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,25 +29,27 @@ import { MaterialModule } from './shared/materials/material.module';
         HttpClientModule,
         BrowserAnimationsModule,
         MaterialModule,
-        FormsModule
+        FormsModule,
     ],
     providers: [
         JwtHelperService,
         HttpClient,
         {
-			provide: HTTP_INTERCEPTORS,
-			useClass: ErrorInterceptor,
-			multi: true,
-		},
-		{
-			provide: HTTP_INTERCEPTORS,
-			useClass: JwtInterceptor,
-			multi: true,
-		},
-		{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+            provide: HTTP_INTERCEPTORS,
+            useClass: ErrorInterceptor,
+            multi: true,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: JwtInterceptor,
+            multi: true,
+        },
+        { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
         { provide: AUTH_PATH_API, useValue: environment.authPathApi },
         { provide: BASE_PATH_API, useValue: environment.basePathApi },
+        { provide: GEO_API_KEY, useValue: environment.geoApiKey },
+        { provide: GEO_PATH_API, useValue: environment.geoPathAPI },
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

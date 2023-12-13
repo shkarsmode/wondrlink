@@ -1,0 +1,33 @@
+.wrap-select {
+    display: flex;
+    align-items: center;
+
+    .icon {
+        margin-right: 5px;
+        display: flex;
+    }
+
+    .address-line-1 {
+        margin-right: 5px;
+        line-height: 18px;
+        white-space: nowrap;
+    }
+
+    .address-line-2 {
+        line-height: 18px;
+        font-size: 12px;
+        opacity: 0.5;
+        max-width: 190px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+}
+
+.icon span {
+    color: #444444;
+}
+
+::ng-deep .mat-mdc-option .mdc-list-item__primary-text {
+    width: 100%;
+}

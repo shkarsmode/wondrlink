@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const Materials = [
     MatDialogModule,
@@ -17,6 +18,7 @@ const Materials = [
     MatChipsModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatAutocompleteModule
 ];
 
 @NgModule({

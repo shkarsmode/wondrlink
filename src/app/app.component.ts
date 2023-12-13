@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ArticleService } from './shared/services/article-service.service';
+import { FlowDataService } from './shared/services/flow-data.service';
 import { ImageProloaderService } from './shared/services/image-proloader.service';
 import { LoadingService } from './shared/services/loading-service.service';
 import { ScrollToService } from './shared/utils/scroll-to.service';
-import { FlowDataService } from './shared/services/flow-data.service';
 
 @Component({
     selector: 'app-root',
@@ -13,7 +13,6 @@ import { FlowDataService } from './shared/services/flow-data.service';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-
     public loading$: Observable<boolean>;
 
     constructor(

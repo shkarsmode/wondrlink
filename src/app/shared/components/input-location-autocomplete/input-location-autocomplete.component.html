@@ -1,0 +1,28 @@
+<input
+    autocomplete="address-line1"
+    type="text" required
+    placeholder="Miami, FL"
+    id="location" name="location"
+    [matAutocomplete]="auto"
+    (keyup)="onChangeLocation($event)">
+    <mat-autocomplete #auto="matAutocomplete">
+        <mat-option 
+            *ngFor="let city of autocompleteLocations" 
+            [value]="city"
+            (onSelectionChange)="onSelectChange($event)">
+            <div class="wrap-select">
+                <div class="icon">
+                    <span class="material-symbols-outlined">
+                        location_city
+                    </span>
+                </div>
+                <div 
+                    class="address-line-1" 
+                    [innerHTML]="city.address_line1 | autocompleteHighlight: value">
+                </div>
+                <div class="address-line-2">
+                    {{ city.address_line2 }}
+                </div>
+            </div>
+        </mat-option>
+    </mat-autocomplete>
