@@ -51,9 +51,11 @@ export class AppComponent implements OnInit {
     }
 
     public imgs: string[] | null;
+    public materialSymbols: string[] | null;
     private preloadAllBGImages(): void {
         this.loadingService.start();
         this.imgs = this.imageProloaderService.getAllBGImagesPath();
+        this.materialSymbols = this.imageProloaderService.getAllMaterialSymbols();
     }
 
     public loadedImg(): void {

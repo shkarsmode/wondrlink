@@ -6,4 +6,18 @@
 		<h2>fighting together</h2>
 	</div>
 </div>
-<img hidden *ngFor="let img of imgs;" [src]="img" (load)="loadedImg()" />
+
+
+<!-- * Preloading flow * -->
+<img 
+    *ngFor="let img of imgs;"
+    [src]="img"
+    hidden
+    (load)="loadedImg()" />
+<span 
+    *ngFor="let material of materialSymbols"
+    class="material-symbols-outlined"
+    hidden>
+    {{ material }}
+</span>
+<!-- * END Preloading flow * -->
