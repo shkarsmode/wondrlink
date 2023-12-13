@@ -63,6 +63,12 @@
 	}
 }
 
+span[hidden] {
+    position: fixed;
+    opacity: 0;
+    pointer-events: none;
+}
+
 ::ng-deep body:has(.preloader.show) {
 	overflow: hidden;
 }
