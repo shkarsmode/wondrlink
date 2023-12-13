@@ -3,5 +3,5 @@ export const environment = {
     basePathApi: 'https://wondrlink-back.vercel.app/api',
     authPathApi: 'https://wondrlink-back.vercel.app/api/auth',
     geoPathAPI: 'https://api.geoapify.com/v1/geocode/autocomplete',
-    geoApiKey: 'c10f5f77fe91459fb83c2dce469ce036',
+    geoApiKey: '3b23dc57405b446fbbf29846a2d2b6dd',
 };
