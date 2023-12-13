@@ -34,7 +34,7 @@ export class FlowComponent {
   constructor() {}
 
   ngOnInit(): void {
-
+    this.initFlowDataFirstStep(this.flow);
   }
 
   public onFlowChange(newFlow: TFLow) {
@@ -50,6 +50,20 @@ export class FlowComponent {
     if(flowData) {
         this.flowData[this.step] = flowData;
         this.step++;
+    }
+  }
+
+  private determinateUserType(flow: TFLow): TUserType {
+    if(flow === 'patients') return 'Patient';
+    if(flow === 'drug-developers') return 'Drug Developers';
+    return 'Ecosystem'
+  }
+
+  private initFlowDataFirstStep(flow: TFLow) {
+    if(!this.isFlowStartsFromInit) return
+    let flowType = this.determinateUserType(flow);
+    this.flowData[1] = {
+        type: flowType
     }
   }
 

@@ -3,9 +3,9 @@ form {
 	width: 100%;
 	position: relative;
 	transition: all .3s;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 
 	&:before {
 		content: '';

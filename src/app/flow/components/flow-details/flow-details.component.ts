@@ -17,16 +17,9 @@ export class FlowDetailsComponent {
   @Input() public flowData: FlowData[];
 
   public detailsForm: FormGroup;
-
-  public diseaseCatogories: string[] = [
-    "Cancer",
-    "Autoimmune",
-    "Rare/Other"
-  ];
-
   public isSending: boolean = false;
-
   public isCancerTypeSelect: boolean = false;
+  public diseaseCatogories: string[];
   public cancerTypes: string[];
 
   private dialogConfig: MatDialogConfig = new MatDialogConfig()
@@ -44,7 +37,7 @@ export class FlowDetailsComponent {
 
   ngOnInit(): void {
     this.initDetailsForm();
-    this.initCancerTypes();
+    this.initDetailsFormData();
     this.onDiseaseCategoryChange();
     this.initDialogConfig();
   }
@@ -74,15 +67,15 @@ export class FlowDetailsComponent {
     if(category === "Cancer") {
       open()
       this.detailsForm.get('cancerType')?.setValidators(Validators.required)
-    }
-    else {
+    } else {
       this.detailsForm.get('cancerType')?.clearValidators();
       this.detailsForm.get('cancerType')?.setValue("");
       close();
     }
   }
 
-  private initCancerTypes() {
+  private initDetailsFormData() {
+    this.diseaseCatogories = this.flowDataService.diseaseCatogories;
     this.cancerTypes = this.flowDataService.getCancerTypes();
   }
 
@@ -98,29 +91,33 @@ export class FlowDetailsComponent {
     let body = Object.assign(this.detailsForm.value, ...this.flowData, {cancerType: cancerTypeValue || null });
 
     this.authService.registration(body)
-    .subscribe({
-        next: res => {
-            console.log(res);
-            this.isSending = false;
-            this.openCheckEmailModalWindow();
-        },
-        error: error => {
-            console.log(error.message);
-            this.errorSnackBar.open(error.message, '', {
-                verticalPosition: "top"
-            })
-            this.isSending = false;
-        }
-    });
-  }
-
-  public openCheckEmailModalWindow(): void {
-    this.dialog.open(CheckEmailComponent, this.dialogConfig);
-
-    // Check if FlowDialogComponent is open as a MatDialog before attempting to close it
-    if (this.dialogRef && this.dialogRef.componentInstance) {
-        this.dialogRef.close();
+        .subscribe({
+            next: res => {
+                console.log(res);
+                this.isSending = false;
+                this.openCheckEmailModalWindow();
+            },
+            error: error => {
+                console.log(error.message);
+                this.errorSnackBar.open(error.message, 'Close', {
+                    duration: 10000,
+                    verticalPosition: "top"
+                })
+                this.isSending = false;
+            }
+        });
     }
-}
+
+    public openCheckEmailModalWindow(): void {
+        this.dialog.open(CheckEmailComponent, this.dialogConfig);
+        this.dialog.afterAllClosed.subscribe(()=> this.flowDataService.updateFlow(true))
+
+        // Check if FlowDialogComponent is open as a MatDialog before attempting to close it
+        if (this.dialogRef && this.dialogRef.componentInstance) {
+            this.dialogRef.close();
+        }
+    }
+
+
 
 }

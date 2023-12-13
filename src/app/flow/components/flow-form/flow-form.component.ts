@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { FlowData } from '../../flow.component';
 import { FlowDialogComponent } from '../flow-dialog/flow-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FlowDataService } from 'src/app/shared/services/flow-data.service';
 
 @Component({
   selector: 'app-flow-form',
@@ -35,6 +36,7 @@ export class FlowFormComponent {
       private fb: FormBuilder,
       private dialog: MatDialog,
       private errorSnackBar: MatSnackBar,
+      private flowDataService: FlowDataService,
       @Optional() private dialogRef: MatDialogRef<FlowDialogComponent>
   ) {}
 
@@ -102,6 +104,10 @@ export class FlowFormComponent {
   onContactFormSubmit(): void {
     this.isSending = true;
 
+    // we register a user for sending a letter
+    // now registration unneeded
+    // but we still have to send password for correct back-end working
+
     let password = this.password;
 
     let body = Object.assign(
@@ -119,7 +125,8 @@ export class FlowFormComponent {
             },
             error: error => {
                 console.log(error.message);
-                this.errorSnackBar.open(error.message, '', {
+                this.errorSnackBar.open(error.message, 'Close', {
+                    duration: 10000,
                     verticalPosition: "top"
                 })
                 this.isSending = false;
@@ -129,7 +136,7 @@ export class FlowFormComponent {
 
     public openCheckEmailModalWindow(): void {
         this.dialog.open(CheckEmailComponent, this.dialogConfig);
-
+        this.dialog.afterAllClosed.subscribe(()=> this.flowDataService.updateFlow(true))
         // Check if FlowDialogComponent is open as a MatDialog before attempting to close it
         if (this.dialogRef && this.dialogRef.componentInstance) {
             this.dialogRef.close();
