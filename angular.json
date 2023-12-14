@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "wondrlink:build:production"
+              "buildTarget": "wondrlink:build:production"
             },
             "development": {
-              "browserTarget": "wondrlink:build:development"
+              "buildTarget": "wondrlink:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "wondrlink:build"
+            "buildTarget": "wondrlink:build"
           }
         },
         "test": {
