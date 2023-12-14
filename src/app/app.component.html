@@ -1,5 +1,5 @@
 <router-outlet></router-outlet>
-<div class="preloader" [ngClass]="{'show': (loading$ | async)}">
+<div class="preloader" [class.show]="loading$ | async">
 	<div>
 		<img src="assets/img/Vector.png" alt="logo">
 		<h1>WondrLink</h1>
@@ -9,15 +9,18 @@
 
 
 <!-- * Preloading flow * -->
-<img 
-    *ngFor="let img of imgs;"
-    [src]="img"
-    hidden
-    (load)="loadedImg()" />
-<span 
-    *ngFor="let material of materialSymbols"
-    class="material-symbols-outlined"
-    hidden>
-    {{ material }}
-</span>
+@for (img of imgs; track img) {
+    <img
+        [src]="img"
+        hidden
+        (load)="loadedImg()" />
+}
+
+@for (symbol of materialSymbols; track symbol) {
+    <span
+        class="material-symbols-outlined"
+        hidden>
+        {{ symbol }}
+    </span>
+}
 <!-- * END Preloading flow * -->

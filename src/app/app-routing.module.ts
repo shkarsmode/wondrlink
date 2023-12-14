@@ -2,23 +2,31 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/shared/helpers/auth.guard';
 
+export enum GlobalRoutes {
+    Login = 'login',
+    Admin = 'admin',
+    Home = '',
+    Any = '**'
+}
+
 const routes: Routes = [
     {
-        path: '', 
-        loadChildren: () => import('./core/core.module')
-        .then(m => m.CoreModule)
+        path: GlobalRoutes.Home,
+        loadChildren: () =>
+            import('./core/core.module').then((m) => m.CoreModule),
     },
     {
-        path: 'login', 
-        loadChildren: () => import('./login/login.module')
-        .then(m => m.LoginModule)
+        path: GlobalRoutes.Login,
+        loadChildren: () =>
+            import('./login/login.module').then((m) => m.LoginModule),
     },
     {
-        path: 'admin', canActivate: [AuthGuard],
-        loadChildren: () => import('./admin/admin.module')
-        .then(m => m.AdminModule)
+        path: GlobalRoutes.Admin,
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+            import('./admin/admin.module').then((m) => m.AdminModule),
     },
-    { path: '**', redirectTo: '' }
+    { path: GlobalRoutes.Any, redirectTo: GlobalRoutes.Home },
 ];
 
 @NgModule({

@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
     }
 
     private initAllFlowData() {
-      this.flowDataService.setAllFlowData();
+        this.flowDataService.setAllFlowData();
     }
 
     public imgs: string[] | null;

@@ -1,174 +1,159 @@
-<!-- <ng-template [ngIf]="user">
+@if (user) {
+    <div 
+        [class.sidebar-is-reduced]="!isOpened" 
+        [class.sidebar-is-expanded]="isOpened">
+        <header class="l-header">
+            <div class="l-header__inner clearfix">
+                <div 
+                    class="c-header-icon js-hamburger" 
+                    (click)="toggleBurgerMenu()">
+                    <div 
+                        class="hamburger-toggle"
+                        [class.is-opened]="isOpened">
+                        <span class="bar-top"></span>
+                        <span class="bar-mid"></span>
+                        <span class="bar-bot"></span>
+                    </div>
+                </div>
+                <div class="c-header-icon has-dropdown">
+                    <span 
+                        *ngIf="activeUsersCount"
+                        class="c-badge c-badge--red c-badge--header-icon animated swing"
+                        matTooltip="Count of approved users">
+                        {{ activeUsersCount }}
+                    </span>
+                    <span class="material-symbols-outlined">
+                        group
+                    </span>
+                    <div class="c-dropdown c-dropdown--notifications">
+                        <div class="c-dropdown__header"></div>
+                        <div class="c-dropdown__content"></div>
+                    </div>
+                </div>
+                <div class="c-search">
+                    <input class="c-search__input u-input" placeholder="Search..." type="text" />
+                </div>
+                <div class="header-icons-group">
+                    <div 
+                        class="c-header-icon basket avatar" 
+                        [class.loading-avatar]="isLoadingUser">
+                        <span 
+                            *ngIf="countOfPosts"
+                            class="c-badge c-badge--red c-badge--header-icon animated swing"
+                            matTooltip="Your count of posts">
+                            {{ countOfPosts }}
+                        </span>
+                        <img 
+                            *ngIf="user?.avatar"
+                            [src]="user.avatar" 
+                            alt="avatar">
+                        {{ user.firstName }} {{ user.lastName }}
+                    </div>
+                    <div 
+                        class="c-header-icon logout"
+                        (click)="logout()">
+                        <span class="material-symbols-outlined">
+                            logout
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="l-sidebar">
+            <div 
+                class="logo" 
+                routerLink="/" 
+                matTooltipPosition="right" 
+                matTooltip="Move to the main page"
+                matTooltipShowDelay="500">
+                <div class="logo__txt">
+                    W <span>ondrlink</span>
+                </div>
+            </div>
+            <div class="l-sidebar__content">
+                <nav class="c-menu js-menu">
+                    <ul class="u-list">
+                        <li 
+                            class="c-menu__item" 
+                            routerLink="/admin/new-post" 
+                            routerLinkActive="is-active"
+                            data-toggle="tooltip" 
+                            matTooltip="Add a new post" 
+                            matTooltipShowDelay="400"
+                            matTooltipPosition="right">
+                            <div class="c-menu__item__inner">
+                                <span class="material-symbols-outlined">
+                                    post_add
+                                </span>
+                                <div class="c-menu-item__title">
+                                    <span>Add new post</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li 
+                            class="c-menu__item" 
+                            routerLink="/admin/posts" 
+                            routerLinkActive="is-active"
+                            data-toggle="tooltip" 
+                            matTooltip="Posts database" 
+                            matTooltipShowDelay="400"
+                            matTooltipPosition="right">
+                            <div class="c-menu__item__inner">
+                                <span class="material-symbols-outlined">
+                                    toc
+                                </span>
+                                <div class="c-menu-item__title">
+                                    <span>Posts</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li 
+                            class="c-menu__item" 
+                            routerLink="/admin/users" 
+                            routerLinkActive="is-active"
+                            data-toggle="tooltip" 
+                            matTooltip="Users database" 
+                            matTooltipShowDelay="400"
+                            matTooltipPosition="right">
+                            <div class="c-menu__item__inner">
+                                <span class="material-symbols-outlined">
+                                    group
+                                </span>
+                                <div class="c-menu-item__title">
+                                    <span>Users</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li 
+                            class="c-menu__item has-submenu"
+                            routerLink="/admin/settings" 
+                            routerLinkActive="is-active" 
+                            data-toggle="tooltip" 
+                            matTooltip="Settings" 
+                            matTooltipShowDelay="400"
+                            matTooltipPosition="right">
+                            <div class="c-menu__item__inner">
+                                <span class="material-symbols-outlined">
+                                    settings
+                                </span>
+                                <div class="c-menu-item__title">
+                                    <span>Settings</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
 
-	<h1>
-		{{ user.firstName }} {{ user.lastName }}
-	</h1>  
-	<h2>Role: {{ user.role }}</h2>
-	<img [src]="user.avatar" alt="avatar" *ngIf="user.avatar">
-	<br>
-	<button class="btn-green" (click)="authService.logout()">Logout</button>
-
-	<br /> 
-	<br />
-
-	<input type="file" accept=".png,.jpg" (change)="onFileChanged($event)">
-	<button (click)="uploadAndUpdateUserAvatar()">Send</button>
-	
-</ng-template> -->
-
-<div 
-	*ngIf="user"
-	[ngClass]="{'sidebar-is-reduced': !isOpened, 'sidebar-is-expanded': isOpened}">
-	<header class="l-header">
-		<div class="l-header__inner clearfix">
-			<div class="c-header-icon js-hamburger" (click)="toggleBurgerMenu()">
-				<div
-					class="hamburger-toggle" 
-					[ngClass]="{'is-opened': isOpened}">
-					<span class="bar-top"></span>
-					<span class="bar-mid"></span>
-					<span class="bar-bot"></span>
-				</div>
-			</div>
-			<div class="c-header-icon has-dropdown">
-				<span
-					*ngIf="activeUsersCount"
-					matTooltip="Count of approved users"
-					class="c-badge c-badge--red c-badge--header-icon animated swing">
-					{{ activeUsersCount }}
-				</span>
-				<span class="material-symbols-outlined">
-					group
-				</span>
-				<div class="c-dropdown c-dropdown--notifications">
-					<div class="c-dropdown__header"></div>
-					<div class="c-dropdown__content"></div>
-				</div>
-			</div>
-			<div class="c-search">
-				<input class="c-search__input u-input" placeholder="Search..." type="text" />
-			</div>
-			<div class="header-icons-group">
-				<div 
-					class="c-header-icon basket avatar" 
-					[ngClass]="{'loading-avatar': isLoadingUser}">
-					<span
-						*ngIf="countOfPosts" 
-						matTooltip="Your count of posts"
-						class="c-badge c-badge--red c-badge--header-icon animated swing">
-						{{ countOfPosts }}
-					</span>
-					<img [src]="user.avatar" alt="avatar" *ngIf="user?.avatar">
-					{{ user.firstName }} {{ user.lastName }}
-				</div>
-				<div class="c-header-icon logout" (click)="logout()">
-					<span class="material-symbols-outlined">
-						logout
-					</span>
-				</div>
-			</div>
-		</div>
-	</header>
-	<div class="l-sidebar">
-		<div 
-			class="logo" 
-			routerLink="/"
-			matTooltipPosition="right"
-			matTooltip="Move to the main page" 
-			matTooltipShowDelay="500">
-			<div class="logo__txt">
-				W <span>ondrlink</span>
-			</div>
-		</div>
-		<div class="l-sidebar__content">
-			<nav class="c-menu js-menu">
-				<ul class="u-list">
-					<li 
-						class="c-menu__item" 
-						routerLink="/admin/new-post" 
-						routerLinkActive="is-active" 
-						data-toggle="tooltip" 
-						matTooltip="Add a new post" 
-						matTooltipShowDelay="400"
-						matTooltipPosition="right">
-						<div class="c-menu__item__inner">
-							<span class="material-symbols-outlined">
-								post_add
-							</span>
-							<div class="c-menu-item__title"><span>Add new post</span></div>
-						</div>
-					</li>
-					<li 
-						class="c-menu__item"
-						routerLink="/admin/posts" 
-						routerLinkActive="is-active" 
-						data-toggle="tooltip" 
-						matTooltip="Posts database" 
-						matTooltipShowDelay="400"
-						matTooltipPosition="right">
-						<div class="c-menu__item__inner">
-							<span class="material-symbols-outlined">
-								toc
-							</span>
-							<div class="c-menu-item__title">
-								<span>Posts</span>
-							</div>
-						</div>
-					</li>
-					<li 
-						class="c-menu__item"
-						routerLink="/admin/users" 
-						routerLinkActive="is-active" 
-						data-toggle="tooltip" 
-						matTooltip="Users database"
-						matTooltipShowDelay="400"
-						matTooltipPosition="right">
-						<div class="c-menu__item__inner">
-							<span class="material-symbols-outlined">
-								group
-							</span>
-							<div class="c-menu-item__title">
-								<span>Users</span>
-							</div>
-						</div>
-					</li>
-					<!-- <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Statistics">
-						<div class="c-menu__item__inner"><i class="far fa-chart-bar"></i>
-							<div class="c-menu-item__title"><span>Statistics</span></div>
-						</div>
-					</li>
-					<li class="c-menu__item has-submenu" data-toggle="tooltip" title="Gifts">
-						<div class="c-menu__item__inner"><i class="fa fa-gift"></i>
-							<div class="c-menu-item__title"><span>Gifts</span></div>
-						</div>
-					</li> -->
-					<li 
-						routerLink="/admin/settings" 
-						routerLinkActive="is-active"
-						class="c-menu__item has-submenu" 
-						data-toggle="tooltip" 
-						matTooltip="Settings" 
-						matTooltipShowDelay="400"
-						matTooltipPosition="right">
-						<div class="c-menu__item__inner">
-							<span class="material-symbols-outlined">
-								settings
-							</span>
-							<div class="c-menu-item__title"><span>Settings</span></div>
-						</div>
-					</li>
-				</ul>
-			</nav>
-		</div>
-	</div>
-</div>
-<main class="l-main" *ngIf="user">
-	<div class="content-wrapper content-wrapper--with-bg">
-		<!-- <h1 class="page-title">Dashboard</h1>
-		<div class="page-content">Content goes here</div> -->
-		<router-outlet></router-outlet>
-	</div>
-</main>
-
-<mat-spinner *ngIf="!user"></mat-spinner>
-
+    <main 
+        *ngIf="user"
+        class="l-main">
+        <div class="content-wrapper content-wrapper--with-bg">
+            <router-outlet></router-outlet>
+        </div>
+    </main>
+} @else {
+    <mat-spinner></mat-spinner>
+}

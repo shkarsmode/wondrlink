@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { GlobalRoutes } from '../app-routing.module';
 import { AdminComponent } from './admin.component';
 import { AddingPostComponent } from './components/adding-post/adding-post.component';
 import { EditPostComponent } from './components/edit-post/edit-post.component';
@@ -8,22 +9,57 @@ import { PostsComponent } from './components/posts/posts.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { UsersComponent } from './components/users/users.component';
 
+enum AdminRoutes {
+    Home = '',
+    NewPost = 'new-post',
+    EditPost = 'edit-post',
+    EditUser = 'edit-user',
+    Posts = 'posts',
+    Users = 'users',
+    Settings = 'settings',
+    ParamId = ':id',
+}
+
 const routes: Routes = [
-  {
-    path: '', component: AdminComponent, children: [
-      { path: '', redirectTo: '/admin/new-post', pathMatch: 'full' },
-      { path: 'new-post', component: AddingPostComponent },
-      { path: 'edit-post/:id', component: EditPostComponent },
-      { path: 'edit-user/:id', component: EditUserComponent },
-      { path: 'posts', component: PostsComponent },
-      { path: 'users', component: UsersComponent },
-      { path: 'settings', component: SettingsComponent }
-    ],
-  }
+    {
+        path: AdminRoutes.Home,
+        component: AdminComponent,
+        children: [
+            {
+                path: AdminRoutes.Home,
+                redirectTo: `/${GlobalRoutes.Admin}/${AdminRoutes.NewPost}`,
+                pathMatch: 'full',
+            },
+            {
+                path: AdminRoutes.NewPost,
+                component: AddingPostComponent,
+            },
+            {
+                path: `${AdminRoutes.EditPost}/${AdminRoutes.ParamId}`,
+                component: EditPostComponent,
+            },
+            {
+                path: `${AdminRoutes.EditUser}/${AdminRoutes.ParamId}`,
+                component: EditUserComponent,
+            },
+            {
+                path: AdminRoutes.Posts,
+                component: PostsComponent,
+            },
+            {
+                path: AdminRoutes.Users,
+                component: UsersComponent,
+            },
+            {
+                path: AdminRoutes.Settings,
+                component: SettingsComponent,
+            },
+        ],
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
-export class AdminRoutingModule { }
+export class AdminRoutingModule {}

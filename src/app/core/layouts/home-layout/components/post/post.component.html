@@ -1,182 +1,163 @@
 <div class="wrap">
 	<!-- * Main content -->
-	<div class="content" *ngIf="post">
-		<div class="top" (click)="goBack()">
-			<span 
-				class="material-symbols-outlined">
-				west
-			</span>
-			back
-		</div>
-
-		<div class="post">
-			<div class="left-side">
-				<div class="date">
-					{{ post.createdAt | date: 'MMM dd, YYYY' }}
-				</div>
-				<h2>{{ post.header }}</h2>
-				<div class="sub-header">
-					{{ post.subHeader }}
-				</div>
-				<div class="owner" *ngIf="post.user">
-					<img 
-						*ngIf="post.user.avatar" 
-						[src]="post.user.avatar" 
-						[alt]="post.user.firstName">
-					<div class="owner-info">
-						<div class="name">
-							{{ post.user.firstName }} 
-							{{ post.user.lastName }}
-						</div>
-						<div class="sign">
-							Associate writer for Well at The Times
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="right-side">
-				<img [src]="post.mainPicture" [alt]="post.header">
-			</div>
-		</div>
-
-		<quill-view-html  [content]='post.htmlContent'></quill-view-html>
-
-		<div class="wrap-end-center">
-			<div class="wrap-end">
-				<div class="left">
-					Share this post
-				</div>
-				<div class="right">
-					<div 
-						class="block"
-						[title]="post.header"
-						[description]="post.header"
-						tags="WondrLink" 
-						shareButton="copy" (click)="copyCurrentPost()">
-						<ng-template [ngIf]="!isCopied">
-							<span class="material-symbols-outlined" *ngIf="!isCopied">
-								file_copy
-							</span>
-							Copy link
-						</ng-template>
-						
-						<ng-template [ngIf]="isCopied">
-							<span class="material-symbols-outlined" *ngIf="isCopied">
-								library_add_check
-							</span>
-							Copied link
-						</ng-template>
-							
-						
-						
-					</div>
-					<!-- <button shareButton2="facebook">Share</button>
-					<button shareButton2="twitter">Tweet</button>
-					<button shareButton2="pinterest">Pin</button> -->
-					<!-- <img 
-						[title]="post.header"
-						shareButton="email"
-						src="assets/socials/inst.png" 
-						alt="inst">
-					-->
-					<a [href]="twitterShareLink" target="_blank">
-						<img 
-							src="assets/socials/twitter.png" 
-							alt="twitter">
-					</a>
-					<a [href]="facebookShareLink" target="_blank">
-						<img
-							src="assets/socials/fb.png" 
-							alt="fb" >
-					</a>
-					<a [href]="linkedinShareLink + '&summary=' + post.header" target="_blank">
-						<img 
-							src="assets/socials/linkedin.png" 
-							alt="linkedin">
-					</a>
-				</div>
-			</div>
-		</div>
-		<!-- <quill-editor [(ngModel)]="html"></quill-editor> -->
-	</div>
-	<!-- * End content -->
-
-	<!-- * Placeholder for Loading  -->
-	<div class="content loading" *ngIf="!post">
-		<div class="top">
-			<span 
-				class="material-symbols-outlined">
-				west
-			</span>
-			back
-		</div>
-
-		<div class="post">
-			<div class="left-side">
-				<div class="date">
-					Jun 23, 2023
-				</div>
-				<h2>
-					<span>Director James Cameron sass he</span>
-					<span>Director James Cameron</span>
-					<span>Director James</span>
-				</h2>
-				<div class="sub-header">
-					<span>James Cameron, who directed the hit 1997 film "Titanic"</span>
-					<span>James Cameron, who</span>
-				</div>
-				<div class="owner">
-					<div class="img"></div>
-					<div class="owner-info">
-						<div class="name">
-							Daniil Shkarupa
-						</div>
-						<div class="sign">
-							Associate writer for Well at The Times
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="right-side">
-				<div class="right-side-picture"></div>
-			</div>
-		</div>
-
-		<div class="wrap-end-center">
-			<div class="wrap-end">
-				<div class="left">
-					Share this post
-				</div>
-				<div class="right">
-					<div class="block">
-						<ng-template [ngIf]="!isCopied">
-							<span class="material-symbols-outlined" *ngIf="!isCopied">
-								file_copy
-							</span>
-							Copy link
-						</ng-template>
-						
-						<ng-template [ngIf]="isCopied">
-							<span class="material-symbols-outlined" *ngIf="isCopied">
-								library_add_check
-							</span>
-							Copied link
-						</ng-template>
-							
-						
-						
-					</div>
-					<!-- <button shareButton2="facebook">Share</button>
-					<button shareButton2="twitter">Tweet</button>
-					<button shareButton2="pinterest">Pin</button> -->
-					<img src="assets/socials/inst.png" alt="inst">
-					<img src="assets/socials/twitter.png" alt="twitter" >
-					<img src="assets/socials/fb.png" alt="fb">
-					<img src="assets/socials/linkedin.png" alt="linkedin">
-				</div>
-			</div>
-		</div>
-		<!-- <quill-editor [(ngModel)]="html"></quill-editor> -->
-	</div>
-	<!-- * END Placeholder for Loading  -->
+    @if (post) {
+        <div class="content">
+            <div class="top" (click)="goBack()">
+                <span class="material-symbols-outlined">
+                    west
+                </span>
+                back
+            </div>
+        
+            <div class="post">
+                <div class="left-side">
+                    <div class="date">
+                        {{ post.createdAt | date: 'MMM dd, YYYY' }}
+                    </div>
+                    <h2>{{ post.header }}</h2>
+                    <div class="sub-header">
+                        {{ post.subHeader }}
+                    </div>
+                    <div class="owner" *ngIf="post.user">
+                        <img *ngIf="post.user.avatar" [src]="post.user.avatar" [alt]="post.user.firstName">
+                        <div class="owner-info">
+                            <div class="name">
+                                {{ post.user.firstName }}
+                                {{ post.user.lastName }}
+                            </div>
+                            <div class="sign">
+                                Associate writer for Well at The Times
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-side">
+                    <img [src]="post.mainPicture" [alt]="post.header">
+                </div>
+            </div>
+        
+            <quill-view-html [content]='post.htmlContent'></quill-view-html>
+        
+            <div class="wrap-end-center">
+                <div class="wrap-end">
+                    <div class="left">
+                        Share this post
+                    </div>
+                    <div class="right">
+                        <div class="block" [title]="post.header" [description]="post.header" tags="WondrLink" shareButton="copy"
+                            (click)="copyCurrentPost()">
+                            <ng-template [ngIf]="!isCopied">
+                                <span class="material-symbols-outlined" *ngIf="!isCopied">
+                                    file_copy
+                                </span>
+                                Copy link
+                            </ng-template>
+        
+                            <ng-template [ngIf]="isCopied">
+                                <span class="material-symbols-outlined" *ngIf="isCopied">
+                                    library_add_check
+                                </span>
+                                Copied link
+                            </ng-template>
+        
+        
+        
+                        </div>
+                        <!-- <button shareButton2="facebook">Share</button>
+        					<button shareButton2="twitter">Tweet</button>
+        					<button shareButton2="pinterest">Pin</button> -->
+                        <!-- <img 
+        						[title]="post.header"
+        						shareButton="email"
+        						src="assets/socials/inst.png" 
+        						alt="inst">
+        					-->
+                        <a [href]="twitterShareLink" target="_blank">
+                            <img src="assets/socials/twitter.png" alt="twitter">
+                        </a>
+                        <a [href]="facebookShareLink" target="_blank">
+                            <img src="assets/socials/fb.png" alt="fb">
+                        </a>
+                        <a [href]="linkedinShareLink + '&summary=' + post.header" target="_blank">
+                            <img src="assets/socials/linkedin.png" alt="linkedin">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- <quill-editor [(ngModel)]="html"></quill-editor> -->
+        </div>
+    } @else {
+        <div class="content loading">
+            <div class="top">
+                <span class="material-symbols-outlined">
+                    west
+                </span>
+                back
+            </div>
+        
+            <div class="post">
+                <div class="left-side">
+                    <div class="date">
+                        Jun 23, 2023
+                    </div>
+                    <h2>
+                        <span>Director James Cameron sass he</span>
+                        <span>Director James Cameron</span>
+                        <span>Director James</span>
+                    </h2>
+                    <div class="sub-header">
+                        <span>James Cameron, who directed the hit 1997 film "Titanic"</span>
+                        <span>James Cameron, who</span>
+                    </div>
+                    <div class="owner">
+                        <div class="img"></div>
+                        <div class="owner-info">
+                            <div class="name">
+                                Daniil Shkarupa
+                            </div>
+                            <div class="sign">
+                                Associate writer for Well at The Times
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-side">
+                    <div class="right-side-picture"></div>
+                </div>
+            </div>
+        
+            <div class="wrap-end-center">
+                <div class="wrap-end">
+                    <div class="left">
+                        Share this post
+                    </div>
+                    <div class="right">
+                        <div class="block">
+                            <ng-template [ngIf]="!isCopied">
+                                <span class="material-symbols-outlined" *ngIf="!isCopied">
+                                    file_copy
+                                </span>
+                                Copy link
+                            </ng-template>
+        
+                            <ng-template [ngIf]="isCopied">
+                                <span class="material-symbols-outlined" *ngIf="isCopied">
+                                    library_add_check
+                                </span>
+                                Copied link
+                            </ng-template>
+        
+        
+        
+                        </div>
+                        <img src="assets/socials/inst.png" alt="inst">
+                        <img src="assets/socials/twitter.png" alt="twitter">
+                        <img src="assets/socials/fb.png" alt="fb">
+                        <img src="assets/socials/linkedin.png" alt="linkedin">
+                    </div>
+                </div>
+            </div>
+            <!-- <quill-editor [(ngModel)]="html"></quill-editor> -->
+        </div>
+    }
 </div>

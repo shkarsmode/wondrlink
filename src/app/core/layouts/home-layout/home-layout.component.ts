@@ -1,32 +1,32 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ThankYouComponent } from 'src/app/shared/dialogs/thank-you/thank-you.component';
 import { ApprovalService } from 'src/app/shared/services/approval.service';
 
 @Component({
-  selector: 'app-home-layout',
-  templateUrl: './home-layout.component.html',
-  styleUrls: ['./home-layout.component.scss']
+    selector: 'app-home-layout',
+    templateUrl: './home-layout.component.html',
+    styleUrls: ['./home-layout.component.scss'],
 })
-export class HomeLayoutComponent {
+export class HomeLayoutComponent implements AfterViewInit {
     private dialogConfig: MatDialogConfig = new MatDialogConfig();
 
     constructor(
-        private dialog: MatDialog,
-        private approvalService: ApprovalService,
-    ){}
+        private readonly dialog: MatDialog,
+        private readonly approvalService: ApprovalService
+    ) {}
 
-    ngAfterViewInit(): void {
+    public ngAfterViewInit(): void {
         this.listenIsApproved();
     }
 
     private listenIsApproved(): void {
         this.approvalService.approved$.subscribe((isApproved) => {
-            if(isApproved) {
+            if (isApproved) {
                 this.initDialogConfig();
                 this.openThankYouDialog();
             }
-        })
+        });
     }
 
     private initDialogConfig(): void {
@@ -36,6 +36,6 @@ export class HomeLayoutComponent {
     }
 
     private openThankYouDialog(): void {
-        this.dialog.open(ThankYouComponent, this.dialogConfig)
+        this.dialog.open(ThankYouComponent, this.dialogConfig);
     }
 }
