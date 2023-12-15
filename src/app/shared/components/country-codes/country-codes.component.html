@@ -1,13 +1,13 @@
-<div class="country-code__select">
+<div class="country-code__select" (click)="toggleDropdown2($event)">
     <img class="flag" [src]="'https://flagsapi.com/'+ currentCountry.code+'/flat/24.png'" alt="flag">
     <span class="code">{{ currentCountry.dial_code }}</span>
-    <button type="button" (click)="toggleDropdown()">
+    <button type="button">
         <img src="assets/svg/dropdown.svg" alt="dropdown">
     </button>
 </div>
 
 @if (isOpen) {
-    <div class="country-code__dropdown" (click)="selectCountry($event)" [@fadeInOut]>
+    <div class="country-code__dropdown" (click)="selectCountry($event)" >
         @for (country of countryCodes; track country.code; let i = $index ) {
             <div class="country-code__item" [attr.data-select]="i">
                 <img [src]="'https://flagsapi.com/'+country.code+'/flat/24.png'" alt="flag">

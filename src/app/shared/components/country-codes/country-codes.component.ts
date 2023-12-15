@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, Renderer2, ElementRef, HostListener } from '@angular/core';
 import { ICountryCodes } from '../../interfaces/ICountryCodes';
 import { CountryCodesService } from '../../services/country-codes.service';
 import { trigger, transition, style, animate } from '@angular/animations';
@@ -32,7 +32,11 @@ export class CountryCodesComponent {
     public countryCodes: ICountryCodes[] = [];
     @Input() public isOpen: boolean = false;
 
-    constructor(private countryCodesService: CountryCodesService) {}
+    constructor(
+        private countryCodesService: CountryCodesService,
+        private renderer: Renderer2,
+        private el: ElementRef
+    ) {}
 
     ngOnInit(): void {
         this.getData();
@@ -49,7 +53,6 @@ export class CountryCodesComponent {
 
     public selectCountry(event: MouseEvent): void {
         const selectedCountry = event.target as HTMLElement;
-        console.log(selectedCountry)
 
         const dataIndex = selectedCountry.getAttribute('data-select');
         if (dataIndex !== null) {
@@ -63,8 +66,27 @@ export class CountryCodesComponent {
         this.isOpen = !this.isOpen;
     }
 
+    public toggleDropdown2(event: Event): void {
+        this.isOpen = !this.isOpen;
+        event.stopPropagation(); // Make sure this line is NOT present
+    }
+
     private onCountryCodeChange(): void {
         this.countryCode.emit(this.currentCountry.dial_code);
+    }
+
+
+    @HostListener('document:click', ['$event'])
+    onDocumentClick(event: Event): void {
+        if(!this.isOpen) return;
+        const target = event.target as HTMLElement;
+
+        const isCountryCodeItem = target.classList.contains('country-code__item');
+
+
+        if (!isCountryCodeItem) {
+            this.isOpen = false;
+        }
     }
 
 }
