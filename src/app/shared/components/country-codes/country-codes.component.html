@@ -7,7 +7,7 @@
 </div>
 
 @if (isOpen) {
-    <div class="country-code__dropdown" (click)="selectCountry($event)" >
+    <div class="country-code__dropdown" (click)="selectCountry($event)" [@fadeInOut]>
         @for (country of countryCodes; track country.code; let i = $index ) {
             <div class="country-code__item" [attr.data-select]="i">
                 <img [src]="'https://flagsapi.com/'+country.code+'/flat/24.png'" alt="flag">
