@@ -12,6 +12,7 @@ import { FlowDialogComponent } from './components/flow-dialog/flow-dialog.compon
 import { FlowFormComponent } from './components/flow-form/flow-form.component';
 import { FlowInitComponent } from './components/flow-init/flow-init.component';
 import { FlowSelectComponent } from './components/flow-select/flow-select.component';
+import { CountryCodesComponent } from '../shared/components/country-codes/country-codes.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { FlowSelectComponent } from './components/flow-select/flow-select.compon
     ReactiveFormsModule,
     MaterialModule,
     MatDialogModule,
-    InputLocationAutocompleteComponent
+    InputLocationAutocompleteComponent,
+    CountryCodesComponent
   ],
   exports: [
     FlowComponent,

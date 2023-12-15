@@ -8,6 +8,9 @@ import { FlowData } from '../../flow.component';
 import { FlowDialogComponent } from '../flow-dialog/flow-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FlowDataService } from 'src/app/shared/services/flow-data.service';
+import { CountryCodesService } from 'src/app/shared/services/country-codes.service';
+import { debounceTime } from 'rxjs';
+import { ICountryCodes } from 'src/app/shared/interfaces/ICountryCodes';
 
 @Component({
   selector: 'app-flow-form',
@@ -28,8 +31,18 @@ export class FlowFormComponent {
 
   // untill back will done
   private password: any = 'test' + Math.floor(Math.random() * 100) + 1;
+
   private oldFormType: TFLow;
   private dialogConfig: MatDialogConfig = new MatDialogConfig();
+
+    public telephonePadding: number = 90;
+    public inputCountry: ICountryCodes = {
+        "name": "United States",
+        "dial_code": "+1",
+        "code": "US"
+    };
+    public isOpenedPhoneDropdown: boolean = false;
+    private selectedCountryCode: string = "+1";
 
   constructor(
       private authService: AuthService,
@@ -37,6 +50,7 @@ export class FlowFormComponent {
       private dialog: MatDialog,
       private errorSnackBar: MatSnackBar,
       private flowDataService: FlowDataService,
+      private countriesData: CountryCodesService,
       @Optional() private dialogRef: MatDialogRef<FlowDialogComponent>
   ) {}
 
@@ -52,6 +66,12 @@ export class FlowFormComponent {
       this.oldFormType = this.formType;
       this.initContactForm();
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.listenPhoneInput();
+    console.log(this.contactForm.value)
+
   }
 
   private initContactForm(): void {
@@ -88,10 +108,17 @@ export class FlowFormComponent {
   public onNextStep(): void {
     let currentIsMySelft  = this.isMySelf;
     let password = this.password;
+    let phone = this.joinPhoneParts();
+
 
     let flowData = Object.assign(this.contactForm.value, {
             'isMySelf': currentIsMySelft,
-            'password': password})
+            'password': password,
+            'phone': phone
+        })
+
+        console.log(flowData);
+
     this.next.emit(flowData);
   }
 
@@ -109,11 +136,13 @@ export class FlowFormComponent {
     // but we still have to send password for correct back-end working
 
     let password = this.password;
+    let phone = this.joinPhoneParts();
 
     let body = Object.assign(
         this.contactForm.value,
         ...this.flowData,
-        { password: password }
+        { password: password },
+        { phone: phone }
     );
 
     this.authService.registration(body)
@@ -143,5 +172,70 @@ export class FlowFormComponent {
         }
     }
 
-}
+    private joinPhoneParts(){
+        let phone = this.contactForm.get('phone')?.value;
+        return this.selectedCountryCode + phone.split(" ").join("");
+    }
 
+    public onCodeSelected(code: string): void {
+        this.telephonePadding = 60 + 15 * code.length;
+        this.selectedCountryCode = code;
+    }
+
+
+     listenPhoneInput() {
+        this.contactForm.get('phone')?.valueChanges
+            .pipe(debounceTime(500))
+            .subscribe((value) => {
+                this.handlePhoneInput(value);
+            });
+      }
+
+      private handlePhoneInput(inputValue: string): void {
+        const formattedPhoneInput = this.formatPhoneInput(inputValue);
+        this.contactForm.patchValue({"phone": formattedPhoneInput}, {emitEvent: false}) // { emitEvent: false
+      }
+
+      private formatPhoneInput(inputValue: string): string {
+        if (!inputValue) return '';
+
+        let countryCode: ICountryCodes | '' = '';
+        let cleanedInput = this.cleanPhoneInput(inputValue);
+
+        if(cleanedInput.startsWith("+")) {
+            countryCode = this.matchesCountryCode(cleanedInput);
+        }
+
+        // Check if cleanedInput matches any combination of currency codes
+        if (countryCode) {
+            this.inputCountry = countryCode;
+            this.onCodeSelected(this.inputCountry.dial_code);
+            this.isOpenedPhoneDropdown = false;
+            cleanedInput = cleanedInput.replace(countryCode.dial_code, '');
+        }
+
+        // Add spaces every three characters
+        const formattedInput = this.addSpacesEveryThreeCharacters(cleanedInput);
+
+        return formattedInput;
+      }
+
+      private cleanPhoneInput(inputValue: string): string {
+        // Remove any character that is not allowed in a phone number
+        return inputValue.replace(/[^\d+]/g, '');
+      }
+
+      private matchesCountryCode(inputValue: string): ICountryCodes | '' {
+        const matchingCode = this.countriesData.getCountryCodes().find(country => inputValue.startsWith(country.dial_code));
+        return matchingCode || "";
+      }
+
+      private addSpacesEveryThreeCharacters(inputValue: string): string {
+        if(inputValue.length < 4) return inputValue;
+        // Add spaces every three characters
+        const groups = inputValue.match(/.{1,3}/g);
+        return groups?.join(' ') || ""
+      }
+
+
+}

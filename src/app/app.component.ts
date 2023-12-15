@@ -6,6 +6,7 @@ import { FlowDataService } from './shared/services/flow-data.service';
 import { ImageProloaderService } from './shared/services/image-proloader.service';
 import { LoadingService } from './shared/services/loading-service.service';
 import { ScrollToService } from './shared/utils/scroll-to.service';
+import { CountryCodesService } from './shared/services/country-codes.service';
 
 @Component({
     selector: 'app-root',
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit {
         private loadingService: LoadingService,
         private articleService: ArticleService,
         private flowDataService: FlowDataService,
+        private countryCodesService: CountryCodesService,
     ) {
         this.loading$ = loadingService.loading$;
     }
@@ -29,6 +31,7 @@ export class AppComponent implements OnInit {
     public ngOnInit(): void {
         this.initAllArticles();
         this.initAllFlowData();
+        this.initAllCountryCodesData();
         this.listenRoutesTransition();
         this.preloadAllBGImages();
     }
@@ -48,6 +51,11 @@ export class AppComponent implements OnInit {
 
     private initAllFlowData() {
         this.flowDataService.setAllFlowData();
+    }
+
+    private initAllCountryCodesData() {
+        this.countryCodesService.setAllCountyCodes();
+        console.log(this.countryCodesService.getCountryCodes())
     }
 
     public imgs: string[] | null;

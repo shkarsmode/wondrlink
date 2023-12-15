@@ -35,16 +35,18 @@
 
   <div class="wrap-inputs">
     <!-- < BEFORE BACKK WILL DONE company, now it's organization  -->
-    <div class="group" *ngIf="formType === 'drug-developers' || formType === 'ecosystem' ? true : false">
-      <label for="company">Organization name</label>
-      <input
-        autocomplete="organization"
-        tabindex="5"
-        type="text" required
-        placeholder="Type name"
-        id="company" name="company"
-        formControlName="companyName">
-    </div>
+    @if(formType === 'drug-developers' || formType === 'ecosystem') {
+        <div class="group">
+        <label for="company">Organization name</label>
+        <input
+            autocomplete="organization"
+            tabindex="5"
+            type="text" required
+            placeholder="Type name"
+            id="company" name="company"
+            formControlName="companyName">
+        </div>
+    }
     <!-- </ BEFORE BACKK WILL change company, now it's organization  -->
     <div class="group">
       <label for="firstName" >
@@ -72,13 +74,21 @@
     </div>
     <div class="group">
       <label for="phone">Phone</label>
-      <input
-        autocomplete="phone"
-        tabindex="3"
-        type="tel" required
-        placeholder="+1 212 001 002"
-        id="phone" name="phone"
-        formControlName="phone">
+      <div class="phone-wrap">
+        <input
+            autocomplete="phone"
+            tabindex="3"
+            type="tel" required
+            placeholder="123 456 789"
+            id="phone" name="phone"
+            formControlName="phone"
+            [ngStyle]="{'padding-left': telephonePadding + 'px'}">
+            <app-country-codes
+                (countryCode)="onCodeSelected($event)"
+                [currentCountry]="inputCountry"
+                [isOpen]="isOpenedPhoneDropdown"
+            ></app-country-codes>
+      </div>
     </div>
     <div class="group">
       <label for="email">Email</label>
@@ -92,7 +102,7 @@
     </div>
     <div class="group">
       <label for="location">Location</label>
-        <app-input-location-autocomplete 
+        <app-input-location-autocomplete
             formControlName="location">
         </app-input-location-autocomplete>
       <!-- <input
