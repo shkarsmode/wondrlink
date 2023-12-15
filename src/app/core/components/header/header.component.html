@@ -7,11 +7,11 @@
 			<img src="assets/img/logo-black.png" alt="wondrlink">
 		</div>
 		<ul>
-			<li routerLink="/blog">Blog</li>
 			<li routerLink="articles/patients">Patients</li>
 			<li routerLink="articles/drug-developers">Drug Developers</li>
 			<li routerLink="articles/ecosystem">Ecosystem</li>
-			<li (click)="scrollToElement('about')">About us</li>
+			<li routerLink="/blog">Blog</li>
+            <li (click)="scrollToElement('about')">About us</li>
 			<li (click)="scrollToElement('contact')">Contact us</li>
 			<li>
 				<ng-template [ngIf]="!isAdmin">
@@ -73,11 +73,11 @@
 	</header>
 	<div class="wrap-navigation" [ngClass]="{'show': isOpenBurger}">
 		<ul (click)="isOpenBurger = false">
-			<li routerLink="/blog" style="--i:0s;">Blog</li>
-			<li routerLink="articles/patients" style="--i:.12s;">Patients</li>
-			<li routerLink="articles/drug-developers" style="--i:.14s;">Drug Developers</li>
-			<li routerLink="articles/ecosystem" style="--i:.16s;">Ecosystem</li>
-			<li (click)="scrollToElement('about')" style="--i:.18s;">About us</li>
+			<li routerLink="articles/patients" style="--i:0s;">Patients</li>
+			<li routerLink="articles/drug-developers" style="--i:.12s;">Drug Developers</li>
+			<li routerLink="articles/ecosystem" style="--i:.14s;">Ecosystem</li>
+			<li routerLink="/blog" style="--i:.16s;">Blog</li>
+            <li (click)="scrollToElement('about')" style="--i:.18s;">About us</li>
 			<li (click)="scrollToElement('contact')" style="--i:.2s;">Contact us</li>
 			<li style="--i:.3s;">
 				<ng-template [ngIf]="!isAdmin">
