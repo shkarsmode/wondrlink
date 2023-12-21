@@ -61,6 +61,7 @@ export class FlowFormComponent {
     this.initContactForm();
     this.initDialogConfig();
     this.oldFormType = this.formType;
+    console.log(this.flowData)
   }
 
   ngDoCheck(): void {
