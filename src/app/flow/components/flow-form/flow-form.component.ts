@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, Optional } from '@angular/core';
+import { Component, Input, Output, EventEmitter, Optional, ViewChildren, QueryList, ElementRef, Renderer2, asNativeElements } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { CheckEmailComponent } from 'src/app/shared/dialogs/check-email/check-email.component';
@@ -22,12 +22,14 @@ export class FlowFormComponent {
   @Output() public next = new EventEmitter<FlowData>();
   @Input() public flowData: FlowData[];
 
+  @ViewChildren('formInput') formInputs: QueryList<ElementRef>;
+
   public contactForm: FormGroup;
 
-  public isMySelf: boolean = true;
-
+  public isMySelf: boolean = true; // for patients form switcher
   public isSending: boolean = false;
-  public isButtonDisabled: boolean = true;
+
+
 
   // untill back will done
   private password: any = 'test' + Math.floor(Math.random() * 100) + 1;
@@ -51,6 +53,7 @@ export class FlowFormComponent {
       private errorSnackBar: MatSnackBar,
       private flowDataService: FlowDataService,
       private countriesData: CountryCodesService,
+      private renderer: Renderer2,
       @Optional() private dialogRef: MatDialogRef<FlowDialogComponent>
   ) {}
 
@@ -70,7 +73,7 @@ export class FlowFormComponent {
 
   ngAfterViewInit(): void {
     this.listenPhoneInput();
-    console.log(this.contactForm.value)
+    this.initTabindexOrder();
 
   }
 
@@ -100,11 +103,19 @@ export class FlowFormComponent {
     }
   }
 
+  private initTabindexOrder(): void {
+    this.formInputs.forEach((input, i) => {
+        let index = (i + 1).toString();
+        this.renderer.setAttribute(input.nativeElement, 'tabindex', index);
+    })
+  }
+
   // for Patients Sign up
   public chooseSigningUpFor(isMySelf: boolean): void {
     this.isMySelf = isMySelf;
   }
 
+  // for patiensts flow
   public onNextStep(): void {
     let currentIsMySelft  = this.isMySelf;
     let password = this.password;
@@ -122,13 +133,8 @@ export class FlowFormComponent {
     this.next.emit(flowData);
   }
 
-  private initDialogConfig(): void {
-    this.dialogConfig.width = '630px';
-    this.dialogConfig.height = '500px';
-    this.dialogConfig.disableClose = true;
-  }
 
-  onContactFormSubmit(): void {
+   public onContactFormSubmit(): void {
     this.isSending = true;
 
     // we register a user for sending a letter
@@ -163,6 +169,13 @@ export class FlowFormComponent {
         });
     }
 
+        // for other flows
+    private initDialogConfig(): void {
+        this.dialogConfig.width = '630px';
+        this.dialogConfig.height = '500px';
+        this.dialogConfig.disableClose = true;
+    }
+
     public openCheckEmailModalWindow(): void {
         this.dialog.open(CheckEmailComponent, this.dialogConfig);
         this.dialog.afterAllClosed.subscribe(()=> this.flowDataService.updateFlow(true))
@@ -172,6 +185,8 @@ export class FlowFormComponent {
         }
     }
 
+
+    // for phone input we need to separate logic ...
     private joinPhoneParts(){
         let phone = this.contactForm.get('phone')?.value;
         return this.selectedCountryCode + phone.split(" ").join("");

@@ -15,7 +15,7 @@
   </h2>
 
   <label *ngIf="formType === 'patients'">
-      I’m signing up for
+      I’m signing up as
   </label>
 
   <div class="wrap-checkboxes" *ngIf="formType === 'patients'">
@@ -23,13 +23,13 @@
       (click)="chooseSigningUpFor(true)"
       class="checkbox"
       [ngClass]="{'active': isMySelf}">
-      Myself
+      Patient
     </div>
     <div
       (click)="chooseSigningUpFor(false)"
       class="checkbox"
       [ngClass]="{'active': !isMySelf}">
-      Someone else
+      Caregiver
     </div>
   </div>
 
@@ -40,9 +40,9 @@
         <label for="company">Organization name</label>
         <input
             autocomplete="organization"
-            tabindex="5"
+            tabindex="1"
             type="text" required
-            placeholder="Type name"
+            placeholder="Company name"
             id="company" name="company"
             formControlName="companyName">
         </div>
@@ -54,7 +54,7 @@
       </label>
       <input
         autocomplete="given-name"
-        tabindex="1"
+        tabindex="2"
         type="text" required
         placeholder="First"
         id="firstName" name="firstName"
@@ -79,7 +79,7 @@
             autocomplete="phone"
             tabindex="3"
             type="tel" required
-            placeholder="123 456 789"
+            placeholder="xxx-xxx-xxxx"
             id="phone" name="phone"
             formControlName="phone"
             [ngStyle]="{'padding-left': telephonePadding + 'px'}">
@@ -96,23 +96,16 @@
         autocomplete="on"
         tabindex="4"
         type="text" required
-        placeholder="name@email.com"
+        placeholder="name@example.com"
         id="email" name="email"
         formControlName="email">
     </div>
     <div class="group">
-      <label for="location">Location</label>
+      <label for="city">Location</label>
         <app-input-location-autocomplete
             formControlName="location">
         </app-input-location-autocomplete>
-      <!-- <input
-        autocomplete="address-line1"
-        tabindex="5"
-        type="text" required
-        placeholder="Miami, FL"
-        id="location" name="location"
-        formControlName="location"> -->
-    </div>
+     </div>
   </div>
 
 
