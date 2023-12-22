@@ -37,9 +37,39 @@ mat-spinner {
     stroke: #00e7a1;
 }
 
+app-flow ::ng-deep .wrap-inputs {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+app-flow ::ng-deep .group {
+    flex: 0 0 calc(50% - 10px);
+}
+
+app-flow ::ng-deep .wrap-inputs:has(.group[data-company]) .group[data-company] {
+    flex: 0 0 100%;
+}
+
+
+
 @media screen and (max-width: 800px) {
   .flow-wrap {
     padding: 50px 30px;
     border-radius: 10px;
   }
+}
+
+@media screen and (max-width: 650px) {
+    app-flow ::ng-deep .wrap-inputs {
+        flex-direction: column;
+    }
+
+    app-flow ::ng-deep .group {
+        flex: 1;
+    }
+
+    app-flow ::ng-deep .wrap-inputs:has(.group[data-company]) .group[data-company] {
+        flex: 1;
+    }
 }
