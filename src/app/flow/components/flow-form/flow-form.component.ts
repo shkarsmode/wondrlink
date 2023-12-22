@@ -208,10 +208,10 @@ export class FlowFormComponent {
     }
 
 
-    // for phone input we need to separate logic ...
+    // for phone input we need to separate logic ... to put it into
     private joinPhoneParts(){
         let phone = this.contactForm.get('phone')?.value;
-        return this.selectedCountryCode + phone.split(" ").join("");
+        return this.selectedCountryCode + phone.split("-").join("");
     }
 
     public onCodeSelected(code: string): void {
@@ -271,7 +271,14 @@ export class FlowFormComponent {
         if(inputValue.length < 4) return inputValue;
         // Add spaces every three characters
         const groups = inputValue.match(/.{1,3}/g);
-        return groups?.join(' ') || ""
+        const formattedValue = groups?.reduce((acc, group, index) => {
+            // Add hyphen between groups except for the last one
+            const separator = index < 2 ? "-" : "";
+            return acc + group + separator;
+          }, '');
+          console.log(formattedValue);
+
+        return formattedValue || '';
       }
 
 
