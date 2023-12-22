@@ -6,6 +6,7 @@
     tabindex="5"
     [value]="value"
     [matAutocomplete]="auto"
+    #formInput
     (keyup)="onChangeLocation($event)">
     <mat-autocomplete #auto="matAutocomplete">
         <mat-option

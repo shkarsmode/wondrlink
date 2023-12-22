@@ -44,7 +44,8 @@
             type="text" required
             placeholder="Company name"
             id="company" name="company"
-            formControlName="companyName">
+            formControlName="companyName"
+            #formInput>
         </div>
     }
     <!-- </ BEFORE BACKK WILL change company, now it's organization  -->
@@ -58,7 +59,8 @@
         type="text" required
         placeholder="First"
         id="firstName" name="firstName"
-        formControlName="firstName">
+        formControlName="firstName"
+        #formInput>
     </div>
     <div class="group">
       <label for="lastName">
@@ -70,7 +72,8 @@
         type="text" required
         placeholder="Last"
         id="lastName" name="family-name"
-        formControlName="lastName">
+        formControlName="lastName"
+        #formInput>
     </div>
     <div class="group">
       <label for="phone">Phone</label>
@@ -82,7 +85,8 @@
             placeholder="xxx-xxx-xxxx"
             id="phone" name="phone"
             formControlName="phone"
-            [ngStyle]="{'padding-left': telephonePadding + 'px'}">
+            [ngStyle]="{'padding-left': telephonePadding + 'px'}"
+            #formInput>
             <app-country-codes
                 (countryCode)="onCodeSelected($event)"
                 [currentCountry]="inputCountry"
@@ -98,7 +102,8 @@
         type="text" required
         placeholder="name@example.com"
         id="email" name="email"
-        formControlName="email">
+        formControlName="email"
+        #formInput>
     </div>
     <div class="group">
       <label for="city">Location</label>
