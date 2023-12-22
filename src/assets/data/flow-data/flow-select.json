@@ -4,27 +4,50 @@
     "title": "Ecosystem Signup",
     "subtitle": "Tell us who you are",
     "list": [
-      {
-        "title": "Healthcare providers",
-        "subtitle": "Helping bring care, hope and support to patients needing novel therapies",
-        "icon": "healthcare.svg"
-      },
-      {
-        "title": "Patient Support",
-        "subtitle": "Social workers, Advocacy groups, Chaplains, Spiritual care services",
-        "icon": "handshake.svg"
-      },
-      {
-        "title": "Licensing and Venture",
-        "subtitle": "Licensing offices, technology transfer, VC/Investors helping accelerate new novel drugs",
-        "icon": "license.svg"
-      },
-      {
-        "title": "Philanthropy/Donors",
-        "subtitle": "Supporting access to novel therapies",
-        "icon": "aorta.svg"
-      }
-    ]
+        {
+          "title": "Healthcare providers",
+          "subtitle": "Helping bring care, hope and support to patients needing novel therapies",
+          "icon": "healthcare.svg",
+          "position": [
+            "Doctors",
+            "Nurses"
+          ]
+        },
+        {
+          "title": "Patient Support",
+          "subtitle": "Social workers, Advocacy groups, Chaplains, Spiritual care services",
+          "icon": "handshake.svg",
+          "position": [
+            "Advocacy Groups",
+            "Nutritional",
+            "Other",
+            "Social Workers",
+            "Spiritual",
+            "Therapy"
+          ]
+        },
+        {
+          "title": "Licensing and Venture",
+          "subtitle": "Licensing offices, technology transfer, VC/Investors helping accelerate new novel drugs",
+          "icon": "license.svg",
+          "position": [
+            "Investors",
+            "Licensing Offices",
+            "Technology Transfer",
+            "VC"
+          ]
+        },
+        {
+          "title": "Philanthropy/Donors",
+          "subtitle": "Supporting access to novel therapies",
+          "icon": "aorta.svg",
+          "position": [
+            "Foundations",
+            "Individuals",
+            "Non Profit"
+          ]
+        }
+      ]
   },
   {
     "id": "drug-developers",

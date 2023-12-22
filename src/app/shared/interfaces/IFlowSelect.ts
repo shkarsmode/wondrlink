@@ -9,4 +9,5 @@ interface List {
   title: string;
   subtitle?: string;
   icon: string;
+  position?: string[];
 }

@@ -37,6 +37,12 @@ export class FlowDataService {
         return this.flowSelectData?.filter((info) => info.id === id)[0];
     }
 
+    public getEcosystemPositionsByTitle(title: string): string[] {
+        const ecosystemData = this.flowSelectData.find(data => data.id === 'ecosystem');
+        const ecosystemItem =  ecosystemData?.list.find(list => list.title === title);
+        return ecosystemItem?.position || [];
+    }
+
     public getCancerTypes(): string[] {
         return Object.values(this.cancerData)[0];
     }

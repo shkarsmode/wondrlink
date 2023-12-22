@@ -75,6 +75,41 @@
         formControlName="lastName"
         #formInput>
     </div>
+
+    @if (formType === 'drug-developers') {
+        <div class="group">
+            <label for="position">
+                Position
+            </label>
+            <input
+              autocomplete="position"
+              tabindex="3"
+              type="text" required
+              placeholder="Role"
+              id="lastName" name="position"
+              formControlName="position"
+              #formInput>
+        </div>
+    } @else if(formType === "ecosystem") {
+        <div class="group" data-select="true">
+            <label for="disease_category">Position</label>
+            <select
+              id="position"
+              name="position"
+              tabindex="4"
+              formControlName="position"
+              [ngClass]="{'select-placeholder_active': isEcosystemPositionPlaceholder}"
+              (change)="deactivePositionSelectPlaceholder()"
+              #formInput>
+              <option value="" disabled selected hidden id="placeholder">Select role</option>
+              <option *ngFor="let position of ecosystemPositions"
+                [value]="position">
+                {{ position }}
+              </option>
+            </select>
+        </div>
+    }
+
     <div class="group">
       <label for="phone">Phone</label>
       <div class="phone-wrap">
@@ -90,8 +125,8 @@
             <app-country-codes
                 (countryCode)="onCodeSelected($event)"
                 [currentCountry]="inputCountry"
-                [isOpen]="isOpenedPhoneDropdown"
-            ></app-country-codes>
+                [isOpen]="isOpenedPhoneDropdown">
+            </app-country-codes>
       </div>
     </div>
     <div class="group">
@@ -99,7 +134,7 @@
       <input
         autocomplete="on"
         tabindex="4"
-        type="text" required
+        type="email" required
         placeholder="name@example.com"
         id="email" name="email"
         formControlName="email"

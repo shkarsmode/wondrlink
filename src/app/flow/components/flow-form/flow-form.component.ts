@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, Optional, ViewChildren, QueryList, ElementRef, Renderer2, asNativeElements } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { CheckEmailComponent } from 'src/app/shared/dialogs/check-email/check-email.component';
 import { TFLow } from 'src/app/shared/interfaces/TFLow';
@@ -26,17 +26,26 @@ export class FlowFormComponent {
 
   public contactForm: FormGroup;
 
-  public isMySelf: boolean = true; // for patients form switcher
-  public isSending: boolean = false;
+  public isMySelf: boolean = true; // switcher patients form
 
+  // set up default placeholder styles for select element
+  public isEcosystemPositionPlaceholder = true;
 
+  // if flowType = ecosystem it saves the data for select input
+  public ecosystemPositions: string[];
 
-  // untill back will done
+  public isSending: boolean = false; // when form is submiting
+
+  // untill back will done we generate a password manually
   private password: any = 'test' + Math.floor(Math.random() * 100) + 1;
 
+  // for detecting when user change flow and apply appropirate form for him
   private oldFormType: TFLow;
+
+  // when user submits a form, it will show him the check email dialog
   private dialogConfig: MatDialogConfig = new MatDialogConfig();
 
+  // for telephone input
     public telephonePadding: number = 90;
     public inputCountry: ICountryCodes = {
         "name": "United States",
@@ -60,8 +69,9 @@ export class FlowFormComponent {
   ngOnInit(): void {
     this.initContactForm();
     this.initDialogConfig();
+    this.initEcosystemPositions();
     this.oldFormType = this.formType;
-    console.log(this.flowData)
+
   }
 
   ngDoCheck(): void {
@@ -75,7 +85,6 @@ export class FlowFormComponent {
   ngAfterViewInit(): void {
     this.listenPhoneInput();
     this.initTabindexOrder();
-
   }
 
   private initContactForm(): void {
@@ -95,6 +104,7 @@ export class FlowFormComponent {
           companyName: [''],
           firstName: [''],
           lastName: [''],
+          position: ['', Validators.required],
           phone: [''],
           email: [''],
           location: [''],
@@ -111,9 +121,20 @@ export class FlowFormComponent {
     })
   }
 
+  private initEcosystemPositions() {
+    if(this.formType !== 'ecosystem') return
+    const title = this.flowData[2].companyType || ""; // we took from company type
+    this.ecosystemPositions = this.flowDataService.getEcosystemPositionsByTitle(title);
+  }
+
   // for Patients Sign up
   public chooseSigningUpFor(isMySelf: boolean): void {
     this.isMySelf = isMySelf;
+  }
+
+  public deactivePositionSelectPlaceholder(): void {
+    if(!this.isEcosystemPositionPlaceholder) return
+    this.isEcosystemPositionPlaceholder = false;
   }
 
   // for patiensts flow
