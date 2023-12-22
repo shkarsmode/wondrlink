@@ -9,8 +9,10 @@
       id="disease_category"
       name="disease_category"
       tabindex="1"
+      [ngClass]="{'select-placeholder_active': isDiseasePlaceholder}"
+      (change)="deactiveDiseaseSelectPlaceholder()"
       formControlName="diseaseCategory">
-      <option value="" disabled selected hidden>Select category</option>
+      <option value="" disabled selected hidden role="placeholder">Select category</option>
       <option *ngFor="let category of diseaseCatogories" [value]="category">
         {{ category }}
       </option>
@@ -22,8 +24,10 @@
       id="cancer_type"
       name="cancer_type"
       tabindex="2"
-      formControlName="cancerType">
-      <option value="" disabled selected hidden>Select type</option>
+      formControlName="cancerType"
+      [ngClass]="{'select-placeholder_active': isCancerPlaceholder}"
+      (change)="deactiveCancerSelectPlaceholder()">
+      <option value="" disabled selected hidden role="placeholder">Select type</option>
       <option *ngFor="let type of cancerTypes" [value]="type">
         {{ type }}
       </option>
@@ -35,7 +39,7 @@
       name="disease details"
       placeholder="Add any notes or details what would like to share"
       formControlName="diseaseDetails"
-      tabindex="3">
+      tabindex="2">
     </textarea>
   </div>
   <div class="wrap-btn">

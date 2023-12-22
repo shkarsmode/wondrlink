@@ -21,6 +21,8 @@ export class FlowDetailsComponent {
   public isCancerTypeSelect: boolean = false;
   public diseaseCatogories: string[];
   public cancerTypes: string[];
+  public isDiseasePlaceholder: boolean = true;
+  public isCancerPlaceholder: boolean = true;
 
   private dialogConfig: MatDialogConfig = new MatDialogConfig()
 
@@ -54,23 +56,33 @@ export class FlowDetailsComponent {
     })
   }
 
+  public deactiveCancerSelectPlaceholder() {
+    if(!this.isCancerPlaceholder) return;
+    this.isCancerPlaceholder = false;
+  }
+
+  public deactiveDiseaseSelectPlaceholder() {
+    if(!this.isDiseasePlaceholder) return;
+    this.isDiseasePlaceholder = false;
+  }
+
   private onDiseaseCategoryChange():void {
     this.detailsForm.get('diseaseCategory')?.valueChanges
       .subscribe(() => this.handleCancerTypesSelect())
   }
 
   public handleCancerTypesSelect(): void {
-    const open = () => this.isCancerTypeSelect = true;
-    const close = () => this.isCancerTypeSelect = false;
+    const show = () => this.isCancerTypeSelect = true;
+    const hide = () => this.isCancerTypeSelect = false;
     const category = this.detailsForm.get('diseaseCategory')?.value;
 
     if(category === "Cancer") {
-      open()
+      show()
       this.detailsForm.get('cancerType')?.setValidators(Validators.required)
     } else {
       this.detailsForm.get('cancerType')?.clearValidators();
       this.detailsForm.get('cancerType')?.setValue("");
-      close();
+      hide();
     }
   }
 
