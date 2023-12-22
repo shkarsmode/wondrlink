@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 import { TFLow } from 'src/app/shared/interfaces/TFLow';
 import { FlowDataService } from 'src/app/shared/services/flow-data.service';
 import { trigger, transition, style, animate } from '@angular/animations';
@@ -29,6 +29,13 @@ export class FormComponent implements OnInit {
 
     ngOnInit(): void {
         this.listenFlowReInitState()
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if(changes['statusForm']) {
+            this.flowDataService.updateFlow(true);
+            console.log('new state')
+        }
     }
 
     private listenFlowReInitState () {
