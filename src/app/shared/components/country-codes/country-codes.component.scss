@@ -45,7 +45,7 @@ button {
 }
 
 
-.country-code__item {
+.country-code__item, .country-code__placeholder-item {
     flex: 1;
     display: flex;
     align-items: center;
@@ -75,6 +75,28 @@ button {
     line-height: normal;
     opacity: 0.6;
 }
+
+.country-code__placeholder-img {
+    background: #dbfcf1;
+    width: 24px;
+    height: 16px;
+}
+
+.country-code__placeholder-img {
+    background: #dbfcf1;
+    width: 24px;
+    height: 16px;
+}
+
+.country-code__placeholder-country-name {
+    background: #dbfcf1;
+    width: 100%;
+    height: 16px;
+    margin-left: 6px;
+    border-radius: 5px;
+}
+
+
 
 
 

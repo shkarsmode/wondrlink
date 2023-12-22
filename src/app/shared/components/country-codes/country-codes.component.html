@@ -11,12 +11,20 @@
 
         @for (country of countryCodes; track country.code; let i = $index ) {
             @defer {
-                <div class="country-code__item" [attr.data-select]="i">
+                <!-- <div class="country-code__item" [attr.data-select]="i">
                     <img [src]="'https://flagsapi.com/'+country.code+'/flat/24.png'" alt="flag">
                     <span class="code">{{ country.dial_code }}</span>
                     <span class="country-name"> {{ country.name }}</span>
+                </div> -->
+            }  @loading {
+                <!-- <article>Завантаження</article> -->
+              }
+              @placeholder {
+                <div class="country-code__placeholder-item">
+                    <div class="country-code__placeholder-img"></div>
+                    <div class="country-code__placeholder-country-name"></div>
                 </div>
-            }
+              }
         }
 
     </div>
