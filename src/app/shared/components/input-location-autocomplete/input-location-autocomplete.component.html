@@ -1,7 +1,7 @@
 <input
-    autocomplete="address-line1"
     type="text" required
     placeholder="City"
+    autocomplete="off"
     id="city" name="city"
     tabindex="6"
     [value]="value"
@@ -21,10 +21,10 @@
                 </div>
                 <div
                     class="address-line-1"
-                    [innerHTML]="city.address_line1 | autocompleteHighlight: value">
+                    [innerHTML]="city.city | autocompleteHighlight: value">
                 </div>
                 <div class="address-line-2">
-                    {{ city.address_line2 }}
+                    {{ city.country }}
                 </div>
             </div>
         </mat-option>
