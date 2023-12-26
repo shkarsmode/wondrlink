@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IInfo } from 'src/app/shared/interfaces/IInfo';
 import { ArticleService } from '../../../shared/services/article-service.service';
+import { TFLow } from 'src/app/shared/interfaces/TFLow';
 
 @Component({
     selector: 'app-article-layout',
@@ -13,7 +14,7 @@ export class ArticleLayoutComponent implements OnInit {
     public articleId: string;
 
     public currentInfo: IInfo;
-    public statusForm: 'patients' | 'drug-developers' | 'ecosystem' = 'patients';
+    public currentFlow: TFLow;
 
     constructor(
         private route: ActivatedRoute,
@@ -39,17 +40,17 @@ export class ArticleLayoutComponent implements OnInit {
 
     private getCurrentArticle(): void {
         this.currentInfo = this.articleService.getCurrentArticle(this.articleId);
-        this.determineStatusForForm();
+        this._matchCurrentFlow();
     }
 
-    private determineStatusForForm(): void {
+    private _matchCurrentFlow(): void {
         const articleId = this.currentInfo.id;
         if (articleId === "patients") {
-            this.statusForm = 'patients';
+            this.currentFlow = 'patients';
         } else if (articleId === "ecosystem") {
-            this.statusForm = 'ecosystem';
+            this.currentFlow = 'ecosystem';
         } else if (articleId === "drug-developers") {
-            this.statusForm = 'drug-developers';
+            this.currentFlow = 'drug-developers';
         }
     }
 }

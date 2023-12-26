@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 import { TFLow } from 'src/app/shared/interfaces/TFLow';
-import { FlowDataService } from 'src/app/shared/services/flow-data.service';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { ArticleService, TArticleFormState } from 'src/app/shared/services/article-service.service';
 @Component({
     selector: 'app-form',
     templateUrl: './form.component.html',
@@ -19,41 +19,42 @@ import { trigger, transition, style, animate } from '@angular/animations';
     ]
 })
 export class FormComponent implements OnInit {
-    @Input() statusForm: TFLow;
-    public isReInitFlowComponent: boolean = false;
+    @Input() flow: TFLow; // depends on article page
     public isLoading: boolean = false;
+    public isFlowComponent: boolean = true;
 
     constructor (
-        private flowDataService: FlowDataService
+        private articleService: ArticleService,
     ) {}
 
     ngOnInit(): void {
-        this.listenFlowReInitState()
+        this._listenArticleFormState();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(changes['statusForm']) {
-            this.flowDataService.updateFlow(true);
-            console.log('new state')
-        }
+        if(changes['flow']) this.articleService.reinitArticleForm();
     }
 
-    private listenFlowReInitState () {
-        this.flowDataService.$flow.subscribe((state) => {
-            this.manageFlowComponent(state)
+    private _listenArticleFormState () {
+        this.articleService.articleForm$.subscribe(state => {
+            this._manageArticleFormState(state);
         })
     }
 
-    private manageFlowComponent(needsToReInit: boolean): void {
-        if (!needsToReInit && !this.isReInitFlowComponent) return;
-
-        this.isLoading = true;
-        this.isReInitFlowComponent = true;
-        setTimeout(() => {
-            this.flowDataService.updateFlow(false);
-            this.isReInitFlowComponent = false;
-        this.isLoading = false;
-        }, 1000);
+    private _manageArticleFormState(state: TArticleFormState): void {
+        switch (state) {
+            case 'active':
+                this.isLoading = false;
+                this.isFlowComponent = true;
+                break;
+            case 'hidden':
+                this.isLoading = true;
+                this.isFlowComponent = false;
+                break;
+            default:
+                this.isLoading = false;
+                this.isFlowComponent = true;
+        }
     }
 
 }

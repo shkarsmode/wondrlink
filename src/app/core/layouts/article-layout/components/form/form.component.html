@@ -2,10 +2,10 @@
   <div class="flow-wrap"
     [ngClass]="{'flow-wrap_loading': isLoading}">
     <app-flow
-        *ngIf="!isReInitFlowComponent"
+        *ngIf="isFlowComponent"
         [@fadeInOut]
         [step]="2"
-        [flow]="statusForm"
+        [flow]="flow"
         [isFlowStartsFromInit]="true">
     </app-flow>
     <mat-spinner *ngIf="isLoading" [@fadeInOut]></mat-spinner>

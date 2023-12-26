@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IFlowSelect } from '../interfaces/IFlowSelect';
-import { BehaviorSubject } from 'rxjs';
 
 export type TCancerData = { "cancer-types": string[] }
 
@@ -9,19 +8,12 @@ export type TCancerData = { "cancer-types": string[] }
     providedIn: 'root',
 })
 export class FlowDataService {
-    private flowSubject = new BehaviorSubject<boolean>(false);
-    $flow = this.flowSubject.asObservable();
-
     private flowSelectData: IFlowSelect[] = [];
     private cancerData: TCancerData;
     private dataUrl: string = 'assets/data/flow-data';
     private _diseaseCatogories: string[] = ['Cancer', 'Autoimmune', 'Rare/Other'];
 
     constructor(private http: HttpClient) {}
-
-    public updateFlow(newState: boolean) {
-        this.flowSubject.next(newState);
-    }
 
     public setAllFlowData(): void {
         this.http

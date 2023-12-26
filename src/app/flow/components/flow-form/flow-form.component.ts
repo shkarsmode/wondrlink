@@ -11,6 +11,7 @@ import { FlowDataService } from 'src/app/shared/services/flow-data.service';
 import { CountryCodesService } from 'src/app/shared/services/country-codes.service';
 import { debounceTime } from 'rxjs';
 import { ICountryCodes } from 'src/app/shared/interfaces/ICountryCodes';
+import { ArticleService } from 'src/app/shared/services/article-service.service';
 
 @Component({
   selector: 'app-flow-form',
@@ -61,6 +62,7 @@ export class FlowFormComponent {
       private dialog: MatDialog,
       private errorSnackBar: MatSnackBar,
       private flowDataService: FlowDataService,
+      private articleService: ArticleService,
       private countriesData: CountryCodesService,
       private renderer: Renderer2,
       @Optional() private dialogRef: MatDialogRef<FlowDialogComponent>
@@ -200,7 +202,7 @@ export class FlowFormComponent {
 
     public openCheckEmailModalWindow(): void {
         this.dialog.open(CheckEmailComponent, this.dialogConfig);
-        this.dialog.afterAllClosed.subscribe(()=> this.flowDataService.updateFlow(true))
+        this.dialog.afterAllClosed.subscribe(()=> this.articleService.reinitArticleForm());
         // Check if FlowDialogComponent is open as a MatDialog before attempting to close it
         if (this.dialogRef && this.dialogRef.componentInstance) {
             this.dialogRef.close();

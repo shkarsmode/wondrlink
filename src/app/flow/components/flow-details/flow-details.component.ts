@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FlowDialogComponent } from '../flow-dialog/flow-dialog.component';
 import { CheckEmailComponent } from 'src/app/shared/dialogs/check-email/check-email.component';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { ArticleService } from 'src/app/shared/services/article-service.service';
 
 @Component({
   selector: 'app-flow-details',
@@ -34,6 +35,7 @@ export class FlowDetailsComponent {
     private detRef: ChangeDetectorRef,
     private dialog: MatDialog,
     private errorSnackBar: MatSnackBar,
+    private articleService: ArticleService,
     @Optional() private dialogRef: MatDialogRef<FlowDialogComponent>
   ){}
 
@@ -123,7 +125,7 @@ export class FlowDetailsComponent {
 
     public openCheckEmailModalWindow(): void {
         this.dialog.open(CheckEmailComponent, this.dialogConfig);
-        this.dialog.afterAllClosed.subscribe(()=> this.flowDataService.updateFlow(true))
+        this.dialog.afterAllClosed.subscribe(()=> this.articleService.reinitArticleForm())
 
         // Check if FlowDialogComponent is open as a MatDialog before attempting to close it
         if (this.dialogRef && this.dialogRef.componentInstance) {
