@@ -4,6 +4,7 @@ import { FlowDialogComponent } from 'src/app/flow/components/flow-dialog/flow-di
 import { IInfo } from 'src/app/shared/interfaces/IInfo';
 import { IFlowDialogData } from 'src/app/shared/interfaces/IFLowDialogData';
 import { TFLow } from 'src/app/shared/interfaces/TFLow';
+import { FlowDataService } from 'src/app/shared/services/flow-data.service';
 @Component({
     selector: 'app-article-banner',
     templateUrl: './article-banner.component.html',
@@ -20,7 +21,8 @@ export class ArticleBannerComponent {
 
 
   constructor(
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private flowDataService: FlowDataService,
   ) {}
 
 
@@ -36,6 +38,8 @@ export class ArticleBannerComponent {
   }
 
   public openFlowDialog(flow: TFLow, isInit: boolean, step: number): void {
+    this.flowDataService.updateFlow(true);
+
     const dialogRef = this.dialog.open(FlowDialogComponent, {width: '630px' ,
       data: {
         flow: flow,
@@ -44,6 +48,4 @@ export class ArticleBannerComponent {
       }
     });
   }
-
-
 }
