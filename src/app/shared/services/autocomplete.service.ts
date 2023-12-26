@@ -23,7 +23,7 @@ export class AutocompleteService {
 
     public getLocationAutocomplete(
         text: string,
-        limit: number = 5,
+        limit: number = 10,
         lang: string = 'en',
         type: string = 'city',
         format: string = 'json'
@@ -41,6 +41,21 @@ export class AutocompleteService {
 
         return this.http
             .get<IGeoAutocompleteResponse>(this.geoPathApi, { params })
-            .pipe(map((response) => response.results));
+            .pipe(
+                map((response) => response.results),
+                map((locations) => this.getUniqueCities(locations))
+            );
+    }
+
+    // Helper method to extract unique city names
+    private getUniqueCities(locations: IGeoLocation[]): IGeoLocation[] {
+        const uniqueCities = new Map<string, IGeoLocation>();
+        locations.forEach((location) => {
+            const cityKey = location.city.toLowerCase();
+            if (!uniqueCities.has(cityKey)) {
+                uniqueCities.set(cityKey, location);
+            }
+        });
+        return Array.from(uniqueCities.values());
     }
 }

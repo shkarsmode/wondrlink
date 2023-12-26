@@ -64,7 +64,10 @@ export class InputLocationAutocompleteComponent
 
         this._autocompleteService
             .getLocationAutocomplete(text)
-            .pipe(tap(console.log), takeUntil(this._destroy$))
+            .pipe(
+                tap(console.log), 
+                takeUntil(this._destroy$)
+            )
             .subscribe((locations) => {
                 this.autocompleteLocations = locations;
                 this._cdr.markForCheck();
@@ -78,7 +81,8 @@ export class InputLocationAutocompleteComponent
     public onSelectChange(
         optionChangeEvent: MatOptionSelectionChange<IGeoLocation>
     ): void {
-        this.value = optionChangeEvent.source.value.formatted;
+        const { city, country } = optionChangeEvent.source.value;
+        this.value = `${city}, ${country}`; ;
         this._onChange(this.value);
         this._onTouched();
     }
