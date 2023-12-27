@@ -12,6 +12,7 @@ export class FlowDataService {
     private cancerData: TCancerData;
     private dataUrl: string = 'assets/data/flow-data';
     private _diseaseCatogories: string[] = ['Cancer', 'Autoimmune', 'Rare/Other'];
+    private _ecosystemPosition: string[];
 
     constructor(private http: HttpClient) {}
 
