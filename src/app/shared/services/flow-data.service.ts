@@ -12,6 +12,7 @@ export class FlowDataService {
     private cancerData: TCancerData;
     private dataUrl: string = 'assets/data/flow-data';
     private _diseaseCatogories: string[] = ['Cancer', 'Autoimmune', 'Rare/Other'];
+    private _ecosystemPosition: string[];
 
     constructor(private http: HttpClient) {}
 
@@ -35,6 +36,23 @@ export class FlowDataService {
         return ecosystemItem?.position || [];
     }
 
+    public getEcosystemPositions(): string[] {
+        const ecosystemData = this.flowSelectData.find(data => data.id === 'ecosystem');
+        if (!ecosystemData) {
+            return [];
+        }
+
+        const allPositions: string[] = [];
+
+        for (const ecosystemItem of ecosystemData.list) {
+            if (ecosystemItem?.position) {
+                allPositions.push(...ecosystemItem.position);
+            }
+        }
+
+        return allPositions;
+    }
+
     public getCancerTypes(): string[] {
         return Object.values(this.cancerData)[0];
     }
@@ -42,4 +60,5 @@ export class FlowDataService {
     public get diseaseCatogories(): string[] {
         return this._diseaseCatogories
     }
+
 }

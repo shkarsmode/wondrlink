@@ -12,6 +12,7 @@ import { CloudinaryService } from 'src/app/shared/services/cloudinary.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AuthService } from '../../../shared/services/auth.service';
 import { FlowDataService } from '../../../shared/services/flow-data.service';
+import { PatientPositionRoleEnum } from 'src/app/shared/interfaces/PositionRoleEnum';
 
 @Component({
     selector: 'app-edit-user',
@@ -30,12 +31,14 @@ export class EditUserComponent implements OnInit {
     public activeDeletingIndex: number = -1;
     public cancerTypeEnum: Array<string>;
     public diseaseCatogories: Array<string>;
+    public ecosystemPositions: Array<string>;
     public readonly Object: typeof Object = Object;
     public userStatus: typeof UserRoleEnum = UserRoleEnum;
     public userTypeEnum: typeof UserTypeEnum = UserTypeEnum;
     public readonly companyTypeEnum: typeof CompanyTypeEnum = CompanyTypeEnum;
     public readonly patientSituationTypeEnum: typeof PatientSituationTypeEnum =
         PatientSituationTypeEnum;
+    public readonly patientPositionEnum: typeof PatientPositionRoleEnum = PatientPositionRoleEnum;
 
 
     private deleteTimeout: any;
@@ -61,6 +64,7 @@ export class EditUserComponent implements OnInit {
     private setCancerTypeEnumAndDiseaseCategories(): void {
         this.cancerTypeEnum = this.flowDataService.getCancerTypes();
         this.diseaseCatogories = this.flowDataService.diseaseCatogories;
+        this.ecosystemPositions = this.flowDataService.getEcosystemPositions();
     }
 
     private getInfoOfRoute(): void {
@@ -115,6 +119,8 @@ export class EditUserComponent implements OnInit {
             diseaseDetails: [this.user.diseaseDetails],
             companyName: [this.user.companyName],
             companyType: [this.user.companyType],
+            isMySelf: [this.patientPositionEnum[this.user.isMySelf]],
+            position: [this.user.position],
         });
     }
 
@@ -219,6 +225,7 @@ export class EditUserComponent implements OnInit {
             diseaseCategory: this.diseaseCategory.value,
             companyType: this.companyType.value,
             diseaseDetails: this.diseaseDetails.value,
+            position: this.position.value,
         } as IUser;
 
         console.log(body);
@@ -344,4 +351,11 @@ export class EditUserComponent implements OnInit {
     public get companyType(): FormControl {
         return this.form.get('companyType') as FormControl;
     }
+    public get isMySelf(): FormControl {
+        return this.form.get('isMySelf') as FormControl;
+    }
+    public get position(): FormControl {
+        return this.form.get('position') as FormControl;
+    }
+
 }
