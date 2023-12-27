@@ -1,32 +1,32 @@
 <h1>Update user</h1>
 
-<form 
+<form
 	*ngIf="user"
-	[formGroup]="form" 
-	(ngSubmit)="updateUser()" 
+	[formGroup]="form"
+	(ngSubmit)="updateUser()"
 	[ngClass]="{'loading': isLoading}">
 
 	<div class="d-flex">
 		<div class="wrap-column">
 			<div class="d-flex">
-                <app-edit-user-card 
-                    title="First name" 
+                <app-edit-user-card
+                    title="First name"
                     formControlName="firstName">
                 </app-edit-user-card>
 
-                <app-edit-user-card 
-                    title="Last Name" 
+                <app-edit-user-card
+                    title="Last Name"
                     formControlName="lastName">
                 </app-edit-user-card>
 			</div>
 
-            <app-edit-user-card 
-                title="Email" 
+            <app-edit-user-card
+                title="Email"
                 formControlName="email">
             </app-edit-user-card>
-		
-            <app-edit-user-card 
-                title="Phone" 
+
+            <app-edit-user-card
+                title="Phone"
                 formControlName="phone">
             </app-edit-user-card>
 		</div>
@@ -36,12 +36,12 @@
 			<div class="title">Avatar</div>
 			<div class="content">
 				<mat-chip-listbox aria-label="Upload image" >
-					<mat-chip-option 
+					<mat-chip-option
 						(click)="toggleUploadImageType()"
 						[selected]="isUploadImageSelected">
 						Upload image
 					</mat-chip-option>
-					<mat-chip-option 
+					<mat-chip-option
 						(click)="toggleUploadImageType()"
 						[selected]="!isUploadImageSelected">
 						Image by url
@@ -54,23 +54,23 @@
 					<strong>OR</strong>
 					<span class="dragBox" [ngClass]="{'draging': isDrag}">
 						Drag and Drop image here
-						<input 
-							type="file" 
-							(change)="dragNdrop($event)" 
-							(dragover)="drag()" 
+						<input
+							type="file"
+							(change)="dragNdrop($event)"
+							(dragover)="drag()"
 							(drop)="drop()"
 							accept="image/png, image/gif, image/jpeg" id="uploadFile" />
 					</span>
 				</div>
 				<div class="upload-by-url" *ngIf="!isUploadImageSelected">
-					<input 
-						type="text" 
+					<input
+						type="text"
 						formControlName="picture"
 						placeholder="https://picsum.photos/200/300.jpg">
-					<button 
+					<button
 						type="button"
 						[disabled]="picture.invalid || !isValidUrl"
-						mat-stroked-button 
+						mat-stroked-button
 						(click)="handleUrlImage()">
 						Preview Avatar
 						<span class="material-symbols-outlined">
@@ -85,7 +85,7 @@
 					Avatar wasn't uploaded
 				</div>
 			</div>
-			
+
 		</div>
 	</div>
 
@@ -104,14 +104,41 @@
         </app-edit-user-card-select>
 	</div>
 
-	<ng-container 
+	<ng-container
         *ngIf="role.value !== userStatus.ADMIN && type.value !== userTypeEnum.None">
-        <app-edit-user-card 
-            [title]="(type.value === userTypeEnum.None ? 'User' : type.value) + ' location'" 
-            formControlName="location"
-            [isRequired]="false">
-        </app-edit-user-card>
-        
+
+        <div class="d-flex">
+            <app-edit-user-card
+                [title]="(type.value === userTypeEnum.None ? 'User' : type.value) + ' location'"
+                formControlName="location"
+                [isRequired]="false">
+            </app-edit-user-card>
+
+            @if(type.value === userTypeEnum.Patient) {
+                <app-edit-user-card-select
+                    title="Position/Role"
+                    formControlName="isMySelf"
+                    [isRequired]="false"
+                    [iterableListToConvert]="patientPositionEnum">
+                </app-edit-user-card-select>
+            } @else if (type.value === userTypeEnum.Industry) {
+                <app-edit-user-card
+                    title="Position/Role"
+                    formControlName="position">
+                </app-edit-user-card>
+            } @else {
+                <app-edit-user-card-select
+                    title="Position/Role"
+                    formControlName="position"
+                    [isRequired]="false"
+                    [iterableListToConvert]="ecosystemPositions">
+                </app-edit-user-card-select>
+            }
+        </div>
+
+
+
+
         <ng-container *ngIf="type.value === userTypeEnum.Patient">
             <div class="d-flex">
                 <app-edit-user-card-select
@@ -143,13 +170,14 @@
                     [isTextArea]="true">
                 </app-edit-user-card>
             </div>
+
         </ng-container>
 
-        <div 
+        <div
             *ngIf="type.value === userTypeEnum.Industry || type.value === userTypeEnum.Physician"
             class="d-flex">
-            <app-edit-user-card 
-                title="Company name" 
+            <app-edit-user-card
+                title="Company name"
                 formControlName="companyName"
                 [isRequired]="false">
             </app-edit-user-card>
@@ -165,7 +193,7 @@
 
     <!-- * Delete / Save flow * -->
 	<div class="flex-end">
-		<button 
+		<button
 			(mousedown)="startDeleteTimeout(user.id!)"
 			(mouseup)="clearDeleteTimeout()"
 			(mouseout)="clearDeleteTimeout()"
@@ -178,10 +206,10 @@
 				delete
 			</span>
 		</button>
-		<button 
+		<button
 			[disabled]="form.invalid || isLoading"
-			type="submit" 
-			class="effect effect-1" 
+			type="submit"
+			class="effect effect-1"
 			matTooltip="Update user"
 			matTooltipShowDelay="300">
 			Save

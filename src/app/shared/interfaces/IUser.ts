@@ -1,3 +1,4 @@
+import { PatientPositionRoleEnum } from "./PositionRoleEnum";
 import { UserRoleEnum } from "./UserRoleEnum";
 import { UserTypeEnum } from "./UserTypeEnum";
 import { CompanyTypeEnum } from "./company-type.enum";
@@ -21,5 +22,7 @@ export interface IUser {
     readonly cancerType: string | null;
     readonly diseaseDetails: string | null;
 	readonly updatedAt: Date;
+    readonly position: string | null;
+    readonly isMySelf: 'true' | 'false';
     type: UserTypeEnum;
 }
