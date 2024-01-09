@@ -5,7 +5,7 @@
     tabindex="6"
     [matAutocomplete]="auto"
     #formInput
-    (keyup)="onChangeLocation($event)">
+    (input)="onChangeLocation($event)">
     <mat-autocomplete #auto="matAutocomplete">
         @for (place of autocompleteLocations; track place.formatted) {
             <mat-option
