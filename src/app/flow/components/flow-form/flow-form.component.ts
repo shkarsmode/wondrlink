@@ -233,7 +233,7 @@ export class FlowFormComponent {
         this.selectedCountryCode = code;
     }
 
-    listenPhoneInput() {
+    private listenPhoneInput() {
         this.contactForm
             .get('phone')
             ?.valueChanges.pipe(debounceTime(500))
@@ -243,6 +243,8 @@ export class FlowFormComponent {
     }
 
     private handlePhoneInput(inputValue: string): void {
+        if (!inputValue.startsWith('+')) inputValue = '+' + inputValue;
+
         const formattedPhoneInput = this.formatPhoneInput(inputValue);
         this.contactForm.patchValue(
             { phone: formattedPhoneInput },
