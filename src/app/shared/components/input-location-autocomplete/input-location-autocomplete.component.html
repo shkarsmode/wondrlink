@@ -1,31 +1,32 @@
 <input
-    type="text" required
+    required
+    name="lcity"
     placeholder="City"
     autocomplete="off"
-    
     tabindex="6"
-    [value]="value"
     [matAutocomplete]="auto"
     #formInput
     (keyup)="onChangeLocation($event)">
     <mat-autocomplete #auto="matAutocomplete">
-        <mat-option
-            *ngFor="let city of autocompleteLocations"
-            [value]="city"
-            (onSelectionChange)="onSelectChange($event)">
-            <div class="wrap-select">
-                <div class="icon">
-                    <span class="material-symbols-outlined">
-                        location_city
-                    </span>
+        @for (place of autocompleteLocations; track place.formatted) {
+            <mat-option
+                [value]="place.city + ', ' + place.country"
+                (onSelectionChange)="onSelectChange($event)">
+                <div class="wrap-select">
+                    <div class="icon">
+                        <span class="material-symbols-outlined">
+                            location_city
+                        </span>
+                    </div>
+                    <div
+                        class="address-line-1"
+                        [innerHTML]="place.city | autocompleteHighlight: value">
+                    </div>
+                    <div class="address-line-2">
+                        {{ place.country }}
+                    </div>
                 </div>
-                <div
-                    class="address-line-1"
-                    [innerHTML]="city.city | autocompleteHighlight: value">
-                </div>
-                <div class="address-line-2">
-                    {{ city.country }}
-                </div>
-            </div>
-        </mat-option>
+            </mat-option>
+        }
+        
     </mat-autocomplete>

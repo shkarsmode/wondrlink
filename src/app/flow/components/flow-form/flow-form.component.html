@@ -1,173 +1,186 @@
 
 
 <form
-  [ngClass]="{'is-sending': isSending}"
-  (ngSubmit)="onContactFormSubmit()"
-  [formGroup]="contactForm">
+    [class.is-sending]="isSending"
+    [formGroup]="contactForm"
+    (ngSubmit)="onContactFormSubmit()"
+    autocomplete="off">
 
-  <h2 [ngSwitch]="formType">
-    <span *ngSwitchCase="'patients'">
-      Patient Signup
-    </span>
-    <span *ngSwitchDefault>
-      {{ flowData[2].companyType }} Contact Details
-    </span>
-  </h2>
+    <h2 [ngSwitch]="formType">
+        <span *ngSwitchCase="'patients'">
+            Patient Signup
+        </span>
+        <span *ngSwitchDefault>
+            {{ flowData[2].companyType }} Contact Details
+        </span>
+    </h2>
 
-  <label *ngIf="formType === 'patients'">
-      I’m signing up as
-  </label>
+    <label *ngIf="formType === 'patients'">
+        I’m signing up as
+    </label>
 
-  <div class="wrap-checkboxes" *ngIf="formType === 'patients'">
-    <div
-      (click)="chooseSigningUpFor(true)"
-      class="checkbox"
-      [ngClass]="{'active': isMySelf}">
-      Patient
-    </div>
-    <div
-      (click)="chooseSigningUpFor(false)"
-      class="checkbox"
-      [ngClass]="{'active': !isMySelf}">
-      Caregiver
-    </div>
-  </div>
-
-  <div class="wrap-inputs">
-    <!-- < BEFORE BACKK WILL DONE company, now it's organization  -->
-    @if(formType === 'drug-developers' || formType === 'ecosystem') {
-        <div class="group" data-company="true">
-        <label for="company">Organization name</label>
-        <input
-            autocomplete="organization"
-            tabindex="1"
-            type="text" required
-            placeholder="Company name"
-            id="company" name="company"
-            formControlName="companyName"
-            #formInput>
+    <div class="wrap-checkboxes" *ngIf="formType === 'patients'">
+        <div
+            class="checkbox"
+            [ngClass]="{'active': isMySelf}"
+            (click)="chooseSigningUpFor(true)">
+        Patient
         </div>
-    }
-    <!-- </ BEFORE BACKK WILL change company, now it's organization  -->
-    <div class="group">
-      <label for="firstName" >
-        {{ formType === 'patients' ? 'Patient' : '' }}  First name
-      </label>
-      <input
-        autocomplete="given-name"
-        tabindex="2"
-        type="text" required
-        placeholder="First"
-        id="firstName" name="firstName"
-        formControlName="firstName"
-        #formInput>
-    </div>
-    <div class="group">
-      <label for="lastName">
-        {{ formType === 'patients' ? 'Patient' : '' }} Last name
-      </label>
-      <input
-        autocomplete="family-name"
-        tabindex="2"
-        type="text" required
-        placeholder="Last"
-        id="lastName" name="family-name"
-        formControlName="lastName"
-        #formInput>
+        <div
+            class="checkbox"
+            [ngClass]="{'active': !isMySelf}"
+            (click)="chooseSigningUpFor(false)">
+        Caregiver
+        </div>
     </div>
 
-    @if (formType === 'drug-developers') {
+    <div class="wrap-inputs">
+        <!-- < BEFORE BACKK WILL DONE company, now it's organization  -->
+        @if(formType === 'drug-developers' || formType === 'ecosystem') {
+            <div
+                class="group"
+                data-company="true">
+                <label for="company">Organization name</label>
+                <input
+                    autocomplete="organization"
+                    tabindex="1"
+                    type="text" required
+                    placeholder="Company name"
+                    id="company" name="company"
+                    formControlName="companyName"
+                    #formInput>
+            </div>
+        }
+        <!-- </ BEFORE BACKK WILL change company, now it's organization  -->
         <div class="group">
-            <label for="position">
-                Position
-            </label>
-            <input
-              autocomplete="position"
-              tabindex="3"
-              type="text" required
-              placeholder="Role"
-              id="lastName" name="position"
-              formControlName="position"
-              #formInput>
-        </div>
-    } @else if(formType === "ecosystem") {
-        <div class="group" data-select="true">
-            <label for="disease_category">Position</label>
-            <select
-              id="position"
-              name="position"
-              tabindex="4"
-              formControlName="position"
-              [ngClass]="{'select-placeholder_active': isEcosystemPositionPlaceholder}"
-              (change)="deactivePositionSelectPlaceholder()"
-              #formInput>
-              <option value="" disabled selected hidden id="placeholder">Select role</option>
-              <option *ngFor="let position of ecosystemPositions"
-                [value]="position">
-                {{ position }}
-              </option>
-            </select>
-        </div>
-    }
-
-    <div class="group">
-      <label for="phone">Phone</label>
-      <div class="phone-wrap">
+        <label for="firstName" >
+            {{ formType === 'patients' ? 'Patient' : '' }}  First name
+        </label>
         <input
-            autocomplete="phone"
-            tabindex="3"
-            type="tel" required
-            placeholder="xxx-xxx-xxxx"
-            id="phone" name="phone"
-            formControlName="phone"
-            [ngStyle]="{'padding-left': telephonePadding + 'px'}"
-            #formInput>
-            <app-country-codes
-                (countryCode)="onCodeSelected($event)"
-                [currentCountry]="inputCountry"
-                [isOpen]="isOpenedPhoneDropdown">
-            </app-country-codes>
-      </div>
+            id="firstName"
+            autocomplete="given-name"
+            name="firstName"
+            #formInput
+            formControlName="firstName"
+            placeholder="First"
+            required
+            tabindex="2"
+            type="text">
+        </div>
+        <div class="group">
+        <label for="lastName">
+            {{ formType === 'patients' ? 'Patient' : '' }} Last name
+        </label>
+        <input
+            id="lastName"
+            autocomplete="family-name"
+            name="family-name"
+            #formInput
+            formControlName="lastName"
+            placeholder="Last"
+            required
+            tabindex="2"
+            type="text">
+        </div>
+
+        @if (formType === 'drug-developers') {
+            <div class="group">
+                <label for="position">
+                    Position
+                </label>
+                <input
+                    id="lastName"
+                    name="position"
+                    #formInput
+                    autocomplete="position"
+                    formControlName="position"
+                    placeholder="Role"
+                    required
+                    tabindex="3"
+                    type="text">
+            </div>
+        } @else if (formType === "ecosystem") {
+            <div class="group" data-select="true">
+                <label for="disease_category">Position</label>
+                <select
+                    id="position"
+                    [ngClass]="{'select-placeholder_active': isEcosystemPositionPlaceholder}"
+                    (change)="deactivePositionSelectPlaceholder()"
+                    name="position"
+                    #formInput
+                    formControlName="position"
+                    tabindex="4">
+                <option value="" disabled selected hidden id="placeholder">Select role</option>
+                <option *ngFor="let position of ecosystemPositions"
+                    [value]="position">
+                    {{ position }}
+                </option>
+                </select>
+            </div>
+        }
+
+        <div class="group">
+        <label for="phone">Phone</label>
+        <div class="phone-wrap">
+            <input
+                id="phone"
+                [ngStyle]="{'padding-left': telephonePadding + 'px'}"
+                name="phone"
+                #formInput
+                autocomplete="phone"
+                formControlName="phone"
+                placeholder="xxx-xxx-xxxx"
+                required
+                tabindex="3"
+                type="tel">
+                <app-country-codes
+                    [currentCountry]="inputCountry"
+                    [isOpen]="isOpenedPhoneDropdown"
+                    (countryCode)="onCodeSelected($event)">
+                </app-country-codes>
+        </div>
+        </div>
+        <div class="group">
+        <label for="email">Email</label>
+        <input
+            id="email"
+            name="email"
+            placeholder="name@example.com"
+            #formInput
+            autocomplete="on"
+            formControlName="email"
+            required
+            tabindex="4"
+            type="email">
+        </div>
+        <div class="group">
+        <label for="lcity">Location</label>
+            <app-input-location-autocomplete
+                formControlName="location">
+            </app-input-location-autocomplete>
+        </div>
     </div>
-    <div class="group">
-      <label for="email">Email</label>
-      <input
-        autocomplete="on"
-        tabindex="4"
-        type="email" required
-        placeholder="name@example.com"
-        id="email" name="email"
-        formControlName="email"
-        #formInput>
+
+
+    <div class="wrap-btn" [ngSwitch]="formType">
+        <button
+            *ngSwitchCase="'patients'"
+            class="btn-green"
+            [disabled]="!this.contactForm.valid"
+            (click)="onNextStep()"
+            type="button">
+            Next
+        </button>
+        <button
+            *ngSwitchDefault
+            type="submit"
+            class="btn-green"
+            [disabled]="!this.contactForm.valid">
+            Submit
+        </button>
     </div>
-    <div class="group">
-      <label for="city">Location</label>
-        <app-input-location-autocomplete
-            formControlName="location">
-        </app-input-location-autocomplete>
-     </div>
-  </div>
 
-
-  <div class="wrap-btn" [ngSwitch]="formType">
-    <button
-      (click)="onNextStep()"
-      *ngSwitchCase="'patients'"
-      type="button"
-      class="btn-green"
-      [disabled]="!this.contactForm.valid" >
-      Next
-    </button>
-    <button
-      *ngSwitchDefault
-      type="submit"
-      class="btn-green"
-      [disabled]="!this.contactForm.valid" >
-      Submit
-    </button>
-  </div>
-
-  <mat-spinner *ngIf="isSending"></mat-spinner>
+    <mat-spinner *ngIf="isSending"></mat-spinner>
 </form>
 
 

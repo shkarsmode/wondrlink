@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatOptionSelectionChange } from '@angular/material/core';
@@ -26,6 +26,8 @@ import { AutocompleteHighlightPipe } from '../../pipes/autocomplete-highlight.pi
 export class InputLocationAutocompleteComponent
     implements ControlValueAccessor, OnDestroy
 {
+    @ViewChild('formInput') public inputRef: ElementRef<HTMLInputElement>;
+
     public value: string = '';
     public autocompleteLocations: IGeoLocation[] = [];
 
@@ -56,6 +58,7 @@ export class InputLocationAutocompleteComponent
 
     private _getAutocompleteLocation(event: Event): void {
         const text = (event.target as HTMLInputElement).value;
+        this._onChange('');
 
         if (text.length < 3) {
             this.autocompleteLocations = [];
@@ -64,10 +67,7 @@ export class InputLocationAutocompleteComponent
 
         this._autocompleteService
             .getLocationAutocomplete(text)
-            .pipe(
-                tap(console.log), 
-                takeUntil(this._destroy$)
-            )
+            .pipe(tap(console.log), takeUntil(this._destroy$))
             .subscribe((locations) => {
                 this.autocompleteLocations = locations;
                 this._cdr.markForCheck();
@@ -76,14 +76,13 @@ export class InputLocationAutocompleteComponent
 
     public registerOnChange = (fn: any) => (this._onChange = fn);
     public registerOnTouched = (fn: any) => (this._onTouched = fn);
-    public writeValue = (value: any) => this.value = value ?? this.value;
+    public writeValue = (value: any) => (this.value = value ?? this.value);
 
     public onSelectChange(
-        optionChangeEvent: MatOptionSelectionChange<IGeoLocation>
+        optionChangeEvent: MatOptionSelectionChange<string>
     ): void {
-        const { city, country } = optionChangeEvent.source.value;
-        this.value = `${city}, ${country}`; ;
-        this._onChange(this.value);
+        const formattedPlace = optionChangeEvent.source.value;
+        this._onChange(formattedPlace);
         this._onTouched();
     }
 

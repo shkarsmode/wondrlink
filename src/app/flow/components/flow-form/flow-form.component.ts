@@ -1,17 +1,17 @@
-import { Component, Input, Output, EventEmitter, Optional, ViewChildren, QueryList, ElementRef, Renderer2, asNativeElements } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Optional, Output, QueryList, Renderer2, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { debounceTime } from 'rxjs';
 import { CheckEmailComponent } from 'src/app/shared/dialogs/check-email/check-email.component';
+import { ICountryCodes } from 'src/app/shared/interfaces/ICountryCodes';
 import { TFLow } from 'src/app/shared/interfaces/TFLow';
+import { ArticleService } from 'src/app/shared/services/article-service.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { CountryCodesService } from 'src/app/shared/services/country-codes.service';
+import { FlowDataService } from 'src/app/shared/services/flow-data.service';
 import { FlowData } from '../../flow.component';
 import { FlowDialogComponent } from '../flow-dialog/flow-dialog.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { FlowDataService } from 'src/app/shared/services/flow-data.service';
-import { CountryCodesService } from 'src/app/shared/services/country-codes.service';
-import { debounceTime } from 'rxjs';
-import { ICountryCodes } from 'src/app/shared/interfaces/ICountryCodes';
-import { ArticleService } from 'src/app/shared/services/article-service.service';
 
 @Component({
   selector: 'app-flow-form',
@@ -97,7 +97,7 @@ export class FlowFormComponent {
           lastName: [''],
           phone: [''],
           email: [''],
-          location: [''],
+          location: ['', Validators.required],
         });
         break;
       }
