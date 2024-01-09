@@ -261,12 +261,12 @@ export class FlowFormComponent {
 
         let countryCode: ICountryCodes | '' = '';
         let cleanedInput = this.cleanPhoneInput(inputValue);
+        let isAutocomplete = false;
 
         if (cleanedInput.startsWith('+')) {
             countryCode = this.matchesCountryCode(cleanedInput);
         } else if(!this.oldInputValue) {
-            console.log("sdfssss");
-            
+            isAutocomplete = true;
             countryCode = this.matchesCountryCode("+" + cleanedInput);
         }
 
@@ -275,8 +275,8 @@ export class FlowFormComponent {
             this.inputCountry = countryCode;
             this.onCodeSelected(this.inputCountry.dial_code);
             this.isOpenedPhoneDropdown = false;
-            cleanedInput = !this.oldInputValue ? "+"+cleanedInput : cleanedInput; 
-            console.log(cleanedInput, this.oldInputValue)
+
+            cleanedInput = isAutocomplete ? "+"+cleanedInput : cleanedInput; 
             cleanedInput = cleanedInput.replace(countryCode.dial_code, '');
         }
 

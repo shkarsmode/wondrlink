@@ -1,13 +1,14 @@
-import { Component, Input, Output, EventEmitter, Renderer2, ElementRef, HostListener } from '@angular/core';
+import { Component, Input, Output, EventEmitter, Renderer2, ElementRef, HostListener, SimpleChange, SimpleChanges } from '@angular/core';
 import { ICountryCodes } from '../../interfaces/ICountryCodes';
 import { CountryCodesService } from '../../services/country-codes.service';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-country-codes',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './country-codes.component.html',
   styleUrl: './country-codes.component.scss',
   animations: [
@@ -32,24 +33,52 @@ export class CountryCodesComponent {
     public countryCodes: ICountryCodes[] = [];
     @Input() public isOpen: boolean = false;
 
+    public sortedIndex: number = 0;
+
     constructor(
         private countryCodesService: CountryCodesService,
-        private renderer: Renderer2,
-        private el: ElementRef
     ) {}
 
     ngOnInit(): void {
         this.getData();
         this.onCountryCodeChange();
+        this.countryCodes = this.toSortedByCode(this.currentCountry.dial_code)
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+    
+        if (changes['currentCountry'] && !changes['currentCountry'].firstChange) {
+            // Handle the change in currentCountry here
+            this.countryCodes = this.toSortedByCode(this.currentCountry.dial_code);
+          }
     }
 
     private getData() {
         this.countryCodes = this.countryCodesService.getCountryCodes();
     }
 
-    // private initCurrentCode() {
-    //     this.currentCountry = this.countryCodes.find(el => el.dial_code === "+1")!;
-    // }
+    private toSortedByCode(code: string): ICountryCodes[] {
+        const unTargetCountries = this.countryCodes.filter(country => !country.dial_code.startsWith(code));
+
+        unTargetCountries.sort((a, b) => a.name.localeCompare(b.name))
+        // Вибираємо елементи, які мають код
+        const targetCountires = this.countryCodes.filter(country => country.dial_code.startsWith(code));
+
+        targetCountires.sort((a, b) => {
+            // Compare by dial_code length first
+            const lengthComparison = a.dial_code.length - b.dial_code.length;
+        
+            // If lengths are equal, compare alphabetically by name
+            return lengthComparison !== 0
+              ? lengthComparison
+              : a.name.localeCompare(b.name);
+          });
+
+          this.sortedIndex = targetCountires.length - 1;
+
+        // Об'єднуємо фільтрований масив та масив з елементами, які мають код +1
+        return targetCountires.concat(unTargetCountries );
+    }
 
     public selectCountry(event: MouseEvent): void {
         const selectedCountry = event.target as HTMLElement;

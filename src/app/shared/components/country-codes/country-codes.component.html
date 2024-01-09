@@ -11,11 +11,16 @@
 
         @for (country of countryCodes; track country.code; let i = $index ) {
             @defer {
-                <div class="country-code__item" [attr.data-select]="i">
+                <div class="country-code__item" 
+                    [ngClass]="{'country-code__item_active': country.code === currentCountry.code}"
+                    [attr.data-select]="i">
                     <img [src]="'https://flagsapi.com/'+country.code+'/flat/24.png'" alt="flag">
                     <span class="code">{{ country.dial_code }}</span>
                     <span class="country-name"> {{ country.name }}</span>
                 </div>
+                @if (i === sortedIndex) {
+                    <hr class="county-code__item-separator">
+                }
             }
             @loading {
                 <article>Loading...</article>
