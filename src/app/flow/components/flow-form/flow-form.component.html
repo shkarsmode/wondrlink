@@ -4,35 +4,43 @@
     [class.is-sending]="isSending"
     [formGroup]="contactForm"
     (ngSubmit)="onContactFormSubmit()">
-    <h2 [ngSwitch]="formType">
-        <span *ngSwitchCase="'patients'">
-            Patient Signup
-        </span>
-        <span *ngSwitchDefault>
-            {{ flowData[2].companyType }} Contact Details
+    <h2>
+        <span>
+            @switch (formType) {
+                @case ('patients') {
+                    Patient Signup
+                }
+                @default {
+                    {{ flowData[2].companyType }} Contact Details
+                }
+            }
         </span>
     </h2>
 
-    <label *ngIf="formType === 'patients'">
-        I’m signing up as
-    </label>
+    @if (formType === 'patients') {
+        <label>
+            I’m signing up as
+        </label>
+    }
+    
 
-    <div
-        *ngIf="formType === 'patients'"
-        class="wrap-checkboxes">
-        <div
-            class="checkbox"
-            [ngClass]="{'active': isMySelf}"
-            (click)="chooseSigningUpFor(true)">
-            Patient
+    @if (formType === 'patients') {
+        <div class="wrap-checkboxes">
+            <div
+                class="checkbox"
+                [class.active]="isMySelf"
+                (click)="chooseSigningUpFor(true)">
+                Patient
+            </div>
+            <div
+                class="checkbox"
+                [class.active]="!isMySelf"
+                (click)="chooseSigningUpFor(false)">
+                Caregiver
+            </div>
         </div>
-        <div
-            class="checkbox"
-            [ngClass]="{'active': !isMySelf}"
-            (click)="chooseSigningUpFor(false)">
-            Caregiver
-        </div>
-    </div>
+    }
+    
 
     <div class="wrap-inputs">
         <!-- < BEFORE BACKK WILL DONE company, now it's organization  -->
@@ -124,7 +132,7 @@
         <div class="phone-wrap">
             <input
                 id="phone"
-                [ngStyle]="{'padding-left': telephonePadding + 'px'}"
+                [style.padding-left]="telephonePadding + 'px'"
                 name="phone"
                 #formInput
                 autocomplete="phone"
