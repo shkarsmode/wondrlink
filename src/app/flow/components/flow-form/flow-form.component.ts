@@ -243,7 +243,7 @@ export class FlowFormComponent {
     }
 
     private handlePhoneInput(inputValue: string): void {
-        if (!inputValue.startsWith('+')) inputValue = '+' + inputValue;
+        if (inputValue != '' && !inputValue.startsWith('+')) inputValue = '+' + inputValue;
 
         const formattedPhoneInput = this.formatPhoneInput(inputValue);
         this.contactForm.patchValue(
