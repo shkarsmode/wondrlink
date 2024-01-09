@@ -242,9 +242,10 @@ export class FlowFormComponent {
             });
     }
 
-    private handlePhoneInput(inputValue: string): void {
-        if (inputValue !== '' && !inputValue.startsWith('+')) inputValue = '+' + inputValue;
 
+    private oldInputValue = "";
+
+    private handlePhoneInput(inputValue: string): void {
         const formattedPhoneInput = this.formatPhoneInput(inputValue);
         this.contactForm.patchValue(
             { phone: formattedPhoneInput },
@@ -253,13 +254,20 @@ export class FlowFormComponent {
     }
 
     private formatPhoneInput(inputValue: string): string {
-        if (!inputValue) return '';
+        if (!inputValue) {
+            this.oldInputValue = "";
+            return '';
+        }
 
         let countryCode: ICountryCodes | '' = '';
         let cleanedInput = this.cleanPhoneInput(inputValue);
 
         if (cleanedInput.startsWith('+')) {
             countryCode = this.matchesCountryCode(cleanedInput);
+        } else if(!this.oldInputValue) {
+            console.log("sdfssss");
+            
+            countryCode = this.matchesCountryCode("+" + cleanedInput);
         }
 
         // Check if cleanedInput matches any combination of currency codes
@@ -267,8 +275,12 @@ export class FlowFormComponent {
             this.inputCountry = countryCode;
             this.onCodeSelected(this.inputCountry.dial_code);
             this.isOpenedPhoneDropdown = false;
+            cleanedInput = !this.oldInputValue ? "+"+cleanedInput : cleanedInput; 
+            console.log(cleanedInput, this.oldInputValue)
             cleanedInput = cleanedInput.replace(countryCode.dial_code, '');
         }
+
+        this.oldInputValue = cleanedInput;
 
         // Add spaces every three characters
         const formattedInput = this.addSpacesEveryThreeCharacters(cleanedInput);
