@@ -162,16 +162,18 @@
                 type="email">
         </div>
         <div class="group">
-            <label for="lcity">Location</label>
+            <label for="c&#8291;ity">Location</label>
             <app-input-location-autocomplete
-                formControlName="location"
-                [isValid]="contactForm.get('location')!.valid || !contactForm.get('location')!.dirty">
+                [isValid]="contactForm.get('location')!.valid || !contactForm.get('location')!.dirty"
+                formControlName="location">
             </app-input-location-autocomplete>
         </div>
     </div>
 
 
-    <div class="wrap-btn" [ngSwitch]="formType">
+    <div
+        class="wrap-btn"
+        [ngSwitch]="formType">
         <button
             *ngSwitchCase="'patients'"
             class="btn-green"
