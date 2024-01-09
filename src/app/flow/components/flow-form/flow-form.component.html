@@ -3,9 +3,7 @@
 <form
     [class.is-sending]="isSending"
     [formGroup]="contactForm"
-    (ngSubmit)="onContactFormSubmit()"
-    autocomplete="off">
-
+    (ngSubmit)="onContactFormSubmit()">
     <h2 [ngSwitch]="formType">
         <span *ngSwitchCase="'patients'">
             Patient Signup
@@ -19,24 +17,26 @@
         I’m signing up as
     </label>
 
-    <div class="wrap-checkboxes" *ngIf="formType === 'patients'">
+    <div
+        *ngIf="formType === 'patients'"
+        class="wrap-checkboxes">
         <div
             class="checkbox"
             [ngClass]="{'active': isMySelf}"
             (click)="chooseSigningUpFor(true)">
-        Patient
+            Patient
         </div>
         <div
             class="checkbox"
             [ngClass]="{'active': !isMySelf}"
             (click)="chooseSigningUpFor(false)">
-        Caregiver
+            Caregiver
         </div>
     </div>
 
     <div class="wrap-inputs">
         <!-- < BEFORE BACKK WILL DONE company, now it's organization  -->
-        @if(formType === 'drug-developers' || formType === 'ecosystem') {
+        @if (formType === 'drug-developers' || formType === 'ecosystem') {
             <div
                 class="group"
                 data-company="true">
@@ -53,34 +53,34 @@
         }
         <!-- </ BEFORE BACKK WILL change company, now it's organization  -->
         <div class="group">
-        <label for="firstName" >
-            {{ formType === 'patients' ? 'Patient' : '' }}  First name
-        </label>
-        <input
-            id="firstName"
-            autocomplete="given-name"
-            name="firstName"
-            #formInput
-            formControlName="firstName"
-            placeholder="First"
-            required
-            tabindex="2"
-            type="text">
+            <label for="firstName" >
+                {{ formType === 'patients' ? 'Patient' : '' }}  First name
+            </label>
+            <input
+                id="firstName"
+                autocomplete="given-name"
+                name="firstName"
+                #formInput
+                formControlName="firstName"
+                placeholder="First"
+                required
+                tabindex="2"
+                type="text">
         </div>
         <div class="group">
-        <label for="lastName">
-            {{ formType === 'patients' ? 'Patient' : '' }} Last name
-        </label>
-        <input
-            id="lastName"
-            autocomplete="family-name"
-            name="family-name"
-            #formInput
-            formControlName="lastName"
-            placeholder="Last"
-            required
-            tabindex="2"
-            type="text">
+            <label for="lastName">
+                {{ formType === 'patients' ? 'Patient' : '' }} Last name
+            </label>
+            <input
+                id="lastName"
+                autocomplete="family-name"
+                name="family-name"
+                #formInput
+                formControlName="lastName"
+                placeholder="Last"
+                required
+                tabindex="2"
+                type="text">
         </div>
 
         @if (formType === 'drug-developers') {
@@ -141,20 +141,20 @@
         </div>
         </div>
         <div class="group">
-        <label for="email">Email</label>
-        <input
-            id="email"
-            name="email"
-            placeholder="name@example.com"
-            #formInput
-            autocomplete="on"
-            formControlName="email"
-            required
-            tabindex="4"
-            type="email">
+            <label for="email">Email</label>
+            <input
+                id="email"
+                name="email"
+                placeholder="name@example.com"
+                #formInput
+                autocomplete="on"
+                formControlName="email"
+                required
+                tabindex="4"
+                type="email">
         </div>
         <div class="group">
-        <label for="lcity">Location</label>
+            <label for="lcity">Location</label>
             <app-input-location-autocomplete
                 formControlName="location">
             </app-input-location-autocomplete>
