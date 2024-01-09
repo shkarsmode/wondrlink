@@ -1,6 +1,20 @@
-import { Component, ElementRef, EventEmitter, Input, Optional, Output, QueryList, Renderer2, ViewChildren } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    Optional,
+    Output,
+    QueryList,
+    Renderer2,
+    ViewChildren,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import {
+    MatDialog,
+    MatDialogConfig,
+    MatDialogRef,
+} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { debounceTime } from 'rxjs';
 import { CheckEmailComponent } from 'src/app/shared/dialogs/check-email/check-email.component';
@@ -14,186 +28,183 @@ import { FlowData } from '../../flow.component';
 import { FlowDialogComponent } from '../flow-dialog/flow-dialog.component';
 
 @Component({
-  selector: 'app-flow-form',
-  templateUrl: './flow-form.component.html',
-  styleUrls: ['./flow-form.component.scss']
+    selector: 'app-flow-form',
+    templateUrl: './flow-form.component.html',
+    styleUrls: ['./flow-form.component.scss'],
 })
 export class FlowFormComponent {
-  @Input() public formType: TFLow = 'patients';
-  @Output() public next = new EventEmitter<FlowData>();
-  @Input() public flowData: FlowData[];
+    @Input() public formType: TFLow = 'patients';
+    @Output() public next = new EventEmitter<FlowData>();
+    @Input() public flowData: FlowData[];
 
-  @ViewChildren('formInput') formInputs: QueryList<ElementRef>;
+    @ViewChildren('formInput') formInputs: QueryList<ElementRef>;
 
-  public contactForm: FormGroup;
+    public contactForm: FormGroup;
 
-  public isMySelf: boolean = true; // switcher patients form
+    public isMySelf: boolean = true; // switcher patients form
 
-  // set up default placeholder styles for select element
-  public isEcosystemPositionPlaceholder = true;
+    // set up default placeholder styles for select element
+    public isEcosystemPositionPlaceholder = true;
 
-  // if flowType = ecosystem it saves the data for select input
-  public ecosystemPositions: string[];
+    // if flowType = ecosystem it saves the data for select input
+    public ecosystemPositions: string[];
 
-  public isSending: boolean = false; // when form is submiting
+    public isSending: boolean = false; // when form is submiting
 
-  // untill back will done we generate a password manually
-  private password: any = 'test' + Math.floor(Math.random() * 100) + 1;
+    // untill back will done we generate a password manually
+    private password: any = 'test' + Math.floor(Math.random() * 100) + 1;
 
-  // for detecting when user change flow and apply appropirate form for him
-  private oldFormType: TFLow;
+    // for detecting when user change flow and apply appropirate form for him
+    private oldFormType: TFLow;
 
-  // when user submits a form, it will show him the check email dialog
-  private dialogConfig: MatDialogConfig = new MatDialogConfig();
+    // when user submits a form, it will show him the check email dialog
+    private dialogConfig: MatDialogConfig = new MatDialogConfig();
 
-  // for telephone input
+    // for telephone input
     public telephonePadding: number = 90;
     public inputCountry: ICountryCodes = {
-        "name": "United States",
-        "dial_code": "+1",
-        "code": "US"
+        name: 'United States',
+        dial_code: '+1',
+        code: 'US',
     };
     public isOpenedPhoneDropdown: boolean = false;
-    private selectedCountryCode: string = "+1";
+    private selectedCountryCode: string = '+1';
 
-  constructor(
-      private authService: AuthService,
-      private fb: FormBuilder,
-      private dialog: MatDialog,
-      private errorSnackBar: MatSnackBar,
-      private flowDataService: FlowDataService,
-      private articleService: ArticleService,
-      private countriesData: CountryCodesService,
-      private renderer: Renderer2,
-      @Optional() private dialogRef: MatDialogRef<FlowDialogComponent>
-  ) {}
+    constructor(
+        private authService: AuthService,
+        private fb: FormBuilder,
+        private dialog: MatDialog,
+        private errorSnackBar: MatSnackBar,
+        private flowDataService: FlowDataService,
+        private articleService: ArticleService,
+        private countriesData: CountryCodesService,
+        private renderer: Renderer2,
+        @Optional() private dialogRef: MatDialogRef<FlowDialogComponent>
+    ) {}
 
-  ngOnInit(): void {
-    this.initContactForm();
-    this.initDialogConfig();
-    this.initEcosystemPositions();
-    this.oldFormType = this.formType;
-
-  }
-
-  ngDoCheck(): void {
-    if(this.oldFormType === this.formType) return
-    if(this.oldFormType !== this.formType) {
-      this.oldFormType = this.formType;
-      this.initContactForm();
+    ngOnInit(): void {
+        this.initContactForm();
+        this.initDialogConfig();
+        this.initEcosystemPositions();
+        this.oldFormType = this.formType;
     }
-  }
 
-  ngAfterViewInit(): void {
-    this.listenPhoneInput();
-    this.initTabindexOrder();
-  }
-
-  private initContactForm(): void {
-    switch(this.formType) {
-      case 'patients': {
-        this.contactForm = this.fb.group({
-          firstName: [''],
-          lastName: [''],
-          phone: [''],
-          email: [''],
-          location: ['', Validators.required],
-        });
-        break;
-      }
-      default: {
-        this.contactForm = this.fb.group({
-          companyName: [''],
-          firstName: [''],
-          lastName: [''],
-          position: ['', Validators.required],
-          phone: [''],
-          email: [''],
-          location: [''],
-        });
-        break;
-      }
+    ngDoCheck(): void {
+        if (this.oldFormType === this.formType) return;
+        if (this.oldFormType !== this.formType) {
+            this.oldFormType = this.formType;
+            this.initContactForm();
+        }
     }
-  }
 
-  private initTabindexOrder(): void {
-    this.formInputs.forEach((input, i) => {
-        let index = (i + 1).toString();
-        this.renderer.setAttribute(input.nativeElement, 'tabindex', index);
-    })
-  }
+    ngAfterViewInit(): void {
+        this.listenPhoneInput();
+        this.initTabindexOrder();
+    }
 
-  private initEcosystemPositions() {
-    if(this.formType !== 'ecosystem') return
-    const title = this.flowData[2].companyType || ""; // we took from company type
-    this.ecosystemPositions = this.flowDataService.getEcosystemPositionsByTitle(title);
-  }
+    private initContactForm(): void {
+        switch (this.formType) {
+            case 'patients': {
+                this.contactForm = this.fb.group({
+                    firstName: [''],
+                    lastName: [''],
+                    phone: [''],
+                    email: ['', Validators.email],
+                    location: ['', Validators.required],
+                });
+                break;
+            }
+            default: {
+                this.contactForm = this.fb.group({
+                    companyName: [''],
+                    firstName: [''],
+                    lastName: [''],
+                    position: ['', Validators.required],
+                    phone: [''],
+                    email: ['', Validators.email],
+                    location: ['', Validators.required],
+                });
+                break;
+            }
+        }
+    }
 
-  // for Patients Sign up
-  public chooseSigningUpFor(isMySelf: boolean): void {
-    this.isMySelf = isMySelf;
-  }
+    private initTabindexOrder(): void {
+        this.formInputs.forEach((input, i) => {
+            let index = (i + 1).toString();
+            this.renderer.setAttribute(input.nativeElement, 'tabindex', index);
+        });
+    }
 
-  public deactivePositionSelectPlaceholder(): void {
-    if(!this.isEcosystemPositionPlaceholder) return
-    this.isEcosystemPositionPlaceholder = false;
-  }
+    private initEcosystemPositions() {
+        if (this.formType !== 'ecosystem') return;
+        const title = this.flowData[2].companyType || ''; // we took from company type
+        this.ecosystemPositions =
+            this.flowDataService.getEcosystemPositionsByTitle(title);
+    }
 
-  // for patiensts flow
-  public onNextStep(): void {
-    let currentIsMySelft  = this.isMySelf;
-    let password = this.password;
-    let phone = this.joinPhoneParts();
+    // for Patients Sign up
+    public chooseSigningUpFor(isMySelf: boolean): void {
+        this.isMySelf = isMySelf;
+    }
 
+    public deactivePositionSelectPlaceholder(): void {
+        if (!this.isEcosystemPositionPlaceholder) return;
+        this.isEcosystemPositionPlaceholder = false;
+    }
 
-    let flowData = Object.assign(this.contactForm.value, {
-            'isMySelf': currentIsMySelft,
-            'password': password,
-            'phone': phone
-        })
+    // for patiensts flow
+    public onNextStep(): void {
+        let currentIsMySelft = this.isMySelf;
+        let password = this.password;
+        let phone = this.joinPhoneParts();
+
+        let flowData = Object.assign(this.contactForm.value, {
+            isMySelf: currentIsMySelft,
+            password: password,
+            phone: phone,
+        });
 
         console.log(flowData);
 
-    this.next.emit(flowData);
-  }
+        this.next.emit(flowData);
+    }
 
+    public onContactFormSubmit(): void {
+        this.isSending = true;
 
-   public onContactFormSubmit(): void {
-    this.isSending = true;
+        // we register a user for sending a letter
+        // now registration unneeded
+        // but we still have to send password for correct back-end working
 
-    // we register a user for sending a letter
-    // now registration unneeded
-    // but we still have to send password for correct back-end working
+        let password = this.password;
+        let phone = this.joinPhoneParts();
 
-    let password = this.password;
-    let phone = this.joinPhoneParts();
+        let body = Object.assign(
+            this.contactForm.value,
+            ...this.flowData,
+            { password: password },
+            { phone: phone }
+        );
 
-    let body = Object.assign(
-        this.contactForm.value,
-        ...this.flowData,
-        { password: password },
-        { phone: phone }
-    );
-
-    this.authService.registration(body)
-        .subscribe({
-            next: res => {
+        this.authService.registration(body).subscribe({
+            next: (res) => {
                 console.log(res);
                 this.isSending = false;
                 this.openCheckEmailModalWindow();
             },
-            error: error => {
+            error: (error) => {
                 console.log(error.message);
                 this.errorSnackBar.open(error.message, 'Close', {
                     duration: 10000,
-                    verticalPosition: "top"
-                })
+                    verticalPosition: 'top',
+                });
                 this.isSending = false;
-            }
+            },
         });
     }
 
-        // for other flows
+    // for other flows
     private initDialogConfig(): void {
         this.dialogConfig.width = '630px';
         this.dialogConfig.height = '500px';
@@ -202,18 +213,19 @@ export class FlowFormComponent {
 
     public openCheckEmailModalWindow(): void {
         this.dialog.open(CheckEmailComponent, this.dialogConfig);
-        this.dialog.afterAllClosed.subscribe(()=> this.articleService.reinitArticleForm());
+        this.dialog.afterAllClosed.subscribe(() =>
+            this.articleService.reinitArticleForm()
+        );
         // Check if FlowDialogComponent is open as a MatDialog before attempting to close it
         if (this.dialogRef && this.dialogRef.componentInstance) {
             this.dialogRef.close();
         }
     }
 
-
     // for phone input we need to separate logic ... to put it into
-    private joinPhoneParts(){
+    private joinPhoneParts() {
         let phone = this.contactForm.get('phone')?.value;
-        return this.selectedCountryCode + phone.split("-").join("");
+        return this.selectedCountryCode + phone.split('-').join('');
     }
 
     public onCodeSelected(code: string): void {
@@ -221,27 +233,30 @@ export class FlowFormComponent {
         this.selectedCountryCode = code;
     }
 
-
-     listenPhoneInput() {
-        this.contactForm.get('phone')?.valueChanges
-            .pipe(debounceTime(500))
+    listenPhoneInput() {
+        this.contactForm
+            .get('phone')
+            ?.valueChanges.pipe(debounceTime(500))
             .subscribe((value) => {
                 this.handlePhoneInput(value);
             });
-      }
+    }
 
-      private handlePhoneInput(inputValue: string): void {
+    private handlePhoneInput(inputValue: string): void {
         const formattedPhoneInput = this.formatPhoneInput(inputValue);
-        this.contactForm.patchValue({"phone": formattedPhoneInput}, {emitEvent: false}) // { emitEvent: false
-      }
+        this.contactForm.patchValue(
+            { phone: formattedPhoneInput },
+            { emitEvent: false }
+        ); // { emitEvent: false
+    }
 
-      private formatPhoneInput(inputValue: string): string {
+    private formatPhoneInput(inputValue: string): string {
         if (!inputValue) return '';
 
         let countryCode: ICountryCodes | '' = '';
         let cleanedInput = this.cleanPhoneInput(inputValue);
 
-        if(cleanedInput.startsWith("+")) {
+        if (cleanedInput.startsWith('+')) {
             countryCode = this.matchesCountryCode(cleanedInput);
         }
 
@@ -257,31 +272,31 @@ export class FlowFormComponent {
         const formattedInput = this.addSpacesEveryThreeCharacters(cleanedInput);
 
         return formattedInput;
-      }
+    }
 
-      private cleanPhoneInput(inputValue: string): string {
+    private cleanPhoneInput(inputValue: string): string {
         // Remove any character that is not allowed in a phone number
         return inputValue.replace(/[^\d+]/g, '');
-      }
+    }
 
-      private matchesCountryCode(inputValue: string): ICountryCodes | '' {
-        const matchingCode = this.countriesData.getCountryCodes().find(country => inputValue.startsWith(country.dial_code));
-        return matchingCode || "";
-      }
+    private matchesCountryCode(inputValue: string): ICountryCodes | '' {
+        const matchingCode = this.countriesData
+            .getCountryCodes()
+            .find((country) => inputValue.startsWith(country.dial_code));
+        return matchingCode || '';
+    }
 
-      private addSpacesEveryThreeCharacters(inputValue: string): string {
-        if(inputValue.length < 4) return inputValue;
+    private addSpacesEveryThreeCharacters(inputValue: string): string {
+        if (inputValue.length < 4) return inputValue;
         // Add spaces every three characters
         const groups = inputValue.match(/.{1,3}/g);
         const formattedValue = groups?.reduce((acc, group, index) => {
             // Add hyphen between groups except for the last one
-            const separator = index < 2 ? "-" : "";
+            const separator = index < 2 ? '-' : '';
             return acc + group + separator;
-          }, '');
-          console.log(formattedValue);
+        }, '');
+        console.log(formattedValue);
 
         return formattedValue || '';
-      }
-
-
+    }
 }

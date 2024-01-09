@@ -156,7 +156,8 @@
         <div class="group">
             <label for="lcity">Location</label>
             <app-input-location-autocomplete
-                formControlName="location">
+                formControlName="location"
+                [isValid]="contactForm.get('location')!.valid || !contactForm.get('location')!.dirty">
             </app-input-location-autocomplete>
         </div>
     </div>

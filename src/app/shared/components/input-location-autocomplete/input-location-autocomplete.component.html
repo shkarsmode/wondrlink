@@ -4,6 +4,7 @@
     autocomplete="off"
     tabindex="6"
     [matAutocomplete]="auto"
+    [class.invalid]="!isValid"
     #formInput
     (input)="onChangeLocation($event)">
     <mat-autocomplete #auto="matAutocomplete">

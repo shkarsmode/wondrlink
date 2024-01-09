@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, ViewChild, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatOptionSelectionChange } from '@angular/material/core';
@@ -27,6 +27,8 @@ export class InputLocationAutocompleteComponent
     implements ControlValueAccessor, OnDestroy
 {
     @ViewChild('formInput') public inputRef: ElementRef<HTMLInputElement>;
+
+    @Input() public isValid: boolean;
 
     public value: string = '';
     public autocompleteLocations: IGeoLocation[] = [];
