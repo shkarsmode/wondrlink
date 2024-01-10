@@ -2,12 +2,12 @@ export interface IFlowSelect {
   id: string;
   title: string;
   subtitle: string;
-  list: List[]
+  subgroup: Subgroup[]
 }
 
-interface List {
+interface Subgroup {
   title: string;
   subtitle?: string;
   icon: string;
-  position?: string[];
+  function?: string[];
 }

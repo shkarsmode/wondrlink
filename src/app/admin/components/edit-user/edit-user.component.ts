@@ -31,7 +31,7 @@ export class EditUserComponent implements OnInit {
     public activeDeletingIndex: number = -1;
     public cancerTypeEnum: Array<string>;
     public diseaseCatogories: Array<string>;
-    public ecosystemPositions: Array<string>;
+    // public ecosystemPositions: Array<string>;
     public readonly Object: typeof Object = Object;
     public userStatus: typeof UserRoleEnum = UserRoleEnum;
     public userTypeEnum: typeof UserTypeEnum = UserTypeEnum;
@@ -64,7 +64,7 @@ export class EditUserComponent implements OnInit {
     private setCancerTypeEnumAndDiseaseCategories(): void {
         this.cancerTypeEnum = this.flowDataService.getCancerTypes();
         this.diseaseCatogories = this.flowDataService.diseaseCatogories;
-        this.ecosystemPositions = this.flowDataService.getEcosystemPositions();
+        // this.ecosystemPositions = this.flowDataService.getEcosystemPositions();
     }
 
     private getInfoOfRoute(): void {

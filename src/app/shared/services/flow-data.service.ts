@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IFlowSelect } from '../interfaces/IFlowSelect';
+import { of, pipe, switchMap } from 'rxjs';
 
 export type TCancerData = { "cancer-types": string[] }
 
@@ -12,13 +13,19 @@ export class FlowDataService {
     private cancerData: TCancerData;
     private dataUrl: string = 'assets/data/flow-data';
     private _diseaseCatogories: string[] = ['Cancer', 'Autoimmune', 'Rare/Other'];
-    private _ecosystemPosition: string[];
+    private _subgroupFunctionData: {[subgroupTitle: string]: string[]} = {};
 
     constructor(private http: HttpClient) {}
 
     public setAllFlowData(): void {
         this.http
             .get<IFlowSelect[]>(this.dataUrl + '/flow-select.json')
+            .pipe(
+                switchMap((data: IFlowSelect[]) => {
+                    this.setSubgroupFunctionData(data);
+                    return of(data);
+                })
+            )
             .subscribe((data: IFlowSelect[]) => (this.flowSelectData = data));
 
         this.http
@@ -30,28 +37,16 @@ export class FlowDataService {
         return this.flowSelectData?.filter((info) => info.id === id)[0];
     }
 
-    public getEcosystemPositionsByTitle(title: string): string[] {
-        const ecosystemData = this.flowSelectData.find(data => data.id === 'ecosystem');
-        const ecosystemItem =  ecosystemData?.list.find(list => list.title === title);
-        return ecosystemItem?.position || [];
+    public setSubgroupFunctionData(flowSelectData: IFlowSelect[]): void {
+        flowSelectData 
+            .flatMap(group => group.subgroup || [])
+            .filter(subgroup => subgroup.function)
+            .forEach(subgroup => {
+                this._subgroupFunctionData[subgroup.title] = subgroup.function!
+            })
+        console.log(this._subgroupFunctionData);
     }
-
-    public getEcosystemPositions(): string[] {
-        const ecosystemData = this.flowSelectData.find(data => data.id === 'ecosystem');
-        if (!ecosystemData) {
-            return [];
-        }
-
-        const allPositions: string[] = [];
-
-        for (const ecosystemItem of ecosystemData.list) {
-            if (ecosystemItem?.position) {
-                allPositions.push(...ecosystemItem.position);
-            }
-        }
-
-        return allPositions;
-    }
+    
 
     public getCancerTypes(): string[] {
         return Object.values(this.cancerData)[0];
@@ -61,4 +56,9 @@ export class FlowDataService {
         return this._diseaseCatogories
     }
 
+    public getSubgroupFunctionByTitle(title: string): string[] {
+        return this._subgroupFunctionData[title];
+    }
+
+    
 }

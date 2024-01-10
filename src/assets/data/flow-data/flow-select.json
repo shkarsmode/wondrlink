@@ -3,48 +3,50 @@
     "id": "ecosystem",
     "title": "Ecosystem Signup",
     "subtitle": "Tell us who you are",
-    "list": [
+    "subgroup": [
         {
           "title": "Healthcare providers",
           "subtitle": "Helping bring care, hope and support to patients needing novel therapies",
           "icon": "healthcare.svg",
-          "position": [
-            "Doctors",
-            "Nurses"
+          "function": [
+            "Physician",
+            "Other Health Care Provider"
           ]
         },
         {
           "title": "Patient Support",
           "subtitle": "Social workers, Advocacy groups, Chaplains, Spiritual care services",
           "icon": "handshake.svg",
-          "position": [
-            "Advocacy Groups",
-            "Nutritional",
-            "Other",
-            "Social Workers",
-            "Spiritual",
-            "Therapy"
+          "function": [
+            "Social Worker",
+            "Advocacy Group",
+            "Spiritual Care",
+            "Nutritional Care",
+            "Therapist",
+            "Other"
           ]
         },
         {
-          "title": "Licensing and Venture",
+          "title": "Licensing / Venture",
           "subtitle": "Licensing offices, technology transfer, VC/Investors helping accelerate new novel drugs",
           "icon": "license.svg",
-          "position": [
-            "Investors",
-            "Licensing Offices",
+          "function": [
+            "Licensing Office",
             "Technology Transfer",
-            "VC"
+            "Venture Capital",
+            "Private Equity",
+            "Familly Office",
+            "Investor"
           ]
         },
         {
-          "title": "Philanthropy/Donors",
+          "title": "Philanthropy / Donors",
           "subtitle": "Supporting access to novel therapies",
           "icon": "aorta.svg",
-          "position": [
-            "Foundations",
-            "Individuals",
-            "Non Profit"
+          "function": [
+            "Foundation",
+            "Non-Profit",
+            "Individual"
           ]
         }
       ]
@@ -53,22 +55,39 @@
     "id": "drug-developers",
     "title": "Drug Developer Signup",
     "subtitle": "Select organization type",
-    "list": [
+    "subgroup": [
       {
-        "title": "Biotech",
-        "icon": "biotech.svg"
-      },
-      {
-        "title": "Pharma",
-        "icon": "pharma.svg"
+        "title": "Biotech / Pharma",
+        "icon": "pharma.svg",
+        "function": [
+          "Executive Managment",
+          "R&D",
+          "Medical Affairs",
+          "Clinical Development",
+          "Business Development"
+        ]
       },
       {
         "title": "Research Organization",
-        "icon": "research.svg"
+        "icon": "research.svg",
+        "function": [
+          "Executive Managment",
+          "Research",
+          "Clinical",
+          "Technology Transfer",
+          "Business Development"
+        ]
       },
       {
-        "title": "University/Academic Institution",
-        "icon": "university.svg"
+        "title": "University / Academic Institution",
+        "icon": "university.svg",
+        "function": [
+          "Executive Managment",
+          "Research",
+          "Clinical",
+          "Technology Transfer",
+          "Business Development"
+        ]
       }
     ]
   },
@@ -76,7 +95,7 @@
     "id": "patients",
     "title": "How would you describe your situation?",
     "subtitle": "I'm currently in need of:",
-    "list": [
+    "subgroup": [
       {
         "title": "Research/Investigation",
         "subtitle": "You have a condition that wasn't easily diagnosed and needs to be investigated further",

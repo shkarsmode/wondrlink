@@ -44,10 +44,10 @@ export class FlowFormComponent {
     public isMySelf: boolean = true; // switcher patients form
 
     // set up default placeholder styles for select element
-    public isEcosystemPositionPlaceholder = true;
+    public isFunctionPlaceholder = true;
 
-    // if flowType = ecosystem it saves the data for select input
-    public ecosystemPositions: string[];
+    // for function input field 
+    public functionInputData: string[] = [];
 
     public isSending: boolean = false; // when form is submiting
 
@@ -85,7 +85,7 @@ export class FlowFormComponent {
     ngOnInit(): void {
         this.initContactForm();
         this.initDialogConfig();
-        this.initEcosystemPositions();
+        this.initFunctionInputData();
         this.oldFormType = this.formType;
     }
 
@@ -119,6 +119,7 @@ export class FlowFormComponent {
                     companyName: [''],
                     firstName: [''],
                     lastName: [''],
+                    function: ['', Validators.required],
                     position: ['', Validators.required],
                     phone: [''],
                     email: ['', Validators.email],
@@ -136,21 +137,23 @@ export class FlowFormComponent {
         });
     }
 
-    private initEcosystemPositions() {
-        if (this.formType !== 'ecosystem') return;
-        const title = this.flowData[2].companyType || ''; // we took from company type
-        this.ecosystemPositions =
-            this.flowDataService.getEcosystemPositionsByTitle(title);
+    public initFunctionInputData() {
+        if(this.formType === 'patients') return; 
+        console.log(this.flowData[2]);
+        
+        this.functionInputData = this.flowDataService
+            .getSubgroupFunctionByTitle(this.flowData[2].companyType!);
     }
 
-    // for Patients Sign up
+    // for Patients Sign up mySelf/forOther before changes
+    // now it's for Patient/Caregiver
     public chooseSigningUpFor(isMySelf: boolean): void {
-        this.isMySelf = isMySelf;
+        this.isMySelf = isMySelf; 
     }
 
-    public deactivePositionSelectPlaceholder(): void {
-        if (!this.isEcosystemPositionPlaceholder) return;
-        this.isEcosystemPositionPlaceholder = false;
+    public deactiveFunctionSelectPlaceholder(): void {
+        if (!this.isFunctionPlaceholder) return;
+        this.isFunctionPlaceholder = false;
     }
 
     // for patiensts flow
@@ -187,6 +190,8 @@ export class FlowFormComponent {
             { phone: phone }
         );
 
+        delete body.function;
+        
         this.authService.registration(body).subscribe({
             next: (res) => {
                 console.log(res);
@@ -236,7 +241,7 @@ export class FlowFormComponent {
     private listenPhoneInput() {
         this.contactForm
             .get('phone')
-            ?.valueChanges.pipe(debounceTime(500))
+            ?.valueChanges.pipe(debounceTime(700))
             .subscribe((value) => {
                 this.handlePhoneInput(value);
             });

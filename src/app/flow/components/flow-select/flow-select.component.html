@@ -3,16 +3,16 @@
   <span>{{ currentFlowData.subtitle }}</span>
   <ol class="wrap-options">
     <li
-      *ngFor="let item of currentFlowData.list; let i=index"
-      (click)="toggleCheck(i, item.title)"
+      *ngFor="let subgroup of currentFlowData.subgroup; let i=index"
+      (click)="toggleCheck(i, subgroup.title)"
       [ngClass]="{'active': selectOptions[i]}">
       <div class="left">
-        <img [src]="'assets/svg/'+item.icon">
+        <img [src]="'assets/svg/'+subgroup.icon">
       </div>
       <div class="right">
-        <h4>{{ item.title }}</h4>
-        <div class="sub-title" *ngIf="item?.subtitle">
-          {{ item.subtitle}}
+        <h4>{{ subgroup.title }}</h4>
+        <div class="sub-title" *ngIf="subgroup?.subtitle">
+          {{ subgroup.subtitle}}
         </div>
       </div>
     </li>

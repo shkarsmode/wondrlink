@@ -11,7 +11,7 @@
                     Patient Signup
                 }
                 @default {
-                    {{ flowData[2].companyType }} Contact Details
+                    {{ flowData[2].companyType }} Signup
                 }
             }
         </span>
@@ -60,73 +60,76 @@
             </div>
         }
         <!-- </ BEFORE BACKK WILL change company, now it's organization  -->
-        <div class="group">
-            <label for="firstName" >
-                {{ formType === 'patients' ? 'Patient' : '' }}  First name
-            </label>
-            <input
-                id="firstName"
-                autocomplete="given-name"
-                name="firstName"
-                #formInput
-                formControlName="firstName"
-                placeholder="First"
-                required
-                tabindex="2"
-                type="text">
-        </div>
-        <div class="group">
-            <label for="lastName">
-                {{ formType === 'patients' ? 'Patient' : '' }} Last name
-            </label>
-            <input
-                id="lastName"
-                autocomplete="family-name"
-                name="family-name"
-                #formInput
-                formControlName="lastName"
-                placeholder="Last"
-                required
-                tabindex="2"
-                type="text">
+
+        <div class="full-name">
+            <div class="group" data-firstName="true">
+                <label for="given-name" >
+                    Name
+                    <!-- {{ formType === 'patients' ? 'Patient' : '' }}  First name -->
+                </label>
+                <input
+                    id="firstName"
+                    autocomplete="additional-name"
+                    name="firstName"
+                    #formInput
+                    formControlName="firstName"
+                    placeholder="First"
+                    required
+                    tabindex="2"
+                    type="text">
+            </div>
+                    
+            <div class="group" data-lastName="true">
+                <label for="lastName" [style.opacity]="0">
+                    Last
+                </label>
+                <input
+                    id="additional-name"
+                    autocomplete="given-name"
+                    name="additional-name"
+                    #formInput
+                    formControlName="lastName"
+                    placeholder="Last"
+                    required
+                    tabindex="2"
+                    type="text">
+            </div>
         </div>
 
-        @if (formType === 'drug-developers') {
+        @if (formType === "drug-developers" || formType === "ecosystem") {
+            <div class="group" data-select="true">
+                <label for="specialization">Function</label>
+                <select
+                    id="function"
+                    [ngClass]="{'select-placeholder_active': isFunctionPlaceholder}"
+                    (change)="deactiveFunctionSelectPlaceholder()"
+                    name="function"
+                    #formInput
+                    formControlName="function"
+                    tabindex="3">
+                <option value="" disabled selected hidden id="placeholder">Select</option>
+                <option *ngFor="let function of functionInputData"
+                    [value]="function">
+                    {{ function }}
+                </option>
+                </select>
+            </div>
+            
             <div class="group">
                 <label for="position">
                     Position
                 </label>
                 <input
-                    id="lastName"
+                    id="position"
                     name="position"
                     #formInput
-                    autocomplete="position"
                     formControlName="position"
                     placeholder="Role"
                     required
-                    tabindex="3"
+                    tabindex="4"
                     type="text">
             </div>
-        } @else if (formType === "ecosystem") {
-            <div class="group" data-select="true">
-                <label for="disease_category">Position</label>
-                <select
-                    id="position"
-                    [ngClass]="{'select-placeholder_active': isEcosystemPositionPlaceholder}"
-                    (change)="deactivePositionSelectPlaceholder()"
-                    name="position"
-                    #formInput
-                    formControlName="position"
-                    tabindex="4">
-                <option value="" disabled selected hidden id="placeholder">Select role</option>
-                <option *ngFor="let position of ecosystemPositions"
-                    [value]="position">
-                    {{ position }}
-                </option>
-                </select>
-            </div>
-        }
-
+        } 
         <div class="group">
         <label for="phone">Phone</label>
         <div class="phone-wrap">
@@ -139,7 +142,7 @@
                 formControlName="phone"
                 placeholder="xxx-xxx-xxxx"
                 required
-                tabindex="3"
+                tabindex="5"
                 type="tel">
                 <app-country-codes
                     [currentCountry]="inputCountry"
@@ -158,7 +161,7 @@
                 autocomplete="on"
                 formControlName="email"
                 required
-                tabindex="4"
+                tabindex="6"
                 type="email">
         </div>
         <div class="group">

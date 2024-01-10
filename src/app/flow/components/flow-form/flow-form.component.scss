@@ -121,6 +121,17 @@ input::placeholder, .select-placeholder_active {
     width: 100%;
 }
 
+.full-name {
+    flex: 0 0 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.group[data-firstName], .group[data-lastName]  {
+    flex: 0 0 calc(50% - 10px) !important;
+}
+
 label {
     font-weight: 500;
     color: rgba(0, 0, 0, 0.85);
@@ -216,6 +227,10 @@ mat-spinner {
 
     .wrap-inputs {
         column-gap: 10px;
+    }
+
+    .full-name {
+        gap: 10px;
     }
 
     input {

@@ -84,11 +84,12 @@ export class CountryCodesComponent {
         const selectedCountry = event.target as HTMLElement;
 
         const dataIndex = selectedCountry.getAttribute('data-select');
-        if (dataIndex !== null) {
-            this.currentCountry = this.countryCodes[+dataIndex];
-            this.onCountryCodeChange();
-            this.toggleDropdown();
-        }
+        if (dataIndex === null) return
+        if (this.currentCountry.code === this.countryCodes[+dataIndex].code) return
+
+        this.currentCountry = this.countryCodes[+dataIndex];
+        this.onCountryCodeChange();
+        this.toggleDropdown();
     }
 
     public toggleDropdown(): void {
