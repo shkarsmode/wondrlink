@@ -16,7 +16,7 @@ import {
     MatDialogRef,
 } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { debounceTime, startWith } from 'rxjs';
+import { debounceTime, last, startWith } from 'rxjs';
 import { CheckEmailComponent } from 'src/app/shared/dialogs/check-email/check-email.component';
 import { ICountryCodes } from 'src/app/shared/interfaces/ICountryCodes';
 import { TFLow } from 'src/app/shared/interfaces/TFLow';
@@ -107,7 +107,7 @@ export class FlowFormComponent {
             case 'patients': {
                 this.contactForm = this.fb.group({
                     firstName: [''],
-                    lastName: [''],
+                    // lastName: [''],
                     phone: [''],
                     email: ['', Validators.email],
                     location: ['', Validators.required],
@@ -118,7 +118,7 @@ export class FlowFormComponent {
                 this.contactForm = this.fb.group({
                     companyName: [''],
                     firstName: [''],
-                    lastName: [''],
+                    // lastName: [''],
                     function: ['', Validators.required],
                     position: ['', Validators.required],
                     phone: [''],
@@ -161,11 +161,13 @@ export class FlowFormComponent {
         let currentIsMySelft = this.isMySelf;
         let password = this.password;
         let phone = this.joinPhoneParts();
+        let lastName = "Removed";
 
         let flowData = Object.assign(this.contactForm.value, {
             isMySelf: currentIsMySelft,
             password: password,
             phone: phone,
+            lastName: lastName
         });
 
         console.log(flowData);
@@ -182,12 +184,14 @@ export class FlowFormComponent {
 
         let password = this.password;
         let phone = this.joinPhoneParts();
+        let lastName = "Removed"
 
         let body = Object.assign(
             this.contactForm.value,
             ...this.flowData,
-            { password: password },
-            { phone: phone }
+            { password: password,
+              phone: phone,
+              lastName: lastName }
         );
 
         delete body.function;
@@ -247,8 +251,8 @@ export class FlowFormComponent {
             });
     }
 
-
-    private oldInputValue = "";
+    // 
+    private oldPhoneInputValue = "";
 
     private handlePhoneInput(inputValue: string): void {
         const formattedPhoneInput = this.formatPhoneInput(inputValue);
@@ -262,38 +266,38 @@ export class FlowFormComponent {
         
         if(inputValue.startsWith("(")) {
             let cleanedInput = this.cleanPhoneInput(inputValue);
-            this.oldInputValue = cleanedInput;
+            this.oldPhoneInputValue = cleanedInput;
             return this.addSpacesEveryThreeCharacters(cleanedInput);
         }
 
         if (!inputValue) {
-            this.oldInputValue = "";
+            this.oldPhoneInputValue = "";
             return '';
         }
-
         
         let countryCode: ICountryCodes | '' = '';
         let cleanedInput = this.cleanPhoneInput(inputValue);
         let isAutocomplete = false;
 
         if (cleanedInput.startsWith('+')) {
-            countryCode = this.matchesCountryCode(cleanedInput);
-        } else if(!this.oldInputValue) {
+            countryCode = this.matchCountryCode(cleanedInput);
+        } else if(!this.oldPhoneInputValue) {
             isAutocomplete = true;
-            countryCode = this.matchesCountryCode("+" + cleanedInput);
+            countryCode = this.matchCountryCode("+" + cleanedInput);
         }
 
-        // Check if cleanedInput matches any combination of currency codes
+        // Check is matched 
         if (countryCode) {
             this.inputCountry = countryCode;
             this.onCodeSelected(this.inputCountry.dial_code);
             this.isOpenedPhoneDropdown = false;
 
-            cleanedInput = isAutocomplete ? "+"+cleanedInput : cleanedInput; 
+            cleanedInput = isAutocomplete ? "+".concat(cleanedInput) : cleanedInput; 
             cleanedInput = cleanedInput.replace(countryCode.dial_code, '');
         }
 
-        this.oldInputValue = cleanedInput;
+        if (countryCode && !cleanedInput) this.oldPhoneInputValue = this.inputCountry.dial_code;
+        else this.oldPhoneInputValue = cleanedInput;
 
         // Add spaces every three characters
         const formattedInput = this.addSpacesEveryThreeCharacters(cleanedInput);
@@ -306,12 +310,18 @@ export class FlowFormComponent {
         return inputValue.replace(/[^\d+]/g, '');
     }
 
-    private matchesCountryCode(inputValue: string): ICountryCodes | '' {
+    
+
+    private matchCountryCode(inputValue: string): ICountryCodes | '' {
         const matchingCode = this.countriesData
             .getCountryCodes()
             .find((country) => inputValue.startsWith(country.dial_code));
         return matchingCode || '';
     }
+
+    private setOldPhoneInputIsCodeMatched(inputValue: string): void {
+        this.oldPhoneInputValue = inputValue;
+    } 
 
     private addSpacesEveryThreeCharacters(inputValue: string): string {
         if (inputValue.length < 4) return inputValue;

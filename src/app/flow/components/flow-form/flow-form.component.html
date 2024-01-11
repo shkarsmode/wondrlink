@@ -61,44 +61,25 @@
         }
         <!-- </ BEFORE BACKK WILL change company, now it's organization  -->
 
-        <div class="full-name">
-            <div class="group" data-firstName="true">
-                <label for="additional-name">
-                    Name
-                    <!-- {{ formType === 'patients' ? 'Patient' : '' }}  First name -->
-                </label>
-                <input
-                    id="additional-name"
-                    autocomplete="additional-name"
-                    name="additional-name"
-                    #formInput
-                    formControlName="firstName"
-                    placeholder="First"
-                    required
-                    tabindex="2"
-                    type="text">
-            </div>
-                    
-            <div class="group" data-lastName="true">
-                <label for="given-name" [style.opacity]="0">
-                    Last
-                </label>
-                <input
-                    id="given-name"
-                    autocomplete="given-name"
-                    name="given-name"
-                    #formInput
-                    formControlName="lastName"
-                    placeholder="Last"
-                    required
-                    tabindex="2"
-                    type="text">
-            </div>
+        <div class="group">
+            <label for="name">
+                Name
+            </label>
+            <input
+                id="name"
+                autocomplete="name"
+                name="name"
+                #formInput
+                formControlName="firstName"
+                placeholder="Full name"
+                required
+                tabindex="2"
+                type="text">
         </div>
 
         @if (formType === "drug-developers" || formType === "ecosystem") {
             <div class="group" data-select="true">
-                <label for="specialization">Function</label>
+                <label for="function">Function</label>
                 <select
                     id="function"
                     [ngClass]="{'select-placeholder_active': isFunctionPlaceholder}"

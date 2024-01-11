@@ -114,37 +114,44 @@ html {
 
 body ::ng-deep app-flow-dialog app-flow-form {
     display: block;
-    min-width: 630px;
+    min-width: 800px;//630px
 }
 
 body ::ng-deep app-flow-dialog app-flow-details {
     display: block;
-    min-width: 630px;
+    min-width: 800px; //630
 }
 
 @media screen and (max-width: 800px) {
-    .mat-mdc-dialog-container .mdc-dialog__surface {
-        border-radius: 10px !important;
-    }
-}
-
-@media screen and (max-width: 700px) {
-    .cdk-overlay-pane {
-        max-width: 95vw !important;
-    }
-
-
-}
-
-@media screen and (max-height: 700px) and (max-width: 400px) {
+    // .mat-mdc-dialog-container .mdc-dialog__surface {
+    //     border-radius: 10px !important;
+    // }
     .mat-mdc-dialog-container .mdc-dialog__surface {
         border-radius: 0px !important;
     }
 
     .cdk-overlay-pane {
-        max-width: 100vw !important;
+        min-width: 100dvw !important;
     }
 }
+
+// @media screen and (max-width: 700px) {
+//     .cdk-overlay-pane {
+//         max-width: 95vw !important;
+//     }
+
+
+// }
+
+// @media screen and (max-height: 700px) and (max-width: 400px) {
+//     .mat-mdc-dialog-container .mdc-dialog__surface {
+//         border-radius: 0px !important;
+//     }
+
+//     .cdk-overlay-pane {
+//         max-width: 100vw !important;
+//     }
+// }
 
 // </adaptation and setting for FLOW dialog
 

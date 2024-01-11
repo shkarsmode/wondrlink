@@ -34,15 +34,16 @@
   }
 }
 
-@media screen and (max-height: 700px) and (max-width: 500px) {
-  .wrap {
-    height: 100dvh;
-  }
-}
+// @media screen and (max-height: 700px) and (max-width: 500px) {
+//   .wrap {
+//     height: 100dvh;
+//   }
+// }
 
 @media screen and (max-width: 800px) {
   .wrap {
-    padding: 50px 30px;
+    // padding: 50px 30px;
+    height: 100dvh;
 
     &::-webkit-scrollbar {
       width: 0px;
@@ -60,3 +61,8 @@
 
 }
 
+@media screen and (max-width: 550px) {
+  .wrap {
+    padding: 50px 30px;
+  }
+}
