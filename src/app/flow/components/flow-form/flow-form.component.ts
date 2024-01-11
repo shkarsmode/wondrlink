@@ -16,7 +16,7 @@ import {
     MatDialogRef,
 } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { debounceTime } from 'rxjs';
+import { debounceTime, startWith } from 'rxjs';
 import { CheckEmailComponent } from 'src/app/shared/dialogs/check-email/check-email.component';
 import { ICountryCodes } from 'src/app/shared/interfaces/ICountryCodes';
 import { TFLow } from 'src/app/shared/interfaces/TFLow';
@@ -259,11 +259,19 @@ export class FlowFormComponent {
     }
 
     private formatPhoneInput(inputValue: string): string {
+        
+        if(inputValue.startsWith("(")) {
+            let cleanedInput = this.cleanPhoneInput(inputValue);
+            this.oldInputValue = cleanedInput;
+            return this.addSpacesEveryThreeCharacters(cleanedInput);
+        }
+
         if (!inputValue) {
             this.oldInputValue = "";
             return '';
         }
 
+        
         let countryCode: ICountryCodes | '' = '';
         let cleanedInput = this.cleanPhoneInput(inputValue);
         let isAutocomplete = false;

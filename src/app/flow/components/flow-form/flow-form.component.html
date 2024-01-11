@@ -63,14 +63,14 @@
 
         <div class="full-name">
             <div class="group" data-firstName="true">
-                <label for="given-name">
+                <label for="additional-name">
                     Name
                     <!-- {{ formType === 'patients' ? 'Patient' : '' }}  First name -->
                 </label>
                 <input
-                    id="given-name"
-                    autocomplete="given-name"
-                    name="given-name"
+                    id="additional-name"
+                    autocomplete="additional-name"
+                    name="additional-name"
                     #formInput
                     formControlName="firstName"
                     placeholder="First"
@@ -80,13 +80,13 @@
             </div>
                     
             <div class="group" data-lastName="true">
-                <label for="additional-name" [style.opacity]="0">
+                <label for="given-name" [style.opacity]="0">
                     Last
                 </label>
                 <input
-                    id="additional-name"
-                    autocomplete="additional-name"
-                    name="additional-name"
+                    id="given-name"
+                    autocomplete="given-name"
+                    name="given-name"
                     #formInput
                     formControlName="lastName"
                     placeholder="Last"
