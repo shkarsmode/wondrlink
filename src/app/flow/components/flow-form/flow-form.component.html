@@ -61,21 +61,41 @@
         }
         <!-- </ BEFORE BACKK WILL change company, now it's organization  -->
 
-        <div class="group">
-            <label for="name">
-                Name
-            </label>
-            <input
-                id="name"
-                autocomplete="name"
-                name="name"
-                #formInput
-                formControlName="firstName"
-                placeholder="Full name"
-                required
-                tabindex="2"
-                type="text">
+        <div class="full-name">
+            <div class="group" data-firstName="true">
+                <label for="given-name">
+                    Name
+                    <!-- {{ formType === 'patients' ? 'Patient' : '' }}  First name -->
+                </label>
+                <input
+                    id="given-name"
+                    autocomplete="given-name"
+                    name="given-name"
+                    #formInput
+                    formControlName="firstName"
+                    placeholder="First"
+                    required
+                    tabindex="2"
+                    type="text">
+            </div>
+
+            <div class="group" data-lastName="true">
+                <label for="family-name" [style.opacity]="0">
+                    Last
+                </label>
+                <input
+                    id="family-name"
+                    autocomplete="family-name"
+                    name="family-name"
+                    #formInput
+                    formControlName="lastName"
+                    placeholder="Last"
+                    required
+                    tabindex="2"
+                    type="text">
+            </div>
         </div>
+        
 
         @if (formType === "drug-developers" || formType === "ecosystem") {
             <div class="group" data-select="true">
@@ -112,7 +132,7 @@
             </div>
         } 
         <div class="group">
-        <label for="phone">Phone</label>
+        <label for="tel-national">Phone</label>
         <div class="phone-wrap">
             <input
                 name="tel-national" autocomplete="tel-national"
