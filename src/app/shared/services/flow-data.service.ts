@@ -9,7 +9,7 @@ export type TCancerData = { "cancer-types": string[] }
     providedIn: 'root',
 })
 export class FlowDataService {
-    private flowSelectData: IFlowSelect[] = [];
+    private flowSelectData: IFlowSelect[] = []; // subgroup, it needs to be flow-subgroup instead of flow-select
     private cancerData: TCancerData;
     private dataUrl: string = 'assets/data/flow-data';
     private _diseaseCatogories: string[] = ['Cancer', 'Autoimmune', 'Rare/Other'];
@@ -57,7 +57,7 @@ export class FlowDataService {
     }
 
     public getSubgroupFunctionByTitle(title: string): string[] {
-        return this._subgroupFunctionData[title];
+        return this._subgroupFunctionData[title] || [];
     }
 
     

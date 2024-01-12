@@ -10,11 +10,13 @@
 		<div class="wrap-column">
 			<div class="d-flex">
                 <app-edit-user-card
-                    title="First name"
+                    title="Full name"
                     formControlName="firstName">
                 </app-edit-user-card>
 
+                <!-- Removed -->
                 <app-edit-user-card
+                    hidden
                     title="Last Name"
                     formControlName="lastName">
                 </app-edit-user-card>
@@ -108,35 +110,64 @@
         *ngIf="role.value !== userStatus.ADMIN && type.value !== userTypeEnum.None">
 
         <div class="d-flex">
+
+            @if(type.value === userTypeEnum.Industry || type.value === userTypeEnum.Physician) {
+                <app-edit-user-card 
+                    title="Organization"
+                    formControlName="companyName"
+                    [isRequired]="false">
+                </app-edit-user-card>
+            }         
+
             <app-edit-user-card
                 [title]="(type.value === userTypeEnum.None ? 'User' : type.value) + ' location'"
                 formControlName="location"
                 [isRequired]="false">
             </app-edit-user-card>
 
+        </div>
+
+      
+    
+        @if(type.value === userTypeEnum.Industry || type.value === userTypeEnum.Physician) {
+            <div class="d-flex">
+
+                <app-edit-user-card-select
+                    title="Subgroup" 
+                    formControlName="companyType"
+                    [isRequired]="false"
+                    [iterableListToConvert]="companyTypeEnum">
+                </app-edit-user-card-select> 
+
+                <app-edit-user-card-select
+                    title="Function" 
+                    formControlName="function"
+                    [isRequired]="false"
+                    [iterableListToConvert]="functionEnum">
+                </app-edit-user-card-select> 
+
+            </div>
+        } 
+        
+
+        <div class="d-flex">
+
             @if(type.value === userTypeEnum.Patient) {
                 <app-edit-user-card-select
-                    title="Position/Role"
-                    formControlName="isMySelf"
-                    [isRequired]="false"
-                    [iterableListToConvert]="patientPositionEnum">
+                   title="Position/Role"
+                   formControlName="isMySelf"
+                   [isRequired]="false"
+                   [iterableListToConvert]="patientPositionEnum">
                 </app-edit-user-card-select>
-            } @else if (type.value === userTypeEnum.Industry) {
+            } @else {
                 <app-edit-user-card
-                    title="Position/Role"
+                    title="Position"
                     formControlName="position">
                 </app-edit-user-card>
             }
-             <!-- @else {
-                <app-edit-user-card-select
-                    title="Position/Role"
-                    formControlName="position"
-                    [isRequired]="false"
-                    [iterableListToConvert]="ecosystemPositions">
-                </app-edit-user-card-select>
-            } -->
+                
+            
         </div>
-
 
 
 
@@ -174,22 +205,7 @@
 
         </ng-container>
 
-        <div
-            *ngIf="type.value === userTypeEnum.Industry || type.value === userTypeEnum.Physician"
-            class="d-flex">
-            <app-edit-user-card
-                title="Company name"
-                formControlName="companyName"
-                [isRequired]="false">
-            </app-edit-user-card>
-
-            <app-edit-user-card-select
-                title="Company type"
-                formControlName="companyType"
-                [isRequired]="false"
-                [iterableListToConvert]="companyTypeEnum">
-            </app-edit-user-card-select>
-        </div>
+        
 	</ng-container>
 
     <!-- * Delete / Save flow * -->

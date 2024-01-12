@@ -23,6 +23,7 @@ export interface IUser {
     readonly diseaseDetails: string | null;
 	readonly updatedAt: Date;
     readonly position: string | null;
+    readonly function?: string | null;
     readonly isMySelf: 'true' | 'false';
     type: UserTypeEnum;
 }

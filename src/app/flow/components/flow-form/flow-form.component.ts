@@ -139,7 +139,6 @@ export class FlowFormComponent {
 
     public initFunctionInputData() {
         if(this.formType === 'patients') return; 
-        console.log(this.flowData[2]);
         
         this.functionInputData = this.flowDataService
             .getSubgroupFunctionByTitle(this.flowData[2].companyType!);

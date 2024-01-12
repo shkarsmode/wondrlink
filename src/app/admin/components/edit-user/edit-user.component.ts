@@ -28,10 +28,11 @@ export class EditUserComponent implements OnInit {
     public isDeleting: boolean = false;
     public isUpdatedPicture: boolean = false;
     public isUploadImageSelected: boolean = true;
+    public isUserInited: boolean = false;
     public activeDeletingIndex: number = -1;
     public cancerTypeEnum: Array<string>;
     public diseaseCatogories: Array<string>;
-    // public ecosystemPositions: Array<string>;
+    public subgroupFunction: Array<string> = [];
     public readonly Object: typeof Object = Object;
     public userStatus: typeof UserRoleEnum = UserRoleEnum;
     public userTypeEnum: typeof UserTypeEnum = UserTypeEnum;
@@ -64,7 +65,6 @@ export class EditUserComponent implements OnInit {
     private setCancerTypeEnumAndDiseaseCategories(): void {
         this.cancerTypeEnum = this.flowDataService.getCancerTypes();
         this.diseaseCatogories = this.flowDataService.diseaseCatogories;
-        // this.ecosystemPositions = this.flowDataService.getEcosystemPositions();
     }
 
     private getInfoOfRoute(): void {
@@ -91,6 +91,7 @@ export class EditUserComponent implements OnInit {
                 next: (user) => {
                     this.user = user;
                     this.user.type = user.type ? user.type : UserTypeEnum.None;
+                    this.isUserInited = true;
                     this.initReactiveForm();
                 },
                 error: (error) => (this.errorMessage = error.message),
@@ -104,8 +105,9 @@ export class EditUserComponent implements OnInit {
                 [Validators.required, Validators.minLength(2)],
             ],
             lastName: [
-                this.user.lastName,
-                [Validators.required, Validators.minLength(2)],
+                "Removed"
+                // this.user.lastName,
+                // [Validators.required, Validators.minLength(2)],
             ],
             email: [this.user.email, [Validators.required, Validators.email]],
             type: [this.user.type, Validators.required],
@@ -117,12 +119,16 @@ export class EditUserComponent implements OnInit {
             diseaseCategory: [this.user.diseaseCategory],
             cancerType: [this.user.cancerType],
             diseaseDetails: [this.user.diseaseDetails],
-            companyName: [this.user.companyName],
-            companyType: [this.user.companyType],
+            companyName: [this.user.companyName], // Organization
+            companyType: [this.user.companyType], // Subgroup
             isMySelf: [this.patientPositionEnum[this.user.isMySelf]],
             position: [this.user.position],
-        });
+            function: [this.user.function]
+        }); 
+        
     }
+
+    
 
     public toggleUploadImageType(): void {
         if (this.isUpdatedPicture) {
@@ -223,7 +229,7 @@ export class EditUserComponent implements OnInit {
             patientSituationType: this.patientSituationType.value,
             cancerType: this.cancerType.value,
             diseaseCategory: this.diseaseCategory.value,
-            companyType: this.companyType.value,
+            companyType: this.subgroup.value,
             diseaseDetails: this.diseaseDetails.value,
             position: this.position.value,
         } as IUser;
@@ -305,6 +311,11 @@ export class EditUserComponent implements OnInit {
         this.deleteUserByID(id);
     }
 
+    public get functionEnum(): string[] {
+        if(!this.isUserInited) return []; 
+        return this.flowDataService.getSubgroupFunctionByTitle(this.subgroup.value);
+    }
+
     // Convenience getters for easy access to form controls
     public get firstName(): FormControl {
         return this.form.get('firstName') as FormControl;
@@ -348,8 +359,8 @@ export class EditUserComponent implements OnInit {
     public get cancerType(): FormControl {
         return this.form.get('cancerType') as FormControl;
     }
-    public get companyType(): FormControl {
-        return this.form.get('companyType') as FormControl;
+    public get subgroup(): FormControl { // subgroup flowSelect 
+        return this.form.get('companyType') as FormControl; //companyType needs to be replaced with subgroup 
     }
     public get isMySelf(): FormControl {
         return this.form.get('isMySelf') as FormControl;
@@ -357,5 +368,7 @@ export class EditUserComponent implements OnInit {
     public get position(): FormControl {
         return this.form.get('position') as FormControl;
     }
-
+    public get function(): FormControl {
+        return this.form.get('function') as FormControl;
+    }
 }
