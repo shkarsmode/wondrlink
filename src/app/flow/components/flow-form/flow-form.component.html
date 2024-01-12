@@ -115,16 +115,14 @@
         <label for="phone">Phone</label>
         <div class="phone-wrap">
             <input
-                id="phone"
+                name="tel-national" autocomplete="tel-national"
                 [style.padding-left]="telephonePadding + 'px'"
-                name="phone"
                 #formInput
-                autocomplete="phone"
                 formControlName="phone"
                 placeholder="xxx-xxx-xxxx"
                 required
                 tabindex="5"
-                type="tel">
+                type="text">
                 <app-country-codes
                     [currentCountry]="inputCountry"
                     [isOpen]="isOpenedPhoneDropdown"

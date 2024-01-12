@@ -261,40 +261,23 @@ export class FlowFormComponent {
 
     private formatPhoneInput(inputValue: string): string {
         
-        if(inputValue.startsWith("(")) {
-            let cleanedInput = this.cleanPhoneInput(inputValue);
-            this.oldPhoneInputValue = cleanedInput;
-            return this.addSpacesEveryThreeCharacters(cleanedInput);
-        }
 
-        if (!inputValue) {
-            this.oldPhoneInputValue = "";
-            return '';
-        }
+        if (!inputValue) return '';
         
         let countryCode: ICountryCodes | '' = '';
         let cleanedInput = this.cleanPhoneInput(inputValue);
-        let isAutocomplete = false;
 
         if (cleanedInput.startsWith('+')) {
             countryCode = this.matchCountryCode(cleanedInput);
-        } else if(!this.oldPhoneInputValue) {
-            isAutocomplete = true;
-            countryCode = this.matchCountryCode("+" + cleanedInput);
-        }
+        } 
 
         // Check is matched 
         if (countryCode) {
             this.inputCountry = countryCode;
             this.onCodeSelected(this.inputCountry.dial_code);
             this.isOpenedPhoneDropdown = false;
-
-            cleanedInput = isAutocomplete ? "+".concat(cleanedInput) : cleanedInput; 
             cleanedInput = cleanedInput.replace(countryCode.dial_code, '');
         }
-
-        if (countryCode && !cleanedInput) this.oldPhoneInputValue = this.inputCountry.dial_code;
-        else this.oldPhoneInputValue = cleanedInput;
 
         // Add spaces every three characters
         const formattedInput = this.addSpacesEveryThreeCharacters(cleanedInput);
