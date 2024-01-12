@@ -105,9 +105,8 @@ export class EditUserComponent implements OnInit {
                 [Validators.required, Validators.minLength(2)],
             ],
             lastName: [
-                "Removed"
-                // this.user.lastName,
-                // [Validators.required, Validators.minLength(2)],
+                this.user.lastName,
+                [Validators.required, Validators.minLength(2)],
             ],
             email: [this.user.email, [Validators.required, Validators.email]],
             type: [this.user.type, Validators.required],
