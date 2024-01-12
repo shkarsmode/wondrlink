@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, forwardRef } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -19,12 +19,17 @@ export class EditUserCardSelectComponent implements ControlValueAccessor, OnInit
     @Input() public iterableListToConvert: Array<string> | Object | any;
 
     public value: string = '';
-    public iterableList: string[];
     public onChange: any = () => {};
     public onTouched: any = () => {};
 
-    public ngOnInit(): void {
-        this.iterableList = Object.values(this.iterableListToConvert);
+    public ngOnInit(): void {}
+
+    public get optionList(): string[] {
+        return this.convertIterableList(this.iterableListToConvert);
+    }
+
+    private convertIterableList(iterableList: string[]): string[] {
+        return Object.values(iterableList);
     }
 
     public writeValue(value: any): void {

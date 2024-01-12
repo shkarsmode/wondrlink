@@ -118,7 +118,7 @@ export class FlowFormComponent {
                 this.contactForm = this.fb.group({
                     companyName: [''],
                     firstName: [''],
-                    // lastName: [''],
+                    // lastName: [''], Removed
                     function: ['', Validators.required],
                     position: ['', Validators.required],
                     phone: [''],
@@ -183,7 +183,7 @@ export class FlowFormComponent {
 
         let password = this.password;
         let phone = this.joinPhoneParts();
-        let lastName = "Removed"
+        let lastName = "Removed" // Removed
 
         let body = Object.assign(
             this.contactForm.value,
@@ -192,8 +192,6 @@ export class FlowFormComponent {
               phone: phone,
               lastName: lastName }
         );
-
-        delete body.function;
         
         this.authService.registration(body).subscribe({
             next: (res) => {
@@ -318,9 +316,6 @@ export class FlowFormComponent {
         return matchingCode || '';
     }
 
-    private setOldPhoneInputIsCodeMatched(inputValue: string): void {
-        this.oldPhoneInputValue = inputValue;
-    } 
 
     private addSpacesEveryThreeCharacters(inputValue: string): string {
         if (inputValue.length < 4) return inputValue;

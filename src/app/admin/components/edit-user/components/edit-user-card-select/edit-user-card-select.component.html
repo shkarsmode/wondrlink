@@ -8,9 +8,9 @@
                 type="text"
                 (valueChange)="onSelectChange($event)">
                 <mat-option 
-                    *ngFor="let field of iterableList"
-                    [value]="field">
-                    {{ field }}
+                    *ngFor="let item of optionList"
+                    [value]="item">
+                    {{ item }}
                 </mat-option>
             </mat-select>
         </mat-form-field>

@@ -165,11 +165,7 @@
                     formControlName="position">
                 </app-edit-user-card>
             }
-                
-            
         </div>
-
-
 
         <ng-container *ngIf="type.value === userTypeEnum.Patient">
             <div class="d-flex">
@@ -187,6 +183,7 @@
                     [iterableListToConvert]="diseaseCatogories">
                 </app-edit-user-card-select>
             </div>
+
             <div class="d-flex">
                 <app-edit-user-card-select
                     title="Cancer Type"

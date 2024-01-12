@@ -232,6 +232,7 @@ export class EditUserComponent implements OnInit {
             companyType: this.subgroup.value,
             diseaseDetails: this.diseaseDetails.value,
             position: this.position.value,
+            function: this.function.value,
         } as IUser;
 
         console.log(body);
@@ -311,7 +312,7 @@ export class EditUserComponent implements OnInit {
         this.deleteUserByID(id);
     }
 
-    public get functionEnum(): string[] {
+    public get functionEnum(): Array<string> {        
         if(!this.isUserInited) return []; 
         return this.flowDataService.getSubgroupFunctionByTitle(this.subgroup.value);
     }
