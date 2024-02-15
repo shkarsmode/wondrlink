@@ -1,4 +1,5 @@
 {
+    "id": "/?source=pwa",
     "name": "WondrLink",
     "short_name": "WondrLink - fighting together",
     "theme_color": "#FFFFFF",
@@ -6,6 +7,17 @@
     "display": "standalone",
     "scope": "./",
     "start_url": "./",
+    "shortcuts": [
+      {
+        "name": "WondrLink - fighting together",
+        "short_name": "WondrLink",
+        "description": "Enabling access to the therapies of the future",
+        "url": "./",
+        "icons": [
+          { "src": "assets/logo/logo-192.png", "sizes": "192x192" }
+        ]
+      }
+    ],
     "screenshots": [
       {
         "src": "assets/img/desktop-1200x720.png",
