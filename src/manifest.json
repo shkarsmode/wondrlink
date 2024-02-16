@@ -16,6 +16,15 @@
         "icons": [
           { "src": "assets/logo/logo-192.png", "sizes": "192x192" }
         ]
+      },
+      {
+        "name": "WondrLink - fighting together",
+        "short_name": "WondrLink",
+        "description": "Enabling access to the therapies of the future",
+        "url": "./",
+        "icons": [
+          { "src": "assets/logo/logo-48.png", "sizes": "48x48" }
+        ]
       }
     ],
     "screenshots": [
