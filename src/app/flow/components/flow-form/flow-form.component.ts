@@ -107,7 +107,7 @@ export class FlowFormComponent {
             case 'patients': {
                 this.contactForm = this.fb.group({
                     firstName: [''],
-                    // lastName: [''],
+                    lastName: [''],
                     phone: [''],
                     email: ['', Validators.email],
                     location: ['', Validators.required],
@@ -118,7 +118,7 @@ export class FlowFormComponent {
                 this.contactForm = this.fb.group({
                     companyName: [''],
                     firstName: [''],
-                    // lastName: [''], Removed
+                    lastName: [''],
                     function: ['', Validators.required],
                     position: ['', Validators.required],
                     phone: [''],
@@ -160,13 +160,13 @@ export class FlowFormComponent {
         let currentIsMySelft = this.isMySelf;
         let password = this.password;
         let phone = this.joinPhoneParts();
-        let lastName = "Removed";
+        // let lastName = "Removed";
 
         let flowData = Object.assign(this.contactForm.value, {
             isMySelf: currentIsMySelft,
             password: password,
             phone: phone,
-            lastName: lastName
+            // lastName: lastName
         });
 
         console.log(flowData);
@@ -183,14 +183,15 @@ export class FlowFormComponent {
 
         let password = this.password;
         let phone = this.joinPhoneParts();
-        let lastName = "Removed" // Removed
+        // let lastName = "Removed" // Removed
 
         let body = Object.assign(
             this.contactForm.value,
             ...this.flowData,
             { password: password,
               phone: phone,
-              lastName: lastName }
+            //   lastName: lastName 
+            }
         );
         
         this.authService.registration(body).subscribe({
