@@ -150,6 +150,11 @@ h1 {
 }
 
 @media (max-width: 400px) {
+	.content {
+		text-align: center;
+	}
+
+
 	h1 {
 		font-size: 28px;
 		text-align: center;
@@ -161,7 +166,6 @@ h1 {
 	}
 
 	button {
-		width: 100% !important;
 		margin-top: 20px;
 		height: 50px;
 	}
