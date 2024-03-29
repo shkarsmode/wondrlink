@@ -13,12 +13,12 @@ const routes: Routes = [
     { path: '', component: CoreComponent, children: [
         { path: 'terms', component: TermsLayoutComponent },
         { path: 'policy', component: PolicyLayoutComponent },
-        { path: 'home', component: HomeLayoutComponent },
-        { 
-            path: '', 
-            pathMatch: 'full', 
-            redirectTo: 'home' // Redirect to '/home' when the root path is matched
-          },
+        { path: '', component: HomeLayoutComponent },
+        // { 
+        //     path: '', 
+        //     pathMatch: 'full', 
+        //     redirectTo: 'home' // Redirect to '/home' when the root path is matched
+        //   },
     ]}
 ];
 
