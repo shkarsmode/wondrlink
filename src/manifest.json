@@ -1,7 +1,7 @@
 {
     "id": "/?source=pwa",
-    "name": "WondrLink",
-    "short_name": "WondrLink - fighting together",
+    "name": "Cancer Connector",
+    "short_name": "Cancer Connector - fighting together",
     "theme_color": "#FFFFFF",
     "background_color": "#FFFFFF",
     "display": "standalone",
@@ -9,8 +9,8 @@
     "start_url": "./",
     "shortcuts": [
       {
-        "name": "WondrLink - fighting together",
-        "short_name": "WondrLink",
+        "name": "Cancer Connector - fighting together",
+        "short_name": "Cancer Connector",
         "description": "Enabling access to the therapies of the future",
         "url": "./",
         "icons": [
@@ -18,8 +18,8 @@
         ]
       },
       {
-        "name": "WondrLink - fighting together",
-        "short_name": "WondrLink",
+        "name": "Cancer Connector - fighting together",
+        "short_name": "Cancer Connector",
         "description": "Enabling access to the therapies of the future",
         "url": "./",
         "icons": [
