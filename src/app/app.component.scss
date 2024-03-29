@@ -72,3 +72,18 @@ span[hidden] {
 ::ng-deep body:has(.preloader.show) {
 	overflow: hidden;
 }
+
+
+@media (max-width: 500px) {
+	.preloader {
+
+		h1 {
+			font-size: min(7em, 7vw);
+		}
+	
+		h2 {
+			font-size: min(12px, 3vw);
+		}
+	}
+	
+}

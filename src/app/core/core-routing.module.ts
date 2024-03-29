@@ -6,13 +6,17 @@ import { ArticleLayoutComponent } from './layouts/article-layout/article-layout.
 import { BlogLayoutComponent } from './layouts/blog-layout/blog-layout.component';
 import { PostComponent } from './layouts/home-layout/components/post/post.component';
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
+import { TermsLayoutComponent } from './layouts/terms-layout/terms-layout.component';
+import { PolicyLayoutComponent } from './layouts/policy-layout/policy-layout.component';
 
 const routes: Routes = [
     { path: '', component: CoreComponent, children: [
-        { path: 'articles/:articleId', component: ArticleLayoutComponent },
-        { path: 'blog', component: BlogLayoutComponent },
-        { path: 'blog/:id', component: PostComponent },
-        { path: 'approve', component: ApprovePageComponent },
+        { path: 'terms', component: TermsLayoutComponent },
+        { path: 'policy', component: PolicyLayoutComponent },
+        // { path: 'articles/:articleId', component: ArticleLayoutComponent },
+        // { path: 'blog', component: BlogLayoutComponent },
+        // { path: 'blog/:id', component: PostComponent },
+        // { path: 'approve', component: ApprovePageComponent },
         { path: '', component: HomeLayoutComponent }
     ]}
 ];

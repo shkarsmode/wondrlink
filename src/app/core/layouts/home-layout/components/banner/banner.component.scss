@@ -137,9 +137,10 @@ h1 {
 	}
 
 	h1 {
+		max-width: 400px;
 		font-size: 32px;
 		line-height: 36px;
-		margin-bottom: 25px;
+		margin-bottom: 0px;
 	}
 
 	.btn-green {
@@ -148,6 +149,7 @@ h1 {
 		font-size: 18px;
 	}
 }
+
 
 @media (max-width: 400px) {
 	.content {

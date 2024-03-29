@@ -229,9 +229,9 @@ button {
 	}
 }
 
-li:last-child {
-    opacity: 0;
-}
+// li:last-child {
+//     opacity: 0;
+// }
 
 /* Media Queries
 ====================*/
@@ -281,6 +281,7 @@ li:last-child {
 
 }
 
+
 @media (max-width: 500px) {
 	.logo img {
 		height: 45px;
@@ -314,7 +315,14 @@ li:last-child {
 }
 
 @media (max-width: 400px) {
-	// .logo img {
-	// 	height: 35px;
-	// }
+	.logo img {
+		height: 35px;
+	}
+}
+
+
+@media (max-width: 320px) {
+	.logo img {
+		height: 30px;
+	}
 }

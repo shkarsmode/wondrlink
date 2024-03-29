@@ -1,0 +1,76 @@
+
+:host {
+    width: 100%;
+    li {
+        list-style: disc;
+    }
+}
+
+.wrap {
+    max-width: 800px;
+    margin: 180px auto;
+}
+
+
+* {
+	color: #000;
+	font-weight: normal;
+	font-size: 18px;
+}
+
+h1 {
+    font-size: clamp(2rem, 5vw, 2.5em);
+	line-height: 1.5;
+	text-align: center;
+	font-weight: bold;
+	margin-bottom: 40px;
+	
+}
+
+h2 {
+	font-size: 24px;
+  line-height: 1.56;
+  font-weight: 700;
+	margin-top: 36px;
+  margin-bottom: 4px;
+	// font-weight: normal;
+    padding: 0 20px;
+    font-size: clamp(18px, 2vw, 24px);
+}
+
+p {
+	line-height: 1.6;
+    padding: 0 20px;
+    font-size:clamp(16px, 1vw, 18px);
+    
+}
+
+section {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	padding: 0 25px;
+	padding-top: 40px;
+}
+
+.content {
+	width: 1220px;
+}
+
+a {
+	color: #0055f2;
+	text-decoration: underline;
+    overflow-wrap: anywhere;
+}
+
+strong, h4 {
+	font-weight: bold;
+}
+
+ul {
+    padding-left: 60px;
+}
+
+li {
+    padding:  0 20px 10px 20px
+}

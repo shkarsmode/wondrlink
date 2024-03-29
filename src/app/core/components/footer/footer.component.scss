@@ -29,6 +29,8 @@ footer {
 ul {
 	display: flex;
 	column-gap: 40px;
+	flex-wrap: wrap;
+    justify-content: center;
 
 	li {
 		color: white;
@@ -98,13 +100,6 @@ ul {
 
 	ul li {
 		font-size: 16px;
-
-		&:last-child {
-			position: absolute;
-			bottom: -20px;
-			font-size: 12px;
-			left: calc(50% - 54.5px);
-		}
 	}
 }
 
@@ -113,3 +108,4 @@ ul {
 		height: 45px;
 	}
 }
+
