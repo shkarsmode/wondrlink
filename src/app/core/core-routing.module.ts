@@ -13,11 +13,12 @@ const routes: Routes = [
     { path: '', component: CoreComponent, children: [
         { path: 'terms', component: TermsLayoutComponent },
         { path: 'policy', component: PolicyLayoutComponent },
-        // { path: 'articles/:articleId', component: ArticleLayoutComponent },
-        // { path: 'blog', component: BlogLayoutComponent },
-        // { path: 'blog/:id', component: PostComponent },
-        // { path: 'approve', component: ApprovePageComponent },
-        { path: '', component: HomeLayoutComponent }
+        { path: 'home', component: HomeLayoutComponent },
+        { 
+            path: '', 
+            pathMatch: 'full', 
+            redirectTo: 'home' // Redirect to '/home' when the root path is matched
+          },
     ]}
 ];
 
@@ -26,3 +27,7 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 export class CoreRoutingModule { }
+        // { path: 'articles/:articleId', component: ArticleLayoutComponent },
+        // { path: 'blog', component: BlogLayoutComponent },
+        // { path: 'blog/:id', component: PostComponent },
+        // { path: 'approve', component: ApprovePageComponent },
