@@ -13,7 +13,7 @@
 			<li routerLink="/blog">Blog</li>
             <li (click)="scrollToElement('about')">About us</li>
 			<li (click)="scrollToElement('contact')">Contact us</li>
-			<li>
+			<!-- <li>
 				<ng-template [ngIf]="!isAdmin">
 					<ng-template [ngIf]="isAuthenticated$ | async">
 						<button
@@ -46,7 +46,7 @@
 				</ng-template>
 
 
-			</li>
+			</li> -->
 		</ul>
 	</header>
 </div>
@@ -79,7 +79,7 @@
 			<li routerLink="/blog" style="--i:.16s;">Blog</li>
             <li (click)="scrollToElement('about')" style="--i:.18s;">About us</li>
 			<li (click)="scrollToElement('contact')" style="--i:.2s;">Contact us</li>
-			<li style="--i:.3s;">
+			<!-- <li style="--i:.3s;">
 				<ng-template [ngIf]="!isAdmin">
 					<ng-template [ngIf]="isAuthenticated$ | async">
 						<button
@@ -110,7 +110,7 @@
 						Login
 					</button>
 				</ng-template>
-			</li>
+			</li> -->
 		</ul>
 	</div>
 </div>
