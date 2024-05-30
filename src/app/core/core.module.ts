@@ -34,6 +34,7 @@ import { QuotesComponent } from './layouts/home-layout/components/quotes/quotes.
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { FlowModule } from '../flow/flow.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PrivacyPageComponent } from './layouts/privacy-page/privacy-page.component';
 
 @NgModule({
     declarations: [
@@ -61,7 +62,8 @@ import { MatDialogModule } from '@angular/material/dialog';
         ArticleLayoutComponent,
         PreviewArticleComponent,
         BlogComingSoonComponent,
-        BlogNavigationComponent
+        BlogNavigationComponent,
+        PrivacyPageComponent,
     ],
     imports: [
         ShareModule,
