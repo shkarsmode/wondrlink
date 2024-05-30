@@ -1,6 +1,6 @@
 :host {
     display: block;
-    padding: 100px 20px;
+    padding: 140px 20px 100px 20px;
     max-width: 1284px;
     margin: 0 auto;
     color: rgba(21, 32, 50, 1);
@@ -8,10 +8,13 @@
 
 h1 {
     font-family: Sofia Pro;
-    font-weight: 400;
-    line-height: 32px;
+    font-weight: 600;
     text-align: left;
-    margin: 20px 0;
+}
+
+h2 {
+    font-family: Sofia Pro;
+    text-align: left;
     font-weight: 600;
 }
 
@@ -20,7 +23,7 @@ p {
     font-weight: 400;
     line-height: 28px;
     text-align: left;
-    opacity: .9;
+    color: rgba(21, 32, 50, .9);
 }
 
 a {
@@ -42,10 +45,10 @@ ul {
         margin-left: 33px !important;
         text-align: left;
         margin: 12px;
-        opacity: .9;
+        color: rgba(21, 32, 50, .9);
     }
 }
 
 b {
-    opacity: 1 !important;
+    color: rgba(21, 32, 50, 1) !important;
 }

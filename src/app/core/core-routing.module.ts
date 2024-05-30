@@ -7,6 +7,7 @@ import { BlogLayoutComponent } from './layouts/blog-layout/blog-layout.component
 import { PostComponent } from './layouts/home-layout/components/post/post.component';
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { PrivacyPageComponent } from './layouts/privacy-page/privacy-page.component';
+import { TermsPageComponent } from './layouts/terms-page/terms-page.component';
 
 const routes: Routes = [
     { path: '', component: CoreComponent, children: [
@@ -15,7 +16,8 @@ const routes: Routes = [
         { path: 'blog/:id', component: PostComponent },
         { path: 'approve', component: ApprovePageComponent },
         { path: '', component: HomeLayoutComponent },
-        { path: 'privacy', component: PrivacyPageComponent }
+        { path: 'privacy', component: PrivacyPageComponent },
+        { path: 'terms', component: TermsPageComponent }
     ]}
 ];
 
