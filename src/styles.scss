@@ -1,5 +1,7 @@
 // * Import Poppins
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sen:wght@400..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 // * Import reset styles
 @import './stylesheets/reset';
@@ -32,7 +34,16 @@
 }
 
 .mat-typography * {
-    font-family: 'Poppins', sans-serif !important;
+    font-family: "Sen", sans-serif;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: "Raleway", sans-serif !important;
+    }
 }
 
 .mat-typography {
@@ -43,15 +54,16 @@
     font-family: 'Material Symbols Outlined' !important;
 }
 
+
+
 * {
     font-family: 'Poppins', sans-serif;
-    color: #152032;
+    color: #262626;
 }
 
 body {
     background: #F3F9F7;
     height: 100%;
-
 }
 
 ::-webkit-scrollbar {
@@ -68,23 +80,26 @@ body {
 }
 
 button.btn-green {
-    background: linear-gradient(345deg, #00e7a1, #00a5c9);
+    background: #262626;
     color: white;
 
     border: none;
     outline: none;
+    border-radius: 50px;
 
     width: 72px;
     height: 40px;
     transition: all .3s;
     cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
 
     &:hover {
-        background: linear-gradient(0deg, #00e7a1, #00a5c9);
+        background: #262626f7;
     }
 
     &:active {
-        background: linear-gradient(90deg, #00e7a1, #00a5c9);
+        background: #1f1f1f;
     }
 
 }
@@ -114,7 +129,7 @@ html {
 
 body ::ng-deep app-flow-dialog app-flow-form {
     display: block;
-    min-width: 800px;//630px
+    min-width: 800px; //630px
 }
 
 body ::ng-deep app-flow-dialog app-flow-details {
@@ -123,6 +138,7 @@ body ::ng-deep app-flow-dialog app-flow-details {
 }
 
 @media screen and (max-width: 800px) {
+
     // .mat-mdc-dialog-container .mdc-dialog__surface {
     //     border-radius: 10px !important;
     // }
@@ -154,5 +170,3 @@ body ::ng-deep app-flow-dialog app-flow-details {
 // }
 
 // </adaptation and setting for FLOW dialog
-
-
