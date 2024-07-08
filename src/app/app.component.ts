@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ArticleService } from './shared/services/article-service.service';
+import { CountryCodesService } from './shared/services/country-codes.service';
 import { FlowDataService } from './shared/services/flow-data.service';
 import { ImageProloaderService } from './shared/services/image-proloader.service';
 import { LoadingService } from './shared/services/loading-service.service';
 import { ScrollToService } from './shared/utils/scroll-to.service';
-import { CountryCodesService } from './shared/services/country-codes.service';
 
 @Component({
     selector: 'app-root',
@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
         private countryCodesService: CountryCodesService,
     ) {
         this.loading$ = loadingService.loading$;
+        // setTimeout(() => loadingService.start(), 800);
     }
 
     public ngOnInit(): void {

@@ -5,6 +5,7 @@ import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ErrorInterceptor } from 'src/app/shared/helpers/error.interceptor';
 import { JwtInterceptor } from 'src/app/shared/helpers/jwt.interceptor';
 import { AUTH_PATH_API, BASE_PATH_API, GEO_API_KEY, GEO_PATH_API } from 'src/app/shared/services/variables';
@@ -13,8 +14,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CheckEmailComponent } from './shared/dialogs/check-email/check-email.component';
 import { SignUpComponent } from './shared/dialogs/sign-up/sign-up.component';
-import { MaterialModule } from './shared/materials/material.module';
 import { ThankYouComponent } from './shared/dialogs/thank-you/thank-you.component';
+import { MaterialModule } from './shared/materials/material.module';
 
 
 
@@ -23,7 +24,7 @@ import { ThankYouComponent } from './shared/dialogs/thank-you/thank-you.componen
         AppComponent,
         CheckEmailComponent,
         SignUpComponent,
-        ThankYouComponent
+        ThankYouComponent,
     ],
     imports: [
         BrowserModule,
@@ -32,6 +33,7 @@ import { ThankYouComponent } from './shared/dialogs/thank-you/thank-you.componen
         BrowserAnimationsModule,
         MaterialModule,
         FormsModule,
+        AngularSvgIconModule.forRoot(),
     ],
     providers: [
         JwtHelperService,
