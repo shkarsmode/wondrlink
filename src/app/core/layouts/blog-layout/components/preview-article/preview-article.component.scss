@@ -48,7 +48,7 @@ button {
     line-height: 24.59px;
     text-align: left;
     margin-bottom: 16px;
-    
+
     span {
         color: #7D7D7D;
     }
@@ -68,4 +68,30 @@ button {
     line-height: 24.59px;
     text-align: left;
     margin-bottom: 20px;
+}
+
+@media screen and (max-width: 630px) {
+    .header {
+        font-size: 24px;
+        line-height: 26.25px;
+    }
+
+    .sub-header {
+        font-size: 15px;
+        line-height: 17.59px;
+    }
+
+    .info {
+        font-size: 16px;
+    }
+
+    button {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 470px) {
+    :host {
+        padding: 25px;
+    }
 }
