@@ -53,3 +53,17 @@ button {
     height: 60px;
     margin-top: 85px;
 }
+
+@media screen and (max-width: 1555px) {
+    .container {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    :host {
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
+}

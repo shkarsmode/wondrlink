@@ -67,3 +67,24 @@ p {
         height: 18px;
     }
 }
+
+@media screen and (max-width: 1200px) {
+    .content {
+        flex-wrap: wrap;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    h2, p {
+        text-align: center;
+        width: 100%;
+    }
+
+    .content {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px
+    }
+}

@@ -24,16 +24,14 @@ p {
 
 @media (max-width: 1450px) {
     .introduction-wrap {
-        margin: 180px 0 0 0;
+        margin: 0;
+        padding-left: 15px;
+        padding-right: 15px;
     }
 
 }
 
 @media (max-width: 1230px) {
-    .introduction-wrap {
-        margin: 120px 0 0 0;
-    }
-
     p {
         font-size: 2em;
     }
