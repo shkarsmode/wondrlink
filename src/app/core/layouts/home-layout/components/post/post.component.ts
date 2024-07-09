@@ -1,6 +1,6 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
@@ -21,16 +21,18 @@ const shareLinks = {
 @Component({
     selector: 'app-post',
     templateUrl: './post.component.html',
-    styleUrls: ['./post.component.scss']
+    styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnInit {
-
     public post: IPost;
     public isCopied: boolean = false;
     public twitterShareLink: string;
     public facebookShareLink: string;
     public linkedinShareLink: string;
-    private readonly copyLink: string = 'https://wondrlink-back.vercel.app/api/posts/shared/';
+    private readonly copyLink: string =
+        'https://wondrlink-back.vercel.app/api/posts/shared/';
+
+    @ViewChild('wrap', { static: true }) wrap: ElementRef<HTMLDivElement>;
 
     constructor(
         private route: ActivatedRoute,
@@ -38,28 +40,32 @@ export class PostComponent implements OnInit {
         private postsService: PostsService,
         private location: Location,
         private clipboard: Clipboard,
-        private meta: Meta, private title: Title
+        private meta: Meta,
+        private title: Title
     ) {}
 
     public ngOnInit(): void {
         this.listenPostIdFromRoute();
     }
 
+    private setBackgroundImage(): void {
+        this.wrap.nativeElement.style.backgroundImage = `url('${this.post.mainPicture}')`;
+    }
 
     public async copyCurrentPost() {
         this.isCopied = true;
         this.clipboard.copy(this.copyLink + this.post.id);
-        
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        
+
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
         this.isCopied = false;
     }
 
     private listenPostIdFromRoute(): void {
-        this.route.params.subscribe(params => {
+        this.route.params.subscribe((params) => {
             const id = +params['id'];
             this.initShareLinksForSocials(id);
-            this.getPostDetailsByid(id);
+            this.getPostDetailsById(id);
         });
     }
 
@@ -68,20 +74,25 @@ export class PostComponent implements OnInit {
         for (const platform in sharePlatforms) {
             if (Object.prototype.hasOwnProperty.call(shareLinks, platform)) {
                 const propertyKey = `${platform}ShareLink`;
-                this[propertyKey as keyof ShareLinks] = 
-                    `${sharePlatforms[platform]}${this.copyLink}${id}`;
+                this[
+                    propertyKey as keyof ShareLinks
+                ] = `${sharePlatforms[platform]}${this.copyLink}${id}`;
 
                 console.log(this[propertyKey as keyof ShareLinks]);
             }
         }
     }
 
-    private getPostDetailsByid(id: number): void {
-        this.postsService.getPostById(id)
+    private getPostDetailsById(id: number): void {
+        this.postsService
+            .getPostById(id)
             .pipe(take(1))
             .subscribe({
-                next: post => this.post = post,
-                error: _ => this.router.navigate(['/'])
+                next: (post) => {
+                    this.post = post;
+                    this.setBackgroundImage();
+                },
+                error: (_) => this.router.navigate(['/']),
             });
     }
 
