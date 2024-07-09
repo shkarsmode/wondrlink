@@ -179,6 +179,7 @@ h2 {
     width: 100%;
     display: flex;
     justify-content: center;
+    margin-bottom: 150px;
 }
 
 .wrap-end {
@@ -198,23 +199,24 @@ h2 {
     .right {
         display: flex;
         align-items: center;
+        column-gap: 40px;
 
         .block {
             display: flex;
             align-items: center;
 
-            color: #0008168c;
+            color: #262626;
             font-size: 22px;
             font-weight: 500;
             cursor: pointer;
 
             span {
-                color: #01C1B9;
+                color: #262626;
                 margin-right: 10px;
                 font-size: 27px;
             }
 
-            margin-right: 40px;
+            margin-right: 20px;
         }
 
         img {

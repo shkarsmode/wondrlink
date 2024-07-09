@@ -104,10 +104,10 @@
         
         
                         </div>
-                        <img src="assets/socials/inst.png" alt="inst">
-                        <img src="assets/socials/twitter.png" alt="twitter">
-                        <img src="assets/socials/fb.png" alt="fb">
-                        <img src="assets/socials/linkedin.png" alt="linkedin">
+                        <svg-icon src="assets/img/inst.svg"/>
+                        <svg-icon src="assets/img/twitter.svg" />
+                        <svg-icon src="assets/img/fb.svg" />
+                        <svg-icon src="assets/img/linkedin.svg" />
                     </div>
                 </div>
             </div>
@@ -125,8 +125,13 @@
                 Share this post
             </div>
             <div class="right">
-                <div class="block" [title]="post.header" [description]="post.header" tags="WondrLink" shareButton="copy"
-                    (click)="copyCurrentPost()">
+                <div
+                    class="block"
+                    [description]="post.header"
+                    [title]="post.header"
+                    (click)="copyCurrentPost()"
+                    shareButton="copy"
+                    tags="WondrLink">
                     <ng-template [ngIf]="!isCopied">
                         <span class="material-symbols-outlined" *ngIf="!isCopied">
                             file_copy
@@ -144,23 +149,18 @@
     
     
                 </div>
-                <!-- <button shareButton2="facebook">Share</button>
-            					<button shareButton2="twitter">Tweet</button>
-            					<button shareButton2="pinterest">Pin</button> -->
-                <!-- <img 
-            						[title]="post.header"
-            						shareButton="email"
-            						src="assets/socials/inst.png" 
-            						alt="inst">
-            					-->
+                <!-- <svg-icon src="assets/img/inst.svg" /> -->
+                
+                
+                
                 <a [href]="twitterShareLink" target="_blank">
-                    <img src="assets/socials/twitter.png" alt="twitter">
+                    <svg-icon src="assets/img/twitter.svg" />
                 </a>
                 <a [href]="facebookShareLink" target="_blank">
-                    <img src="assets/socials/fb.png" alt="fb">
+                    <svg-icon src="assets/img/fb.svg" />
                 </a>
                 <a [href]="linkedinShareLink + '&summary=' + post.header" target="_blank">
-                    <img src="assets/socials/linkedin.png" alt="linkedin">
+                    <svg-icon src="assets/img/linkedin.svg" />
                 </a>
             </div>
         </div>
