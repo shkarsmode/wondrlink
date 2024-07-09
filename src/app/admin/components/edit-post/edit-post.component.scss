@@ -94,7 +94,7 @@ input {
 #preview {
 	text-align: center;
 
-	img {
+	::ng-deep img {
 		max-width: 100%
 	}
 }
