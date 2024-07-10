@@ -51,6 +51,80 @@
         text-transform: uppercase;
         letter-spacing: 2px;
     }
+
+    ::ng-deep .cls-2 {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        // animation: anim-atom 4s ease infinite;
+
+        &:nth-child(2),
+        &:nth-child(4),
+        &:nth-child(7) {
+            // stroke: green;
+            animation: anim-atom-small 2s 0.85s linear forwards;
+        }
+
+        &:nth-child(3),
+        &:nth-child(5),
+        &:nth-child(6) {
+            // stroke: red;
+            animation: anim-atom 2s 0.2s linear forwards;
+        }
+    }
+}
+
+@keyframes anim-atom-small {
+    0% {
+        stroke-dashoffset: 1000;
+    }
+
+    45% {
+        stroke-dashoffset: 960;
+    }
+
+    50% {
+        stroke-dashoffset: 960;
+    }
+
+    // delete if we need infinite
+    to {
+        stroke-dashoffset: 960;
+    }
+
+    // 55% {
+    //     stroke-dashoffset: 1000;
+    // }
+
+    // 100% {
+    //     stroke-dashoffset: 1000;
+    // }
+}
+
+@keyframes anim-atom {
+    0% {
+        stroke-dashoffset: 1000;
+    }
+
+    40% {
+        stroke-dashoffset: 960;
+    }
+
+    60% {
+        stroke-dashoffset: 960;
+    }
+
+    85% {
+        stroke-dashoffset: 960;
+    }
+
+    // delete if we need infinite
+    to {
+        stroke-dashoffset: 960;
+    }
+
+    // 100% {
+    //     stroke-dashoffset: 1000;
+    // }
 }
 
 @keyframes rotating {

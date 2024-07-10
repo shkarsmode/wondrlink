@@ -21,12 +21,12 @@
                     <div class="owner" *ngIf="post.user">
                         <img
                             *ngIf="post.user?.avatar"
-                            [alt]="post.user?.firstName"
-                            [src]="post.user?.avatar" />
+                            [alt]="post.user.firstName"
+                            [src]="post.user.avatar" />
                         <div class="owner-info">
                             <div class="name">
-                                {{ post.user?.firstName }}
-                                {{ post.user?.lastName }}
+                                {{ post.user.firstName }}
+                                {{ post.user.lastName }}
                             </div>
                             <div class="sign">
                                 Associate writer for Well at The Times

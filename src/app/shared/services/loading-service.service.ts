@@ -14,7 +14,7 @@ export class LoadingService {
     }
 
     public async end(): Promise<void> {
-        await new Promise(resolve => setTimeout(resolve, 600));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         this.loadingSubject.next(false);
     }
 }
