@@ -14,13 +14,13 @@ const routes: Routes = [
         path: '',
         component: CoreComponent,
         children: [
-            { path: 'articles/:articleId', component: ArticleLayoutComponent },
             { path: 'insights', component: BlogLayoutComponent },
             { path: 'insights/:id', component: PostComponent },
             { path: 'approve', component: ApprovePageComponent },
             { path: '', component: HomeLayoutComponent },
             { path: 'privacy', component: PrivacyPageComponent },
             { path: 'terms', component: TermsPageComponent },
+            { path: ':articleId', component: ArticleLayoutComponent },
         ],
     },
 ];

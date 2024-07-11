@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IInfo } from '../interfaces/IInfo';
 import { BehaviorSubject } from 'rxjs';
+import { IInfo } from '../interfaces/IInfo';
 
 export type TArticleFormState = 'active' | 'hidden';
 @Injectable({
@@ -35,8 +35,8 @@ export class ArticleService {
     }
 
     public getCurrentArticle(id: string): IInfo {
-      return this.info?.filter(info =>
-          info.id === id
-      )[0];
+        return this.info?.filter(info =>
+            info.id === id
+        )[0];
     }
 }

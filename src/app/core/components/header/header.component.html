@@ -7,10 +7,10 @@
 			<img src="assets/img/logo-black.svg" alt="wondrlink">
 		</div>
 		<ul>
-			<li routerLink="articles/patients">Patients</li>
-			<li routerLink="articles/drug-developers">Drug Developers</li>
-			<li routerLink="articles/ecosystem">Ecosystem</li>
-			<li routerLink="/insights">Insights</li>
+			<li routerLink="patients">Patients</li>
+			<li routerLink="drug-developers">Drug Developers</li>
+			<li routerLink="ecosystem">Ecosystem</li>
+			<li routerLink="insights">Insights</li>
             <li (click)="scrollToElement('about')">About us</li>
 			<li (click)="scrollToElement('contact')">Contact us</li>
 			<!-- <li>
@@ -73,9 +73,9 @@
 	</header>
 	<div class="wrap-navigation" [ngClass]="{'show': isOpenBurger}">
 		<ul (click)="isOpenBurger = false">
-			<li routerLink="articles/patients" style="--i:0s;">Patients</li>
-			<li routerLink="articles/drug-developers" style="--i:.12s;">Drug Developers</li>
-			<li routerLink="articles/ecosystem" style="--i:.14s;">Ecosystem</li>
+			<li routerLink="patients" style="--i:0s;">Patients</li>
+			<li routerLink="drug-developers" style="--i:.12s;">Drug Developers</li>
+			<li routerLink="ecosystem" style="--i:.14s;">Ecosystem</li>
 			<li routerLink="/insights" style="--i:.16s;">Insights</li>
             <li (click)="scrollToElement('about')" style="--i:.18s;">About us</li>
 			<li (click)="scrollToElement('contact')" style="--i:.2s;">Contact us</li>
