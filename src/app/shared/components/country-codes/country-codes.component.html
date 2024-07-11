@@ -14,7 +14,9 @@
                 <div class="country-code__item" 
                     [ngClass]="{'country-code__item_active': country.code === currentCountry.code}"
                     [attr.data-select]="i">
-                    <img [src]="'https://flagsapi.com/'+country.code+'/flat/24.png'" alt="flag">
+                    <img
+                        [alt]="country.code"
+                        [src]="'https://flagsapi.com/'+country.code+'/flat/24.png'">
                     <span class="code">{{ country.dial_code }}</span>
                     <span class="country-name"> {{ country.name }}</span>
                 </div>

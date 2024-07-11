@@ -1,47 +1,51 @@
 <!-- navigation -->
-<img src="assets/img/arrowback.svg" alt="back" class="back" (click)="onStepBack()"
-  *ngIf="step === 1 ? false : isFlowStartsFromInit && step === 2 ? false : true">
+<img
+    *ngIf="step === 1 ? false : isFlowStartsFromInit && step === 2 ? false : true"
+    class="back"
+    (click)="onStepBack()"
+    src="assets/img/arrowback.svg"
+    alt="Back">
 
 <!-- flow control -->
 <div [ngSwitch]="step">
 
-  <div *ngSwitchCase="1">
-    <app-flow-init
-      (flow)="onFlowChange($event)"
-      (next)="onNextStep($event)">
-    </app-flow-init>
-  </div>
-
-  <div *ngSwitchCase="2">
-
-    <app-flow-form
-        [formType]="flow"
-        *ngIf="flow === 'patients'; else anotherFlow"
-        (next)="onNextStep($event)">
-    </app-flow-form>
-
-    <ng-template #anotherFlow>
-        <app-flow-select
-            [flowType]="flow"
+    <div *ngSwitchCase="1">
+            <app-flow-init
+            (flow)="onFlowChange($event)"
             (next)="onNextStep($event)">
+            </app-flow-init>
+    </div>
+
+    <div *ngSwitchCase="2">
+
+        <app-flow-form
+            [formType]="flow"
+            *ngIf="flow === 'patients'; else anotherFlow"
+            (next)="onNextStep($event)">
+        </app-flow-form>
+
+        <ng-template #anotherFlow>
+            <app-flow-select
+                [flowType]="flow"
+                (next)="onNextStep($event)">
+            </app-flow-select>
+        </ng-template>
+
+    </div>
+
+    <div *ngSwitchCase="3">
+        <app-flow-select [flowType]="flow"
+            (next)="onNextStep($event)"
+            *ngIf="flow === 'patients'; else anotherFlow">
         </app-flow-select>
-    </ng-template>
+        <ng-template #anotherFlow>
+            <app-flow-form [formType]="flow" [flowData]="flowData"></app-flow-form>
+        </ng-template>
+    </div>
 
-  </div>
-
-  <div *ngSwitchCase="3">
-    <app-flow-select [flowType]="flow"
-        (next)="onNextStep($event)"
-        *ngIf="flow === 'patients'; else anotherFlow">
-    </app-flow-select>
-    <ng-template #anotherFlow>
-        <app-flow-form [formType]="flow" [flowData]="flowData"></app-flow-form>
-    </ng-template>
-  </div>
-
-  <div *ngSwitchCase="4">
-    <app-flow-details [flowData]="flowData"></app-flow-details>
-  </div>
+    <div *ngSwitchCase="4">
+        <app-flow-details [flowData]="flowData"></app-flow-details>
+    </div>
 
 
 </div>

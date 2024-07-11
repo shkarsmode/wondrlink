@@ -80,7 +80,10 @@
 					</button>
 				</div>
 				<div id="preview" #preview>
-					<img *ngIf="user.avatar" [src]="user.avatar" [alt]="user.lastName">
+					<img
+                        *ngIf="user.avatar"
+                        [alt]="user.lastName"
+                        [src]="user.avatar">
 				</div>
 				<div class="error-message" *ngIf="!preview.innerHTML.includes('img')">
 					Avatar wasn't uploaded

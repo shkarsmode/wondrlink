@@ -3,10 +3,12 @@
         <h1>{{ currentFlowData.title }}</h1>
         <span>{{ currentFlowData.subtitle }}</span>
         <ol class="wrap-options">
-            <li *ngFor="let subgroup of currentFlowData.subgroup; let i=index" (click)="toggleCheck(i, subgroup.title)"
-                [ngClass]="{'active': selectOptions[i]}">
+            <li
+                *ngFor="let subgroup of currentFlowData.subgroup; let i=index"
+                [ngClass]="{'active': selectOptions[i]}"
+                (click)="toggleCheck(i, subgroup.title)">
                 <div class="left">
-                    <img [src]="'assets/svg/'+subgroup.icon">
+                    <img [src]="'assets/svg/'+subgroup.icon" alt="Icon">
                 </div>
                 <div class="right">
                     <h4>{{ subgroup.title }}</h4>
