@@ -6,23 +6,23 @@ import { Injectable } from '@angular/core';
 export class ImageProloaderService {
     private readonly path: string = 'assets/img/';
     private readonly images: string[] = [
-        'bg.png',
-        'blog-banner.png',
-        'drug-developers.png',
-        'patients.png',
-        'ecosystem.png',
-        'providers.png',
-        'Vector.png',
-        'about-us.png',
-        'care.png',
-        'commitment.png',
-        'heart.png',
-        'telescope.png',
-        'ecosystem-icon.png',
+        'bg.webp',
+        'blog-banner.webp',
+        'drug-developers.webp',
+        'patients.webp',
+        'ecosystem.webp',
+        'providers.webp',
+        'Vector.webp',
+        'about-us.webp',
+        'care.webp',
+        'commitment.webp',
+        'heart.webp',
+        'telescope.webp',
+        'ecosystem-icon.webp',
         'close.svg',
         'arrowback.svg',
-        'dropdown.png',
-        // 'union.png'
+        'dropdown.webp',
+        // 'union.webp'
     ];
     private readonly materialSymbols: string[] = [
         'location_city',

@@ -1,5 +1,5 @@
 <div class="country-code__select" (click)="toggleDropdown2($event)">
-    <img class="flag" [src]="'https://flagsapi.com/'+ currentCountry.code+'/flat/24.png'" alt="flag">
+    <img class="flag" [src]="'https://flagsapi.com/'+ currentCountry.code+'/flat/24.webp'" alt="flag">
     <span class="code">{{ currentCountry.dial_code }}</span>
     <button type="button">
         <img src="assets/svg/dropdown.svg" alt="dropdown">
@@ -14,7 +14,9 @@
                 <div class="country-code__item" 
                     [ngClass]="{'country-code__item_active': country.code === currentCountry.code}"
                     [attr.data-select]="i">
-                    <img [src]="'https://flagsapi.com/'+country.code+'/flat/24.png'" alt="flag">
+                    <img
+                        [alt]="country.code"
+                        [src]="'https://flagsapi.com/'+country.code+'/flat/24.webp'">
                     <span class="code">{{ country.dial_code }}</span>
                     <span class="country-name"> {{ country.name }}</span>
                 </div>

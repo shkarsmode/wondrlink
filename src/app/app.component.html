@@ -12,6 +12,7 @@
 @for (img of imgs; track img) {
     <img
         [src]="img"
+        alt="Preloading images"
         hidden
         (load)="loadedImg()" />
 }

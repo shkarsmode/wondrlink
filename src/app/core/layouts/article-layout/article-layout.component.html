@@ -1,9 +1,10 @@
-<app-article-banner
- 	[article]="currentInfo"
-    [flow]="currentFlow">
-</app-article-banner>
-<app-article
-	[article]="currentInfo">
-</app-article>
-
-<app-form [flow]="currentFlow"></app-form>
+@if (currentInfo) {
+    <app-article-banner
+        [article]="currentInfo"
+        [flow]="currentFlow" />
+    
+    <app-article
+        [article]="currentInfo" />
+    
+    <app-form [flow]="currentFlow" />
+}

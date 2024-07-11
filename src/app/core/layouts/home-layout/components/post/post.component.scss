@@ -7,7 +7,7 @@
     margin-bottom: 100px;
     transition: all .3s;
 
-    background-image: url('/assets/img/blog-banner.png');
+    background-image: url('/assets/img/blog-banner.webp');
     background-size: 100%;
     background-position: center;
     background-position-y: 90px;
@@ -222,6 +222,10 @@ h2 {
         img {
             margin-right: 40px;
             cursor: pointer;
+        }
+
+        a {
+            font-size: 0px;
         }
 
         a:last-child {

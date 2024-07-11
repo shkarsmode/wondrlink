@@ -3,12 +3,12 @@
     "version": "1.0.0",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve",
+        "start": "npm run sharp && ng serve",
         "start:prod": "ng serve --configuration=production --open",
         "build:prod": "ng build --configuration=production",
-        "build": "ng build",
+        "build": "npm run sharp && ng build",
         "watch": "ng build --watch --configuration development",
-        "test": "ng test"
+        "sharp": "node src/scripts/sharp.js"
     },
     "private": true,
     "dependencies": {
@@ -36,6 +36,7 @@
         "@angular/cli": "~17.0.7",
         "@angular/compiler-cli": "^17.0.7",
         "@types/quill": "^1.3.10",
+        "sharp": "^0.33.3",
         "typescript": "~5.2.2"
     }
 }

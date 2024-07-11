@@ -11,11 +11,6 @@ export enum GlobalRoutes {
 
 const routes: Routes = [
     {
-        path: GlobalRoutes.Home,
-        loadChildren: () =>
-            import('./core/core.module').then((m) => m.CoreModule),
-    },
-    {
         path: GlobalRoutes.Login,
         loadChildren: () =>
             import('./login/login.module').then((m) => m.LoginModule),
@@ -25,6 +20,11 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: () =>
             import('./admin/admin.module').then((m) => m.AdminModule),
+    },
+    {
+        path: GlobalRoutes.Home,
+        loadChildren: () =>
+            import('./core/core.module').then((m) => m.CoreModule),
     },
     { path: GlobalRoutes.Any, redirectTo: GlobalRoutes.Home },
 ];
