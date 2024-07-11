@@ -9,6 +9,7 @@
 		<ul>
 			<li routerLink="patients">Patients</li>
 			<li routerLink="drug-developers">Drug Developers</li>
+			<li routerLink="physicians">Physicians</li>
 			<li routerLink="ecosystem">Ecosystem</li>
 			<li routerLink="insights">Insights</li>
             <li (click)="scrollToElement('about')">About us</li>
@@ -74,11 +75,11 @@
 	<div class="wrap-navigation" [ngClass]="{'show': isOpenBurger}">
 		<ul (click)="isOpenBurger = false">
 			<li routerLink="patients" style="--i:0s;">Patients</li>
-			<li routerLink="drug-developers" style="--i:.12s;">Drug Developers</li>
-			<li routerLink="ecosystem" style="--i:.14s;">Ecosystem</li>
-			<li routerLink="/insights" style="--i:.16s;">Insights</li>
-            <li (click)="scrollToElement('about')" style="--i:.18s;">About us</li>
-			<li (click)="scrollToElement('contact')" style="--i:.2s;">Contact us</li>
+			<li routerLink="drug-developers" style="--i:.12s;">Drug Developers</li><li routerLink="drug-developers" style="--i:.14s;">Physicians</li>
+			<li routerLink="ecosystem" style="--i:.16s;">Ecosystem</li>
+			<li routerLink="/insights" style="--i:.18s;">Insights</li>
+            <li (click)="scrollToElement('about')" style="--i:.2s;">About us</li>
+			<li (click)="scrollToElement('contact')" style="--i:.22s;">Contact us</li>
 			<!-- <li style="--i:.3s;">
 				<ng-template [ngIf]="!isAdmin">
 					<ng-template [ngIf]="isAuthenticated$ | async">
