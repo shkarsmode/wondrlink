@@ -33,7 +33,7 @@ export class ArticleBannerComponent {
     }
 
     private setBackgroundImage(): void {
-        this.wrap.nativeElement.style.backgroundImage = `url('/assets/img/${this.articleId}.png')`;
+        this.wrap.nativeElement.style.backgroundImage = `url('/assets/img/${this.articleId}.webp')`;
     }
 
     public openFlowDialog(flow: TFLow, isInit: boolean, step: number): void {
