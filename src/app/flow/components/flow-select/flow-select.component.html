@@ -1,0 +1,33 @@
+@if (currentFlowData) {
+    <div class="content">
+        <h1>{{ currentFlowData.title }}</h1>
+        <span>{{ currentFlowData.subtitle }}</span>
+        <ol class="wrap-options">
+            <li
+                *ngFor="let subgroup of currentFlowData.subgroup; let i=index"
+                [ngClass]="{'active': selectOptions[i]}"
+                (click)="toggleCheck(i, subgroup.title)">
+                <div class="left">
+                    <img [src]="'assets/svg/'+subgroup.icon" alt="Icon">
+                </div>
+                <div class="right">
+                    <h4>{{ subgroup.title }}</h4>
+                    <div class="sub-title" *ngIf="subgroup?.subtitle">
+                        {{ subgroup.subtitle}}
+                    </div>
+                </div>
+            </li>
+        </ol>
+            <!-- <div class="wrap-btn">
+            <button
+            [disabled]="!checkedItem"
+            type="button"
+            (click)="onNextStepButton()"
+            class="btn-green">
+            Next
+            </button>
+        </div> -->
+    </div>
+} @else {
+    <b [style.color]="'red'">Wrong current flow data!</b>
+}

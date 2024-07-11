@@ -1,0 +1,27 @@
+<router-outlet></router-outlet>
+<div class="preloader" [class.show]="loading$ | async">
+	<div>
+		<svg-icon
+            [style.width.px]="90"
+            src="assets/img/logo-preloader.svg" />
+	</div>
+</div>
+
+
+<!-- * Preloading flow * -->
+@for (img of imgs; track img) {
+    <img
+        [src]="img"
+        alt="Preloading images"
+        hidden
+        (load)="loadedImg()" />
+}
+
+@for (symbol of materialSymbols; track symbol) {
+    <span
+        class="material-symbols-outlined"
+        hidden>
+        {{ symbol }}
+    </span>
+}
+<!-- * END Preloading flow * -->

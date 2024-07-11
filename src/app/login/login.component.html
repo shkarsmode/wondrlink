@@ -1,0 +1,292 @@
+@if (!recoveryToken) {
+    <div class="wrap">
+        @if (!isCheckEmail) {
+            <div class="content">
+                <header>
+                    <img src="assets/img/logo-black.svg" alt="wondrlink">
+                </header>
+
+
+                @if (isLostPassword) {
+                    <div class="info-instruction">
+                        <div>
+                            Please enter your email address. You will receive an email message with instructions on how to reset
+                            your password.
+                        </div>
+                    </div>
+                }
+                
+                @if (errorMessages.length) {
+                    <div class="form-error">
+                        @for (error of errorMessages; track error) {
+                            <div>
+                                <strong>Error:</strong>
+                                <span>{{ error }}</span>
+                            </div>
+                        }
+                    </div>
+                }
+                
+                @if (!isLostPassword) {
+                    <form 
+                        [class.shake]="isShowError"
+                        (submit)="onSubmitForm()">
+                        <div class="group">
+                            <label for="email">Email Address</label>
+                            <input 
+                                [(ngModel)]="email"
+                                type="text" 
+                                id="email" 
+                                name="email">
+                        </div>
+                    
+                        <div class="group">
+                            <label for="password">Password</label>
+                            <input 
+                                [(ngModel)]="password"
+                                [type]="isShowPassword ? 'text' : 'password'" 
+                                id="password" name="password">
+                    
+                            <div class="hide">
+                                @if (isShowPassword) {
+                                    <span 
+                                        class="material-symbols-outlined"
+                                        (click)="toggleShowingPassword()">
+                                    visibility
+                                    </span>
+                                } @else {
+                                    <span 
+                                        class="material-symbols-outlined"
+                                        (click)="toggleShowingPassword()">
+                                        visibility_off
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                    
+                        <div class="group-checkbox">
+                            <input type="checkbox" name="remember" id="remember">
+                            <label for="remember">Remember Me</label>
+                        </div>
+                    
+                        <button 
+                            class="btn-green"
+                            [disabled]="isSending"
+                            type="submit"
+                            (submit)="onSubmitForm()">
+                            @if (isSending) {
+                                <mat-spinner></mat-spinner>
+                            } @else {
+                                Log In
+                            }
+                        </button>
+                    
+                    </form>
+                } @else {
+                    <form (submit)="onSubmitRecoveryForm()" [class.shake]="isShowError">
+                        <div class="group">
+                            <label for="email">Email Address</label>
+                            <input type="text" id="email" name="email" [(ngModel)]="recoveryEmail">
+                        </div>
+                    
+                        <button 
+                            class="btn-green"
+                            [disabled]="isSending" 
+                            type="submit" 
+                            (submit)="onSubmitRecoveryForm()">
+                            @if (isSending) {
+                                <mat-spinner></mat-spinner>
+                            } @else {
+                                Get New Password
+                            }
+                        </button>
+                    </form>
+                }
+
+                <div class="info">
+                    <a routerLink="/">
+                        <span class="material-symbols-outlined">
+                            keyboard_backspace
+                        </span>
+                        Go to WondrLink
+                    </a>
+
+                    <a (click)="toggleLostPasswordFlow()">
+                        @if (!isLostPassword) {
+                            Lost your password?
+                        } @else {
+                            Log in
+                        }
+                    </a>
+                </div>
+            
+                <div class="info">
+                    <a routerLink="/privacy">Privacy Policy</a>
+                </div>
+            </div>
+        } @else {
+            <div class="content">
+                <header>
+                    <img src="assets/img/logo-black.svg" alt="wondrlink">
+                </header>
+            
+                <div class="info-instruction">
+                    <div>
+                        Check your email for the confirmation link, then visit the
+                        <a 
+                            (click)="isCheckEmail = false; isLostPassword = false;">
+                            login page
+                        </a>.
+                    </div>
+                </div>
+            
+                <div class="info">
+                    <a routerLink="/">
+                        <span class="material-symbols-outlined">
+                            keyboard_backspace
+                        </span>
+                        Go to WondrLink
+                    </a>
+                </div>
+            
+                <div class="info">
+                    <a routerLink="/privacy">Privacy Policy</a>
+                </div>
+            </div>
+        }
+    </div>
+} @else {
+    <div class="wrap">
+        @if (!isPasswordChanged) {
+            <div class="content">
+                <header>
+                    <img src="assets/img/logo-black.svg" alt="wondrlink">
+                </header>
+            
+                <div class="info-instruction">
+                    <div>
+                        Enter your new password twice
+                    </div>
+                </div>
+            
+                @if (errorMessages.length) {
+                    <div class="form-error">
+                        @for (error of errorMessages; track error) {
+                            <div>
+                                <strong>Error:</strong>
+                                <span>{{ error }}</span>
+                            </div>
+                        }
+                    </div>
+                }
+            
+                <form 
+                    [class.shake]="isShowError"
+                    (submit)="onSubmitNewPasswordForm()">
+            
+                    <div class="group">
+                        <label for="password">New Password</label>
+                        <input 
+                            [(ngModel)]="newPassword"
+                            [type]="isShowPassword ? 'text' : 'password'" 
+                            id="new-password" name="new-password">
+            
+                        <div class="hide">
+                            <span 
+                                class="material-symbols-outlined" 
+                                (click)="toggleShowingPassword()">
+                                @if (isShowPassword) {
+                                    visibility
+                                } @else {
+                                    visibility_off
+                                }
+                            </span>
+                        </div>
+                    </div>
+            
+                    <div class="group">
+                        <label for="password">Repeat Password</label>
+                        <input 
+                            [(ngModel)]="repeatPassword"
+                            [type]="isShowPassword ? 'text' : 'password'" 
+                            id="repeat-password" name="repeat-password">
+            
+                        <div class="hide">
+                            <span 
+                                class="material-symbols-outlined" 
+                                (click)="toggleShowingPassword()">
+                                @if (isShowPassword) {
+                                    visibility
+                                } @else {
+                                    visibility_off
+                                }
+                            </span>
+                        </div>
+                    </div>
+            
+                    <button 
+                        class="btn-green"
+                        [disabled]="isSending" 
+                        type="submit" 
+                        (submit)="onSubmitNewPasswordForm()" >
+                        <button 
+                            class="btn-green"
+                            [disabled]="isSending"
+                            type="submit"
+                            (submit)="onSubmitForm()">
+                            @if (isSending) {
+                                <mat-spinner></mat-spinner>
+                            } @else {
+                                Update Password
+                            }
+                        </button>
+                    </button>
+            
+                </form>
+            
+                <div class="info">
+                    <a routerLink="/">
+                        <span class="material-symbols-outlined">
+                            keyboard_backspace
+                        </span>
+                        Go to WondrLink
+                    </a>
+                    <a routerLink="/login">
+                        Log in
+                    </a>
+                </div>
+            
+                <div class="info">
+                    <a routerLink="/privacy">Privacy Policy</a>
+                </div>
+            </div>
+        } @else {
+            <div class="content">
+                <header>
+                    <img src="assets/img/logo-black.svg" alt="wondrlink">
+                </header>
+            
+                <div class="info-instruction">
+                    <div>
+                        Your password was successfully changed. Visit the
+                        <a (click)="isPasswordChanged = false; recoveryToken = ''">login page</a>
+                    </div>
+                </div>
+            
+            
+                <div class="info">
+                    <a routerLink="/">
+                        <span class="material-symbols-outlined">
+                            keyboard_backspace
+                        </span>
+                        Go to WondrLink
+                    </a>
+                </div>
+            
+                <div class="info">
+                    <a routerLink="/privacy">Privacy Policy</a>
+                </div>
+            </div>
+        }
+    </div>
+}

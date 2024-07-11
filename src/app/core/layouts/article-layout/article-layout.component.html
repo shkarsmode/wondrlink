@@ -1,0 +1,10 @@
+@if (currentInfo) {
+    <app-article-banner
+        [article]="currentInfo"
+        [flow]="currentFlow" />
+    
+    <app-article
+        [article]="currentInfo" />
+    
+    <app-form [flow]="currentFlow" />
+}

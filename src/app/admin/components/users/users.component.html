@@ -1,0 +1,111 @@
+<h1>Users Database</h1>
+
+<div class="card">
+	<div class="title">
+		<div>Last users</div>
+		<div>
+			<mat-form-field
+				matTooltip="Choice will be remembered"
+				matTooltipShowDelay="400"
+				matTooltipPosition="above">
+				<mat-label>Sorty by</mat-label>
+				<mat-select
+					[disabled]="isLoading"
+					(selectionChange)="onSelectionChange()" 
+					[(value)]="sortBy">
+					<mat-option value="all">All</mat-option>
+					<mat-option 
+						[value]="userTypeEnum.Patient">
+						{{ userTypeEnum.Patient }}
+					</mat-option>
+					<mat-option 
+						[value]="userTypeEnum.Industry">
+						{{ userTypeEnum.Industry }}
+					</mat-option>
+					<mat-option 
+						[value]="userTypeEnum.Physician">
+						{{ userTypeEnum.Physician }}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+	</div>
+	<div class="content">
+		<table>
+			<tr>
+				<th>№</th>
+				<th>User name</th>
+				<th>Email</th>
+				<th>Type</th>
+				<th>Role</th>
+				<th>Status</th>
+				<th>Updated At</th>
+				<th>Actions</th>
+			</tr>
+
+			<ng-template [ngIf]="!isLoading">
+                @for (user of users; track user.id) {
+                    <tr>
+                        <td>
+                            {{ $index + 1 }}
+                        </td>
+                        <td class="user-name">
+                            {{ user.firstName }} {{ user.lastName }}
+                        </td>
+                        <td class="email">
+                            {{ user.email }}
+                        </td>
+                        <td class="type">
+                            {{ user.type ? user.type : 'Common' }}
+                        </td>
+                        <td class="role">
+                            {{ user.role }}
+                        </td>
+                        <td>
+                            {{ user.status }}
+                        </td>
+                        <td>
+                            {{ user.updatedAt | date: 'MMM d, y h:mm a' }}
+                        </td>
+                        <td class="wrap-buttons">
+                            <button mat-stroked-button matTooltip="Show more / Edit" matTooltipShowDelay="300"
+                                routerLink="/admin/edit-user/{{ user.id }}">
+                                Show more
+                            </button>
+                            <button (mousedown)="startDeleteTimeout(user.id!)" (mouseup)="clearDeleteTimeout()"
+                                (mouseout)="clearDeleteTimeout()" [ngClass]="{'deleting': isDeleting && activeDeletingIndex === user.id!}"
+                                mat-fab color="warn" matTooltip="Press to delete" matTooltipShowDelay="300">
+                                <span class="material-symbols-outlined">
+                                    delete
+                                </span>
+                            </button>
+                        </td>
+                    </tr>
+                }
+				
+			</ng-template>
+			<ng-template [ngIf]="isLoading || isLoadingMore">
+                @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
+                    <tr class="loading">
+                        @for (
+                            tdClass of ['', 'user-name', 'email', 'type', 'role', '', '', '']; 
+                            track tdClass
+                        ) {
+                            <td [class]="tdClass"></td>
+                        }
+                    </tr>
+                }
+			</ng-template>
+		</table>
+	</div>
+</div>
+
+<div class="wrap-button-more">
+    @if (pagesCount !== page + 1 && users.length && !isLoading) {
+        <button 
+            mat-raised-button 
+            (click)="onButtonMoreClick()">
+            Show more
+        </button>
+    }
+</div>

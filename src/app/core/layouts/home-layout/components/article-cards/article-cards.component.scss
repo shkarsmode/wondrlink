@@ -1,0 +1,141 @@
+h2 {
+    font-family: Raleway;
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 68px;
+    text-align: center;
+    background-color: #F4F4F4;
+    padding-top: 180px;
+    margin: 0;
+
+    @media screen and (max-width: 500px) {
+        padding-top: 100px;
+        font-size: 30px;
+        line-height: 30px;
+    }
+}
+
+.wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    column-gap: 80px;
+
+    padding: 50px 0 200px 0px;
+    transition: all .3s;
+    background-color: #F4F4F4;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    background: white;
+    box-shadow: 0px 4px 30px 0px #3333601A;
+    padding: 36px 30px;
+
+    width: 300px;
+    height: 308px;
+    overflow: hidden;
+}
+
+.content {
+    transition: all .3s;
+}
+
+img {
+    margin-bottom: 4px;
+}
+
+h3 {
+    text-transform: capitalize;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 38.25px;
+    text-align: left;
+}
+
+.description {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24.59px;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.btn-green {
+    width: 100%;
+    height: 70px;
+    margin-bottom: 50px;
+    font-size: 24px;
+}
+
+button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 8px;
+    background-color: transparent;
+
+    outline: none;
+    border: none;
+
+    padding: 0;
+    margin: 0;
+
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24.59px;
+    text-align: left;
+
+    cursor: pointer;
+
+    img {
+        margin: 0;
+        transition: all .3s;
+    }
+
+    &:hover {
+        img {
+            margin-left: 5px;
+        }
+    }
+}
+
+@media (max-width: 1450px) {
+    .wrap {
+        column-gap: 50px;
+        padding: 180px 15px 200px;
+    }
+}
+
+@media (max-width: 1230px) {
+    .wrap {
+        padding: 120px 15px 120px;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 770px) {
+    .btn-green {
+        height: 50px;
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+}
+
+
+@media (max-width: 500px) {
+    .card {
+        width: 100%;
+    }
+
+    .wrap {
+        padding-top: 40px;
+    }
+}

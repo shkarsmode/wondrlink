@@ -1,0 +1,182 @@
+.wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 840px;
+
+    background-image: url('/assets/img/bg.webp');
+    background-size: cover;
+    background-position: center;
+}
+
+.content {
+    max-width: 1500px;
+    width: 100%;
+    transition: all .3s;
+}
+
+h1 {
+    font-size: 48px;
+    max-width: 600px;
+    font-weight: 800;
+    width: 100%;
+    margin-bottom: 50px;
+    line-height: 58px;
+
+    span {
+        color: #777777;
+    }
+}
+
+.btn-green {
+    width: 240px;
+    height: 60px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Typewriter effect 1 */
+@keyframes typing {
+
+    5.0000% {
+        content: "";
+    }
+
+    12.1395% {
+        content: "t";
+    }
+
+    18.2791% {
+        content: "to";
+    }
+
+    25.4186% {
+        content: "tod";
+    }
+
+    30.5581% {
+        content: "toda";
+    }
+
+    35.6977% {
+        content: "today";
+    }
+
+    100% {
+        content: "today";
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+.typewriter {
+    --caret: #777777;
+}
+
+.typewriter::before {
+    content: "";
+    animation: typing 6s infinite;
+}
+
+.typewriter::after {
+    content: "";
+    border-right: 1px solid var(--caret);
+    animation: blink 1s linear infinite;
+}
+
+
+@media (prefers-reduced-motion) {
+    .typewriter::after {
+        animation: none;
+    }
+
+    @keyframes sequencePopup {
+
+        0%,
+        100% {
+            content: "today";
+        }
+
+    }
+
+    .typewriter::before {
+        content: "today";
+        animation: sequencePopup 12s linear infinite;
+    }
+}
+
+/* Media Queries
+====================*/
+
+@media (max-width: 1700px) {
+    .content {
+        max-width: 1300px;
+    }
+
+}
+
+@media (max-width: 1500px) {
+    .content {
+        max-width: 1200px;
+    }
+
+}
+
+@media (max-width: 1250px) {
+    .content {
+        padding: 0 15px;
+    }
+}
+
+
+@media (max-width: 770px) {
+    .wrap {
+        height: 600px;
+    }
+
+    h1 {
+        font-size: 32px;
+        line-height: 36px;
+        margin-bottom: 25px;
+    }
+
+    .btn-green {
+        width: 220px;
+        height: 45px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 400px) {
+    .content {
+        text-align: center;
+    }
+
+
+    h1 {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    .typewriter {
+        width: 85px;
+        display: inline-flex;
+    }
+
+    button {
+        margin-top: 20px;
+        height: 50px;
+    }
+}

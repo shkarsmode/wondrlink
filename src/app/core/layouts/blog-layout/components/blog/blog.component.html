@@ -1,0 +1,31 @@
+<div 
+    *ngIf="!isLoading"
+    class="content"
+    [@fadeIn]>
+    <app-preview-article 
+        *ngFor="let post of posts"
+        [post]="post">
+    </app-preview-article>
+
+    <app-blog-navigation
+        *ngIf="posts.length"
+        [page]="page"
+        [pagesCount]="pagesCount"
+        [@fadeIn]
+        (back)="back()"
+        (forward)="forward()"
+        (loadMore)="onButtonMoreClick()">
+    </app-blog-navigation>
+
+    <app-blog-coming-soon 
+        *ngIf="!posts.length"
+        [@fadeIn]>
+    </app-blog-coming-soon>
+</div>
+
+<div 
+    *ngIf="isLoading"
+    class="content"
+    [@fadeIn]>
+    <mat-spinner></mat-spinner>
+</div>

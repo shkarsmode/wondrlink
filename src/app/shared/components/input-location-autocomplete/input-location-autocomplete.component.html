@@ -1,0 +1,33 @@
+<input
+    required
+    placeholder="C&#8291;ity"
+    autocomplete="off"
+    tabindex="7"
+    id="c&#8291;ity"
+    [matAutocomplete]="auto"
+    [class.invalid]="!isValid"
+    #formInput
+    (input)="onChangeLocation($event)">
+    <mat-autocomplete #auto="matAutocomplete">
+        @for (place of autocompleteLocations; track place.formatted) {
+            <mat-option
+                [value]="place.city + ', ' + place.country"
+                (onSelectionChange)="onSelectChange($event)">
+                <div class="wrap-select">
+                    <div class="icon">
+                        <span class="material-symbols-outlined">
+                            location_city
+                        </span>
+                    </div>
+                    <div
+                        class="address-line-1"
+                        [innerHTML]="place.city | autocompleteHighlight: value">
+                    </div>
+                    <div class="address-line-2">
+                        {{ place.country }}
+                    </div>
+                </div>
+            </mat-option>
+        }
+        
+    </mat-autocomplete>

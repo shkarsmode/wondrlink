@@ -1,0 +1,68 @@
+.wrap {
+  position: relative;
+  padding: 80px 100px;
+  height: 850px;
+  overflow-x: hidden;
+
+	&::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	&::-webkit-scrollbar-track {
+		width: 8px;
+		background: white;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: #01C1B9;
+	}
+}
+
+.close {
+  position: absolute;
+  z-index: 1000;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+
+
+@media screen and (max-height: 1000px) {
+  .wrap {
+    height: 90dvh;
+  }
+}
+
+// @media screen and (max-height: 700px) and (max-width: 500px) {
+//   .wrap {
+//     height: 100dvh;
+//   }
+// }
+
+@media screen and (max-width: 800px) {
+  .wrap {
+    // padding: 50px 30px;
+    height: 100dvh;
+
+    &::-webkit-scrollbar {
+      width: 0px;
+    }
+
+    &::-webkit-scrollbar-track {
+      width: 0px;
+    }
+  }
+
+  .close {
+    top: 10px;
+    right: 10px;
+  }
+
+}
+
+@media screen and (max-width: 550px) {
+  .wrap {
+    padding: 50px 30px;
+  }
+}

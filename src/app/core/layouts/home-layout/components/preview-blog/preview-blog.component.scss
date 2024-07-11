@@ -1,0 +1,156 @@
+.wrap {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	column-gap: 80px;
+
+	background-image: url('/assets/img/bg-lines.webp');
+	background-position: center;
+    background-position-y: -513px;
+    background-size: 100%;
+	background-repeat: no-repeat;
+    padding-bottom: 200px;
+	transition: all .3s
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+
+	background: white;
+	box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.05);
+	border-radius: 20px;
+	max-width: 620px;
+	width: 100%;
+	overflow: hidden;
+	transition: all .3s
+}
+
+.content {
+	padding: 0 45px;
+
+	display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+	justify-content: space-between;
+
+    height: 100%;
+}
+
+img {
+	margin-bottom: 33px;
+	max-height: 350px;
+    object-fit: cover;
+}
+
+h3 {
+	font-size: 28px;
+	font-weight: 600;
+	text-transform: capitalize;
+	margin-bottom: 15px;
+	letter-spacing: 1px;
+	transition: all .3s
+}
+
+.description {
+	font-size: 22px;
+	line-height: 26px;
+	margin-bottom: 33px;
+	transition: all .3s
+}
+
+button {
+	color: #01C1B9;
+	outline: none;
+	border: none;
+	background-color: transparent;
+	font-size: 24px;
+
+	margin-bottom: 30px;
+
+	cursor: pointer;
+
+	svg {
+		transition: all .3s;
+	}
+
+	&:hover {
+		svg {
+			transform: translate(3px, -3px);
+		}
+	}
+}
+
+@media (max-width: 1600px) {
+	.wrap {
+		background-position-y: -350px;
+	}
+}
+
+@media (max-width: 1400px) {
+	.wrap {
+		background-position-y: -150px;
+	}
+
+	.card {
+		max-width: 530px;
+
+		h3 {
+			font-size: 23px;
+			line-height: 24px;
+		}
+
+		img {
+			max-height: 275px;
+		}
+
+		.description {
+			font-size: 19px;
+		}
+
+		button {
+			font-size: 20px;
+		}
+	}
+}
+
+@media (max-width: 1230px) {
+  .wrap {
+    padding-bottom: 120px;
+  }
+}
+
+@media (max-width: 1200px) {
+	.wrap {
+		background-position-y: 0px;
+		padding: 0 15px 120px 15px;
+	}
+}
+
+@media (max-width: 1100px) {
+	.wrap {
+		column-gap: 30px;
+	}
+}
+
+@media (max-width: 1000px) {
+	.wrap {
+		column-gap: 0px;
+		display: flex;
+		flex-direction: column;
+		row-gap: 45px;
+		align-items: center;
+	}
+}
+
+@media (max-width: 850px) {
+	.card {
+		max-width: 100%;
+	}
+}
+
+@media (max-width: 500px) {
+	.content {
+		padding: 0 22px;
+	}
+}
