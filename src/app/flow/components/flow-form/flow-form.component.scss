@@ -56,7 +56,8 @@ h2 {
         margin-right: 12px;
         height: 40px;
         padding: 0 20px;
-        background: #F3F9F7;
+        background: rgba(244, 244, 244, 1);
+
         border: 1px solid rgba(1, 193, 185, 0.2);
         color: #0f0f11;
         opacity: 0.6;
@@ -64,7 +65,7 @@ h2 {
 
         &.active {
             background: rgba(1, 193, 185, 0.1);
-            border: 1px solid #01C1B9;
+            border: 1px solid rgba(119, 119, 119, 1);
             opacity: 1;
             cursor: unset;
         }

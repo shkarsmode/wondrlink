@@ -1,1 +1,1 @@
-export type TFLow = 'patients' | 'drug-developers' | 'ecosystem';
+export type TFLow = 'patients' | 'drug-developers' | 'ecosystem' | 'physicians';

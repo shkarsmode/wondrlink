@@ -1,4 +1,11 @@
 <div class="wrap">
-  <img src="assets/img/close.svg" alt="close" class="close" (click)="close()">
-  <app-flow [flow]="flow" [isFlowStartsFromInit]="isInit" [step]="step"></app-flow>
+  <img src="assets/img/close.svg" 
+      alt="close" 
+      class="close" 
+      (click)="close()">
+  
+   <app-flow [flow]="flow" 
+      [isFlowStartsFromInit]="isInit" 
+      [step]="step">
+   </app-flow>
 </div>
