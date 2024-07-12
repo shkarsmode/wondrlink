@@ -26,23 +26,31 @@ img {
 }
 
 h2 {
-	margin-bottom: 15px;
-	font-size: 30px;
-	font-weight: 600;
+	margin-bottom: 10px;
+	font-size: 28px;
+	font-weight: 700;
+	line-height: 38.25px;
+	text-align: center;
+
 }
 
 .description {
 	font-size: 18px;
-	line-height: 28px;
-	max-width: 80%;
-	color: #152032;
-	opacity: 0.9;
+	font-weight: 400;
+	line-height: 24.59px;
 	text-align: center;
-	margin-bottom: 50px;
+	color: rgba(38, 38, 38, 1);
+
+	margin-bottom: 60px;
 }
 
 button {
 	width: 260px;
 	height: 70px;
-	font-size: 22px;
+
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 24.59px;
+	text-align: center;
+
 }

@@ -1,9 +1,20 @@
 .wrap {
 	display: flex;
 	justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
 	width: 100%;
-	margin-bottom: 100px;
-	padding: 0 15px;
+	padding: 180px 15px;
+}
+
+h1 {
+    max-width: 850px;
+    font-size: 45px;
+    font-weight: 700;
+    line-height: 68px;
+    text-align: center;
+    color: rgba(38, 38, 38, 1);
 }
 
 .flow-wrap {
@@ -14,8 +25,9 @@
   border-radius: 20px;
   min-height: 100px;
 
+  box-shadow: 0px 4px 30px 0px rgba(51, 51, 96, 0.1);
+
   background: #FFF;
-  box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.05);
     transition: min-height .3s ease;
 }
 
@@ -43,21 +55,27 @@ app-flow ::ng-deep .wrap-inputs {
     flex-wrap: wrap;
 }
 
-app-flow ::ng-deep .group {
-    flex: 0 0 calc(50% - 10px);
-}
+// app-flow ::ng-deep .group {
+//     flex: 0 0 calc(50% - 10px);
+// }
 
-app-flow ::ng-deep .wrap-inputs:has(.group[data-company]) .group[data-company] {
-    flex: 0 0 100%;
-}
+// app-flow ::ng-deep .wrap-inputs:has(.group[data-company]) .group[data-company] {
+//     flex: 0 0 100%;
+// }
 
 
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
   .flow-wrap {
     padding: 50px 30px;
-    border-radius: 10px;
+    width: 100%;
   }
+  
+  .wrap {
+    width: 100%;
+    padding: 120px 15px;
+  }
+
 }
 
 @media screen and (max-width: 650px) {
@@ -72,4 +90,26 @@ app-flow ::ng-deep .wrap-inputs:has(.group[data-company]) .group[data-company] {
     app-flow ::ng-deep .wrap-inputs:has(.group[data-company]) .group[data-company] {
         flex: 1;
     }
+}
+
+@media (max-width: 770px) {
+    .wrap {
+        gap: 30px;
+    }
+
+    h1 {
+        font-size: 32px;
+        line-height: 1.5;
+    }
+}
+
+@media (max-width: 400px) {
+
+
+    h1 {
+        font-size: 32px;
+        line-height: 22px;
+    }
+
+
 }

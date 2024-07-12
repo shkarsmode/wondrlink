@@ -20,7 +20,8 @@ export class BannerComponent implements OnInit {
     }
 
     private initDialogConfig(): void {
-        this.dialogConfig.width = '630px';
+        // this.dialogConfig.width = '850px';
+        // this.dialogConfig.maxHeight = '750px';
     }
 
     public openSignUpDialog(): void {

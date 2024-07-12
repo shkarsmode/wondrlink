@@ -1,9 +1,10 @@
 .wrap {
   position: relative;
   padding: 80px 100px;
-  height: 850px;
+  max-height: 750px;
   overflow-x: hidden;
-
+  width: 100%;
+  max-width: 850px;
 }
 
 .close {
@@ -22,16 +23,17 @@
   }
 }
 
-// @media screen and (max-height: 700px) and (max-width: 500px) {
-//   .wrap {
-//     height: 100dvh;
-//   }
-// }
+@media screen and (max-height: 700px) and (max-width: 500px) {
+  .wrap {
+    height: 100dvh;
+  }
+}
 
 @media screen and (max-width: 800px) {
   .wrap {
     // padding: 50px 30px;
     height: 100dvh;
+    max-height: 100dvh;
 
     &::-webkit-scrollbar {
       width: 0px;

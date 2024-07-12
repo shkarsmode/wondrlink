@@ -43,7 +43,7 @@ export class ArticleBannerComponent {
         this.articleService.updateArticleFormState('hidden');
 
         this.dialog.open(FlowDialogComponent, {
-            width: '630px',
+            // width: '630px',
             data: {...this.flowConfig},
         });
 

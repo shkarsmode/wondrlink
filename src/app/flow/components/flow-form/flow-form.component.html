@@ -65,7 +65,7 @@
         }
         <!-- </ BEFORE BACKK WILL change company, now it's organization  -->
 
-        <div class="full-name">
+        <div class="row full-name">
             <div class="group" data-firstName="true">
                 <label for="given-name">
                     Name
@@ -98,76 +98,90 @@
                     tabindex="2"
                     type="text">
             </div>
+
         </div>
         
 
         @if (formType === "drug-developers" || formType === "ecosystem") {
-            <div class="group" data-select="true">
-                <label for="function">Function</label>
-                <select
-                    id="function"
-                    [ngClass]="{'select-placeholder_active': isFunctionPlaceholder}"
-                    (change)="deactiveFunctionSelectPlaceholder()"
-                    name="function"
-                    #formInput
-                    formControlName="function"
-                    tabindex="3">
-                <option value="" disabled selected hidden id="placeholder">Select</option>
-                <option *ngFor="let function of functionInputData"
-                    [value]="function">
-                    {{ function }}
-                </option>
-                </select>
-            </div>
             
-            <div class="group">
-                <label for="position">
-                    Position
-                </label>
-                <input
-                    id="position"
-                    name="position"
-                    #formInput
-                    formControlName="position"
-                    placeholder="Role"
-                    required
-                    tabindex="4"
-                    type="text">
+            <div class="row">
+            
+                <div class="group" data-select="true">
+                    <label for="function">Function</label>
+                    <select
+                        id="function"
+                        [ngClass]="{'select-placeholder_active': isFunctionPlaceholder}"
+                        (change)="deactiveFunctionSelectPlaceholder()"
+                        name="function"
+                        #formInput
+                        formControlName="function"
+                        tabindex="3">
+                    <option value="" disabled selected hidden id="placeholder">Select</option>
+                    <option *ngFor="let function of functionInputData"
+                        [value]="function">
+                        {{ function }}
+                    </option>
+                    </select>
+                </div>
+                
+                <div class="group">
+                    <label for="position">
+                        Position
+                    </label>
+                    <input
+                        id="position"
+                        name="position"
+                        #formInput
+                        formControlName="position"
+                        placeholder="Role"
+                        required
+                        tabindex="4"
+                        type="text">
+                </div>
+
             </div>
         } 
         
-        <div class="group">
-            <label for="tel-national">Phone</label>
-            <div class="phone-wrap">
-                <input
-                    name="tel-national" autocomplete="tel-national"
-                    [style.padding-left]="telephonePadding + 'px'"
-                    #formInput
-                    formControlName="phone"
-                    placeholder="xxx-xxx-xxxx"
-                    required
-                    tabindex="5"
-                    type="text">
-                    <app-country-codes
-                        [currentCountry]="inputCountry"
-                        [isOpen]="isOpenedPhoneDropdown"
-                        (countryCode)="onCodeSelected($event)">
-                    </app-country-codes>
+
+        <div class="row">
+
+            <div class="group">
+                <label for="tel-national">Phone</label>
+                <div class="phone-wrap">
+                    <input
+                        name="tel-national" autocomplete="tel-national"
+                        [style.padding-left]="telephonePadding + 'px'"
+                        #formInput
+                        formControlName="phone"
+                        placeholder="xxx-xxx-xxxx"
+                        required
+                        tabindex="5"
+                        type="text">
+                        <app-country-codes
+                            [currentCountry]="inputCountry"
+                            [isOpen]="isOpenedPhoneDropdown"
+                            (countryCode)="onCodeSelected($event)">
+                        </app-country-codes>
+                </div>
             </div>
+            <div class="group">
+                <label for="email">Email</label>
+                <input
+                    id="email"
+                    name="email"
+                    placeholder="name@example.com"
+                    #formInput
+                    autocomplete="on"
+                    formControlName="email"
+                    required
+                    tabindex="6"
+                    type="email">
+            </div>
+
         </div>
-        <div class="group">
-            <label for="email">Email</label>
-            <input
-                id="email"
-                name="email"
-                placeholder="name@example.com"
-                #formInput
-                autocomplete="on"
-                formControlName="email"
-                required
-                tabindex="6"
-                type="email">
-        </div>
+        
+
+
         <div class="group">
             <label for="c&#8291;ity">Location</label>
             <app-input-location-autocomplete

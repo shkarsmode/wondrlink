@@ -34,8 +34,13 @@ h1 + span {
 button {
   width: 60%;
   height: 70px;
-  font-weight: 600;
-  font-size: 22px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24.59px;
+  text-align: center;
+  
+
+
   cursor: pointer;
 
   &[disabled] {

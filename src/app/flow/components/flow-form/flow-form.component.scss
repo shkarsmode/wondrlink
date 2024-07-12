@@ -131,7 +131,7 @@ input::placeholder, .select-placeholder_active {
     width: 100%;
 }
 
-.full-name {
+.row {
     flex: 0 0 100%;
     display: flex;
     flex-direction: row;
@@ -181,8 +181,10 @@ label {
 button {
     width: 60%;
     height: 70px;
-    font-weight: 500;
-    font-size: 22px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24.59px;
+    text-align: center;
 
     &[disabled] {
         opacity: 0.4;
@@ -222,6 +224,14 @@ mat-spinner {
         font-size: 18px;
         font-weight: 500;
     }
+
+    .row {
+        flex-direction: column;
+    }
+
+    .full-name {
+        flex-direction: row !important;
+    }
 }
 
 @media (max-width: 765px) {
@@ -240,7 +250,7 @@ mat-spinner {
         column-gap: 10px;
     }
 
-    .full-name {
+    .row {
         gap: 10px;
     }
 

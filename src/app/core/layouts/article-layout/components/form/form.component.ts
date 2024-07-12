@@ -30,6 +30,7 @@ export class FormComponent implements OnInit {
 
     constructor (
         private articleService: ArticleService,
+
     ) {}
 
     ngOnInit(): void {
@@ -62,8 +63,9 @@ export class FormComponent implements OnInit {
         }
     }
 
-    public get isTFormFlow(): boolean {
-        return isTFormFlow(this.flow);
+    public get formTitle() {
+        return this.articleService.getFormTitleById(this.flow);
     }
 
+    
 }

@@ -1,3 +1,4 @@
+import { TFormFlow } from 'src/app/shared/interfaces/TFormFlow';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
@@ -10,6 +11,13 @@ export type TArticleFormState = 'active' | 'hidden';
 export class ArticleService {
     private _ArticleFormSubject = new BehaviorSubject<TArticleFormState>('active');
     public articleForm$ = this._ArticleFormSubject.asObservable();
+
+    private formTitle: {[key in TFormFlow]: string} = {
+        'patients': "We are fighting together, please sign up here!",
+        'drug-developers': "We are fighting together, join us!",
+        'physicians': "We are fighting together, please sign up here!",
+        'ecosystem': "We are fighting together, join us!",
+    }
 
     public info: IInfo[];
 
@@ -38,5 +46,9 @@ export class ArticleService {
         return this.info?.filter(info =>
             info.id === id
         )[0];
+    }
+
+    public getFormTitleById(id: TFormFlow): string   {
+        return this.formTitle[id];
     }
 }
