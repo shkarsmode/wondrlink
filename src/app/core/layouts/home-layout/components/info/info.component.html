@@ -3,34 +3,22 @@
 		<h2>Latest Insights</h2>
 
         <div class="insights">
-            <div class="insights__item">
-                <div class="insights__item-title">
-                    A Devious Cellular Trick Cancers Can Use to Escape Your Immune System
-                </div>
-                <div class="insights__item-description">
-                    A researcher discovered that giant cells under a microscope were actually cancer cells hiding inside other cancer
-                    cells...
-                </div>
-                <button class="insights__item-explore">
-                    Explore
-                    <img src="assets/img/arrow.svg" alt="Arrow" />
-                </button>
-            </div>
-            
-            <div class="insights__item">
-                <div class="insights__item-title">
-                    What Is Preventive Medicine? <br />
-                    A Look at What These Proactive Providers Do
-                </div>
-                <div class="insights__item-description">
-                    The Food and Drug Administration unveiled a new proposal on Wednesday that would change the criteria for which
-                    packaged...
-                </div>
-                <button class="insights__item-explore">
-                    Explore
-                    <img src="assets/img/arrow.svg" alt="Arrow"/>
-                </button>
-            </div>
+            @for (post of posts; track post.id) {
+                <a
+                    [routerLink]="'insights/' + post.id"
+                    class="insights__item">
+                    <div class="insights__item-title">
+                        {{ post.header }}
+                    </div>
+                    <div class="insights__item-description">
+                        {{ post.subHeader }}
+                    </div>
+                    <button class="insights__item-explore">
+                        Explore
+                        <img src="assets/img/arrow.svg" alt="Arrow" />
+                    </button>
+                </a>
+            }
         </div>
 
         <button class="btn-green">Go to Blog</button>
