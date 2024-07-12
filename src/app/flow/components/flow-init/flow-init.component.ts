@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { TFLow } from 'src/app/shared/interfaces/TFLow';
+import { TFormFlow } from 'src/app/shared/interfaces/TFormFlow';
 import { FlowData, TUserType } from '../../flow.component';
+import { matchFlowUserType } from 'src/app/shared/features/matchFlowUserType.helper';
 
 @Component({
   selector: 'app-flow-init',
@@ -8,18 +9,13 @@ import { FlowData, TUserType } from '../../flow.component';
   styleUrls: ['./flow-init.component.scss']
 })
 export class FlowInitComponent {
-  @Output() flow = new EventEmitter<TFLow>();
+  @Output() flow = new EventEmitter<TFormFlow>();
   @Output() next = new EventEmitter<FlowData>();
 
-  nextStep(newFlow: TFLow) {
+  nextStep(newFlow: TFormFlow) {
     this.flow.emit(newFlow);
-    const userType = this.determinateUserType(newFlow);
+    const userType = matchFlowUserType(newFlow);
     this.next.emit({type: userType});
   }
 
-  determinateUserType(flow: TFLow): TUserType {
-    if(flow === 'patients') return 'Patient';
-    if(flow === 'drug-developers') return 'Drug Developers';
-    return 'Ecosystem'
-  }
 }

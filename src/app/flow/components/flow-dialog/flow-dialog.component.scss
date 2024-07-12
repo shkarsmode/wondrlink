@@ -4,18 +4,6 @@
   height: 850px;
   overflow-x: hidden;
 
-	&::-webkit-scrollbar {
-		width: 8px;
-	}
-
-	&::-webkit-scrollbar-track {
-		width: 8px;
-		background: white;
-	}
-
-	&::-webkit-scrollbar-thumb {
-		background: #01C1B9;
-	}
 }
 
 .close {

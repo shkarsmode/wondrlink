@@ -39,7 +39,7 @@ button {
     width: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
-    border: 1px solid #01C1B9;
+    border: 1px solid rgba(119, 119, 119, 1);
     // background: rgba(1, 193, 185, 0.10);
     background: white;
     top: 112%;
@@ -55,7 +55,8 @@ button {
     padding: 8px 12px;
     
 
-    background: #F3F9F7;
+    background: rgba(244, 244, 244, 1);
+
 
     &:hover {
         background: #dbfcf1;

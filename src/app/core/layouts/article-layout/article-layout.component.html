@@ -1,10 +1,13 @@
 @if (currentInfo) {
-    <app-article-banner
+    <app-article-banner 
         [article]="currentInfo"
-        [flow]="currentFlow" />
-    
+        [flowConfig]="config"
+    />
+   
     <app-article
         [article]="currentInfo" />
     
-    <app-form [flow]="currentFlow" />
+    @if (isArticleIdMatchFlowFormType) {
+        <app-form [flow]="config.flow"/>
+    }
 }

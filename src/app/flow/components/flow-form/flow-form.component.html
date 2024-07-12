@@ -8,12 +8,16 @@
         <span>
             @switch (formType) {
                 @case ('patients') {
-                    Patient Signup
+                    Patient 
+                }
+                @case ('physicians') {
+                    Physicians 
                 }
                 @default {
-                    {{ flowData[2].companyType }} Signup
+                    {{ flowData[2].companyType }} 
                 }
             }
+            Signup
         </span>
     </h2>
 
@@ -131,24 +135,25 @@
                     type="text">
             </div>
         } 
+        
         <div class="group">
-        <label for="tel-national">Phone</label>
-        <div class="phone-wrap">
-            <input
-                name="tel-national" autocomplete="tel-national"
-                [style.padding-left]="telephonePadding + 'px'"
-                #formInput
-                formControlName="phone"
-                placeholder="xxx-xxx-xxxx"
-                required
-                tabindex="5"
-                type="text">
-                <app-country-codes
-                    [currentCountry]="inputCountry"
-                    [isOpen]="isOpenedPhoneDropdown"
-                    (countryCode)="onCodeSelected($event)">
-                </app-country-codes>
-        </div>
+            <label for="tel-national">Phone</label>
+            <div class="phone-wrap">
+                <input
+                    name="tel-national" autocomplete="tel-national"
+                    [style.padding-left]="telephonePadding + 'px'"
+                    #formInput
+                    formControlName="phone"
+                    placeholder="xxx-xxx-xxxx"
+                    required
+                    tabindex="5"
+                    type="text">
+                    <app-country-codes
+                        [currentCountry]="inputCountry"
+                        [isOpen]="isOpenedPhoneDropdown"
+                        (countryCode)="onCodeSelected($event)">
+                    </app-country-codes>
+            </div>
         </div>
         <div class="group">
             <label for="email">Email</label>

@@ -1,7 +1,7 @@
-import { TFLow } from "./TFLow";
+import { TFormFlow } from "./TFormFlow";
 
 export interface IFlowDialogData {
   step: number,
-  flow: TFLow,
+  flow: TFormFlow,
   isInit: boolean
 }

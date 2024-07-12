@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IFlowSelect } from 'src/app/shared/interfaces/IFlowSelect';
-import { TFLow } from 'src/app/shared/interfaces/TFLow';
+import { TFormFlow } from 'src/app/shared/interfaces/TFormFlow';
 import { FlowDataService } from 'src/app/shared/services/flow-data.service';
 import { FlowData } from '../../flow.component';
 
@@ -11,19 +11,19 @@ import { FlowData } from '../../flow.component';
 })
 export class FlowSelectComponent {
     @Output() next = new EventEmitter<FlowData>();
-    @Input() flowType: TFLow = 'patients';
+    @Input() flowType: TFormFlow = 'patients';
 
     public selectOptions: boolean[] = [false, false, false, false];
     public checkedItem: string = '';
 
-    public currentFlowData: IFlowSelect;
-    private oldFlowType: TFLow;
+    public currenTFormFlowData: IFlowSelect;
+    private oldFlowType: TFormFlow;
 
     constructor(private flowSelectService: FlowDataService) {}
 
     ngOnInit(): void {
         this.oldFlowType = this.flowType;
-        this.getCurrentSelectFlowData(this.flowType);
+        this.getCurrentSelecTFormFlowData(this.flowType);
     }
 
     ngDoCheck(): void {
@@ -31,14 +31,14 @@ export class FlowSelectComponent {
         if (this.oldFlowType !== this.flowType) {
             this.resetSelectOptions();
             this.checkedItem = '';
-            this.getCurrentSelectFlowData(this.flowType);
+            this.getCurrentSelecTFormFlowData(this.flowType);
             this.oldFlowType = this.flowType;
         }
     }
 
-    private getCurrentSelectFlowData(id: string) {
-        this.currentFlowData =
-            this.flowSelectService.getCurrentFlowSelectData(id);
+    private getCurrentSelecTFormFlowData(id: string) {
+        this.currenTFormFlowData =
+            this.flowSelectService.getCurrenTFormFlowSelectData(id);
     }
 
     public toggleCheck(index: number, itemName: string) {

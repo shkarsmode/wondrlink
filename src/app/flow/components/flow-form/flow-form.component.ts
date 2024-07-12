@@ -19,7 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { debounceTime, last, startWith } from 'rxjs';
 import { CheckEmailComponent } from 'src/app/shared/dialogs/check-email/check-email.component';
 import { ICountryCodes } from 'src/app/shared/interfaces/ICountryCodes';
-import { TFLow } from 'src/app/shared/interfaces/TFLow';
+import { TFormFlow } from 'src/app/shared/interfaces/TFormFlow';
 import { ArticleService } from 'src/app/shared/services/article-service.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CountryCodesService } from 'src/app/shared/services/country-codes.service';
@@ -33,7 +33,7 @@ import { FlowDialogComponent } from '../flow-dialog/flow-dialog.component';
     styleUrls: ['./flow-form.component.scss'],
 })
 export class FlowFormComponent {
-    @Input() public formType: TFLow = 'patients';
+    @Input() public formType: TFormFlow = 'patients';
     @Output() public next = new EventEmitter<FlowData>();
     @Input() public flowData: FlowData[];
 
@@ -55,7 +55,7 @@ export class FlowFormComponent {
     private password: any = 'test' + Math.floor(Math.random() * 100) + 1;
 
     // for detecting when user change flow and apply appropirate form for him
-    private oldFormType: TFLow;
+    private oldFormType: TFormFlow;
 
     // when user submits a form, it will show him the check email dialog
     private dialogConfig: MatDialogConfig = new MatDialogConfig();
