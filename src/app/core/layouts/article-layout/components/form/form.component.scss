@@ -34,7 +34,7 @@ mat-spinner {
 
 :host ::ng-deep.mat-mdc-progress-spinner
 .mdc-circular-progress__indeterminate-circle-graphic {
-    stroke: #00e7a1;
+    stroke: rgba(38, 38, 38, 1);
 }
 
 app-flow ::ng-deep .wrap-inputs {
