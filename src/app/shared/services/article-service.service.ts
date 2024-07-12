@@ -1,8 +1,10 @@
-import { TFormFlow } from 'src/app/shared/interfaces/TFormFlow';
+import { FlowComponentConfig, TFormFlow } from 'src/app/shared/interfaces/TFormFlow';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { IInfo } from '../interfaces/IInfo';
+import { MatDialog } from '@angular/material/dialog';
+import { FlowDialogComponent } from 'src/app/flow/components/flow-dialog/flow-dialog.component';
 
 export type TArticleFormState = 'active' | 'hidden';
 @Injectable({
@@ -21,8 +23,10 @@ export class ArticleService {
 
     public info: IInfo[];
 
+
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private dialog: MatDialog,
     ) { }
 
     public updateArticleFormState(state: TArticleFormState): void {
@@ -50,5 +54,23 @@ export class ArticleService {
 
     public getFormTitleById(id: TFormFlow): string   {
         return this.formTitle[id];
+    }
+
+    public openFlowDialog(flowConfig: FlowComponentConfig = {
+            flow: 'patients',
+            step: 1,
+            isSkipFirstStep: false
+        }): void {
+        
+        this.updateArticleFormState('hidden');
+
+        let dialogRef = this.dialog.open(FlowDialogComponent, {
+            // width: '630px',
+            data: {...flowConfig},
+        });
+
+        dialogRef.afterClosed().subscribe(() => {
+            this.updateArticleFormState('active');
+        });
     }
 }

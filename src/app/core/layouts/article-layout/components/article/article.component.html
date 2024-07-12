@@ -1,6 +1,20 @@
 <div class="wrap" *ngIf="article">
-	<div 
-		class="content" 
-		[innerHTML]="article.content">
+
+	<div>
+		<div 
+			class="content" 
+			[innerHTML]="article.content">
+		</div>
+
+				
+		@if (article.id === 'about-us') {
+			<button class="btn-green"
+				(click)="articleService.openFlowDialog()">
+				Get Started
+			</button>
+		}
+
 	</div>
+
+
 </div>

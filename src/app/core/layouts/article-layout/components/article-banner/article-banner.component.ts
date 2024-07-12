@@ -1,8 +1,4 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import {
-    MatDialog
-} from '@angular/material/dialog';
-import { FlowDialogComponent } from 'src/app/flow/components/flow-dialog/flow-dialog.component';
 import { IInfo } from 'src/app/shared/interfaces/IInfo';
 import { FlowComponentConfig, TFormFlow } from 'src/app/shared/interfaces/TFormFlow';
 import { ArticleService } from 'src/app/shared/services/article-service.service';
@@ -23,8 +19,7 @@ export class ArticleBannerComponent {
     private articleId: string;
 
     constructor(
-        private dialog: MatDialog,
-        private articleService: ArticleService
+        public articleService: ArticleService
     ) {}
 
     public ngDoCheck(): void {
@@ -38,17 +33,17 @@ export class ArticleBannerComponent {
         this.wrap.nativeElement.style.backgroundImage = `url('/assets/img/${this.articleId}.webp')`;
     }
 
-    public openFlowDialog(): void {
+    // public openFlowDialog(): void {
         
-        this.articleService.updateArticleFormState('hidden');
+    //     this.articleService.updateArticleFormState('hidden');
 
-        this.dialog.open(FlowDialogComponent, {
-            // width: '630px',
-            data: {...this.flowConfig},
-        });
+    //     this.dialog.open(FlowDialogComponent, {
+    //         // width: '630px',
+    //         data: {...this.flowConfig},
+    //     });
 
-        this.dialog.afterAllClosed.subscribe(() => {
-            this.articleService.updateArticleFormState('active');
-        });
-    }
+    //     this.dialog.afterAllClosed.subscribe(() => {
+    //         this.articleService.updateArticleFormState('active');
+    //     });
+    // }
 }

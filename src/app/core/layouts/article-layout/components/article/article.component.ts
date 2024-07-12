@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IInfo } from 'src/app/shared/interfaces/IInfo';
+import { ArticleService } from 'src/app/shared/services/article-service.service';
 
 @Component({
     selector: 'app-article',
@@ -9,4 +10,6 @@ import { IInfo } from 'src/app/shared/interfaces/IInfo';
 export class ArticleComponent {
 
     @Input() article: IInfo;
+
+    constructor(public articleService: ArticleService) {}
 }

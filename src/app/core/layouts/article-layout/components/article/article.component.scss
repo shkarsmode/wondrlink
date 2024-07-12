@@ -7,6 +7,12 @@
     padding: 180px 15px;
 }
 
+.btn-green {
+    width: 260px;
+    height: 60px;
+    margin-top: 56px;
+}
+
 .content {
     max-width: 850px;
     width: 100%;
@@ -76,6 +82,10 @@
             margin-bottom: 15px;
             text-align: justify;
         }
+    }
+
+    .wrap div {
+        text-align: center;
     }
 }
 
