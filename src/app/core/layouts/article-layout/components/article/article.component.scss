@@ -13,25 +13,29 @@
     transition: all .3s;
 
     ::ng-deep {
+
+        h2:first-child {
+            margin-top: 0 !important;
+        }
+
         h2 {
+            margin-top: 50px;
+            margin-bottom: 20px;
             font-size: 28px;
-            margin-bottom: 25px;
-            margin-top: 55px;
-            font-weight: 600;
-            font-family: 'Poppins', sans-serif !important;
+            font-weight: 700;
+            line-height: 38.25px;
+            text-align: left;
+
+            color: rgba(38, 38, 38, 1);
+
         }
 
         p {
             font-size: 18px;
-            line-height: 24px;
-            margin-bottom: 20px;
-            // opacity: .9;
-            color: #262626;
-        }
-
-        h2:last-child {
-            margin-top: 100px;
-            margin-bottom: 60px;
+            font-weight: 400;
+            line-height: 24.59px;
+            text-align: left;
+           color: rgba(38, 38, 38, 1);
         }
 
         b {
@@ -63,6 +67,7 @@
         ::ng-deep h2 {
             text-align: center;
             font-size: 28px;
+            line-height: 1.5;
         }
 
         ::ng-deep p {
@@ -74,8 +79,3 @@
     }
 }
 
-@media (max-width: 400px) {
-    .wrap {
-        margin-top: 25px;
-    }
-}
