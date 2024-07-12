@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
-import { TFLow } from 'src/app/shared/interfaces/TFLow';
+import { TFormFlow, isTFormFlow } from 'src/app/shared/interfaces/TFormFlow';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { ArticleService, TArticleFormState } from 'src/app/shared/services/article-service.service';
 @Component({
@@ -19,8 +19,13 @@ import { ArticleService, TArticleFormState } from 'src/app/shared/services/artic
     ]
 })
 export class FormComponent implements OnInit {
-    @Input() flow: TFLow; // depends on article page
+    // if flow was not assigne, isTFormFlow() can check it 
+    // and then we need to change @Input config for app-flow
+    @Input() flow: TFormFlow; 
+
     public isLoading: boolean = false;
+
+    // needs to reinit flow component in some part of time
     public isFlowComponent: boolean = true;
 
     constructor (
@@ -55,6 +60,10 @@ export class FormComponent implements OnInit {
                 this.isLoading = false;
                 this.isFlowComponent = true;
         }
+    }
+
+    public get isTFormFlow(): boolean {
+        return isTFormFlow(this.flow);
     }
 
 }

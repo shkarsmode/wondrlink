@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IInfo } from 'src/app/shared/interfaces/IInfo';
-import { TFLow } from 'src/app/shared/interfaces/TFLow';
+import { FlowComponentConfig, isTFormFlow, TFormFlow } from 'src/app/shared/interfaces/TFormFlow';
 import { ArticleService } from '../../../shared/services/article-service.service';
 
 @Component({
@@ -11,9 +11,13 @@ import { ArticleService } from '../../../shared/services/article-service.service
 })
 export class ArticleLayoutComponent implements OnInit {
     public articleId: string;
-
     public currentInfo: IInfo;
-    public currentFlow: TFLow;
+
+    public config: FlowComponentConfig = {
+        flow: 'patients',
+        step: 1,
+        isSkipFirstStep: false,
+    };
 
     constructor(
         private route: ActivatedRoute,
@@ -21,45 +25,47 @@ export class ArticleLayoutComponent implements OnInit {
         private articleService: ArticleService
     ) {}
 
-    public ngOnInit(): void {
-        this.getInfoOfRoute();
-        this.getArticleById();
+     public ngOnInit(): void {
+        this.getArticleByIdFromRouteParams();
     }
 
-    private getInfoOfRoute(): void {
+    private getArticleByIdFromRouteParams(): void {
         this.route.paramMap.subscribe((params) => {
             this.articleId = params.get('articleId') || 'patients';
-            this.getArticleById();
+            this.getCurrentArticle();
+            this.setupFlowConfig()
         });
     }
 
-    private getArticleById(): void {
-        if (!this.articleId) return;
-
-        this.getCurrentArticle();
-    }
-
     private getCurrentArticle(): void {
-        this.currentInfo = this.articleService.getCurrentArticle(
-            this.articleId
-        );
+        this.currentInfo = this.articleService.getCurrentArticle(this.articleId);
+
         if (!this.currentInfo) {
             this.router.navigateByUrl('/');
         }
-        this._matchCurrentFlow();
     }
 
-    private _matchCurrentFlow(): void {
-        const articleId = this.currentInfo.id;
+    // here we decide if user on page that match to appropirate flow
+    private setupFlowConfig(): void {
 
-        if (articleId === 'patients') {
-            this.currentFlow = 'patients';
-        } else if (articleId === 'ecosystem') {
-            this.currentFlow = 'ecosystem';
-        } else if (articleId === 'drug-developers') {
-            this.currentFlow = 'drug-developers';
-        } else if (articleId === 'about-us') {
-            this.currentFlow = 'about-us';
+        if(this.isArticleIdMatchFlowFormType) {
+            this.config = {
+                flow: this.articleId as TFormFlow,
+                step: 2,
+                isSkipFirstStep: true
+            }
+        } else {
+            this.config = {
+                flow: 'patients',
+                step: 1,
+                isSkipFirstStep: false
+            }
         }
     }
+
+    public get isArticleIdMatchFlowFormType(): boolean {
+        return isTFormFlow(this.articleId);
+    }
+    
+   
 }

@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TFLow } from 'src/app/shared/interfaces/TFLow';
-
+import { FlowComponentConfig, TFormFlow } from 'src/app/shared/interfaces/TFormFlow';
 
 
 @Component({
@@ -9,24 +8,29 @@ import { TFLow } from 'src/app/shared/interfaces/TFLow';
   templateUrl: './flow-dialog.component.html',
   styleUrls: ['./flow-dialog.component.scss']
 })
+
 export class FlowDialogComponent {
-  public flow: TFLow = 'patients';
-  public step: number = 1;
+
+  // flow component config
+  public flow: TFormFlow = 'patients';
+  public step: number = 1; 
   public isInit: boolean = false;
 
   constructor (
     private dialogRef: MatDialogRef<FlowDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: FlowComponentConfig
   ) {
 
   }
 
   ngOnInit(): void {
+    
     if(this.data) {
       this.flow = this.data.flow;
       this.step = this.data.step;
-      this.isInit = this.data.isInit;
+      this.isInit = this.data.isSkipFirstStep;
     }
+
   }
 
   public close() {

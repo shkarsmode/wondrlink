@@ -4,7 +4,7 @@ import {
 } from '@angular/material/dialog';
 import { FlowDialogComponent } from 'src/app/flow/components/flow-dialog/flow-dialog.component';
 import { IInfo } from 'src/app/shared/interfaces/IInfo';
-import { TFLow } from 'src/app/shared/interfaces/TFLow';
+import { FlowComponentConfig, TFormFlow } from 'src/app/shared/interfaces/TFormFlow';
 import { ArticleService } from 'src/app/shared/services/article-service.service';
 @Component({
     selector: 'app-article-banner',
@@ -14,11 +14,13 @@ import { ArticleService } from 'src/app/shared/services/article-service.service'
 export class ArticleBannerComponent {
     @ViewChild('wrap', { static: true }) wrap: ElementRef<HTMLDivElement>;
     @Input() article: IInfo;
-    @Input() flow: TFLow;
-    private articleId: string;
+    @Input() flowConfig: FlowComponentConfig = {
+        flow: 'patients',
+        step: 1,
+        isSkipFirstStep: false
+    }
 
-    public step: number = 2;
-    public isInit: boolean = true;
+    private articleId: string;
 
     constructor(
         private dialog: MatDialog,
@@ -36,16 +38,13 @@ export class ArticleBannerComponent {
         this.wrap.nativeElement.style.backgroundImage = `url('/assets/img/${this.articleId}.webp')`;
     }
 
-    public openFlowDialog(flow: TFLow, isInit: boolean, step: number): void {
+    public openFlowDialog(): void {
+        
         this.articleService.updateArticleFormState('hidden');
 
         this.dialog.open(FlowDialogComponent, {
             width: '630px',
-            data: {
-                flow: flow,
-                step: step,
-                isInit: isInit,
-            },
+            data: {...this.flowConfig},
         });
 
         this.dialog.afterAllClosed.subscribe(() => {

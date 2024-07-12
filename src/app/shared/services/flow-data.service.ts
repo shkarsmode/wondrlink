@@ -33,7 +33,7 @@ export class FlowDataService {
             .subscribe((data: TCancerData) => (this.cancerData = data));
     }
 
-    public getCurrentFlowSelectData(id: string): IFlowSelect {
+    public getCurrenTFormFlowSelectData(id: string): IFlowSelect {
         return this.flowSelectData?.filter((info) => info.id === id)[0];
     }
 
@@ -59,6 +59,8 @@ export class FlowDataService {
     public getSubgroupFunctionByTitle(title: string): string[] {
         return this._subgroupFunctionData[title] || [];
     }
+
+    
 
     
 }

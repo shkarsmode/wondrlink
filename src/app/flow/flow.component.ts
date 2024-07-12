@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { TFLow } from '../shared/interfaces/TFLow';
+import { TFormFlow } from '../shared/interfaces/TFormFlow';
+import { matchFlowUserType } from '../shared/features/matchFlowUserType.helper';
 
 export type TUserType = 'Patient' | 'Ecosystem' | 'Drug Developers' | 'Physicians';
+
 export interface FlowData {
   email?: string,
   firstName?: string,
@@ -24,7 +26,7 @@ export interface FlowData {
   styleUrls: ['./flow.component.scss']
 })
 export class FlowComponent {
-  @Input() flow: TFLow = 'patients';
+  @Input() flow: TFormFlow = 'patients';
 
   // accoring to design for each step we have step 
   // we use it for navigating beetween stages of the flow, accoring to design
@@ -32,20 +34,21 @@ export class FlowComponent {
 
   // the user can reach the Flow page, Ecosystem, Drug-developers ...,
   //  and then we don't need to show init step for him because we already know it, because he is on the appropriate page
-  @Input() isFlowStartsFromInit: boolean = false;
+  // also it needs when to show arrow-back in template  
+  @Input() isSkipFirstStep: boolean = false;
 
   // user can start flow on the page or with opening dialog 
-  @Input() isDialog: boolean = false;
+  // @Input() isDialog: boolean = false;
 
   public flowData: FlowData[] = []
 
   constructor() {}
 
   ngOnInit(): void {
-    this.initFlowDataFirstStep(this.flow);
+    this.initFormFlowDataFirstStep(this.flow);
   }
 
-  public onFlowChange(newFlow: TFLow) {
+  public onFlowChange(newFlow: TFormFlow) {
     this.flow = newFlow;
   }
 
@@ -61,16 +64,9 @@ export class FlowComponent {
     }
   }
 
-  private determinateUserType(flow: TFLow): TUserType {
-    if(flow === 'patients') return 'Patient';
-    if(flow === 'drug-developers') return 'Drug Developers';
-    if(flow === 'ecosystem') return 'Ecosystem';
-    return 'Physicians'
-  }
-
-  private initFlowDataFirstStep(flow: TFLow) {
-    if(!this.isFlowStartsFromInit) return
-    let flowType = this.determinateUserType(flow);
+  private initFormFlowDataFirstStep(flow: TFormFlow) {
+    if(!this.isSkipFirstStep) return
+    let flowType = matchFlowUserType(flow);
     this.flowData[1] = {
         type: flowType
     }
