@@ -129,6 +129,14 @@ html {
 //     border-radius: 20px !important;
 // }
 
+::ng-deep mat-dialog-container {
+    border-radius: 0px !important;
+ }
+
+ .mat-mdc-dialog-container {
+    --mdc-dialog-container-shape: 0px;
+  }
+
 .cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
     opacity: 1;
     background: rgba(38, 38, 38, 1);
@@ -145,14 +153,14 @@ html {
 body ::ng-deep app-flow-dialog app-flow-form {
     display: block;
     min-width: 850px;
-    max-height: 750px;
+    // max-height: 750px;
 
 }
 
 body ::ng-deep app-flow-dialog app-flow-details {
     display: block;
     min-width: 850px; //630
-    min-height: 750px;
+    // min-height: 750px;
 }
 
 @media screen and (max-width: 800px) {
