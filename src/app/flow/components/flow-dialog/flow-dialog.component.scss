@@ -17,11 +17,13 @@
 
 
 
-@media screen and (max-height: 1000px) {
-  .wrap {
-    height: 90dvh;
-  }
-}
+// @media screen and (max-height: 1000px) {
+//   .wrap {
+//     // height: 90dvh;
+    
+//     min-width: 850px;
+//   }
+// }
 
 @media screen and (max-height: 700px) and (max-width: 500px) {
   .wrap {

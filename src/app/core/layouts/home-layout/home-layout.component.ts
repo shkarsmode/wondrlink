@@ -30,8 +30,8 @@ export class HomeLayoutComponent implements AfterViewInit {
     }
 
     private initDialogConfig(): void {
-        // this.dialogConfig.width = '850px';
-        // this.dialogConfig.maxHeight = '750px';
+        this.dialogConfig.width = '850px';
+        this.dialogConfig.maxHeight = '750px';
         this.dialogConfig.disableClose = true;
     }
 
