@@ -65,7 +65,7 @@ export class ArticleService {
         this.updateArticleFormState('hidden');
 
         let dialogRef = this.dialog.open(FlowDialogComponent, {
-            // width: '630px',
+            width: '850px',
             data: {...flowConfig},
         });
 
