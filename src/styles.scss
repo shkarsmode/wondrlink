@@ -152,15 +152,15 @@ html {
 
 body ::ng-deep app-flow-dialog app-flow-form {
     display: block;
-    // min-width: 850px;
-    // max-height: 750px;
+    min-width: 850px;
+    max-height: 750px;
 
 }
 
 body ::ng-deep app-flow-dialog app-flow-details {
     display: block;
-    // min-width: 850px; //630
-    // min-height: 750px;
+    min-width: 850px; //630
+    min-height: 750px;
 }
 
 @media screen and (max-width: 800px) {
@@ -172,16 +172,19 @@ body ::ng-deep app-flow-dialog app-flow-details {
         border-radius: 0px !important;
     }
 
-    .cdk-overlay-pane {
-        min-width: 100dvw !important;
+    .cdk-overlay-pane.mat-mdc-dialog-panel {
+        width: 100dvw !important;
+        height: 100dvh !important;
+        max-height: 100dvh !important;
+        max-width: 100dvw !important;
     }
 }
 
 @media screen and (max-width: 800px) {
-    .cdk-overlay-pane {
-        min-width: 100vw !important;
-        min-height: 100vh !important;
-    }
+    // .cdk-overlay-pane {
+    //     min-width: 100dvw !important;
+    //     min-height: 100dvh !important;
+    // }
 }
 
 // }
