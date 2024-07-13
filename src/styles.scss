@@ -152,9 +152,7 @@ html {
 
 body ::ng-deep app-flow-dialog app-flow-form {
     display: block;
-    min-width: 850px;
-    max-height: 750px;
-
+    width: 850px;
 }
 
 body ::ng-deep app-flow-dialog app-flow-details {
@@ -172,19 +170,19 @@ body ::ng-deep app-flow-dialog app-flow-details {
         border-radius: 0px !important;
     }
 
-    .cdk-overlay-pane.mat-mdc-dialog-panel {
-        width: 100dvw !important;
-        height: 100dvh !important;
-        max-height: 100dvh !important;
-        max-width: 100dvw !important;
+    body::ng-deep .mat-mdc-dialog-container  {
+   
+        min-width: 100vw !important;
+       
     }
 }
 
 @media screen and (max-width: 800px) {
-    // .cdk-overlay-pane {
-    //     min-width: 100dvw !important;
-    //     min-height: 100dvh !important;
-    // }
+    ::ng-deep {
+        .cdk-overlay-pane {
+            min-width: 100vw !important;
+        }
+     }
 }
 
 // }

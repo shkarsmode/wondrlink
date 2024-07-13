@@ -32,18 +32,4 @@ export class ArticleBannerComponent {
     private setBackgroundImage(): void {
         this.wrap.nativeElement.style.backgroundImage = `url('/assets/img/${this.articleId}.webp')`;
     }
-
-    // public openFlowDialog(): void {
-        
-    //     this.articleService.updateArticleFormState('hidden');
-
-    //     this.dialog.open(FlowDialogComponent, {
-    //         // width: '630px',
-    //         data: {...this.flowConfig},
-    //     });
-
-    //     this.dialog.afterAllClosed.subscribe(() => {
-    //         this.articleService.updateArticleFormState('active');
-    //     });
-    // }
 }

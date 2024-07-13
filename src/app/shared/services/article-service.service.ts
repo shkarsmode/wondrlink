@@ -66,6 +66,7 @@ export class ArticleService {
 
         let dialogRef = this.dialog.open(FlowDialogComponent, {
             width: '850px',
+            maxWidth: '100dvw',
             data: {...flowConfig},
         });
 
