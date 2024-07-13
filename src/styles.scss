@@ -145,14 +145,14 @@ html {
 body ::ng-deep app-flow-dialog app-flow-form {
     display: block;
     min-width: 850px;
-    // max-height: 750px;
+    max-height: 750px;
 
 }
 
 body ::ng-deep app-flow-dialog app-flow-details {
     display: block;
     min-width: 850px; //630
-    // min-height: 750px;
+    min-height: 750px;
 }
 
 @media screen and (max-width: 800px) {
@@ -169,11 +169,12 @@ body ::ng-deep app-flow-dialog app-flow-details {
     }
 }
 
-// @media screen and (max-width: 700px) {
-//     .cdk-overlay-pane {
-//         max-width: 95vw !important;
-//     }
-
+@media screen and (max-width: 800px) {
+    .cdk-overlay-pane {
+        min-width: 100vw !important;
+        min-height: 100vh !important;
+    }
+}
 
 // }
 
