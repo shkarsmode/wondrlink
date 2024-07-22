@@ -39,52 +39,61 @@ form {
 }
 
 h2 {
-    font-size: 30px;
-    font-weight: 600;
-    margin-bottom: 20px;
+    font-size: 28px;
+    line-height: 38.25px;
+
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 30px;
 }
 
 .wrap-checkboxes {
     display: flex;
     user-select: none;
     margin-bottom: 20px;
-    font-weight: 600;
+    font-weight: 400;
 
     .checkbox {
         display: flex;
         align-items: center;
         margin-right: 12px;
-        height: 40px;
-        padding: 0 20px;
+        height: 48px;
+        padding: 12px 16px;
         background: rgba(244, 244, 244, 1);
 
-        border: 1px solid rgba(1, 193, 185, 0.2);
-        color: #0f0f11;
-        opacity: 0.6;
+        border: 1px solid rgba(119, 119, 119, 0.2);
+        color: rgba(38, 38, 38, 1);
+
+        font-size: 18px;
+        line-height: 24.59px;
+        text-align: left;
+
+
         cursor: pointer;
 
         &.active {
-            background: rgba(1, 193, 185, 0.1);
             border: 1px solid rgba(119, 119, 119, 1);
-            opacity: 1;
+            font-weight: 600;
             cursor: unset;
         }
     }
 }
 
 select {
-    font-size: 16px;
-	font-weight: 400;
-	line-height: 1.38;
-	border-radius: 0;
-	border: 1px solid rgba(1, 193, 185, 0.1);
-	background-color: #F3F9F7;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24.59px;
+    text-align: left;
+  
+
+    border: 1px solid rgba(119, 119, 119, 0.2);
+    background: rgba(244, 244, 244, 1);
 	outline: none;
 	width: 100%;
-	height: 40px;
+	height: 48px;
 
 	&:focus {
-		border: 1px solid rgba(1, 193, 185, 1);
+        border: 1px solid rgba(119, 119, 119, 1);
 	}
 }
 
@@ -96,11 +105,11 @@ select {
 }
 
 input::placeholder, .select-placeholder_active {
-    color: #00081684;
-    font-size: 16px;
-    font-style: normal;
+    font-size: 18px;
     font-weight: 400;
-    line-height: normal;
+    line-height: 24.59px;
+    text-align: left;
+    color: rgba(38, 38, 38, .6);
 }
 
 .group[data-select]::after {
@@ -122,7 +131,7 @@ input::placeholder, .select-placeholder_active {
     width: 100%;
 }
 
-.full-name {
+.row {
     flex: 0 0 100%;
     display: flex;
     flex-direction: row;
@@ -134,12 +143,13 @@ input::placeholder, .select-placeholder_active {
 }
 
 label {
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.85);
-    font-size: 14px;
-    line-height: 1.5;
+    font-weight: 400;
+    color: rgba(38, 38, 38, 1);
+    font-size: 16px;
+    line-height: 21.86px;
+
     display: inline-block;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     cursor: pointer;
     user-select: none;
 }
@@ -150,29 +160,31 @@ label {
 
 :host ::ng-deep {
     input {
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 400;
-        line-height: 1.38;
+        line-height: 24.59px;
         border-radius: 0;
-        border: 1px solid rgba(1, 193, 185, 0.1);
-        background-color: #F3F9F7;
+        border: 1px solid rgba(119, 119, 119, 0.2);
+        background: rgba(244, 244, 244, 1);
         outline: none;
-        padding: 13px 20px;
+        padding: 12px 16px;
         width: 100%;
-        height: 40px;
+        height: 48px;
 
         &:focus {
-            border: 1px solid rgba(1, 193, 185, 1);
+            border: 1px solid rgba(119, 119, 119, 1)
         }
     }
 }
 
 
 button {
-    width: 60%;
-    height: 70px;
-    font-weight: 500;
-    font-size: 22px;
+    width: 240px;
+    height: 60px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24.59px;
+    text-align: center;
 
     &[disabled] {
         opacity: 0.4;
@@ -201,16 +213,24 @@ mat-spinner {
 }
 
 :host ::ng-deep.mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
-    stroke: #00e7a1;
+    stroke: rgba(38, 38, 38, 1);
 }
 
 
 @media screen and (max-width: 800px) {
     button {
-        width: 65%;
-        height: 45px;
+        width: 240px;
+        height: 60px;
         font-size: 18px;
         font-weight: 500;
+    }
+
+    .row {
+        flex-direction: column;
+    }
+
+    .full-name {
+        flex-direction: row !important;
     }
 }
 
@@ -230,7 +250,7 @@ mat-spinner {
         column-gap: 10px;
     }
 
-    .full-name {
+    .row {
         gap: 10px;
     }
 

@@ -3,7 +3,7 @@
 		<h1 [innerHTML]="article.header"></h1>
 		<div [innerHTML]="article.subHeader"></div>
 		<button class="btn-green"
-            (click)="openFlowDialog()">
+            (click)="articleService.openFlowDialog(flowConfig)">
             Get Started
         </button>
 	</div>

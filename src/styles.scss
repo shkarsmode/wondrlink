@@ -125,13 +125,21 @@ html {
 
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.mat-mdc-dialog-container .mdc-dialog__surface {
-    border-radius: 20px !important;
-}
+// .mat-mdc-dialog-container .mdc-dialog__surface {
+//     border-radius: 20px !important;
+// }
+
+::ng-deep mat-dialog-container {
+    border-radius: 0px !important;
+ }
+
+ .mat-mdc-dialog-container {
+    --mdc-dialog-container-shape: 0px;
+  }
 
 .cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
     opacity: 1;
-    background: #152032;
+    background: rgba(38, 38, 38, 1);
     opacity: 0.7;
 }
 
@@ -144,33 +152,38 @@ html {
 
 body ::ng-deep app-flow-dialog app-flow-form {
     display: block;
-    min-width: 800px; //630px
+    width: 850px;
 }
 
 body ::ng-deep app-flow-dialog app-flow-details {
     display: block;
-    min-width: 800px; //630
+    min-width: 850px; //630
+    min-height: 750px;
 }
 
 @media screen and (max-width: 800px) {
 
-    // .mat-mdc-dialog-container .mdc-dialog__surface {
-    //     border-radius: 10px !important;
-    // }
+    .mat-mdc-dialog-container .mdc-dialog__surface {
+        border-radius: 0px !important;
+    }
     .mat-mdc-dialog-container .mdc-dialog__surface {
         border-radius: 0px !important;
     }
 
-    .cdk-overlay-pane {
-        min-width: 100dvw !important;
+    body::ng-deep .mat-mdc-dialog-container  {
+   
+        min-width: 100vw !important;
+       
     }
 }
 
-// @media screen and (max-width: 700px) {
-//     .cdk-overlay-pane {
-//         max-width: 95vw !important;
-//     }
-
+@media screen and (max-width: 800px) {
+    ::ng-deep {
+        .cdk-overlay-pane {
+            min-width: 100vw !important;
+        }
+     }
+}
 
 // }
 

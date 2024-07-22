@@ -27,7 +27,7 @@ h1 {
   
   
   font-size: 28px;
-  font-weight: 800;
+  font-weight: 700;
   line-height: 38.25px;
   text-align: left;
   margin: 0;
@@ -64,6 +64,10 @@ h1 + span {
     	gap: 17px;
 		transition: all .4s;
 		cursor: pointer;
+
+		.left img {
+			margin-top: 5px;
+		}
 
 	    &.active {
 			border: 1px solid rgba(119, 119, 119, 1);

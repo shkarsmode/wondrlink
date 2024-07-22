@@ -40,27 +40,6 @@
 
         </ng-container>
         
-<!-- 
-        <app-flow-form
-            [formType]="flow"
-            *ngIf="flow === 'patients'; else anotherFlow"
-            (next)="onNextStep($event)">
-        </app-flow-form> -->
-
-        <!-- <app-flow-form
-            [formType]="flow"
-            *ngIf="flow === 'physicians'; else anotherFlow"
-            (next)="onNextStep($event)">
-        </app-flow-form> -->
-
-
-        <!-- <ng-template #anotherFlow>
-            <app-flow-select
-                [flowType]="flow"
-                (next)="onNextStep($event)">
-            </app-flow-select>
-        </ng-template> -->
-
     </div>
 
     <div *ngSwitchCase="3">

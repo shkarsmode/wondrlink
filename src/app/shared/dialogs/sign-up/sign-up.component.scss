@@ -71,7 +71,7 @@ h2 {
 
 button {
 	width: 260px;
-	height: 70px;
+	height: 60px;
 	font-size: 22px;
 }
 
@@ -367,7 +367,7 @@ input[type=checkbox]:checked::before {
 
 button {
 	width: 280px;
-	height: 70px;
+	height: 60px;
 	font-weight: 500;
 	font-size: 22px;
 
@@ -412,7 +412,7 @@ input.ng-dirty.ng-invalid {
 }
 
 .wrap:has(.step2:not(.active)) {
-	max-height: 630px;
+	max-height: 650px;
 }
 
 @media (max-width: 500px) {

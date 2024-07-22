@@ -94,8 +94,7 @@ export class FlowDetailsComponent {
   }
 
   private initDialogConfig(): void {
-    this.dialogConfig.width = '630px';
-    this.dialogConfig.height = '500px';
+    this.dialogConfig.width = '850px';
     this.dialogConfig.disableClose = true;
   }
 

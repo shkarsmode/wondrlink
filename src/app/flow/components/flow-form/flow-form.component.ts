@@ -100,11 +100,26 @@ export class FlowFormComponent {
     ngAfterViewInit(): void {
         this.listenPhoneInput();
         this.initTabindexOrder();
+
+        this.contactForm.valueChanges.subscribe(el => {
+            console.log(el);
+            
+        })
     }
 
     private initContactForm(): void {
         switch (this.formType) {
             case 'patients': {
+                this.contactForm = this.fb.group({
+                    firstName: [''],
+                    lastName: [''],
+                    phone: [''],
+                    email: ['', Validators.email],
+                    location: ['', Validators.required],
+                });
+                break;
+            }
+            case 'physicians': {
                 this.contactForm = this.fb.group({
                     firstName: [''],
                     lastName: [''],
@@ -139,6 +154,7 @@ export class FlowFormComponent {
 
     public initFunctionInputData() {
         if(this.formType === 'patients') return; 
+        if(this.formType === 'physicians') return; 
         
         this.functionInputData = this.flowDataService
             .getSubgroupFunctionByTitle(this.flowData[2].companyType!);
@@ -174,6 +190,8 @@ export class FlowFormComponent {
         this.next.emit(flowData);
     }
 
+
+
     public onContactFormSubmit(): void {
         this.isSending = true;
 
@@ -183,16 +201,20 @@ export class FlowFormComponent {
 
         let password = this.password;
         let phone = this.joinPhoneParts();
+
         // let lastName = "Removed" // Removed
 
         let body = Object.assign(
             this.contactForm.value,
-            ...this.flowData,
+            {...this.flowData},
             { password: password,
               phone: phone,
             //   lastName: lastName 
             }
         );
+
+        console.log(body);
+        
         
         this.authService.registration(body).subscribe({
             next: (res) => {
@@ -213,8 +235,7 @@ export class FlowFormComponent {
 
     // for other flows
     private initDialogConfig(): void {
-        this.dialogConfig.width = '630px';
-        this.dialogConfig.height = '500px';
+        this.dialogConfig.width = '850px';
         this.dialogConfig.disableClose = true;
     }
 

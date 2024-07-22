@@ -1,37 +1,41 @@
 .wrap {
   position: relative;
   padding: 80px 100px;
-  height: 850px;
+  max-height: 750px;
   overflow-x: hidden;
-
+  width: 100%;
+  max-width: 850px;
 }
 
 .close {
   position: absolute;
   z-index: 1000;
-  top: 20px;
-  right: 20px;
+  top: 30px;
+  right: 30px;
   cursor: pointer;
 }
 
 
 
-@media screen and (max-height: 1000px) {
-  .wrap {
-    height: 90dvh;
-  }
-}
-
-// @media screen and (max-height: 700px) and (max-width: 500px) {
+// @media screen and (max-height: 1000px) {
 //   .wrap {
-//     height: 100dvh;
+//     // height: 90dvh;
+    
+//     min-width: 850px;
 //   }
 // }
 
+@media screen and (max-height: 700px) and (max-width: 500px) {
+  // .wrap {
+  //   height: 100dvh;
+  // }
+}
+
 @media screen and (max-width: 800px) {
   .wrap {
-    // padding: 50px 30px;
+    padding: 80px 30px;
     height: 100dvh;
+    max-height: 100dvh;
 
     &::-webkit-scrollbar {
       width: 0px;
@@ -43,14 +47,14 @@
   }
 
   .close {
-    top: 10px;
-    right: 10px;
+    top: 22px;
+    right: 20px;
   }
 
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 700px) {
   .wrap {
-    padding: 50px 30px;
+    padding: 80px 30px;
   }
 }
