@@ -30,7 +30,7 @@ export class PostComponent implements OnInit {
     public facebookShareLink: string;
     public linkedinShareLink: string;
     private readonly copyLink: string =
-        'https://wondrlink-back.vercel.app/api/posts/shared/';
+        'https://wondrlink.com/api/posts/shared/';
 
     @ViewChild('wrap', { static: true }) wrap: ElementRef<HTMLDivElement>;
 
