@@ -27,4 +27,5 @@ export class BannerComponent implements OnInit {
     public openSignUpDialog(): void {
         const dialogRef = this.dialog.open(FlowDialogComponent, this.dialogConfig);
     }
+
 }
