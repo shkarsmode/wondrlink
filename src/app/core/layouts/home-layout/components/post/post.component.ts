@@ -75,9 +75,11 @@ export class PostComponent implements OnInit {
             if (Object.prototype.hasOwnProperty.call(shareLinks, platform)) {
                 const propertyKey = `${platform}ShareLink`;
                 const title = this.post.header;
+                const via = 'wondrlink';
+
                 this[
                     propertyKey as keyof ShareLinks
-                ] = `${sharePlatforms[platform]}${this.copyLink}${id}&text=${title}`;
+                ] = `${sharePlatforms[platform]}${this.copyLink}${id}&text=${title}&via=${via}`;
 
                 console.log(this[propertyKey as keyof ShareLinks]);
             }
