@@ -14,7 +14,7 @@ interface ShareLinks {
 }
 
 const shareLinks = {
-    twitter: "https://twitter.com/intent/tweet?url=",
+    twitter: "https://x.com/intent/tweet?url=",
     facebook: "https://www.facebook.com/sharer/sharer.php?u=",
     linkedin: "https://www.linkedin.com/sharing/share-offsite/?url="
 }
@@ -91,10 +91,24 @@ export class PostComponent implements OnInit {
                 next: (post) => {
                     this.post = post;
                     this.setBackgroundImage();
+                    this.updateMetaTags(post);
                 },
                 error: (_) => this.router.navigate(['/']),
             });
     }
 
     public goBack = () => this.location.back();
+
+    private updateMetaTags(post: IPost): void {
+        this.title.setTitle(post.header);
+        this.meta.updateTag({ name: 'description', content: post.subHeader });
+        this.meta.updateTag({ property: 'og:title', content: post.header });
+        this.meta.updateTag({ property: 'og:description', content: post.subHeader });
+        this.meta.updateTag({ property: 'og:image', content: post.mainPicture });
+        this.meta.updateTag({ property: 'og:image:alt', content: post.header });
+        this.meta.updateTag({ property: 'og:url', content: `${this.copyLink}${post.id}` });
+        this.meta.updateTag({ property: 'twitter:title', content: post.header });
+        this.meta.updateTag({ property: 'twitter:description', content: post.subHeader });
+        this.meta.updateTag({ property: 'twitter:image', content: post.mainPicture });
+    }
 }
