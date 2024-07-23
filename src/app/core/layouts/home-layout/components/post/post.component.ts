@@ -64,7 +64,6 @@ export class PostComponent implements OnInit {
     private listenPostIdFromRoute(): void {
         this.route.params.subscribe((params) => {
             const id = +params['id'];
-            this.initShareLinksForSocials(id);
             this.getPostDetailsById(id);
         });
     }
@@ -93,6 +92,7 @@ export class PostComponent implements OnInit {
             .subscribe({
                 next: (post) => {
                     this.post = post;
+                    this.initShareLinksForSocials(id);
                     this.setBackgroundImage();
                     this.updateMetaTags(post);
                 },
