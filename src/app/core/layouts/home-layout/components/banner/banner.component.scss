@@ -156,12 +156,14 @@ h1 {
 
     .content {
         text-align: center;
+        padding: 0 0;
     }
 
     h1 {
         // font-size: 32px;
         // line-height: 36px;
             // margin-bottom: 25px;
+        padding: 0 27px;
         max-width: 100%;
         font-size: 42px;
         line-height: 52px;
@@ -176,10 +178,10 @@ h1 {
     // }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 430px) {
 
     .btn-green {
-        width: 100%;
+        width: calc(100% - 60px);
     }
     // .content {
     //     text-align: center;
