@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 180px 0;
+    padding: 180px 25px;
     background-color: #F4F4F4;
 }
 
@@ -34,7 +34,7 @@
 
 .card h3 {
     font-size: 28px;
-    font-weight: 800;
+    font-weight: 700;
     line-height: 38.25px;
     text-align: center;
     margin-bottom: 9px;
@@ -42,10 +42,11 @@
 }
 
 .card p {
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 400;
     line-height: 24.59px;
     text-align: center;
+    margin: 0;
 }
 
 button {
@@ -57,13 +58,23 @@ button {
 @media screen and (max-width: 1555px) {
     .container {
         flex-wrap: wrap;
-        gap: 20px;
+        gap: 48px;
+    }
+    
+    button {
+        margin-top: 50px;
     }
 }
 
 @media screen and (max-width: 500px) {
     :host {
-        padding-top: 100px;
-        padding-bottom: 100px;
+        padding: 100px 25px;
+    }
+}
+
+
+@media screen and (max-width: 430px) {
+    button {
+        width: 100%;
     }
 }
