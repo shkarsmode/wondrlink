@@ -51,7 +51,7 @@ export class AddingPostComponent implements OnInit {
     private initReactiveForm(): void {
         this.form = this.fb.group({
             header: ['', Validators.required],
-            subHeader: ['', [Validators.required]],
+            subHeader: ['', []],
             picture: ['', [Validators.required]],
             content: ['', Validators.required]
         });
@@ -165,17 +165,16 @@ export class AddingPostComponent implements OnInit {
     }
 
 
-    private tempUserSubHeader: string = "";
-
-    public onAtogenerationChange(): void {
+    public onAutogenerationChange(): void {
         this.isAuto = !this.isAuto;
 
-        if(this.isAuto) {this.subHeader.clearValidators(); this.subHeader.updateValueAndValidity(); }
-        else this.subHeader.addValidators(Validators.required);                    
+        if(this.isAuto) { this.subHeader.clearValidators();}
+        else { this.subHeader.addValidators(Validators.required);}         
+        
+        this.subHeader.updateValueAndValidity();
     }
     
     public generateSubHeader(): string {
-        this.tempUserSubHeader = this.subHeader.value;
         let text = this.removeQuillEditorTags();
         if(text.length >= 160 ) return text.slice(0, 160) + "...";
         return text;
