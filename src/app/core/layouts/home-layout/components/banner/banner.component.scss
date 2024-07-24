@@ -171,6 +171,17 @@ h1 {
         margin-bottom: 56px;
     }
 
+    .typewriter {
+        width: 124.7px;
+        display: inline-block;
+    }
+
+    .newline {
+        display: none;
+    }
+
+
+
     // .btn-green {
     //     width: 220px;
     //     height: 45px;
@@ -183,23 +194,5 @@ h1 {
     .btn-green {
         width: calc(100% - 60px);
     }
-    // .content {
-    //     text-align: center;
-    // }
 
-
-    // h1 {
-    //     font-size: 28px;
-    //     text-align: center;
-    // }
-
-    // .typewriter {
-    //     width: 85px;
-    //     display: inline-flex;
-    // }
-
-    // button {
-    //     margin-top: 20px;
-    //     height: 50px;
-    // }
 }
