@@ -34,7 +34,8 @@ import { EditUserCardSelectComponent } from './components/edit-user/components/e
         FormsModule,
         QuillModule.forRoot(),
         MaterialModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MaterialModule,
     ]
 })
 export class AdminModule { }
