@@ -4,7 +4,7 @@
     justify-content: center;
 
     width: 100%;
-    height: 780px;
+    height: 100dvh;
 
     background-image: url('/assets/img/blog-banner.webp');
     background-size: cover;
@@ -118,6 +118,10 @@ h1 {
 /* Media Queries
 ====================*/
 
+.about-us {
+    background-position: right;
+}
+
 @media (max-width: 1700px) {
     .content {
         max-width: 1300px;
@@ -130,18 +134,36 @@ h1 {
         max-width: 1200px;
     }
 
+    .about-us {
+        background-position: 80%;
+    }
+
+    .ecosystem {
+        background-position: 60%;
+    }
+
 }
 
 @media (max-width: 1250px) {
     .content {
         padding: 0 15px;
     }
+
+    .physicians {
+        background-position: 45%;
+    }
 }
 
 @media (max-width: 770px) {
-    .wrap {
-        height: 600px;
+    // .wrap {
+    //     height: 600px;
+    // }
+
+    .about-us {
+        background-position: 90%;
     }
+
+
 
     h1 {
         font-size: 32px;

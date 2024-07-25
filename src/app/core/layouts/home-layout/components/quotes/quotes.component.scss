@@ -4,7 +4,7 @@
     align-items: center;
     width: 100%;
     height: auto;
-    padding: 150px 15px;
+    padding: 180px 25px;
     // background: linear-gradient(90.02deg, #00A5C9 5.36%, #00E7A1 109.9%);
     background-color: #262626;
     // margin-bottom: 200px;
@@ -19,14 +19,11 @@
         letter-spacing: normal;
     }
 
+
     @media (max-width: 1300px) {
         p {
             font-size: 2em;
         }
-    }
-
-    @media (max-width: 1230px) {
-        padding: 120px 15px;
     }
 
     @media (max-width: 1070px) {
@@ -39,6 +36,16 @@
         .simple-newline {
             display: none;
         }
+
+        p {
+            font-size: 24px;
+            line-height: 33px;
+        }
+    }
+
+    
+    @media (max-width: 500px) {
+        padding: 100px 25px;
     }
 
 }

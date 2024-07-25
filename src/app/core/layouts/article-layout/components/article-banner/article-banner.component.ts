@@ -24,6 +24,9 @@ export class ArticleBannerComponent {
 
     public ngDoCheck(): void {
         if (this.article?.id && this.articleId === this.article?.id) return;
+
+        this.wrap.nativeElement.classList.remove(this.articleId);
+        
         this.articleId = this.article?.id;
 
         this.setBackgroundImage();
@@ -31,5 +34,9 @@ export class ArticleBannerComponent {
 
     private setBackgroundImage(): void {
         this.wrap.nativeElement.style.backgroundImage = `url('/assets/img/${this.articleId}.webp')`;
+        
+        this.wrap.nativeElement.classList.add(this.articleId);
     }
+
+
 }

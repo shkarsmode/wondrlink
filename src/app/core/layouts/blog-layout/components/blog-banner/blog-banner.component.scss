@@ -4,8 +4,7 @@
     justify-content: center;
 
     width: 100%;
-    height: 780px;
-
+    height: 100dvh;
     background-image: url('/assets/img/blog-banner.webp');
     background-size: cover;
     background-position: center;
@@ -136,12 +135,19 @@ h1 {
     .content {
         padding: 0 15px;
     }
+
+    .wrap {
+        background-position: 60%;
+    }
+}
+
+@media (max-width: 1000px) {
+    .wrap {
+        background-position: 70%;
+    }
 }
 
 @media (max-width: 770px) {
-    .wrap {
-        height: 600px;
-    }
 
     h1 {
         font-size: 32px;
@@ -154,25 +160,12 @@ h1 {
         height: 45px;
         font-size: 18px;
     }
-}
 
-@media (max-width: 750px) {
     .wrap {
-        background-position-x: -700px;
+        background-position: 75%;
     }
 }
 
-@media (max-width: 550px) {
-    .wrap {
-        background-position-x: -800px;
-    }
-}
-
-@media (max-width: 400px) {
-    .wrap {
-        background-position-x: -900px;
-    }
-}
 
 @media (max-width: 400px) {
     h1 {

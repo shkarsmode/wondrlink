@@ -3,15 +3,24 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 108px 0;
+    padding: 180px 25px;
     background: white;
+}
+
+.wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 1114px;
+    width: 100%;
 }
 
 h2 {
     font-size: 48px;
-    font-weight: 800;
+    font-weight: 700;
     line-height: 68px;
     text-align: left;
+    margin: 0;
 }
 
 p {
@@ -19,29 +28,20 @@ p {
     font-weight: 400;
     line-height: 24.59px;
     text-align: left;
+    margin: 0;
 }
 
 .content {
     display: flex;
     justify-content: space-between;
-
-    max-width: 1114px;
-    width: 100%;
-}
-
-.block {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-end;
+    gap: 48px;
 }
 
 .socials {
     display: flex;
-    align-items: flex-end;
     flex-direction: row;
+
     column-gap: 40px;
-    margin-bottom: 15px;
 
     a {
         font-size: 0px;
@@ -54,9 +54,7 @@ p {
 }
 
 
-.block:has(.wrap-email) {
-    margin-bottom: 15px;
-}
+
 
 .wrap-email {
     display: flex;
@@ -67,27 +65,44 @@ p {
     svg-icon {
         height: 18px;
     }
-}
 
-@media screen and (max-width: 1200px) {
-    .content {
-        flex-wrap: wrap;
-        padding-left: 20px;
-        padding-right: 20px;
+    span {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 24.59px;
+        color: rgba(38, 38, 38, 1);
     }
 }
 
-@media screen and (max-width: 900px) {
-
-    h2,
-    p {
-        text-align: center;
-        width: 100%;
-    }
+@media screen and (max-width: 750px)  {
 
     .content {
         flex-direction: column;
-        align-items: center;
-        gap: 30px
+    }
+
+    .socials {
+        column-gap: 80px;
+    }
+
+    br {
+        display: none;
+    }
+}
+
+
+@media screen and (max-width: 500px)  {
+
+    h2 {
+        font-size: 32px;
+        line-height: 37px;
+    }
+
+    .socials {
+        gap: 10px;
+        justify-content: space-between;
+    }
+
+    :host {
+        padding: 100px 25px;
     }
 }

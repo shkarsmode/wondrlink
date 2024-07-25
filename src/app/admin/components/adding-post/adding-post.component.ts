@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { PostsService } from 'src/app/shared/services/posts.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { CloudinaryService } from '../../../shared/services/cloudinary.service';
+import { QuillEditorComponent } from 'ngx-quill';
 
 @Component({
     selector: 'app-adding-post',
@@ -18,9 +19,13 @@ export class AddingPostComponent implements OnInit {
     public isLoading: boolean = false;
     public isUploadImageSelected: boolean = true;
     public isDrag: boolean = false;
+    public isAuto: boolean = true;
+
 
     private userId: number;
     @ViewChild('preview') preview: ElementRef;
+    @ViewChild('subheader') subheader: ElementRef;
+    @ViewChild(QuillEditorComponent, { static: false }) editor: QuillEditorComponent;
 
     constructor(
         private fb: FormBuilder,
@@ -46,7 +51,7 @@ export class AddingPostComponent implements OnInit {
     private initReactiveForm(): void {
         this.form = this.fb.group({
             header: ['', Validators.required],
-            subHeader: ['', [Validators.required]],
+            subHeader: ['', []],
             picture: ['', [Validators.required]],
             content: ['', Validators.required]
         });
@@ -90,7 +95,7 @@ export class AddingPostComponent implements OnInit {
             createdAt,
             mainPicture,
             "header": this.header.value,
-            "subHeader": this.subHeader.value,
+            "subHeader": this.isAuto ? this.autoSubHeader : this.subHeader.value,
             "htmlContent": this.content.value,
             "socialLinks": {
                 "instagram": "https://www.instagram.com/shkarsmode/"
@@ -146,6 +151,37 @@ export class AddingPostComponent implements OnInit {
         });
 
         this.preview.nativeElement.innerHTML = null;
+    }
+
+
+    private removeQuillEditorTags(): string {
+
+        if(this.editor && this.editor.quillEditor) {
+            let editorIns = this.editor.quillEditor;
+            return editorIns.getText();
+        }
+
+        return "";
+    }
+
+
+    public onAutogenerationChange(): void {
+        this.isAuto = !this.isAuto;
+
+        if(this.isAuto) { this.subHeader.clearValidators();}
+        else { this.subHeader.addValidators(Validators.required);}         
+        
+        this.subHeader.updateValueAndValidity();
+    }
+    
+    public generateSubHeader(): string {
+        let text = this.removeQuillEditorTags();
+        if(text.length >= 160 ) return text.slice(0, 160) + "...";
+        return text;
+    }   
+
+    public get autoSubHeader(): string {
+        return this.generateSubHeader();
     }
 
     // Convenience getters for easy access to form controls

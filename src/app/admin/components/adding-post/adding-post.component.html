@@ -16,12 +16,32 @@
 		</div>
 
 		<div class="card">
+
 			<div class="title">Subheader</div>
+
 			<div class="content">
+				<input type="text" 
+					class="edit"
+					[value]="autoSubHeader"
+					*ngIf="isAuto"
+					readonly>
+
 				<input 
+					[hidden]="isAuto"
 					type="text" 
 					formControlName="subHeader"
 					placeholder="Researchers say they have cracked how air pollution leads to cancer, in a discovery that completely...">
+
+				<div class="group"
+					[style.opacity]="isAuto ? '1' : '.5' ">
+					<input type="checkbox" 
+						name="autoSubHeader"
+						id="autoSubHeader"
+						[checked]="isAuto"
+						(change)="onAutogenerationChange()">
+					<label for="autoSubHeader"> Auto-Fill from Content </label>
+				</div>
+				
 			</div>
 		</div>
 	</div>

@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { first } from 'rxjs';
+import { removeHtmlTags } from 'src/app/shared/features/removeHtmlTags.helper';
 import { IPost } from 'src/app/shared/interfaces/IPost';
 import { PostsService } from 'src/app/shared/services/posts.service';
 
@@ -24,5 +25,13 @@ export class InfoComponent implements OnInit {
             .getPosts(this.limit, this.page)
             .pipe(first())
             .subscribe(({ posts }) => this.posts = posts );
+    }
+
+    public extractDescription(post: IPost): string {
+        let htmlContent = post.htmlContent; // description content with quill editor tags 
+
+        if(htmlContent) return removeHtmlTags(htmlContent);
+                
+        return post.subHeader;
     }
 }
