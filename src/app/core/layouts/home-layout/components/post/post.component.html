@@ -6,7 +6,7 @@
                 <span class="material-symbols-outlined">
                     west
                 </span>
-                back
+                Back
             </div>
         
             <div class="post">
@@ -38,6 +38,8 @@
                     <img [src]="post.mainPicture" [alt]="post.header">
                 </div> -->
             </div>
+
+            
             <!-- <quill-editor [(ngModel)]="html"></quill-editor> -->
         </div>
     } @else {
@@ -80,7 +82,7 @@
                 </div> -->
             </div>
         
-            <div class="wrap-end-center">
+            <div class="wrap-end-center share-loading">
                 <div class="wrap-end">
                     <div class="left">
                         Share this post
@@ -117,7 +119,62 @@
 </div>
 
 @if (post) {
+
+    <div class="wrap-end-center">
+
+        <div class="wrap-end share-start">
+            <div class="left">
+                Share this post
+            </div>
+            <div class="right">
+                <div
+                    class="block"
+                    [description]="post.header"
+                    [title]="post.header"
+                    (click)="copyCurrentPost()"
+                    shareButton="copy"
+                    tags="WondrLink">
+                    <ng-template [ngIf]="!isCopied">
+                        <span class="material-symbols-outlined" *ngIf="!isCopied">
+                            file_copy
+                        </span>
+                        Copy link
+                    </ng-template>
+    
+                    <ng-template [ngIf]="isCopied">
+                        <span class="material-symbols-outlined" *ngIf="isCopied">
+                            library_add_check
+                        </span>
+                        Copied link
+                    </ng-template>
+    
+    
+    
+                </div>
+                <!-- <svg-icon src="assets/img/inst.svg" /> -->
+                
+                
+                
+                <a rel="me" [href]="twitterShareLink" target="_blank">
+                    Twitter
+                    <svg-icon src="assets/img/twitter.svg" />
+                </a>
+                <a rel="me" [href]="facebookShareLink" target="_blank">
+                    Facebook
+                    <svg-icon src="assets/img/fb.svg" />
+                </a>
+                <a rel="me" [href]="linkedinShareLink + '&summary=' + post.header" target="_blank">
+                    Linkedin
+                    <svg-icon src="assets/img/linkedin.svg" />
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <img [src]="post.mainPicture" alt="main-picture" class="post-main-picture">
+
     <quill-view-html [content]='post.htmlContent'></quill-view-html>
+
     
     <div class="wrap-end-center">
         <div class="wrap-end">

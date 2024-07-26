@@ -1,34 +1,43 @@
+:host {
+    display: block;
+    padding: 0 30px;
+    padding-bottom: 180px;
+}
+
 .wrap {
     display: flex;
     justify-content: center;
     width: 100%;
-    max-height: 560px;
-    padding-top: 116px;
-    margin-bottom: 100px;
-    transition: all .3s;
+    height: fit-content;
+    max-height: -moz-fit-content;
+    max-height: fit-content;
+    margin-top: 90px;
+    transition: all 0.3s;
+    // padding: 30px 30px 120px 30px;
+    padding-top: 30px;
+    padding-bottom: 120px;
 
-    background-image: url('/assets/img/blog-banner.webp');
-    background-size: 100%;
-    background-position: center;
-    background-position-y: 90px;
+    background-image: url(/assets/img/mask-group-white.webp);
+    background-position: right;
+    background-size: cover;
     background-repeat: no-repeat;
 }
 
 
 .content {
     width: 100%;
-    max-width: 1500px;
+    max-width: 870px;
     transition: all .3s;
 }
 
 .top {
     display: inline-flex;
     align-items: center;
-    text-transform: uppercase;
-    font-size: 17px;
-    font-weight: 600;
+    font-size: 18px;
+    list-style: 24.5px;
+    font-weight: 700;
     cursor: pointer;
-    margin-bottom: 49px;
+    margin-bottom: 60px;
 
     span {
         margin-right: 12px;
@@ -44,15 +53,22 @@
     }
 }
 
+
+.post-main-picture {
+    display: block;
+    width: 100%;
+    max-width: 870px;
+    margin: 0 auto;
+    padding: 45px 0;
+}
+
 .post {
-    margin-bottom: 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .left-side {
-    max-width: 600px;
     width: 100%;
 }
 
@@ -60,13 +76,16 @@
     margin-bottom: 15px;
     opacity: 0.6;
     font-size: 18px;
+    font-weight: 400;
+    line-height: 24.59px;
+
 }
 
 h2 {
     font-family: Raleway;
     font-size: 48px;
     font-weight: 700;
-    line-height: 60px;
+    line-height: 68px;
     text-align: left;
     margin-bottom: 30px;
 }
@@ -127,8 +146,9 @@ h2 {
     margin-bottom: 40px;
 
     .ql-editor {
-        max-width: 900px;
+        max-width: 870px;
         width: 100%;
+        padding: 0 !important;
 
         li {
             font-size: 20px;
@@ -179,7 +199,13 @@ h2 {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-bottom: 150px;
+}
+
+.share-start {
+    border-bottom: 1px solid #00081623;
+    border-top: none !important;
+    padding-top: 0 !important;
+    padding-bottom: 45px;
 }
 
 .wrap-end {
@@ -283,6 +309,11 @@ $loading-animation: loading 1.8s linear infinite;
         height: 440px;
         animation: $loading-animation;
     }
+
+}
+
+.share-loading {
+    margin-top: 50px;
 }
 
 @keyframes loading {
@@ -304,56 +335,52 @@ $loading-animation: loading 1.8s linear infinite;
 ====================*/
 
 @media (max-width: 1700px) {
-    .content {
-        max-width: 1300px;
-    }
+    
 
 }
 
 @media (max-width: 1500px) {
-    .content {
-        max-width: 1200px;
-    }
+    
 
 }
 
 @media (max-width: 1400px) {
-    .post {
-        flex-direction: column-reverse;
-    }
+    // .post {
+    //     flex-direction: column-reverse;
+    // }
 
-    .right-side {
-        height: 300px;
-        max-width: 620px;
-        width: 100%;
-    }
+    // .right-side {
+    //     height: 300px;
+    //     max-width: 620px;
+    //     width: 100%;
+    // }
 
-    .top {
-        margin-bottom: 50px;
-    }
+    // .top {
+    //     margin-bottom: 50px;
+    // }
 
-    .wrap {
-        padding-top: 130px;
-    }
+    // .wrap {
+    //     padding-top: 130px;
+    // }
 
-    .left-side {
-        margin-top: 8px;
-    }
+    // .left-side {
+    //     margin-top: 8px;
+    // }
 
-    h2 {
-        text-align: justify;
-        font-size: 29px;
-    }
+    // h2 {
+    //     text-align: justify;
+    //     font-size: 29px;
+    // }
 
-    .sub-header {
-        font-size: 18px;
-        line-height: 26px;
-        margin-bottom: 40px;
-    }
+    // .sub-header {
+    //     font-size: 18px;
+    //     line-height: 26px;
+    //     margin-bottom: 40px;
+    // }
 
-    .post {
-        margin-bottom: 70px;
-    }
+    // .post {
+    //     margin-bottom: 70px;
+    // }
 
     quill-view-html ::ng-deep.ql-editor {
         padding: 0 !important;
@@ -362,9 +389,7 @@ $loading-animation: loading 1.8s linear infinite;
 
 
 @media (max-width: 1250px) {
-    .content {
-        padding: 0 15px;
-    }
+
 }
 
 @media (max-width: 660px) {

@@ -49,7 +49,7 @@ export class PostComponent implements OnInit {
     }
 
     private setBackgroundImage(): void {
-        this.wrap.nativeElement.style.backgroundImage = `url('${this.post.mainPicture}')`;
+        // this.wrap.nativeElement.style.backgroundImage = `url('${this.post.mainPicture}')`;
     }
 
     public async copyCurrentPost() {
