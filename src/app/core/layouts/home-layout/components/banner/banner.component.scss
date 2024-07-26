@@ -167,22 +167,16 @@ h1 {
     .typewriter {
         width: 120.7px;
         display: inline-block;
+        white-space: nowrap;
     }
 
     .newline {
         display: none;
     }
 
-
-
-    // .btn-green {
-    //     width: 220px;
-    //     height: 45px;
-    //     font-size: 18px;
-    // }
 }
 
-@media (max-width: 430px) {
+@media (max-width: 500px) {
 
     .btn-green {
         width: calc(100% - 60px);
