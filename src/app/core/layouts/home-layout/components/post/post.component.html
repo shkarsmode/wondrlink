@@ -170,8 +170,9 @@
             </div>
         </div>
     </div>
-
-    <img [src]="post.mainPicture" alt="main-picture" class="post-main-picture">
+    @if (post.mainPicture) {
+        <img [src]="post.mainPicture" alt="main-picture" class="post-main-picture">
+    }
 
     <quill-view-html [content]='post.htmlContent'></quill-view-html>
 
