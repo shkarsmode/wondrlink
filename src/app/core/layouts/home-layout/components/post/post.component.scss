@@ -1,6 +1,6 @@
 :host {
     display: block;
-    padding: 0 30px;
+    padding: 0;
     padding-bottom: 180px;
 }
 
@@ -13,9 +13,10 @@
     max-height: fit-content;
     margin-top: 90px;
     transition: all 0.3s;
-    // padding: 30px 30px 120px 30px;
     padding-top: 30px;
     padding-bottom: 120px;
+    padding-left: 30px;
+    padding-right: 30px;
 
     background-image: url(/assets/img/mask-group-white.webp);
     background-position: right;
@@ -28,6 +29,10 @@
     width: 100%;
     max-width: 870px;
     transition: all .3s;
+}
+
+.container {
+    padding: 0 30px;
 }
 
 .top {
