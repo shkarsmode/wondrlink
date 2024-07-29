@@ -76,7 +76,8 @@
 	</header>
 	<div class="wrap-navigation" [ngClass]="{'show': isOpenBurger}">
 		<ul (click)="isOpenBurger = false">
-			<li routerLink="patients" style="--i:0s;">Patients</li>
+			<li routerLink="/" style="--i:0s;">Home</li>
+			<li routerLink="patients" style="--i:.10s;">Patients</li>
 			<li routerLink="drug-developers" style="--i:.12s;">Drug Developers</li>
 			<li routerLink="physicians" style="--i:.14s;">Physicians</li>
 			<li routerLink="ecosystem" style="--i:.16s;">Ecosystem</li>
