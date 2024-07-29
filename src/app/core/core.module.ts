@@ -36,6 +36,7 @@ import { PreviewBlogComponent } from './layouts/home-layout/components/preview-b
 import { QuotesComponent } from './layouts/home-layout/components/quotes/quotes.component';
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { PrivacyPageComponent } from './layouts/privacy-page/privacy-page.component';
+import { ErrorPageComponent } from './layouts/error-page/error-page.component';
 
 @NgModule({
     declarations: [
@@ -65,7 +66,7 @@ import { PrivacyPageComponent } from './layouts/privacy-page/privacy-page.compon
         BlogComingSoonComponent,
         BlogNavigationComponent,
         PrivacyPageComponent,
-        InfoBlocksComponent
+        InfoBlocksComponent,
     ],
     imports: [
         ShareModule,
@@ -79,6 +80,7 @@ import { PrivacyPageComponent } from './layouts/privacy-page/privacy-page.compon
         AngularSvgIconModule.forRoot(),
         FlowModule,
         MatDialogModule,
+        ErrorPageComponent,
     ],
     exports: [QuillModule],
     bootstrap: [CoreComponent],

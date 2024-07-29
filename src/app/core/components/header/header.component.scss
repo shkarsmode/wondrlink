@@ -197,7 +197,7 @@ button {
         gap: 32px;
 
         li {
-            font-size: 18px;
+            font-size: 22px;
             font-weight: 400;
             line-height: 24.59px;
             // text-transform: ;
@@ -296,6 +296,13 @@ button {
 @media (max-width: 500px) {
     .logo img {
         height: 32.6px;
+    }
+
+    ul {
+
+        li {
+            font-size: 18px !important;
+        }
     }
 
     .burger {

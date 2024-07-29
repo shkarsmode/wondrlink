@@ -8,22 +8,26 @@ import { PostComponent } from './layouts/home-layout/components/post/post.compon
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { PrivacyPageComponent } from './layouts/privacy-page/privacy-page.component';
 import { TermsPageComponent } from './layouts/terms-page/terms-page.component';
+import { ErrorPageComponent } from './layouts/error-page/error-page.component';
 
-const routes: Routes = [
-    {
-        path: '',
-        component: CoreComponent,
-        children: [
-            { path: 'insights', component: BlogLayoutComponent },
-            { path: 'insights/:id', component: PostComponent },
-            { path: 'approve', component: ApprovePageComponent },
-            { path: '', component: HomeLayoutComponent },
-            { path: 'privacy', component: PrivacyPageComponent },
-            { path: 'terms', component: TermsPageComponent },
-            { path: ':articleId', component: ArticleLayoutComponent },
-        ],
-    },
-];
+    const routes: Routes = [
+        {
+            path: '',
+            component: CoreComponent,
+            children: [
+                { path: '', component: HomeLayoutComponent },
+                { path: 'insights', component: BlogLayoutComponent },
+                { path: 'insights/:id', component: PostComponent },
+                { path: 'approve', component: ApprovePageComponent },
+                { path: 'privacy', component: PrivacyPageComponent },
+                { path: 'terms', component: TermsPageComponent },
+                { path: ':articleId', component: ArticleLayoutComponent },
+                { path: 'error', component: ErrorPageComponent },
+                { path: '**', component: ErrorPageComponent }
+            ],
+        },
+
+    ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
