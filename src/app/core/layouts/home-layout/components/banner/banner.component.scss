@@ -22,11 +22,11 @@ h1 {
     max-width: 600px;
     font-weight: 800;
     width: 100%;
-    margin-bottom: 50px;
+    margin-bottom: 56px;
     line-height: 58px;
 
     span {
-        color: #777777;
+        color: white;
     }
 }
 
@@ -82,7 +82,7 @@ h1 {
 }
 
 .typewriter {
-    --caret: #777777;
+    --caret: white;
 }
 
 .typewriter::before {
@@ -165,7 +165,7 @@ h1 {
     }
 
     .typewriter {
-        width: 120.7px;
+        width: 124.7px;
         display: inline-block;
         white-space: nowrap;
     }
