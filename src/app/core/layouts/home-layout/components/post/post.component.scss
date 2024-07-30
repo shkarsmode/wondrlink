@@ -401,7 +401,7 @@ $loading-animation: loading 1.8s linear infinite;
 @media (max-width: 660px) {
     .wrap-end {
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
         row-gap: 15px;
         padding-top: 35px;
 
@@ -410,14 +410,14 @@ $loading-animation: loading 1.8s linear infinite;
         }
 
         .left {
-            font-size: 20px;
+            font-size: 18px;
         }
 
         .right .block {
-            font-size: 20px;
+            font-size: 18px;
 
             span {
-                font-size: 24px;
+                font-size: 27px;
             }
         }
 
@@ -428,14 +428,34 @@ $loading-animation: loading 1.8s linear infinite;
     }
 }
 
-@media (max-width: 440px) {
-    h2 {
-        font-size: 24px;
+@media (max-width: 500px) {
+
+    .post-main-picture {
+        padding: 30px 0;
     }
 
-    .sub-header {
-        font-size: 17px;
+    .share-start {
+        padding-bottom: 30px;
     }
+
+    h2 {
+        font-size: 42px;
+        line-height: 52px;
+    }
+
+    .right {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .wrap-end {
+        padding-top: 30px;
+    }
+
+    .wrap {
+        padding-bottom: 60px;
+    }
+
 }
 
 /* Quill media styles
