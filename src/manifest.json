@@ -31,13 +31,13 @@
      ],
     "screenshots": [
       {
-        "src": "assets/img/desktop-1200x720.png",
+        "src": "assets/img/desktop-1200x720.webp",
         "type": "image/png",
         "sizes": "1200x720",
         "form_factor": "wide"
       },
       {
-        "src": "assets/img/mobile-400x720.png",
+        "src": "assets/img/mobile-400x720.webp",
         "type": "image/png",
         "sizes": "400x720",
         "form_factor": "narrow"
