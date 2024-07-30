@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-error-page',
@@ -10,4 +11,10 @@ import { Component } from '@angular/core';
 })
 export class ErrorPageComponent {
 
+  constructor(private router: Router) {
+
+  }
+  redirectToHome() {
+      this.router.navigate(['/']);
+  }
 }

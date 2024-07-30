@@ -96,7 +96,7 @@ export class PostComponent implements OnInit {
                     this.setBackgroundImage();
                     this.updateMetaTags(post);
                 },
-                error: (_) => this.router.navigate(['/404']),
+                error: (_) => this.router.navigate(['/not-found']),
             });
     }
 

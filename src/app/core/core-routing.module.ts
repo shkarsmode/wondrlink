@@ -18,15 +18,13 @@ import { ErrorPageComponent } from './layouts/error-page/error-page.component';
                 { path: '', component: HomeLayoutComponent },
                 { path: 'insights', component: BlogLayoutComponent },
                 { path: 'insights/:id', component: PostComponent },
+                { path: 'not-found', component: ErrorPageComponent },
                 { path: 'approve', component: ApprovePageComponent },
                 { path: 'privacy', component: PrivacyPageComponent },
                 { path: 'terms', component: TermsPageComponent },
                 { path: ':articleId', component: ArticleLayoutComponent },
-                { path: 'error', component: ErrorPageComponent },
-                { path: '**', component: ErrorPageComponent }
             ],
         },
-
     ];
 
 @NgModule({
