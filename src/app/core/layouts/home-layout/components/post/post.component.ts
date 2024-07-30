@@ -45,7 +45,7 @@ export class PostComponent implements OnInit {
     ) {}
 
     public ngOnInit(): void {
-        this.listenPostIdFromRoute();
+        // this.listenPostIdFromRoute();
     }
 
     private setBackgroundImage(): void {
