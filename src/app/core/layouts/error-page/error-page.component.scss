@@ -54,6 +54,16 @@ p {
     color: rgba(38, 38, 38, 1);
 }
 
+@media screen and (max-width: 500px) {
+        h1 {
+            font-size: 42px;
+            line-height: 52px;
+            margin-bottom: 13px;
+            margin-top: 25px;
+        }
+
+}
+
 
 
 
