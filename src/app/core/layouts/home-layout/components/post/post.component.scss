@@ -12,7 +12,7 @@
     height: fit-content;
     max-height: -moz-fit-content;
     max-height: fit-content;
-    margin-top: 90px;
+    margin-top: 124px;
     transition: all 0.3s;
     padding-top: 30px;
     padding-bottom: 120px;
@@ -338,53 +338,13 @@ $loading-animation: loading 1.8s linear infinite;
 /* Media Queries
 ====================*/
 
-@media (max-width: 1700px) {
-    
-
-}
-
-@media (max-width: 1500px) {
-    
-
+@media (max-width: 1200px) {
+    .wrap {
+        margin-top: 90px;
+    }
 }
 
 @media (max-width: 1400px) {
-    // .post {
-    //     flex-direction: column-reverse;
-    // }
-
-    // .right-side {
-    //     height: 300px;
-    //     max-width: 620px;
-    //     width: 100%;
-    // }
-
-    // .top {
-    //     margin-bottom: 50px;
-    // }
-
-    // .wrap {
-    //     padding-top: 130px;
-    // }
-
-    // .left-side {
-    //     margin-top: 8px;
-    // }
-
-    // h2 {
-    //     text-align: justify;
-    //     font-size: 29px;
-    // }
-
-    // .sub-header {
-    //     font-size: 18px;
-    //     line-height: 26px;
-    //     margin-bottom: 40px;
-    // }
-
-    // .post {
-    //     margin-bottom: 70px;
-    // }
 
     quill-view-html ::ng-deep.ql-editor {
         padding: 0 !important;
