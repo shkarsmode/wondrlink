@@ -19,8 +19,23 @@
     padding-left: 30px;
     padding-right: 30px;
 
+    position: relative;
+    z-index: 1;
+
+    // background-image: url(/assets/img/mask-group-white.webp);
+    // background-position: right;
+    // background-size: cover;
+    // background-repeat: no-repeat;
+}
+
+.post-background {
+    position: absolute;
+    z-index: 0;
+    height: 400px;
+    top: 124px;
+    width: 100%;
     background-image: url(/assets/img/mask-group-white.webp);
-    background-position: right;
+    background-position: right bottom;
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -30,10 +45,14 @@
     width: 100%;
     max-width: 870px;
     transition: all .3s;
+    position: relative;
+    z-index: 1;
 }
 
 .container {
     padding: 0 30px;
+    position: relative;
+    z-index: 1;
 }
 
 .top {
@@ -93,7 +112,7 @@ h2 {
     font-weight: 700;
     line-height: 68px;
     text-align: left;
-    margin-bottom: 30px;
+    margin: 0;
 }
 
 .sub-header {
@@ -338,9 +357,21 @@ $loading-animation: loading 1.8s linear infinite;
 /* Media Queries
 ====================*/
 
+@media (max-width: 1700px) {
+    .post-background {
+        top: 90px;
+        height: 400px;
+    }
+}
+
 @media (max-width: 1200px) {
     .wrap {
         margin-top: 90px;
+    }
+
+    .post-background {
+        top: 90px;
+        height: 350px;
     }
 }
 
@@ -349,6 +380,7 @@ $loading-animation: loading 1.8s linear infinite;
     quill-view-html ::ng-deep.ql-editor {
         padding: 0 !important;
     }
+
 }
 
 
@@ -358,6 +390,10 @@ $loading-animation: loading 1.8s linear infinite;
     h2 {
         font-size: 42px;
         line-height: 52px;
+    }
+
+    .post-background {
+        height: 300px;
     }
 
 }
@@ -425,14 +461,24 @@ $loading-animation: loading 1.8s linear infinite;
     }
 
     .wrap {
-        padding-bottom: 60px;
+        padding-bottom: 40px;
     }
 
 }
 
-@media (max-width: 400px) {
-    
+@media (max-width: 500px) {
+    .post-background {
+        height: 250px;
+    }
+
+    .top {
+        // display: none;
+        margin-bottom: 30px;
+    };
   
+    // .wrap {
+    //     padding-top: 30px;
+    // }
 }
 
 @media (max-width: 375px) {

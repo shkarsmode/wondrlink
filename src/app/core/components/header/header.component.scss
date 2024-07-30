@@ -27,7 +27,7 @@
 
 
 ::ng-deep body:has(app-post) {
-    .wrap {
+    app-header.wrap {
         background-color: white !important;
     }
 }
@@ -92,7 +92,7 @@ button {
 }
 
 ::ng-deep body:has(app-post) app-header .wrap {
-    background: white;
+    background: white !important;
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.05);
 }
 
