@@ -1,7 +1,7 @@
 :host {
     display: flex;
     justify-content: center;
-    padding: 100px 20px;
+    padding: 180px 25px;
 }
 
 .content {
@@ -16,4 +16,10 @@
 
 :host ::ng-deep.mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
     stroke: #262626;
+}
+
+@media screen and (max-width: 500px) {
+    :host {
+        padding: 100px 25px;
+    }
 }
