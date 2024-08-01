@@ -47,24 +47,7 @@
     
 
     <div class="wrap-inputs">
-        <!-- < BEFORE BACKK WILL DONE company, now it's organization  -->
-        @if (formType === 'drug-developers' || formType === 'ecosystem') {
-            <div
-                class="group"
-                data-company="true">
-                <label for="company">Organization</label>
-                <input
-                    autocomplete="organization"
-                    tabindex="1"
-                    type="text" required
-                    placeholder="Company name"
-                    id="company" name="company"
-                    formControlName="companyName"
-                    #formInput>
-            </div>
-        }
-        <!-- </ BEFORE BACKK WILL change company, now it's organization  -->
-
+      
         <div class="row full-name">
             <div class="group" data-firstName="true">
                 <label for="given-name">
@@ -100,13 +83,72 @@
             </div>
 
         </div>
+
+        <div class="row">
+
+            <div class="group">
+                <label for="tel-national">Phone</label>
+                <div class="phone-wrap">
+                    <input
+                        name="tel-national" autocomplete="tel-national"
+                        [style.padding-left]="telephonePadding + 'px'"
+                        #formInput
+                        formControlName="phone"
+                        placeholder="xxx-xxx-xxxx"
+                        required
+                        tabindex="5"
+                        type="text">
+                        <app-country-codes
+                            [currentCountry]="inputCountry"
+                            [isOpen]="isOpenedPhoneDropdown"
+                            (countryCode)="onCodeSelected($event)">
+                        </app-country-codes>
+                </div>
+            </div>
+
+            <div class="group">
+                <label for="email">Email</label>
+                <input
+                    id="email"
+                    name="email"
+                    placeholder="name@example.com"
+                    #formInput
+                    autocomplete="on"
+                    formControlName="email"
+                    required
+                    tabindex="6"
+                    type="email">
+            </div>   
+
+        </div>  
+        
+          <!-- < BEFORE BACKK WILL DONE company, now it's organization  -->
+          @if (formType === 'drug-developers' || formType === 'ecosystem') {
+            <div
+                class="group"
+                data-company="true">
+                <label for="company">Organization</label>
+                <input
+                    autocomplete="organization"
+                    tabindex="1"
+                    type="text" required
+                    placeholder="Company name"
+                    id="company" name="company"
+                    formControlName="companyName"
+                    #formInput>
+            </div>
+        }
+        <!-- </ BEFORE BACKK WILL change company, now it's organization  -->
+
         
 
         @if (formType === "drug-developers" || formType === "ecosystem") {
             
             <div class="row">
             
-                <div class="group" data-select="true">
+                <div class="group" data-select="true"
+                    *ngIf="functionInputData.length != 0">
+
                     <label for="function">Function</label>
                     <select
                         id="function"
@@ -141,46 +183,7 @@
 
             </div>
         } 
-        
-
-        <div class="row">
-
-            <div class="group">
-                <label for="tel-national">Phone</label>
-                <div class="phone-wrap">
-                    <input
-                        name="tel-national" autocomplete="tel-national"
-                        [style.padding-left]="telephonePadding + 'px'"
-                        #formInput
-                        formControlName="phone"
-                        placeholder="xxx-xxx-xxxx"
-                        required
-                        tabindex="5"
-                        type="text">
-                        <app-country-codes
-                            [currentCountry]="inputCountry"
-                            [isOpen]="isOpenedPhoneDropdown"
-                            (countryCode)="onCodeSelected($event)">
-                        </app-country-codes>
-                </div>
-            </div>
-            <div class="group">
-                <label for="email">Email</label>
-                <input
-                    id="email"
-                    name="email"
-                    placeholder="name@example.com"
-                    #formInput
-                    autocomplete="on"
-                    formControlName="email"
-                    required
-                    tabindex="6"
-                    type="email">
-            </div>
-
-        </div>
-        
-
+ 
 
         <div class="group">
             <label for="c&#8291;ity">Location</label>
