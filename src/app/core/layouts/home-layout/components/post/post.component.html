@@ -92,9 +92,11 @@
                         <div class="right">
                             <div class="block">
                                 <ng-template [ngIf]="!isCopied">
-                                    <span class="material-symbols-outlined" *ngIf="!isCopied">
+                                    <!-- <span class="material-symbols-outlined" *ngIf="!isCopied">
                                         file_copy
-                                    </span>
+                                    </span> -->
+                                    <img src="assets/svg/copy-icon.svg" alt="">
+
                                     Copy link
                                 </ng-template>
             
@@ -176,9 +178,8 @@
                 </div>
             </div>
         
-            @if (post.mainPicture) {
-                <img [src]="post.mainPicture" alt="main-picture" class="post-main-picture">
-            }
+            <img [src]="post.mainPicture" alt="main-picture" (load)="loadEnd()" (error)="onError()" 
+                class="post-main-picture" #mainPicture>
             
         
             <quill-view-html [content]='post.htmlContent'></quill-view-html>
@@ -197,9 +198,10 @@
                             shareButton="copy"
                             tags="WondrLink">
                             <ng-template [ngIf]="!isCopied">
-                                <span class="material-symbols-outlined" *ngIf="!isCopied">
+                                <!-- <span class="material-symbols-outlined" *ngIf="!isCopied">
                                     file_copy
-                                </span>
+                                </span> -->
+                                <img src="assets/svg/copy-icon.svg" alt="">
                                 Copy link
                             </ng-template>
             

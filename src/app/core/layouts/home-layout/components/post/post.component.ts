@@ -114,4 +114,17 @@ export class PostComponent implements OnInit {
         this.meta.updateTag({ property: 'twitter:description', content: post.subHeader });
         this.meta.updateTag({ property: 'twitter:image', content: post.mainPicture });
     }
+
+
+    public loadEnd() {
+        console.log('main picture load end');
+    }
+
+    public onError() {
+        let postImage = document.querySelector('post-main-picture') as HTMLElement;
+        // if(postImage) { postImage.style.display = }
+        console.log('picture load error');
+    }
+  
+
 }
