@@ -64,30 +64,35 @@ button {
 }
 
 .sub-header {
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 400;
     line-height: 24.59px;
     text-align: left;
-    margin-bottom: 20px;
+    margin-bottom: 33px;
 }
 
 @media screen and (max-width: 630px) {
+
+    :host {
+        padding: 30px;
+    }
+
     .header {
         font-size: 24px;
-        line-height: 26.25px;
+        line-height: 32px;
     }
 
     .sub-header {
-        font-size: 15px;
-        line-height: 17.59px;
+        font-size: 18px;
+        line-height: 25px;
     }
 
     .info {
-        font-size: 16px;
+        font-size: 18px;
     }
 
     button {
-        font-size: 16px;
+        font-size: 18px;
     }
 }
 
