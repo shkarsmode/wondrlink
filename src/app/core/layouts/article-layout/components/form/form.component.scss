@@ -5,15 +5,16 @@
     align-items: center;
     gap: 50px;
 	width: 100%;
-	padding: 180px 15px;
+	padding: 180px 25px;
 }
 
 h1 {
     max-width: 850px;
     font-size: 45px;
-    font-weight: 700;
+    font-weight: 800;
     line-height: 68px;
     text-align: center;
+    margin: 0;
     color: rgba(38, 38, 38, 1);
 }
 
@@ -64,16 +65,25 @@ app-flow ::ng-deep .wrap-inputs {
 
 
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 500px) {
   .flow-wrap {
-    padding: 50px 30px;
+    padding: 40px 20px;
     width: 100%;
   }
   
   .wrap {
     width: 100%;
-    padding: 120px 15px;
+    padding: 100px 25px;
   }
+
+    .wrap {
+        gap: 40px;
+    }
+
+    h1 {
+        font-size: 32px;
+        line-height: 36px;
+    }
 
 }
 
@@ -92,13 +102,6 @@ app-flow ::ng-deep .wrap-inputs {
 }
 
 @media (max-width: 770px) {
-    .wrap {
-        gap: 30px;
-    }
-
-    h1 {
-        font-size: 32px;
-        line-height: 36px;
-    }
+ 
 }
 
