@@ -63,20 +63,29 @@ app-flow ::ng-deep .wrap-inputs {
 //     flex: 0 0 100%;
 // }
 
+@media screen and (max-width: 900px) {
+    .wrap {
+        width: 100%;
+    }
+
+    .flow-wrap {
+        padding: 50px 50px;
+
+        width: 100%;
+    }
+    
+}
+
 
 
 @media screen and (max-width: 500px) {
-  .flow-wrap {
-    padding: 40px 20px;
-    width: 100%;
-  }
-  
-  .wrap {
-    width: 100%;
-    padding: 100px 25px;
-  }
+    .flow-wrap {
+        padding: 40px 20px;
+        width: 100%;
+    }
 
     .wrap {
+        padding: 100px 25px;
         gap: 40px;
     }
 
