@@ -4,7 +4,7 @@
     align-items: center;
     width: 100%;
     background-color: white;
-    padding: 180px 15px;
+    padding: 180px 25px;
 }
 
 .btn-green {
@@ -63,30 +63,36 @@
     }
 }
 
-@media screen and (max-width: 900px) {
-    .wrap {
-        padding: 120px 15px;
-    }
-}
+// @media screen and (max-width: 900px) {
+//     .wrap {
+//         padding: 120px 15px;
+//     }
+// }
 
 @media (max-width: 650px) {
     .content {
         ::ng-deep h2 {
-            text-align: center;
+            text-align: left;
             font-size: 28px;
-            line-height: 1.5;
+            line-height: 38.25px;
+            margin-bottom: 20px;
         }
 
         ::ng-deep p {
-            font-size: 20px;
-            line-height: 32px;
-            margin-bottom: 15px;
-            text-align: justify;
+            font-size: 18px;
+            line-height: 25px;
+            margin-bottom: 20px;
+            text-align: left;
         }
     }
 
-    .wrap div {
-        text-align: center;
+}
+
+
+@media (max-width: 500px) {
+    .wrap {
+        padding: 100px 25px;
     }
 }
+
 
