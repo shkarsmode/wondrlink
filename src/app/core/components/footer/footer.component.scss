@@ -83,8 +83,9 @@ ul {
 
 
 @media (max-width: 500px) {
-    .logo img {
-        height: 32px;
+    
+    svg-icon::ng-deep svg {
+        height: 32px !important;
     }
 
     .wrap {
