@@ -151,7 +151,7 @@ export class FlowFormComponent {
                         firstName: [''],
                         lastName: [''],
                         function: ['', Validators.required],
-                        affilation: ['', Validators.required],
+                        affiliation: ['', Validators.required],
                         phone: [''],
                         email: ['', Validators.email],
                         location: ['', Validators.required],
