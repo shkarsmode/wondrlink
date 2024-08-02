@@ -260,10 +260,10 @@ export class FlowFormComponent {
         let phone = this.joinPhoneParts();
 
         // let lastName = "Removed" // Removed
-
+        
         let body = Object.assign(
             this.contactForm.value,
-            {...this.flowData},
+            ...this.flowData,
             { password: password,
               phone: phone,
             //   lastName: lastName 
