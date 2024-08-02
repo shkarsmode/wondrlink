@@ -1,7 +1,9 @@
+import { specialityData } from './../../../../assets/data/flow-data/specialization.data';
 import {
     Component,
     ElementRef,
     EventEmitter,
+    Inject,
     Input,
     Optional,
     Output,
@@ -26,6 +28,10 @@ import { CountryCodesService } from 'src/app/shared/services/country-codes.servi
 import { FlowDataService } from 'src/app/shared/services/flow-data.service';
 import { FlowData } from '../../flow.component';
 import { FlowDialogComponent } from '../flow-dialog/flow-dialog.component';
+import { AFFILIATION_DATA } from 'src/app/shared/tokens/affiliation-data.token';
+import { IAffiliationData } from 'src/app/shared/interfaces/AffiliationData.type';
+import { SPECIALITY_DATA } from 'src/app/shared/tokens/speciality-data.token';
+import { ISpecialityData } from 'src/app/shared/interfaces/SpecialityData.type';
 
 @Component({
     selector: 'app-flow-form',
@@ -46,6 +52,7 @@ export class FlowFormComponent {
     // set up default placeholder styles for select element
     public isFunctionPlaceholder = true;
     public isAffiliationPlaceholder = true;
+    public isSpecialityPlaceholder = true;
 
     // for function input field 
     public functionInputData: string[] = [];
@@ -80,6 +87,8 @@ export class FlowFormComponent {
         private articleService: ArticleService,
         private countriesData: CountryCodesService,
         private renderer: Renderer2,
+        @Inject(AFFILIATION_DATA) public affiliationData: IAffiliationData,
+        @Inject(SPECIALITY_DATA) public specialityData: ISpecialityData,
         @Optional() private dialogRef: MatDialogRef<FlowDialogComponent>
     ) {}
 
@@ -127,7 +136,39 @@ export class FlowFormComponent {
                     phone: [''],
                     email: ['', Validators.email],
                     location: ['', Validators.required],
+                    speciality: ['', Validators.required],
+                    affiliation: ['', Validators.required],
+                    companyName: [''],
+                    license: [''],
                 });
+                break;
+            }
+            case 'ecosystem': {
+
+                if(this.isAffilationForEcosystem()) {
+                    this.contactForm = this.fb.group({
+                        companyName: [''],
+                        firstName: [''],
+                        lastName: [''],
+                        function: ['', Validators.required],
+                        affilation: ['', Validators.required],
+                        phone: [''],
+                        email: ['', Validators.email],
+                        location: ['', Validators.required],
+                    });        
+                } else {
+                    this.contactForm = this.fb.group({
+                        companyName: [''],
+                        firstName: [''],
+                        lastName: [''],
+                        function: ['', Validators.required],
+                        position: ['', Validators.required],
+                        phone: [''],
+                        email: ['', Validators.email],
+                        location: ['', Validators.required],
+                    });
+                }
+             
                 break;
             }
             default: {
@@ -175,6 +216,16 @@ export class FlowFormComponent {
     public deactiveAffiliationSelectPlaceholder(): void {
         if(!this.isAffiliationPlaceholder) return;
         this.isAffiliationPlaceholder = false;
+    }
+
+    public deactiveSpecialitySelectPlaceholder(): void {
+        if(!this.isSpecialityPlaceholder) return;
+        this.isSpecialityPlaceholder = false;
+    }
+
+
+    public isAffilationForEcosystem(): boolean {
+        return this.formType == 'ecosystem' && this.flowData[2].companyType == "Patient Support"
     }
 
     // for patiensts flow

@@ -5,24 +5,18 @@
     "subtitle": "Tell us who you are",
     "subgroup": [
         {
-          "title": "Healthcare providers",
-          "subtitle": "Helping bring care, hope and support to patients needing novel therapies",
-          "icon": "stethoscope.svg",
-          "function": [
-            "Physician",
-            "Other Health Care Provider"
-          ]
-        },
-        {
           "title": "Patient Support",
           "subtitle": "Social workers, Advocacy groups, Chaplains, Spiritual care services",
           "icon": "handshake.svg",
           "function": [
+            "Nurse",
             "Social Worker",
-            "Advocacy Group",
             "Spiritual Care",
-            "Nutritional Care",
+            "Giver / Chaplain",
+            "Nutritionist",
             "Therapist",
+            "Healthcare",
+            "Planner / Legal",
             "Other"
           ]
         },

@@ -29,6 +29,7 @@ export class InputLocationAutocompleteComponent
     @ViewChild('formInput') public inputRef: ElementRef<HTMLInputElement>;
 
     @Input() public isValid: boolean;
+    @Input() public tabIndex: number;
 
     public value: string = '';
     public autocompleteLocations: IGeoLocation[] = [];

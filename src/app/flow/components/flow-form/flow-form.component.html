@@ -140,9 +140,7 @@
         }
         <!-- </ BEFORE BACKK WILL change company, now it's organization  -->
 
-        
-
-        @if (formType === "drug-developers" || formType === "ecosystem") {
+        @if (formType != 'patients' && formType != 'physicians') {
             
             <div class="row">
             
@@ -166,54 +164,139 @@
                     </select>
                 </div>
                 
-                <div class="group">
-                    <label for="position">
-                        Position
-                    </label>
-                    <input
-                        id="position"
-                        name="position"
-                        #formInput
-                        formControlName="position"
-                        placeholder="Role"
-                        required
-                        tabindex="4"
-                        type="text">
-                </div>
+                @if(isAffilationForEcosystem()) {
 
-                <!-- <div class="group" data-select="true" 
-                    *ngIf="formType == 'physicians'">
+                    <div class="group" data-select="true">
 
-                    <label for="affiliation">Affiliation</label>
-                    <select
-                        id="affiliation"
-                        [ngClass]="{'select-placeholder_active': isAffiliationPlaceholder}"
-                        (change)="deactiveAffiliationSelectPlaceholder()"
-                        name="affiliation"
-                        #formInput
-                        formControlName="affiliation"
-                        tabindex="3">
-                    <option value="" disabled selected hidden id="placeholder">Select</option>
-                    <option *ngFor="let function of functionInputData"
-                        [value]="function">
-                        {{ function }}
-                    </option>
-                    </select>
-                </div> -->
+                        <label for="affiliation">Affiliation</label>
+                        <select
+                            id="affiliation"
+                            [ngClass]="{'select-placeholder_active': isAffiliationPlaceholder}"
+                            (change)="deactiveAffiliationSelectPlaceholder()"
+                            name="affiliation"
+                            #formInput
+                            formControlName="affiliation"
+                            tabindex="3">
+                        <option value="" disabled selected hidden id="placeholder">Select</option>
+                        <option *ngFor="let affiliation of affiliationData['ecosystem']"
+                            [value]="affiliation">
+                            {{ affiliation }}
+                        </option>
+                        </select>
+                    </div>
+
+                } @else {
+                    <div class="group">
+                        <label for="position">
+                            Position
+                        </label>
+                        <input
+                            id="position"
+                            name="position"
+                            #formInput
+                            formControlName="position"
+                            placeholder="Role"
+                            required
+                            tabindex="4"
+                            type="text">
+                    </div>
+                }              
 
             </div>
         } 
  
+        @if (formType != 'physicians') {
+            <div class="group">
+                <label for="c&#8291;ity">Location</label>
+                <app-input-location-autocomplete
+                    [tabIndex]="7"
+                    [isValid]="contactForm.get('location')!.valid || !contactForm.get('location')!.dirty"
+                    formControlName="location">
+                </app-input-location-autocomplete>
+            </div>
+        } @else {  
 
-        <div class="group">
-            <label for="c&#8291;ity">Location</label>
-            <app-input-location-autocomplete
-                [isValid]="contactForm.get('location')!.valid || !contactForm.get('location')!.dirty"
-                formControlName="location">
-            </app-input-location-autocomplete>
-        </div>
+            <div class="group" data-select="true">
+
+                <label for="speciality">Speciality</label>
+                <select
+                    id="speciality"
+                    [ngClass]="{'select-placeholder_active': isSpecialityPlaceholder}"
+                    (change)="deactiveSpecialitySelectPlaceholder()"
+                    name="speciality"
+                    #formInput
+                    formControlName="speciality"
+                    tabindex="5">
+                    <option value="" disabled selected hidden id="placeholder">Select</option>
+                    <option *ngFor="let speciality of specialityData['physicians']"
+                        [value]="speciality">
+                        {{ speciality }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="group">
+                <label for="c&#8291;ity">Primary Practice Location</label>
+                <app-input-location-autocomplete
+                    [tabIndex]="6"
+                    [isValid]="contactForm.get('location')!.valid || !contactForm.get('location')!.dirty"
+                    formControlName="location">
+                </app-input-location-autocomplete>
+            </div>
+
+            <div class="group" data-select="true">
+
+                <label for="affiliation">Affiliation</label>
+                <select
+                    id="affiliation"
+                    [ngClass]="{'select-placeholder_active': isAffiliationPlaceholder}"
+                    (change)="deactiveAffiliationSelectPlaceholder()"
+                    name="affiliation"
+                    #formInput
+                    formControlName="affiliation"
+                    tabindex="7">
+                <option value="" disabled selected hidden id="placeholder">Select</option>
+                <option *ngFor="let affiliation of affiliationData['physicians']"
+                    [value]="affiliation">
+                    {{ affiliation }}
+                </option>
+                </select>
+            </div>
+
+            <div
+                class="group"
+                data-company="true">
+                <label for="company">Organization</label>
+                <input
+                    autocomplete="organization"
+                    tabindex="8"
+                    type="text" required
+                    placeholder="Company name"
+                    id="company" name="company"
+                    formControlName="companyName"
+                    #formInput>
+            </div>
+
+            <div class="group license">
+                <label>Are you licensed to treat patients ?</label>
+                <div class="radio-row">
+                    <input type="radio" id="yes" value="true" name="license" [checked]="true" 
+                         tabindex="9"  #formInput style="margin-left: 3px"
+                         formControlName="license">
+                    <label for="yes" class="radio-lable">Yes</label>
+                </div>
+                <div class="radio-row">
+                    <input type="radio" id="no" value="false" name="license"
+                        tabindex="10" #formInput 
+                        formControlName="license">
+                    <label for="no" class="radio-lable">No</label>
+                </div>
+            </div>
+        }
+
+
+
     </div>
-
 
     <div
         class="wrap-btn"

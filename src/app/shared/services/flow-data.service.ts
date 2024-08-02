@@ -59,8 +59,5 @@ export class FlowDataService {
     public getSubgroupFunctionByTitle(title: string): string[] {
         return this._subgroupFunctionData[title] || [];
     }
-
-    
-
     
 }
