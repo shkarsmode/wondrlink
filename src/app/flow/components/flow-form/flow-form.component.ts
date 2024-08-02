@@ -45,6 +45,7 @@ export class FlowFormComponent {
 
     // set up default placeholder styles for select element
     public isFunctionPlaceholder = true;
+    public isAffiliationPlaceholder = true;
 
     // for function input field 
     public functionInputData: string[] = [];
@@ -169,6 +170,11 @@ export class FlowFormComponent {
     public deactiveFunctionSelectPlaceholder(): void {
         if (!this.isFunctionPlaceholder) return;
         this.isFunctionPlaceholder = false;
+    }
+
+    public deactiveAffiliationSelectPlaceholder(): void {
+        if(!this.isAffiliationPlaceholder) return;
+        this.isAffiliationPlaceholder = false;
     }
 
     // for patiensts flow

@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './country-codes.component.scss',
   animations: [
     trigger('fadeInOut', [
-        transition(':enter', [
+         transition(':enter', [
         style({ opacity: 0 }),
         animate('300ms', style({ opacity: 1 })),
         ]),

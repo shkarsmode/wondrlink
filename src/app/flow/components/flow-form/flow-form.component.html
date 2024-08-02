@@ -181,6 +181,26 @@
                         type="text">
                 </div>
 
+                <!-- <div class="group" data-select="true" 
+                    *ngIf="formType == 'physicians'">
+
+                    <label for="affiliation">Affiliation</label>
+                    <select
+                        id="affiliation"
+                        [ngClass]="{'select-placeholder_active': isAffiliationPlaceholder}"
+                        (change)="deactiveAffiliationSelectPlaceholder()"
+                        name="affiliation"
+                        #formInput
+                        formControlName="affiliation"
+                        tabindex="3">
+                    <option value="" disabled selected hidden id="placeholder">Select</option>
+                    <option *ngFor="let function of functionInputData"
+                        [value]="function">
+                        {{ function }}
+                    </option>
+                    </select>
+                </div> -->
+
             </div>
         } 
  
