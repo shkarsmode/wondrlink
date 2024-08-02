@@ -16,6 +16,10 @@ import { CheckEmailComponent } from './shared/dialogs/check-email/check-email.co
 import { SignUpComponent } from './shared/dialogs/sign-up/sign-up.component';
 import { ThankYouComponent } from './shared/dialogs/thank-you/thank-you.component';
 import { MaterialModule } from './shared/materials/material.module';
+import { AFFILIATION_DATA } from './shared/tokens/affiliation-data.token';
+import { SPECIALITY_DATA } from './shared/tokens/speciality-data.token';
+import { specialityData } from 'src/assets/data/flow-data/specialization.data';
+import { affiliationData } from 'src/assets/data/flow-data/affiliation.data';
 
 
 
@@ -53,6 +57,8 @@ import { MaterialModule } from './shared/materials/material.module';
         { provide: BASE_PATH_API, useValue: environment.basePathApi },
         { provide: GEO_API_KEY, useValue: environment.geoApiKey },
         { provide: GEO_PATH_API, useValue: environment.geoPathAPI },
+        { provide: AFFILIATION_DATA, useValue: affiliationData },
+        { provide: SPECIALITY_DATA, useValue: specialityData } 
     ],
     bootstrap: [AppComponent],
 })

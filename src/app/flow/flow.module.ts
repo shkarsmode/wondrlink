@@ -13,10 +13,7 @@ import { FlowFormComponent } from './components/flow-form/flow-form.component';
 import { FlowInitComponent } from './components/flow-init/flow-init.component';
 import { FlowSelectComponent } from './components/flow-select/flow-select.component';
 import { CountryCodesComponent } from '../shared/components/country-codes/country-codes.component';
-import { affiliationData } from 'src/assets/data/flow-data/affiliation.data';
-import { AFFILIATION_DATA } from '../shared/tokens/affiliation-data.token';
-import { SPECIALITY_DATA } from '../shared/tokens/speciality-data.token';
-import { specialityData } from 'src/assets/data/flow-data/specialization.data';
+
 
 
 @NgModule({
@@ -44,9 +41,5 @@ import { specialityData } from 'src/assets/data/flow-data/specialization.data';
     FlowInitComponent,
     FlowDialogComponent,
   ],
-  providers: [
-    {provide: AFFILIATION_DATA, useValue: affiliationData },
-    {provide: SPECIALITY_DATA, useValue: specialityData } 
-  ]
 })
 export class FlowModule { }

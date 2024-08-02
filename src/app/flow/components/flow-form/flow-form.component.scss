@@ -237,8 +237,8 @@ button {
 }
 
 input.ng-dirty.ng-invalid {
-    border: 1px solid red;
-    color: red;
+    border: 1px solid red !important;
+    color: red !important;
 }
 
 mat-spinner {
