@@ -9,6 +9,7 @@
     background-image: url('/assets/img/bg.webp');
     background-size: cover;
     background-position: center;
+    position: relative;
 }
 
 .content {
@@ -183,3 +184,49 @@ h1 {
     }
 
 }
+
+.wave {
+    opacity: 0;
+    animation: arrow 2s infinite;
+  }
+
+.wave1 {
+    animation-delay:-1s;
+    -webkit-animation-delay:-1s; /* Safari 和 Chrome */
+}
+
+.wave2 {
+    animation-delay:-0.5s;
+    -webkit-animation-delay:-0.5s; /* Safari 和 Chrome */
+}
+
+.wave3 {	
+    animation-delay:0s;
+    -webkit-animation-delay:0s; /* Safari 和 Chrome */
+}
+
+.arrows {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 32px;
+    cursor: pointer;
+}
+
+
+@keyframes arrow
+{
+0% {opacity:0}
+40% {opacity:1}
+80% {opacity:0}
+100% {opacity:0}
+}
+
+@-webkit-keyframes arrow /*Safari and Chrome*/
+{
+0% {opacity:0}
+40% {opacity:1}
+80% {opacity:0}
+100% {opacity:0}
+}
+

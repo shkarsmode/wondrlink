@@ -28,4 +28,13 @@ export class BannerComponent implements OnInit {
         const dialogRef = this.dialog.open(FlowDialogComponent, this.dialogConfig);
     }
 
+    public scrollDown(): void {
+        window.scrollTo({
+            top: window.innerHeight, // Scroll 100 pixels down from the current position
+            left: 0,
+            behavior: 'smooth' // Smooth scrolling,
+
+        });
+    }
+
 }

@@ -1,0 +1,36 @@
+<svg width="52" height="82" viewBox="0 0 52 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path class="wave wave1" d="M2 24L25.7154 40L50 24" stroke="white" stroke-width="3" stroke-linecap="round"/>
+    <path class="wave wave2" opacity="0.6" d="M9 48L25.7984 60L43 48" stroke="white" stroke-width="3" stroke-linecap="round"/>
+    <path class="wave wave3" opacity="0.8" d="M6 2L25.7628 16L46 2" stroke="white" stroke-width="3" stroke-linecap="round"/>
+</svg>
+  
+  <style>
+    .wave {
+      opacity: 0;
+      transform: translateY(-5px);
+      animation: waveAnimation 2.5s ease-in-out infinite;
+    }
+  
+    .wave1 {
+      animation-delay: 0s;
+    }
+  
+    .wave2 {
+      animation-delay: 0.7s;
+    }
+  
+    .wave3 {
+      animation-delay: 1.4s;
+    }
+  
+    @keyframes waveAnimation {
+      0%, 100% {
+        opacity: 0;
+        transform: translateY(-5px);
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(5px);
+      }
+    }
+  </style>

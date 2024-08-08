@@ -37,6 +37,7 @@ import { QuotesComponent } from './layouts/home-layout/components/quotes/quotes.
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { PrivacyPageComponent } from './layouts/privacy-page/privacy-page.component';
 import { ErrorPageComponent } from './layouts/error-page/error-page.component';
+import { ArrowsAnimationComponent } from '../shared/components/arrows-animation/arrows-animation.component';
 
 @NgModule({
     declarations: [
@@ -81,6 +82,7 @@ import { ErrorPageComponent } from './layouts/error-page/error-page.component';
         FlowModule,
         MatDialogModule,
         ErrorPageComponent,
+        ArrowsAnimationComponent,
     ],
     exports: [QuillModule],
     bootstrap: [CoreComponent],
