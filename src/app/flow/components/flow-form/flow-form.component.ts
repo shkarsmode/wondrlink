@@ -32,6 +32,7 @@ import { AFFILIATION_DATA } from 'src/app/shared/tokens/affiliation-data.token';
 import { IAffiliationData } from 'src/app/shared/interfaces/AffiliationData.type';
 import { SPECIALITY_DATA } from 'src/app/shared/tokens/speciality-data.token';
 import { ISpecialityData } from 'src/app/shared/interfaces/SpecialityData.type';
+import { matchFlowUserType } from 'src/app/shared/features/matchFlowUserType.helper';
 
 @Component({
     selector: 'app-flow-form',
@@ -111,10 +112,10 @@ export class FlowFormComponent {
         this.listenPhoneInput();
         this.initTabindexOrder();
 
-        this.contactForm.valueChanges.subscribe(el => {
-            console.log(el);
+        // this.contactForm.valueChanges.subscribe(el => {
+        //     console.log(el);
             
-        })
+        // })
     }
 
     private initContactForm(): void {
@@ -139,7 +140,7 @@ export class FlowFormComponent {
                     speciality: ['', Validators.required],
                     affiliation: ['', Validators.required],
                     companyName: [''],
-                    license: [''],
+                    license: ['', Validators.required],
                 });
                 break;
             }
@@ -234,8 +235,9 @@ export class FlowFormComponent {
         let password = this.password;
         let phone = this.joinPhoneParts();
         // let lastName = "Removed";
-
-        let flowData = Object.assign(this.contactForm.value, {
+                
+        let flowData = Object.assign(
+            this.contactForm.value, {
             isMySelf: currentIsMySelft,
             password: password,
             phone: phone,
@@ -259,20 +261,26 @@ export class FlowFormComponent {
         let password = this.password;
         let phone = this.joinPhoneParts();
 
-        // let lastName = "Removed" // Removed
-        
-        let body = Object.assign(
-            this.contactForm.value,
-            ...this.flowData,
-            { password: password,
-              phone: phone,
-            //   lastName: lastName 
-            }
-        );
-
-        console.log(body);
-        
-        
+        let body; 
+        if(this.formType === 'physicians') {
+            body = Object.assign(
+                this.contactForm.value,
+                { password: password,
+                  phone: phone,
+                  type: matchFlowUserType(this.formType)
+                },
+                this.convertLicense(),
+            );
+        } else {
+            body = Object.assign(
+                this.contactForm.value,
+                ...this.flowData,
+                { password: password,
+                  phone: phone,
+                },
+            );
+        }
+      
         this.authService.registration(body).subscribe({
             next: (res) => {
                 console.log(res);
@@ -289,6 +297,14 @@ export class FlowFormComponent {
             },
         });
     }
+
+ 
+    private convertLicense(): {[key in 'isMySelf']?: boolean} {
+        let license = this.contactForm.get('license');
+        if(license) return { 'isMySelf': license.value === "true" }
+        else return {}
+    }
+
 
     // for other flows
     private initDialogConfig(): void {
