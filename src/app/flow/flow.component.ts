@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { TFormFlow } from '../shared/interfaces/TFormFlow';
 import { matchFlowUserType } from '../shared/features/matchFlowUserType.helper';
 
-export type TUserType = 'Patient' | 'Ecosystem' | 'Drug Developers' | 'Physicians';
+export type TUserType = 'Patient' | 'Ecosystem' | 'Drug Developers' | 'Physician';
 
 export interface FlowData {
   email?: string,

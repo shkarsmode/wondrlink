@@ -271,6 +271,7 @@ export class FlowFormComponent {
                 },
                 this.convertLicense(),
             );
+            delete body.license;
         } else {
             body = Object.assign(
                 this.contactForm.value,
