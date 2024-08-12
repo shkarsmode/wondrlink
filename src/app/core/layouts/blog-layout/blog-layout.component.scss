@@ -3,6 +3,13 @@ app-blog {
     top: -28vh;
 }
 
+@media screen and (max-height: 500px) {
+    app-blog {
+        position: relative;
+        top: -50vh;
+    }
+}
+
 @media screen and (max-width: 500px) {
     app-blog {
         position: relative;
