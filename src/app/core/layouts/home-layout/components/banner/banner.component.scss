@@ -95,6 +95,12 @@ h1 {
     content: "";
     border-right: 1px solid var(--caret);
     animation: blink 1s linear infinite;
+
+    position: relative;
+    height: 44px;
+    margin-left: 3px;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 
