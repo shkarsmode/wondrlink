@@ -24,8 +24,17 @@
         font-weight: 400;
         line-height: 24.59px;
         text-align: left;
-        margin-top: 6px;
-        margin-bottom: 56px;
+        margin-top: 16px;
+        margin-bottom: 48px;
+        max-width: 510px;
+    }
+
+    div::ng-deep p {
+        margin: 10px 0 0;
+    }
+
+    div::ng-deep b {
+        font-weight: 800;
     }
 }
 
