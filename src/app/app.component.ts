@@ -38,9 +38,11 @@ export class AppComponent implements OnInit {
     }
 
     private async listenRoutesTransition(): Promise<void> {
-        this.router.events.subscribe(async event=> {
+        this.router.events.subscribe(async event => {
             if (event instanceof NavigationEnd) {
                 await new Promise(resolve => setTimeout(resolve, 50));
+              
+                this.updateHeaderNavByPage(event);
                 this.scrollToService.scrollToTop();
             }
         });
@@ -71,4 +73,23 @@ export class AppComponent implements OnInit {
         const isLoaded = this.imageProloaderService.isloadedAll();
         if (isLoaded) this.loadingService.end();
     }
+
+    private updateHeaderNavByPage(event: NavigationEnd): void {
+        let params = event.url.split('/');
+        Array.from(document.querySelectorAll('li')).forEach(
+            li => {
+                // current page = one of the navigation list
+                if (li.getAttribute('routerLink') === params[1]) {
+                    li.style.fontWeight = "800";
+                } 
+                // if home page 
+                else if(li.getAttribute('routerLink') === '/' && params[1] == '') {
+                    li.style.fontWeight = "800";
+                }
+                else { 
+                    li.style.fontWeight = "400";
+                } 
+            });
+    }
+
 }
