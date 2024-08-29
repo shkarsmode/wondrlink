@@ -38,6 +38,7 @@ import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component
 import { PrivacyPageComponent } from './layouts/privacy-page/privacy-page.component';
 import { ErrorPageComponent } from './layouts/error-page/error-page.component';
 import { ArrowsAnimationComponent } from '../shared/components/arrows-animation/arrows-animation.component';
+import { ArticleIntroComponent } from './layouts/article-layout/components/article-intro/article-intro.component';
 
 @NgModule({
     declarations: [
@@ -68,6 +69,7 @@ import { ArrowsAnimationComponent } from '../shared/components/arrows-animation/
         BlogNavigationComponent,
         PrivacyPageComponent,
         InfoBlocksComponent,
+        ArticleIntroComponent,
     ],
     imports: [
         ShareModule,
