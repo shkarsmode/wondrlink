@@ -1,36 +1,31 @@
-.wrap {
-    width: 100%;
-    padding: 180px 25px;
-    text-align: center;
-    background: #F4F4F4;
-}
-
 p {
+    display: block;
+    max-width: 848px;
+    width: 100%;
+    padding: 80px;
+    font-family: Avenir;
     font-size: 28px;
     font-weight: 800;
     line-height: 38.25px;
     text-align: center;
-    max-width: 848px;
-    margin: 0 auto;
-    padding: 0;
-    color: #262626;
+    background: #F4F4F4;
 }
-
 
 @media screen and (max-width: 900px) {
     p {
         font-size: 24px;
         line-height: 32px;
+        padding: 40px;
     }
 }
 
 @media screen and (max-width: 500px) {
-    .wrap {
-        padding: 100px 25px;
-    }
-
     p {
         font-size: 20px;
         line-height: 27.32px;
     }
 }
+
+
+
+

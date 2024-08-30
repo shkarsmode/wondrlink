@@ -2,6 +2,9 @@
     *ngIf="!isLoading"
     class="content"
     [@fadeIn]>
+
+    <app-blog-intro />
+
     <app-preview-article 
         *ngFor="let post of posts"
         [post]="post">
