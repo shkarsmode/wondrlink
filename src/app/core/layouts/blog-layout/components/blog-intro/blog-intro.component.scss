@@ -3,20 +3,19 @@ p {
     max-width: 848px;
     width: 100%;
     padding: 80px;
-    font-family: Avenir;
     font-size: 28px;
     font-weight: 800;
     line-height: 38.25px;
     text-align: center;
     background: #F4F4F4;
-    margin: 0;
+    margin: 0 auto;
 }
 
 @media screen and (max-width: 900px) {
     p {
         font-size: 24px;
         line-height: 32px;
-        padding: 40px;
+        padding: 80px;
     }
 }
 
@@ -24,6 +23,7 @@ p {
     p {
         font-size: 20px;
         line-height: 27.32px;
+        padding: 50px 22px;
     }
 }
 

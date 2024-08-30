@@ -2,3 +2,16 @@ app-blog-banner {
     display: block;
     height: 72vh;
 }
+
+
+@media screen and (max-height: 500px) {
+    app-blog-banner {
+        height: 75vh;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    app-blog-banner {
+        height: 65vh;
+    }
+}
