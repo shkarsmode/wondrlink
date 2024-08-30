@@ -1,8 +1,8 @@
 :host {
     display: flex;
     justify-content: center;
-    padding: 180px 25px;
-    background-color: white;
+    padding: 0px 25px 180px;
+    background-color: transparent;
 }
 
 .content {
@@ -13,8 +13,6 @@
     flex-direction: column;
     align-items: center;
     row-gap: 40px;
-    position: relative;
-    top: -28vh;
 }
 
 :host ::ng-deep.mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
@@ -23,21 +21,21 @@
 
 @media screen and (max-width: 500px) {
     :host {
-        padding: 100px 25px;
+        padding: 0px 25px 100px;
     }
 }
 
 
-@media screen and (max-height: 500px) {
-    .content {
-        position: relative;
-        top: -50vh;
-    }
-}
+// @media screen and (max-height: 500px) {
+//     .content {
+//         position: relative;
+//         top: -50vh;
+//     }
+// }
 
-@media screen and (max-width: 500px) {
-    .content {
-        position: relative;
-        top: -30vh;
-    }
-}
+// @media screen and (max-width: 500px) {
+//     .content {
+//         position: relative;
+//         top: -30vh;
+//     }
+// }

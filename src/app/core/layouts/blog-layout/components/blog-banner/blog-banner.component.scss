@@ -10,6 +10,8 @@
     background-size: cover;
     background-position: center;
     transition: all .3s;
+    position: relative;
+    z-index: -1;
 }
 
 .content {
