@@ -21,8 +21,6 @@ import { SPECIALITY_DATA } from './shared/tokens/speciality-data.token';
 import { specialityData } from 'src/assets/data/flow-data/specialization.data';
 import { affiliationData } from 'src/assets/data/flow-data/affiliation.data';
 
-
-
 @NgModule({
     declarations: [
         AppComponent,
@@ -58,7 +56,7 @@ import { affiliationData } from 'src/assets/data/flow-data/affiliation.data';
         { provide: GEO_API_KEY, useValue: environment.geoApiKey },
         { provide: GEO_PATH_API, useValue: environment.geoPathAPI },
         { provide: AFFILIATION_DATA, useValue: affiliationData },
-        { provide: SPECIALITY_DATA, useValue: specialityData } 
+        { provide: SPECIALITY_DATA, useValue: specialityData },
     ],
     bootstrap: [AppComponent],
 })

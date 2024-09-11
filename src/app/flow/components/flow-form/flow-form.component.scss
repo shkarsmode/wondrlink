@@ -104,7 +104,7 @@ select {
   -moz-appearance: none;
 }
 
-input::placeholder, .select-placeholder_active {
+:host::ng-deep input::placeholder, .select-placeholder_active {
     font-size: 18px;
     font-weight: 400;
     line-height: 24.59px;
@@ -291,7 +291,10 @@ mat-spinner {
         gap: 10px;
     }
 
-    input:not(input[type="radio"]) {
-        padding: 14px 14px 14px 13px;
+    :host ::ng-deep {
+        input:not(input[type="radio"]) {
+            padding: 14px 14px 14px 13px;
+        }
     }
+ 
 }

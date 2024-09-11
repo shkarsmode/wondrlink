@@ -1,5 +1,24 @@
 import { ICountryPhones } from "src/app/shared/interfaces/country-phone.interface";
 
+ /* 
+    Don't support, because flags not exists in  https://flagsapi.com/
+      { code: 'BL', name: 'Saint Barthelemy', dial_code: '+590', phoneLength: 9},
+      { code: 'BV', name: 'Bouvet Island', dial_code: '+47',phoneLength: 10 },				
+      { code: 'GF', name: 'French Guiana', dial_code: '+594', phoneLength: 9},
+      { code: 'GP', name: 'Guadeloupe', dial_code: '+590', phoneLength: 9},
+      { code: 'HM', name: 'Heard Island and McDonald Islands', dial_code: '+672',phoneLength: 10 },		
+      { code: 'IO', name: 'British Indian Ocean Territory', dial_code: '+246', phoneLength: 7},
+      { code: 'PM', name: 'Saint Pierre and Miquelon', dial_code: '+508', phoneLength: 6},
+      { code: 'SJ', name: 'Svalbard and Jan Mayen', dial_code: '+47', phoneLength: 8},	
+      { code: 'SX', name: 'Sint Maarten (Dutch part)', dial_code: '+1-721', phoneLength: 10},
+      { code: 'SX', name: 'Sint Maarten (Dutch part)', dial_code: '+1-721', phoneLength: 10},
+      { code: 'XK', name: 'Kosovo', dial_code: '+383', phoneLength: 8},	
+    
+    terrorist's state 
+        { code: 'RU', name: 'Russian Federation', dial_code: '+7', phoneLength: 10},
+ */
+
+
 export const countryPhonesData: ICountryPhones = 
 [
     { code: 'AD', name: 'Andorra', dial_code: '+376', phoneLength: 6},

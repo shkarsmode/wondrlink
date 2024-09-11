@@ -1,0 +1,67 @@
+
+
+
+<div class="group">
+
+    <div class="label-wrap">
+        <label for="tel-national">Phone</label>
+        @if (phoneInput.hasError('invalidLength')) {
+            <div  class="error-message">
+                <span >*Incorrect length</span>
+            </div>
+        }
+        @else if (phoneInput.hasError('impossible')) {
+            <div  class="error-message">
+                <span >*Impossible number</span>
+            </div>
+        } 
+        @else if (phoneInput.hasError('invalid')) {
+            <div  class="error-message">
+                <span >*Invalid number</span>
+            </div>
+        } 
+        
+    </div>
+
+    <div class="input-wrap" 
+        #phoneWrap
+        
+        [ngClass]="{
+            'invalid': phoneInput.errors,
+            'focus': isFocus
+        }">
+    
+        <div class="country-code"
+            (click)="isDropdown = !isDropdown">
+            <img [src]="'https://flagsapi.com/'+currentCountry.code+'/flat/24.png'" alt="flag" class="flag">
+            <span class="dial-code">{{ currentCountry.dial_code }}</span>
+            <img 
+                src="assets/svg/carat-icon.svg"
+                class="carat"
+                alt=""
+                [ngStyle]="{'rotate': isDropdown ? '180deg' : '0deg'}"
+                >
+        </div>
+        
+        <input
+            id="tel-national"
+            name="tel-national" autocomplete="tel-national"
+            class="formInput"
+            placeholder="212 001 002"
+            tabindex="3"
+            type="text"
+            (input)="onInputChange()"
+            (focus)="onFocus()"
+            (blur)="onBlur()"
+            [formControl]="phoneInput">
+    
+        <div class="countries-dropdown" 
+            [ngStyle]="{'display': isDropdown ? 'block' : 'none'}">
+            <app-country-picker
+                (onCountryChange)="onCountryChange($event)">
+            </app-country-picker>
+        </div>
+   </div>
+    
+</div>
+

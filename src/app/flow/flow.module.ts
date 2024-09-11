@@ -13,6 +13,7 @@ import { FlowFormComponent } from './components/flow-form/flow-form.component';
 import { FlowInitComponent } from './components/flow-init/flow-init.component';
 import { FlowSelectComponent } from './components/flow-select/flow-select.component';
 import { CountryCodesComponent } from '../shared/components/country-codes/country-codes.component';
+import { PhoneInputComponent } from '../shared/components/phone-input/phone-input.component';
 
 
 
@@ -32,7 +33,8 @@ import { CountryCodesComponent } from '../shared/components/country-codes/countr
     MaterialModule,
     MatDialogModule,
     InputLocationAutocompleteComponent,
-    CountryCodesComponent
+    CountryCodesComponent,
+    PhoneInputComponent,
   ],
   exports: [
     FlowComponent,

@@ -11,7 +11,7 @@ import {
     Renderer2,
     ViewChildren,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
     MatDialog,
     MatDialogConfig,
@@ -69,16 +69,6 @@ export class FlowFormComponent {
     // when user submits a form, it will show him the check email dialog
     private dialogConfig: MatDialogConfig = new MatDialogConfig();
 
-    // for telephone input
-    public telephonePadding: number = 90;
-    public inputCountry: ICountryCodes = {
-        name: 'United States',
-        dial_code: '+1',
-        code: 'US',
-    };
-    public isOpenedPhoneDropdown: boolean = false;
-    private selectedCountryCode: string = '+1';
-
     constructor(
         private authService: AuthService,
         private fb: FormBuilder,
@@ -86,7 +76,6 @@ export class FlowFormComponent {
         private errorSnackBar: MatSnackBar,
         private flowDataService: FlowDataService,
         private articleService: ArticleService,
-        private countriesData: CountryCodesService,
         private renderer: Renderer2,
         @Inject(AFFILIATION_DATA) public affiliationData: IAffiliationData,
         @Inject(SPECIALITY_DATA) public specialityData: ISpecialityData,
@@ -96,11 +85,12 @@ export class FlowFormComponent {
     ngOnInit(): void {
         this.initContactForm();
         this.initDialogConfig();
-        this.initFunctionInputData();
-        this.oldFormType = this.formType;
+        this.initFunctionInputData(); // data for select in flow 
+        this.oldFormType = this.formType; // just for matching the form
     }
 
     ngDoCheck(): void {
+        // detects when user change the flow and then reinits FormBuilder to gather correct field coresponding to form-flow type
         if (this.oldFormType === this.formType) return;
         if (this.oldFormType !== this.formType) {
             this.oldFormType = this.formType;
@@ -109,12 +99,10 @@ export class FlowFormComponent {
     }
 
     ngAfterViewInit(): void {
-        this.listenPhoneInput();
         this.initTabindexOrder();
 
         // this.contactForm.valueChanges.subscribe(el => {
         //     console.log(el);
-            
         // })
     }
 
@@ -233,7 +221,7 @@ export class FlowFormComponent {
     public onNextStep(): void {
         let currentIsMySelft = this.isMySelf;
         let password = this.password;
-        let phone = this.joinPhoneParts();
+        let phone = this.phone.value
         // let lastName = "Removed";
                 
         let flowData = Object.assign(
@@ -259,7 +247,7 @@ export class FlowFormComponent {
         // but we still have to send password for correct back-end working
 
         let password = this.password;
-        let phone = this.joinPhoneParts();
+        let phone = this.phone.value
 
         let body; 
         if(this.formType === 'physicians') {
@@ -324,89 +312,11 @@ export class FlowFormComponent {
         }
     }
 
-    // for phone input we need to separate logic ... to put it into
-    private joinPhoneParts() {
-        let phone = this.contactForm.get('phone')?.value;
-        return this.selectedCountryCode + phone.split('-').join('');
+    private get phone(): FormControl { return this.contactForm.get('phone') as FormControl; }
+
+    public onPhoneValidityChange(isValid: boolean): void {
+        if(isValid) this.phone.setErrors(null)
+        else this.phone.setErrors({ phoneInvalid: true});
     }
-
-    public onCodeSelected(code: string): void {
-        this.telephonePadding = 60 + 15 * code.length;
-        this.selectedCountryCode = code;
-    }
-
-    private listenPhoneInput() {
-        this.contactForm
-            .get('phone')
-            ?.valueChanges.pipe(debounceTime(700))
-            .subscribe((value) => {
-                this.handlePhoneInput(value);
-            });
-    }
-
-    // 
-    private oldPhoneInputValue = "";
-
-    private handlePhoneInput(inputValue: string): void {
-        const formattedPhoneInput = this.formatPhoneInput(inputValue);
-        this.contactForm.patchValue(
-            { phone: formattedPhoneInput },
-            { emitEvent: false }
-        ); // { emitEvent: false
-    }
-
-    private formatPhoneInput(inputValue: string): string {
-        
-
-        if (!inputValue) return '';
-        
-        let countryCode: ICountryCodes | '' = '';
-        let cleanedInput = this.cleanPhoneInput(inputValue);
-
-        if (cleanedInput.startsWith('+')) {
-            countryCode = this.matchCountryCode(cleanedInput);
-        } 
-
-        // Check is matched 
-        if (countryCode) {
-            this.inputCountry = countryCode;
-            this.onCodeSelected(this.inputCountry.dial_code);
-            this.isOpenedPhoneDropdown = false;
-            cleanedInput = cleanedInput.replace(countryCode.dial_code, '');
-        }
-
-        // Add spaces every three characters
-        const formattedInput = this.addSpacesEveryThreeCharacters(cleanedInput);
-
-        return formattedInput;
-    }
-
-    private cleanPhoneInput(inputValue: string): string {
-        // Remove any character that is not allowed in a phone number
-        return inputValue.replace(/[^\d+]/g, '');
-    }
-
-    
-
-    private matchCountryCode(inputValue: string): ICountryCodes | '' {
-        const matchingCode = this.countriesData
-            .getCountryCodes()
-            .find((country) => inputValue.startsWith(country.dial_code));
-        return matchingCode || '';
-    }
-
-
-    private addSpacesEveryThreeCharacters(inputValue: string): string {
-        if (inputValue.length < 4) return inputValue;
-        // Add spaces every three characters
-        const groups = inputValue.match(/.{1,3}/g);
-        const formattedValue = groups?.reduce((acc, group, index) => {
-            // Add hyphen between groups except for the last one
-            const separator = index < 2 ? '-' : '';
-            return acc + group + separator;
-        }, '');
-        console.log(formattedValue);
-
-        return formattedValue || '';
-    }
+  
 }

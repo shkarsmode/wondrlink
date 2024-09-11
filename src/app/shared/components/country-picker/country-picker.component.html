@@ -1,0 +1,60 @@
+
+
+<div class="wrap">
+    
+    <input 
+        type="text" 
+        autocomplete="off"        
+        placeholder="Type a country..."
+        [(ngModel)]="searchValue"
+        (input)="onSearch()">
+
+    @if(isSearchValue) { 
+        <mat-icon (click)="clearSearch(); $event.stopPropagation()" class="clear-search">clear</mat-icon>
+    }
+
+
+    <!--countries for serarced values  -->
+
+    <div class="countries" #searchedCountriesWrap
+        [ngStyle]="{'display': isSearchValue ? 'block' : 'none'}">
+        
+        @if (!searchedCountries.length) { 
+            <div class="country-option">
+                No countries found
+            </div>
+        }
+            
+        @for (country of searchedCountries; track country.code; let i = $index ) {
+
+            <div class="country-option"
+                [attr.data-country-name]="country.name"> 
+                <img [src]="'https://flagsapi.com/'+country.code+'/flat/24.png'" alt="flag">
+                <span class="country-name"> {{ country.name }}</span>
+                <!-- <span class="dial-code">{{ country.dial_code }}</span> -->
+            </div>
+        }
+
+    </div>
+
+  
+   <!--countries list-->
+
+    <div class="countries" #countriesWrap
+        [ngStyle]="{'display': !isSearchValue ? 'block' : 'none'}">
+        
+        @for (country of countryCodes; track country.code; let i = $index ) {
+
+            <div class="country-option" 
+                [attr.data-country-name]="country.name">
+
+                <img [src]="'https://flagsapi.com/'+country.code+'/flat/24.png'" alt="flag">
+                <span class="country-name"> {{ country.name }}</span>
+                <!-- <span class="dial-code">{{ country.dial_code }}</span> -->
+            </div>
+        }
+
+    </div>
+   
+
+</div>

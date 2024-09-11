@@ -86,7 +86,7 @@
 
         <div class="row">
 
-            <div class="group">
+            <!-- <div class="group">
                 <label for="tel-national">Phone</label>
                 <div class="phone-wrap">
                     <input
@@ -104,7 +104,12 @@
                             (countryCode)="onCodeSelected($event)">
                         </app-country-codes>
                 </div>
-            </div>
+            </div> -->
+
+            <app-phone-input 
+                formControlName="phone"
+                (valid)="onPhoneValidityChange($event)">
+            </app-phone-input>
 
             <div class="group">
                 <label for="email">Email</label>
