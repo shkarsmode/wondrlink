@@ -10,7 +10,7 @@
         (input)="onSearch()">
 
     @if(isSearchValue) { 
-        <mat-icon (click)="clearSearch(); $event.stopPropagation()" class="clear-search">clear</mat-icon>
+        <img (click)="clearSearch(); $event.stopPropagation()" class="clear-search" src="assets/img/close.svg">
     }
 
 
