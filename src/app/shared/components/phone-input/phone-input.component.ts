@@ -152,22 +152,30 @@ export class PhoneInputComponent  implements ControlValueAccessor {
 
   private handlePhoneInput(inputValue: string): void {
 
-      const formattedPhoneInput = this.formatPhoneInput(inputValue);
-            
+      // const formattedPhoneInput = this.formatPhoneInput(inputValue);
+
+      if(inputValue == "") return;
+      
+      let phoneNumber = parsePhoneNumber(
+        this.getFullNumber(this.currentCountry.dial_code, this.cleanPhoneInput(inputValue)),
+        this.currentCountry.code as CountryCode);
+      
+      const formattedPhoneInput = phoneNumber.formatInternational().replace(this.currentCountry.dial_code, '')
+
       this.phoneInput.patchValue(formattedPhoneInput, {
         emitEvent: false
       });
  
   }
 
-  private formatPhoneInput(inputValue: string): string {
-      if (!inputValue) return '';
-      let cleanedInput = this.cleanPhoneInput(inputValue);
+  // private formatPhoneInput(inputValue: string): string {
+  //     if (!inputValue) return '';
+  //     let cleanedInput = this.cleanPhoneInput(inputValue);
       
-      // Add spaces every three characters
-      const formattedInput = this.addCaratEveryThreeCharacters(cleanedInput);
-      return formattedInput;
-  }
+  //     // Add spaces every three characters
+  //     const formattedInput = this.addCaratEveryThreeCharacters(cleanedInput);
+  //     return formattedInput;
+  // }
 
   private cleanPhoneInput(inputValue: string): string {
       // Remove any character that is not allowed in a phone number
@@ -176,20 +184,20 @@ export class PhoneInputComponent  implements ControlValueAccessor {
 
 
   // add space every 3 characker
-  private addCaratEveryThreeCharacters(inputValue: string): string {
+  // private addCaratEveryThreeCharacters(inputValue: string): string {
     
-    if (inputValue.length < 4) return inputValue;
-    // Add spaces every three characters
-    const groups = inputValue.match(/.{1,3}/g);
-    const formattedValue = groups?.reduce((acc, group, index) => {
-        // Add hyphen between groups except for the last one
-        const separator = index < 2 ? '-' : '';
-        return acc + group + separator;
-    }, '');
+  //   if (inputValue.length < 4) return inputValue;
+  //   // Add spaces every three characters
+  //   const groups = inputValue.match(/.{1,3}/g);
+  //   const formattedValue = groups?.reduce((acc, group, index) => {
+  //       // Add hyphen between groups except for the last one
+  //       const separator = index < 2 ? '-' : '';
+  //       return acc + group + separator;
+  //   }, '');
 
-    return formattedValue || '';
+  //   return formattedValue || '';
 
-  }
+  // }
 
   public get getPhone(): string {
       let phone = this.phoneInput?.value;

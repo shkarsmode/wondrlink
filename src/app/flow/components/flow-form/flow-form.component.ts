@@ -101,9 +101,9 @@ export class FlowFormComponent {
     ngAfterViewInit(): void {
         this.initTabindexOrder();
 
-        // this.contactForm.valueChanges.subscribe(el => {
-        //     console.log(el);
-        // })
+        this.contactForm.valueChanges.subscribe(el => {
+            console.log(el);
+        })
     }
 
     private initContactForm(): void {
