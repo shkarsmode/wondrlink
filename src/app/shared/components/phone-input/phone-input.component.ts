@@ -3,6 +3,7 @@ import {
   ElementRef, 
   EventEmitter, 
   HostListener, 
+  Inject, 
   Output, 
   ViewChild,
   forwardRef } from '@angular/core';
@@ -16,11 +17,14 @@ import {
   FormControl, NG_VALUE_ACCESSOR,
   ValidatorFn, } from '@angular/forms';
 
-import { debounceTime, tap } from 'rxjs';
+import { catchError, debounceTime, Observable, tap } from 'rxjs';
 
-import { ICountryPhone } from '../../interfaces/country-phone.interface';
+import { ICountryPhone, ICountryPhones } from '../../interfaces/country-phone.interface';
 import { CountryCode, isPossiblePhoneNumber, isValidPhoneNumber, parsePhoneNumber } from 'libphonenumber-js';
 import { CountryPickerComponent } from "../country-picker/country-picker.component";
+import { HttpClient } from '@angular/common/http';
+import { COUNTRY_PHONE_DATA } from '../../tokens/country-phone-data.token';
+import { countryPhonesData } from 'src/assets/data/country-phones.data';
 
 
 @Component({
@@ -39,7 +43,11 @@ import { CountryPickerComponent } from "../country-picker/country-picker.compone
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => PhoneInputComponent),
       multi: true,
-  },
+    },
+    {
+      provide: COUNTRY_PHONE_DATA, 
+      useValue: countryPhonesData
+    }
   ]
 })
 export class PhoneInputComponent  implements ControlValueAccessor {
@@ -58,13 +66,24 @@ export class PhoneInputComponent  implements ControlValueAccessor {
 
   public phoneInput: FormControl;
 
-  public currentCountry: ICountryPhone;
+  public defaultCountry: ICountryPhone = {
+      "name": "United States",
+      "dial_code": "+1",
+      "code": "US",
+      "suggested": true,
+      "phoneLength": 10
+  }
+  public currentCountry: ICountryPhone = this.defaultCountry;
+
   public isDropdown: boolean = false;
 
-  constructor() {}
+  constructor(
+    private http: HttpClient,
+    @Inject(COUNTRY_PHONE_DATA) public countriesPhoneData: ICountryPhones, 
+  ) {}
 
   ngOnInit(): void {
-      this.initCurrentCountry();
+      this.initCountry();
       this.phoneInput = new FormControl('', [this.validate(), this.checkLength()])
       this.phoneInput.statusChanges.subscribe(el => this.emitValidity());
   }
@@ -74,16 +93,33 @@ export class PhoneInputComponent  implements ControlValueAccessor {
       this.emitValidity(); 
   }
 
-  public initCurrentCountry(): void {
-      this.currentCountry = {
-        "name": "United States",
-        "dial_code": "+1",
-        "code": "US",
-        "suggested": true,
-        "phoneLength": 10
-      }
+  public initCountry(): void {
+
+    let code = localStorage.getItem('visitorCountry');
+
+    if(code) {
+        this.currentCountry = this.getCountryPhoneInfo(code);
+    } else {
+        this.getVisitorCountry().subscribe(res => { 
+          this.currentCountry =  this.getCountryPhoneInfo(res.country);
+          localStorage.setItem('visitorCountry', res.country);
+        });
+    }
+      
+      
   }
 
+  public getVisitorCountry(): Observable<{ip: string, country: string}> {
+    return this.http.get<{ip: string, country: string}>('https://api.country.is').pipe(
+      catchError(() => this.http.get<{ip: string, country: string}>('https://ipapi.co/json/'))
+    );
+  }   
+
+  public getCountryPhoneInfo(code: string): ICountryPhone {
+    return this.countriesPhoneData.find(country => country.code === code) || this.defaultCountry;
+  } 
+  
+//============
   public writeValue(value: string): void {
     this.phoneInput.setValue(value,{ emitEvent: false });
   }
@@ -92,8 +128,8 @@ export class PhoneInputComponent  implements ControlValueAccessor {
   public registerOnTouched = (fn: any) => (this.onTouched = fn);
 
 
-  public onCountryChange(event: ICountryPhone): void {
-      this.currentCountry = event;
+  public onCountryChange(newCountry: ICountryPhone): void {
+      this.currentCountry = newCountry;
       this.onChange(this.getPhone)//!!!!
       this.onTouched();
       this.isDropdown = false;

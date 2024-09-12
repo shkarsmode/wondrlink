@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { countryPhonesData } from './../assets/data/country-phones.data';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ArticleService } from './shared/services/article-service.service';
@@ -7,6 +8,7 @@ import { FlowDataService } from './shared/services/flow-data.service';
 import { ImageProloaderService } from './shared/services/image-proloader.service';
 import { LoadingService } from './shared/services/loading-service.service';
 import { ScrollToService } from './shared/utils/scroll-to.service';
+import { VisitorCountryService } from './shared/components/phone-input/visitor-country.service';
 
 @Component({
     selector: 'app-root',
@@ -24,9 +26,9 @@ export class AppComponent implements OnInit {
         private articleService: ArticleService,
         private flowDataService: FlowDataService,
         private countryCodesService: CountryCodesService,
+        private countryPhonesData: VisitorCountryService,
     ) {
         this.loading$ = loadingService.loading$;
-        // setTimeout(() => loadingService.start(), 800);
     }
 
     public ngOnInit(): void {

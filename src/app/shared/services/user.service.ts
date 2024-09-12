@@ -13,6 +13,8 @@ export class UserService {
 
     public profileUpdated$: Subject<boolean> = new Subject();
     public approvedUsersUpdated$: Subject<boolean> = new Subject();
+    public country: Subject<string> = new Subject();
+
     private readonly userPath: string = 'users';
 
     constructor(
@@ -73,4 +75,6 @@ export class UserService {
             body
         );
     }
+
+    
 }
