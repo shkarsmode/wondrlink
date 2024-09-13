@@ -165,7 +165,7 @@ mat-spinner {
         gap: 10px;
     }
 
-    :host ::ng-deep {
+    :host {
         input:not(input[type="radio"]) {
             padding: 14px 14px 14px 0px;
         }
