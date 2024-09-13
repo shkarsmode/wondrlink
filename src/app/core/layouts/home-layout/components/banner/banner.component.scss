@@ -236,3 +236,18 @@ h1 {
 100% {opacity:0}
 }
 
+
+@media screen and (max-height: 600px) and (max-width: 1000px) { 
+    .arrows {
+        display: none;
+    }
+}
+
+@media screen and (max-height: 320px) and (max-width: 1000px) { 
+    h1 {
+        margin-bottom: 30px;
+    }
+}
+
+
+

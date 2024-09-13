@@ -62,8 +62,10 @@
 	class="wrap phone"
 	[ngClass]="{'out': isHeaderOut && !isOpenBurger, 'in': isHeaderIn}">
 	<header>
-		<div class="logo" routerLink="/">
-			<img src="assets/img/logo-black.svg" alt="wondrlink">
+		<div class="logo" routerLink="/" (click)="isOpenBurger = !isOpenBurger">
+			<img src="assets/img/logo-black.svg" alt="wondrlink"
+				[ngClass]="{'landscape': isOpenBurger || isHeaderIn}"
+			>
 		</div>
 		<div
 			class="burger"
