@@ -4,7 +4,7 @@
 		<div [innerHTML]="article.subHeader"></div>
 		<button class="btn-green"
             (click)="articleService.openFlowDialog(flowConfig)">
-            Get Started
+            {{ article.buttonName ?? 'Get Started' }}
         </button>
 	</div>
 </div>

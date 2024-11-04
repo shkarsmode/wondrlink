@@ -1,18 +1,25 @@
 <div class="wrap">
+    <h1>{{ formTitle }}</h1>
+    @if (flow === 'drug-developers' || flow === 'patients' || flow === 'physicians') {
+        <div class="description">
+            Become a part of our mission to deliver groundbreaking treatments.
+        </div>        
+    }
 
-  <h1>{{ formTitle }}</h1>
-
-  <div class="flow-wrap"
-    [ngClass]="{'flow-wrap_loading': isLoading}">
-    
-    <app-flow
-        *ngIf="isFlowComponent"
-        [@fadeInOut]
-        [step]="2"
-        [flow]="flow"
-        [isSkipFirstStep]="true">
-    </app-flow>
-    
-    <mat-spinner *ngIf="isLoading" [@fadeInOut]></mat-spinner>
-  </div>
+    <div 
+        class="flow-wrap"
+        [class.flow-wrap_loading]="isLoading">
+        <app-flow
+            *ngIf="isFlowComponent"
+            [@fadeInOut]
+            [step]="2"
+            [flow]="flow"
+            [isSkipFirstStep]="true">
+        </app-flow>
+        
+        <mat-spinner
+            *ngIf="isLoading"
+            [@fadeInOut]>
+        </mat-spinner>
+    </div>
 </div>

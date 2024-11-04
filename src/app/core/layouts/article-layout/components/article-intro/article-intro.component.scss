@@ -3,33 +3,70 @@
     padding: 180px 25px;
     text-align: center;
     background: #F4F4F4;
-}
+    display: flex;
+    justify-content: center;
 
-p {
-    font-size: 28px;
-    font-weight: 800;
-    line-height: 38.25px;
-    text-align: center;
-    max-width: 848px;
-    margin: 0 auto;
-    padding: 0;
-    color: #262626;
+    div {
+        font-size: 28px;
+        max-width: 950px;
+        font-weight: 600;
+    }
+
+    ::ng-deep {
+        p {
+            font-size: 18px;
+            // font-weight: 800;
+            // line-height: 38.25px;
+            font-weight: 400;
+            text-align: center;
+            max-width: 848px;
+            margin: 0 auto;
+            padding: 0;
+            color: #262626;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 38.25px;
+
+            color: rgba(38, 38, 38, 1);
+        }
+    }
+
 }
 
 
 @media screen and (max-width: 900px) {
-    p {
-        font-size: 24px;
+    div {
+        font-size: 22px;
+    }
+    
+    .wrap ::ng-deep p {
+        font-size: 16px;
         line-height: 32px;
     }
 }
+
+@media (max-width: 650px) {
+    .wrap {
+        ::ng-deep h2 {
+            text-align: left;
+            font-size: 28px;
+            line-height: 38.25px;
+            margin-bottom: 20px;
+        }
+    }
+}
+
 
 @media screen and (max-width: 500px) {
     .wrap {
         padding: 100px 25px;
     }
 
-    p {
+    ::ng-deep p {
         font-size: 20px;
         line-height: 27.32px;
     }
