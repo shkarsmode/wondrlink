@@ -141,7 +141,7 @@ select {
 }
 
 .group[data-firstName], .group[data-lastName]  {
-    flex: 0 0 calc(50% - 10px) !important;
+    // flex: 0 0 calc(50% - 10px) !important;
 }
 
 label {

@@ -1,118 +1,123 @@
 [
-  {
-    "id": "ecosystem",
-    "title": "Ecosystem Signup",
-    "subtitle": "Tell us who you are",
-    "subgroup": [
-        {
-          "title": "Patient Support",
-          "subtitle": "Social workers, Advocacy groups, Chaplains, Spiritual care services",
-          "icon": "handshake.svg",
-          "function": [
-            "Nurse",
-            "Social Worker",
-            "Spiritual Care",
-            "Giver / Chaplain",
-            "Nutritionist",
-            "Therapist",
-            "Healthcare",
-            "Planner / Legal",
-            "Other"
-          ]
-        },
-        {
-          "title": "Licensing / Venture",
-          "subtitle": "Licensing offices, technology transfer, VC/Investors helping accelerate new novel drugs",
-          "icon": "license.svg",
-          "function": [
-            "Licensing Office",
-            "Technology Transfer",
-            "Venture Capital",
-            "Private Equity",
-            "Familly Office",
-            "Investor"
-          ]
-        },
-        {
-          "title": "Philanthropy / Donors",
-          "subtitle": "Supporting access to novel therapies",
-          "icon": "donor.svg",
-          "function": [
-            "Foundation",
-            "Non-Profit",
-            "Individual"
-          ]
-        }
-      ]
-  },
-  {
-    "id": "drug-developers",
-    "title": "Drug Developer Signup",
-    "subtitle": "Select organization type",
-    "subgroup": [
-      {
-        "title": "Biotech / Pharma",
-        "icon": "biotech.svg",
-        "function": [
-          "Executive Managment",
-          "R&D",
-          "Medical Affairs",
-          "Clinical Development",
-          "Business Development"
+    {
+        "id": "ecosystem",
+        "title": "Ecosystem Signup",
+        "subtitle": "Tell us who you are",
+        "subgroup": [
+            {
+                "title": "Patient Support",
+                "subtitle": "Social workers, Advocacy groups, Chaplains, Spiritual care services",
+                "icon": "handshake.svg",
+                "function": [
+                    "Nurse",
+                    "Social Worker",
+                    "Spiritual Care",
+                    "Giver / Chaplain",
+                    "Nutritionist",
+                    "Therapist",
+                    "Healthcare",
+                    "Planner / Legal",
+                    "Other"
+                ]
+            },
+            {
+                "title": "Licensing / Venture",
+                "subtitle": "Licensing offices, technology transfer, VC/Investors helping accelerate new novel drugs",
+                "icon": "license.svg",
+                "function": [
+                    "Licensing Office",
+                    "Technology Transfer",
+                    "Venture Capital",
+                    "Private Equity",
+                    "Familly Office",
+                    "Investor"
+                ]
+            },
+            {
+                "title": "Philanthropy / Donors",
+                "subtitle": "Supporting access to novel therapies",
+                "icon": "donor.svg",
+                "function": [
+                    "Foundation",
+                    "Non-Profit",
+                    "Individual"
+                ]
+            }
         ]
-      },
-      {
-        "title": "Research Lab",
-        "icon": "microscope.svg",
-        "function": [
-          "Executive Managment",
-          "Research",
-          "Clinical",
-          "Technology Transfer",
-          "Business Development"
+    },
+    {
+        "id": "drug-developers",
+        "title": "Drug Developer Signup",
+        "subtitle": "Select organization type",
+        "subgroup": [
+            {
+                "title": "Biotech / Pharma",
+                "icon": "biotech.svg",
+                "function": [
+                    "Executive Managment",
+                    "R&D",
+                    "Medical Affairs",
+                    "Clinical Development",
+                    "Business Development"
+                ]
+            },
+            {
+                "title": "Research Lab",
+                "icon": "microscope.svg",
+                "function": [
+                    "Executive Managment",
+                    "Research",
+                    "Clinical",
+                    "Technology Transfer",
+                    "Business Development"
+                ]
+            },
+            {
+                "title": "University / Academic Institution",
+                "icon": "university.svg",
+                "function": [
+                    "Executive Managment",
+                    "Research",
+                    "Clinical",
+                    "Technology Transfer",
+                    "Business Development"
+                ]
+            },
+            {
+                "title": "Life Sciences Consulting",
+                "icon": "chemistry.svg"
+            }
         ]
-      },
-      {
-        "title": "University / Academic Institution",
-        "icon": "university.svg",
-        "function": [
-          "Executive Managment",
-          "Research",
-          "Clinical",
-          "Technology Transfer",
-          "Business Development"
+    },
+    {
+        "id": "patients",
+        "title": "How would you describe your situation?",
+        "subtitle": "I'm currently in need of:",
+        "subgroup": [
+            {
+                "title": "Research/Investigation",
+                "subtitle": "You have a condition that wasn't easily diagnosed and needs to be investigated further",
+                "icon": "dnk.svg"
+            },
+            {
+                "title": "Compassionate Use/Expanded Access",
+                "subtitle": "You need access to a novel therapy not publicly available",
+                "icon": "bulb.svg"
+            },
+            {
+                "title": "Clinical Trial",
+                "subtitle": "You need access to a clinical study for a novel therapy that is not yet approved",
+                "icon": "lab.svg"
+            },
+            {
+                "title": "Access to Approved Therapy",
+                "subtitle": "You need access to an approved therapy that's currently unavailable to you",
+                "icon": "key.svg"
+            },
+            {
+                "title": "Something Else",
+                "icon": "ambulance.svg"
+            }
         ]
-      },
-      {
-        "title": "Life Sciences Consulting",
-        "icon": "chemistry.svg"
-      }
-    ]
-  },
-  {
-    "id": "patients",
-    "title": "How would you describe your situation?",
-    "subtitle": "I'm currently in need of:",
-    "subgroup": [
-      {
-        "title": "Research/Investigation",
-        "subtitle": "You have a condition that wasn't easily diagnosed and needs to be investigated further",
-        "icon": "dnk.svg"
-      },
-      {
-        "title": "Compassionate Use/Clinical Trial",
-        "subtitle": "You need access to a novel therapy not publicly available",
-        "icon": "bulb.svg"
-      },
-      {
-        "title": "Access to Approved Therapy",
-        "subtitle": "You need access to an approved therapy that's currently unavailable to you",
-        "icon": "key.svg"
-      },
-      {
-        "title": "Something Else",
-        "icon": "ambulance.svg"
-      }
-    ]
-  }
+    }
 ]

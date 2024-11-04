@@ -1,4 +1,3 @@
-import { specialityData } from './../../../../assets/data/flow-data/specialization.data';
 import {
     Component,
     ElementRef,
@@ -18,21 +17,18 @@ import {
     MatDialogRef,
 } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { debounceTime, last, startWith } from 'rxjs';
 import { CheckEmailComponent } from 'src/app/shared/dialogs/check-email/check-email.component';
-import { ICountryCodes } from 'src/app/shared/interfaces/ICountryCodes';
+import { matchFlowUserType } from 'src/app/shared/features/matchFlowUserType.helper';
+import { IAffiliationData } from 'src/app/shared/interfaces/AffiliationData.type';
+import { ISpecialityData } from 'src/app/shared/interfaces/SpecialityData.type';
 import { TFormFlow } from 'src/app/shared/interfaces/TFormFlow';
 import { ArticleService } from 'src/app/shared/services/article-service.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { CountryCodesService } from 'src/app/shared/services/country-codes.service';
 import { FlowDataService } from 'src/app/shared/services/flow-data.service';
+import { AFFILIATION_DATA } from 'src/app/shared/tokens/affiliation-data.token';
+import { SPECIALITY_DATA } from 'src/app/shared/tokens/speciality-data.token';
 import { FlowData } from '../../flow.component';
 import { FlowDialogComponent } from '../flow-dialog/flow-dialog.component';
-import { AFFILIATION_DATA } from 'src/app/shared/tokens/affiliation-data.token';
-import { IAffiliationData } from 'src/app/shared/interfaces/AffiliationData.type';
-import { SPECIALITY_DATA } from 'src/app/shared/tokens/speciality-data.token';
-import { ISpecialityData } from 'src/app/shared/interfaces/SpecialityData.type';
-import { matchFlowUserType } from 'src/app/shared/features/matchFlowUserType.helper';
 
 @Component({
     selector: 'app-flow-form',
@@ -264,12 +260,13 @@ export class FlowFormComponent {
             body = Object.assign(
                 this.contactForm.value,
                 ...this.flowData,
-                { password: password,
-                  phone: phone,
+                { 
+                    password: password,
+                    phone: phone,
                 },
             );
         }
-      
+
         this.authService.registration(body).subscribe({
             next: (res) => {
                 console.log(res);
