@@ -129,8 +129,7 @@ export class FlowFormComponent {
                 break;
             }
             case 'ecosystem': {
-
-                if(this.isAffilationForEcosystem()) {
+                if (this.isAffilationForEcosystem()) {
                     this.contactForm = this.fb.group({
                         companyName: [''],
                         firstName: [''],
@@ -166,6 +165,7 @@ export class FlowFormComponent {
                     phone: [''],
                     email: ['', Validators.email],
                     location: ['', Validators.required],
+                    websiteUrl: ''
                 });
                 break;
             }
@@ -215,14 +215,14 @@ export class FlowFormComponent {
 
     // for patiensts flow
     public onNextStep(): void {
-        let currentIsMySelft = this.isMySelf;
+        let currentIsMySelf = this.isMySelf;
         let password = this.password;
         let phone = this.phone.value
         // let lastName = "Removed";
                 
         let flowData = Object.assign(
             this.contactForm.value, {
-            isMySelf: currentIsMySelft,
+            isMySelf: currentIsMySelf,
             password: password,
             phone: phone,
             // lastName: lastName

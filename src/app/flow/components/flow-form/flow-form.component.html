@@ -126,8 +126,8 @@
 
         </div>  
         
-          <!-- < BEFORE BACKK WILL DONE company, now it's organization  -->
-          @if (formType === 'drug-developers' || formType === 'ecosystem') {
+        <!-- < BEFORE BACKK WILL DONE company, now it's organization  -->
+        @if (formType === 'drug-developers' || formType === 'ecosystem') {
             <div
                 class="group"
                 data-company="true">
@@ -145,11 +145,11 @@
         <!-- </ BEFORE BACKK WILL change company, now it's organization  -->
 
         @if (formType != 'patients' && formType != 'physicians') {
-            
             <div class="row">
-            
-                <div class="group" data-select="true"
-                    *ngIf="functionInputData.length != 0">
+                <div
+                    *ngIf="functionInputData.length != 0"
+                    class="group"
+                    data-select="true">
 
                     <label for="function">Function</label>
                     <select
@@ -209,7 +209,7 @@
 
             </div>
         } 
- 
+
         @if (formType != 'physicians') {
             <div class="group">
                 <label for="c&#8291;ity">Location</label>
@@ -296,6 +296,22 @@
                         formControlName="license">
                     <label for="no" class="radio-lable">No</label>
                 </div>
+            </div>
+        }
+
+        @if (formType === 'drug-developers') {
+            <div
+                class="group"
+                data-company="true">
+                <label for="company">Website URL</label>
+                <input
+                    autocomplete="websiteUrl"
+                    tabindex="1"
+                    type="text" required
+                    placeholder="google.com"
+                    id="url" name="url"
+                    formControlName="websiteUrl"
+                    #formInput>
             </div>
         }
 
