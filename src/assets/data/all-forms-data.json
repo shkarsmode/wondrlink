@@ -1,0 +1,658 @@
+{
+    "flows": {
+        "patients": {
+            "steps": [
+                {
+                    "step": 1,
+                    "header": "Patient Signup",
+                    "subheader": "Connecting You to Innovative Therapies and Compassionate Care.",
+                    "fields": [
+                        {
+                            "type": "custom_checkbox",
+                            "label": "I'm signing up for",
+                            "options": [
+                                "Myself",
+                                "Someone else"
+                            ],
+                            "name": "signingFor"
+                        },
+                        {
+                            "type": "text",
+                            "label": "Name",
+                            "name": "fullName",
+                            "required": true
+                        },
+                        {
+                            "type": "phone",
+                            "label": "Phone",
+                            "name": "phone",
+                            "countryCodeDropdown": true,
+                            "required": true,
+                            "inline": true
+                        },
+                        {
+                            "type": "email",
+                            "label": "Email",
+                            "name": "email",
+                            "required": true,
+                            "inline": true
+                        }
+                        
+                    ],
+                    "button": {
+                        "label": "Next",
+                        "action": "goToNextStep"
+                    }
+                },
+                {
+                    "step": 2,
+                    "type": "select",
+                    "header": "How would you describe your situation?",
+                    "subheader": "I'm currently in need of:",
+                    "options": [
+                        {
+                            "label": "Research/Investigation",
+                            "description": "You have a condition that wasn't easily diagnosed and needs to be investigated further.",
+                            "name": "situation",
+                            "icon": "dnk.svg"
+                        },
+                        {
+                            "label": "Compassionate Use/Expanded Access",
+                            "description": "You need access to a novel therapy not publicly available.",
+                            "name": "situation",
+                            "icon": "bulb.svg"
+                        },
+                        {
+                            "label": "Clinical Trial",
+                            "description": "You need access to a clinical study for a novel therapy that is not yet approved.",
+                            "name": "situation",
+                            "icon": "lab.svg"
+                        },
+                        {
+                            "label": "Access to Approved Therapy",
+                            "description": "You need access to an approved therapy that's currently unavailable to you.",
+                            "name": "situation",
+                            "icon": "key.svg"
+                        },
+                        {
+                            "label": "Something Else",
+                            "name": "situation",
+                            "icon": "ambulance.svg"
+                        }
+                    ]
+                },
+                {
+                    "step": 3,
+                    "header": "Disease Details",
+                    "fields": [
+                        {
+                            "type": "dropdown",
+                            "label": "Disease Category",
+                            "options": [
+                                "Cancer",
+                                "Autoimmune",
+                                "Neurological",
+                                "Rare Disease",
+                                "Other"
+                            ],
+                            "name": "diseaseCategory",
+                            "conditionalFields": {
+                                "Cancer": [
+                                    {
+                                        "type": "dropdown",
+                                        "label": "Cancer Type",
+                                        "options": [
+                                            "Lung Cancer",
+                                            "Breast Cancer",
+                                            "Liver Cancer"
+                                        ],
+                                        "name": "cancerType"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "textarea",
+                            "label": "Details",
+                            "name": "diseaseDetails",
+                            "placeholder": "Provide any specific disease information or further context."
+                        }
+                    ],
+                    "button": {
+                        "label": "Submit",
+                        "action": "submitAndVerifyEmail"
+                    }
+                }
+            ]
+        },
+        "drug-developers": {
+            "steps": [
+                {
+                    "step": 1,
+                    "header": "Join Our Drug Developer Network",
+                    "subheader": "Offer Your Life-Saving Therapies to help Patients",
+                    "type": "select",
+                    "options": [
+                        {
+                            "label": "Biotech/Pharma",
+                            "name": "organizationType",
+                            "icon": "biotech.svg"
+                        },
+                        {
+                            "label": "Research Lab",
+                            "name": "organizationType",
+                            "icon": "microscope.svg"
+                        },
+                        {
+                            "label": "University/Academic Institution",
+                            "name": "organizationType",
+                            "icon": "university.svg"
+                        },
+                        {
+                            "label": "Life Sciences Consulting",
+                            "name": "organizationType",
+                            "icon": "chemistry.svg"
+                        }
+                    ]
+                },
+                {
+                    "step": 2,
+                    "header": "Common Sections",
+                    "sections": [
+                        {
+                            "name": "Personal Information",
+                            "fields": [
+                                {
+                                    "type": "text",
+                                    "label": "Name",
+                                    "name": "fullName",
+                                    "required": true
+                                },
+                                {
+                                    "type": "phone",
+                                    "label": "Phone",
+                                    "name": "phone",
+                                    "required": true
+                                },
+                                {
+                                    "type": "email",
+                                    "label": "Email",
+                                    "name": "email",
+                                    "required": true
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Organization Details",
+                            "fields": [
+                                {
+                                    "type": "text",
+                                    "label": "Organization Name",
+                                    "name": "organizationName",
+                                    "required": true
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Location/City",
+                                    "name": "location"
+                                },
+                                {
+                                    "type": "url",
+                                    "label": "Website URL",
+                                    "name": "website",
+                                    "optional": true
+                                }
+                            ]
+                        }
+                    ],
+                    "button": {
+                        "label": "Next",
+                        "action": "goToConditionalSections"
+                    }
+                },
+                {
+                    "step": 3,
+                    "conditionalSections": {
+                        "Biotech/Pharma": {
+                            "fields": [
+                                {
+                                    "type": "dropdown",
+                                    "label": "Department",
+                                    "options": [
+                                        "Management",
+                                        "Clinical Development",
+                                        "Research & Development",
+                                        "Regulatory Affairs",
+                                        "Business Development",
+                                        "Medical Affairs",
+                                        "Other"
+                                    ],
+                                    "name": "department"
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Position Title",
+                                    "name": "positionTitle"
+                                },
+                                {
+                                    "type": "checkbox",
+                                    "label": "Therapy Development Stage",
+                                    "options": [
+                                        "Preclinical",
+                                        "Near-IND",
+                                        "Clinical Stage",
+                                        "Not Applicable"
+                                    ],
+                                    "name": "developmentStage"
+                                }
+                            ]
+                        },
+                        "Research Lab": {
+                            "fields": [
+                                {
+                                    "type": "dropdown",
+                                    "label": "Division/Area of Expertise",
+                                    "options": [
+                                        "Basic Research",
+                                        "Clinical Research",
+                                        "Translational Research",
+                                        "Other"
+                                    ],
+                                    "name": "division"
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Position Title",
+                                    "name": "positionTitle"
+                                }
+                            ]
+                        },
+                        "University/Academic Institution": {
+                            "fields": [
+                                {
+                                    "type": "dropdown",
+                                    "label": "Department/Division",
+                                    "options": [
+                                        "Management",
+                                        "Basic Research",
+                                        "Clinical Research",
+                                        "Technology Transfer",
+                                        "Commercialization",
+                                        "Administrative",
+                                        "Other"
+                                    ],
+                                    "name": "department"
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Position Title",
+                                    "name": "positionTitle"
+                                }
+                            ]
+                        },
+                        "Life Sciences Consulting": {
+                            "fields": [
+                                {
+                                    "type": "dropdown",
+                                    "label": "Department",
+                                    "options": [
+                                        "Business Development",
+                                        "Regulatory Affairs",
+                                        "Research & Development",
+                                        "Clinical Development",
+                                        "Other"
+                                    ],
+                                    "name": "department"
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Position Title",
+                                    "name": "positionTitle"
+                                }
+                            ]
+                        }
+                    },
+                    "button": {
+                        "label": "Submit",
+                        "action": "submitAndVerifyEmail"
+                    }
+                }
+            ]
+        },
+        "ecosystem": {
+            "steps": [
+                {
+                    "step": 1,
+                    "header": "Join the Physician Network",
+                    "subheader": "Use Your Expertise to Deliver Life-Saving Therapies",
+                    "fields": [
+                        {
+                            "type": "text",
+                            "label": "Name",
+                            "name": "fullName",
+                            "required": true
+                        },
+                        {
+                            "type": "email",
+                            "label": "Email",
+                            "name": "email",
+                            "required": true
+                        },
+                        {
+                            "type": "phone",
+                            "label": "Phone",
+                            "name": "phone",
+                            "countryCodeDropdown": true,
+                            "required": true
+                        }
+                    ],
+                    "button": {
+                        "label": "Next",
+                        "action": "goToNextStep"
+                    }
+                },
+                {
+                    "step": 2,
+                    "header": "Practice Details",
+                    "fields": [
+                        {
+                            "type": "dropdown",
+                            "label": "Specialty",
+                            "options": [
+                                "Oncology",
+                                "Hematology",
+                                "Internal Medicine"
+                            ],
+                            "name": "specialty"
+                        },
+                        {
+                            "type": "text",
+                            "label": "Practice Location",
+                            "name": "practiceLocation",
+                            "placeholder": "City name"
+                        },
+                        {
+                            "type": "dropdown",
+                            "label": "Affiliation",
+                            "options": [
+                                "Hospital",
+                                "Clinic",
+                                "Concierge Practice",
+                                "Independent"
+                            ],
+                            "name": "affiliation"
+                        },
+                        {
+                            "type": "text",
+                            "label": "Organization Name",
+                            "name": "organizationName",
+                            "optional": true
+                        }
+                    ],
+                    "button": {
+                        "label": "Next",
+                        "action": "goToNextStep"
+                    }
+                },
+                {
+                    "step": 3,
+                    "header": "Additional Details",
+                    "fields": [
+                        {
+                            "type": "radio",
+                            "label": "Are you able to offer Compassionate Use Programs?",
+                            "options": [
+                                {
+                                    "label": "Yes",
+                                    "value": "yes"
+                                },
+                                {
+                                    "label": "No",
+                                    "value": "no"
+                                },
+                                {
+                                    "label": "Maybe, If I Have Support",
+                                    "value": "maybe"
+                                }
+                            ],
+                            "name": "compassionateUse"
+                        },
+                        {
+                            "type": "textarea",
+                            "label": "Comments or Support Requirements",
+                            "name": "supportComments",
+                            "condition": {
+                                "field": "compassionateUse",
+                                "value": "maybe"
+                            }
+                        }
+                    ],
+                    "button": {
+                        "label": "Submit",
+                        "action": "submitAndVerifyEmail"
+                    }
+                }
+            ]
+        },
+        "physicians": {
+            "steps": [
+                {
+                    "step": 1,
+                    "header": "Ecosystem Signup",
+                    "subheader": "Tell us who you are",
+                    "type": "select",
+                    "options": [
+                        {
+                            "label": "Patient Support",
+                            "description": "Social workers, Advocacy groups, Chaplains, Spiritual care services",
+                            "name": "role",
+                            "icon": "handshake.svg"
+                        },
+                        {
+                            "label": "Licensing / Venture",
+                            "description": "Licensing offices, technology transfer, VC/Investors helping accelerate new novel drugs",
+                            "name": "role",
+                            "icon": "license.svg"
+                        },
+                        {
+                            "label": "Philanthropy / Donors",
+                            "description": "Supporting access to novel therapies",
+                            "name": "role",
+                            "icon": "donor.svg"
+                        }
+                    ]
+                },
+                {
+                    "step": 2,
+                    "specifForms": {
+                        "patientSupport": {
+                            "header": "Patient Support Signup",
+                            "subheader": "Join our network to support patients with essential care services.",
+                            "fields": [
+                                {
+                                    "type": "text",
+                                    "label": "Name",
+                                    "name": "fullName",
+                                    "required": true
+                                },
+                                {
+                                    "type": "phone",
+                                    "label": "Phone",
+                                    "name": "phone",
+                                    "countryCodeDropdown": true,
+                                    "required": true
+                                },
+                                {
+                                    "type": "email",
+                                    "label": "Email",
+                                    "name": "email",
+                                    "required": true
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Organization",
+                                    "name": "organization"
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Location",
+                                    "name": "location",
+                                    "placeholder": "City"
+                                },
+                                {
+                                    "type": "dropdown",
+                                    "label": "Function",
+                                    "options": [
+                                        "Nurse",
+                                        "Social Worker",
+                                        "Spiritual Care/Chaplain",
+                                        "Nutritionist",
+                                        "Therapist",
+                                        "Healthcare",
+                                        "Planner/Legal",
+                                        "Other"
+                                    ],
+                                    "name": "function"
+                                },
+                                {
+                                    "type": "dropdown",
+                                    "label": "Affiliation",
+                                    "options": [
+                                        "Hospital",
+                                        "Clinic",
+                                        "Concierge Practice",
+                                        "Hospice",
+                                        "Home Health",
+                                        "Advocacy Group",
+                                        "Independent/Consulting",
+                                        "Other"
+                                    ],
+                                    "name": "affiliation"
+                                }
+                            ],
+                            "button": {
+                                "label": "Submit",
+                                "action": "submitAndVerifyEmail"
+                            }
+                        },
+                        "licensingVenture": {
+                            "header": "Licensing / Venture Signup",
+                            "subheader": "Help accelerate access to novel therapies through licensing and venture support.",
+                            "fields": [
+                                {
+                                    "type": "text",
+                                    "label": "Name",
+                                    "name": "fullName",
+                                    "required": true
+                                },
+                                {
+                                    "type": "phone",
+                                    "label": "Phone",
+                                    "name": "phone",
+                                    "countryCodeDropdown": true,
+                                    "required": true
+                                },
+                                {
+                                    "type": "email",
+                                    "label": "Email",
+                                    "name": "email",
+                                    "required": true
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Organization",
+                                    "name": "organization"
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Location",
+                                    "name": "location",
+                                    "placeholder": "City"
+                                },
+                                {
+                                    "type": "dropdown",
+                                    "label": "Function",
+                                    "options": [
+                                        "Licensing Officer",
+                                        "Technology Transfer Specialist",
+                                        "Investor",
+                                        "Venture Capitalist",
+                                        "Business Development",
+                                        "Other"
+                                    ],
+                                    "name": "function"
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Position",
+                                    "name": "position"
+                                }
+                            ],
+                            "button": {
+                                "label": "Submit",
+                                "action": "submitAndVerifyEmail"
+                            }
+                        },
+                        "philanthropy": {
+                            "header": "Philanthropy / Donors Signup",
+                            "subheader": "Support access to life-saving therapies through philanthropic contributions.",
+                            "fields": [
+                                {
+                                    "type": "text",
+                                    "label": "Name",
+                                    "name": "fullName",
+                                    "required": true
+                                },
+                                {
+                                    "type": "phone",
+                                    "label": "Phone",
+                                    "name": "phone",
+                                    "countryCodeDropdown": true,
+                                    "required": true
+                                },
+                                {
+                                    "type": "email",
+                                    "label": "Email",
+                                    "name": "email",
+                                    "required": true
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Organization",
+                                    "name": "organization"
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Location",
+                                    "name": "location",
+                                    "placeholder": "City"
+                                },
+                                {
+                                    "type": "dropdown",
+                                    "label": "Function",
+                                    "options": [
+                                        "Individual Donor",
+                                        "Corporate Donor",
+                                        "Foundation",
+                                        "Non-Profit",
+                                        "Other"
+                                    ],
+                                    "name": "function"
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Position",
+                                    "name": "position"
+                                }
+                            ],
+                            "button": {
+                                "label": "Submit",
+                                "action": "submitAndVerifyEmail"
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

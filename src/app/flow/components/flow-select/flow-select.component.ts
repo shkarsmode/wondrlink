@@ -12,6 +12,7 @@ import { FlowData } from '../../flow.component';
 export class FlowSelectComponent {
     @Output() next = new EventEmitter<FlowData>();
     @Input() flowType: TFormFlow = 'patients';
+    @Input() public data: any;
 
     public selectOptions: boolean[] = [false, false, false, false];
     public checkedItem: string = '';
@@ -21,9 +22,9 @@ export class FlowSelectComponent {
 
     constructor(private flowSelectService: FlowDataService) {}
 
-    ngOnInit(): void {
-        this.oldFlowType = this.flowType;
-        this.getCurrentSelecTFormFlowData(this.flowType);
+    public ngOnInit(): void {
+        // this.oldFlowType = this.flowType;
+        // this.getCurrentSelecTFormFlowData(this.flowType);
     }
 
     ngDoCheck(): void {
@@ -31,7 +32,7 @@ export class FlowSelectComponent {
         if (this.oldFlowType !== this.flowType) {
             this.resetSelectOptions();
             this.checkedItem = '';
-            this.getCurrentSelecTFormFlowData(this.flowType);
+            // this.getCurrentSelecTFormFlowData(this.flowType);
             this.oldFlowType = this.flowType;
         }
     }
@@ -60,9 +61,9 @@ export class FlowSelectComponent {
 
     public onNextStepButton(): void {
         const checkedItem = this.checkedItem;
-        if (this.flowType === 'patients')
-            this.next.emit({ patientSituationType: checkedItem });
-        else this.next.emit({ companyType: checkedItem });
+        // if (this.flowType === 'patients')
+        //     this.next.emit({ patientSituationType: checkedItem });
+        // else this.next.emit({ companyType: checkedItem });
     }
 
     // write login with next step, sending data into parent

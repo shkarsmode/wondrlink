@@ -1,19 +1,19 @@
-@if (currenTFormFlowData) {
+@if (data) {
     <div class="content">
-        <h1>{{ currenTFormFlowData.title }}</h1>
-        <span>{{ currenTFormFlowData.subtitle }}</span>
+        <h1>{{ data.header }}</h1>
+        <span>{{ data.subheader }}</span>
         <ol class="wrap-options">
             <li
-                *ngFor="let subgroup of currenTFormFlowData.subgroup; let i=index"
-                [ngClass]="{'active': selectOptions[i]}"
-                (click)="toggleCheck(i, subgroup.title)">
+                *ngFor="let option of data.options; let i=index"
+                [class.active]="selectOptions[i]"
+                (click)="toggleCheck(i, option.label)">
                 <div class="left">
-                    <img [src]="'assets/svg/'+subgroup.icon" alt="Icon">
+                    <img [src]="'assets/svg/'+option.icon" alt="Icon">
                 </div>
                 <div class="right">
-                    <h4>{{ subgroup.title }}</h4>
-                    <div class="sub-title" *ngIf="subgroup?.subtitle">
-                        {{ subgroup.subtitle}}
+                    <h4>{{ option.label }}</h4>
+                    <div class="sub-title" *ngIf="option?.description">
+                        {{ option.description}}
                     </div>
                 </div>
             </li>
