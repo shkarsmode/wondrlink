@@ -1,138 +1,179 @@
-<div *ngIf="formConfig">
-    <form [formGroup]="form" class="content">
-        @if (!formConfig.steps[currentStep]?.type) {
-            @for (step of formConfig.steps; track step; let i = $index) {
-                <div [hidden]="i !== currentStep" class="wrap-inputs">
-                    <h1>{{ step.header }}</h1>
-                    @if (step.subheader) {
-                        <span>{{ step.subheader }}</span>
-                    }
-        
-                    @for (field of step.fields; track field;) {
-                        <div class="row" [class.inline]="field?.inline">
-                            <div class="group">
-                                @switch (field.type) {
-                                    @case ('text') {
-                                        <label>{{ field.label }}</label>
-                                        <input
-                                            [formControlName]="field.name"
-                                            [required]="field.required"
-                                            type="text" />
-                                    }
-                                    @case ('email') {
-                                        <label>{{ field.label }}</label>
-                                        <input
-                                            [formControlName]="field.name"
-                                            [required]="field.required"
-                                            type="email" />
-                                    }
-                                    @case ('phone') {
-                                        <app-phone-input 
-                                            formControlName="phone" 
-                                            > <!-- (valid)="onPhoneValidityChange($event)" -->
-                                        </app-phone-input>
-                                        }
-                                    @case ('dropdown') {
-                                        <label>{{ field.label }}</label>
-                                        <select [formControlName]="field.name">
-                                            <option
-                                                *ngFor="let option of field.options"
-                                                [value]="option">
-                                                {{ option }}
-                                            </option>
-                                        </select>
-
-                                        <div *ngIf="field.conditionalFields && isFieldVisible(field)">
-                                            <label>
-                                                {{ field.conditionalFields?.Cancer[0]?.label }}
-                                            </label>
-                                            <select [formControlName]="field.conditionalFields.Cancer[0].name">
-                                                <option
-                                                    *ngFor="let option of field.conditionalFields.Cancer[0].options"
-                                                    [value]="option">
-                                                    {{ option }}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    }
-                                    @case ('textarea') {
-                                        <label>{{ field.label }}</label>
-                                        <textarea
-                                            [formControlName]="field.name"
-                                            [placeholder]="field.placeholder">
-                                        </textarea>
-                                    }
-                                    @case ('checkbox') {
-                                        <label>{{ field.label }}</label>
-                                        <div *ngFor="let option of field.options">
+@if (formConfig) {
+    <div>
+        <form [formGroup]="form" class="content">
+            @if (!formConfig.steps[currentStep]?.type) {
+                @for (step of formConfig.steps; track step; let i = $index) {
+                    <div
+                        [hidden]="i !== currentStep"
+                        class="wrap-inputs">
+                        <h1>{{ getCurrentInfoBasedOnStep(step, i).header }}</h1>
+                        @if (getCurrentInfoBasedOnStep(step, i).subheader) {
+                            <span>{{ getCurrentInfoBasedOnStep(step, i).subheader }}</span>
+                        }
+            
+                        @for (field of getCurrentInfoBasedOnStep(step, i).fields; track field;) {
+                            <div
+                                class="row"
+                                [class.inline]="field?.inline">
+                                <div class="group">
+                                    @switch (field.type) {
+                                        @case ('text') {
+                                            <label>{{ field.label }}</label>
                                             <input
                                                 [formControlName]="field.name"
-                                                [value]="option"
-                                                type="checkbox">
-                                                {{ option }}
-                                        </div>
-                                    }
-                                    @case ('radio') {
-                                        <label>{{ field.label }}</label>
-                                        <div *ngFor="let option of field.options">
-                                        <input
-                                            [formControlName]="field.name"
-                                            [value]="option.value"
-                                            type="radio">
-                                            {{ option.label }}
-                                        </div>
-                                    }
-                                    @case ('custom_checkbox') {
-                                        <div class="wrap-checkboxes">
-                                            <div
-                                                *ngFor="let option of field.options"
-                                                class="checkbox">
-                                                {{ option }}
+                                                [required]="field.required"
+                                                [hidden]="field.hidden"
+                                                [placeholder]="field.placeholder"
+                                                type="text" />
+                                        }
+                                        @case ('email') {
+                                            <label>{{ field.label }}</label>
+                                            <input
+                                                [formControlName]="field.name"
+                                                [required]="field.required"
+                                                [placeholder]="field.placeholder"
+                                                type="email" />
+                                        }
+                                        @case ('phone') {
+                                            <app-phone-input 
+                                                formControlName="phone" 
+                                                > <!-- (valid)="onPhoneValidityChange($event)" -->
+                                            </app-phone-input>
+                                        }
+                                        @case ('dropdown') {
+                                            <label>{{ field.label }}</label>
+                                            <select
+                                                [formControlName]="field.name"
+                                                (change)="onDropDownForConditionalFieldsChangeEvent(field)"
+                                                data-select>
+                                                <option
+                                                    hidden
+                                                    role="placeholder"
+                                                    disabled
+                                                    selected
+                                                    value="">
+                                                    {{ field.placeholder }}
+                                                </option>
+                                                @for (option of field.options; track option) {
+                                                    <option [value]="option">
+                                                        {{ option }}
+                                                    </option>
+                                                }
+                                            </select>
+    
+                                            @if (field.conditionalFields && isFieldVisible(field)) {
+                                                <div style="margin-top: 20px" class="group">
+                                                    <label>
+                                                        {{ field.conditionalFields?.[form.get(field.name)?.value][0]?.label }}
+                                                    </label>
+                                                    <select 
+                                                        [formControlName]="
+                                                            field.conditionalFields[form.get(field.name)?.value][0].name
+                                                        "
+                                                        data-select>
+                                                        <option
+                                                            hidden
+                                                            role="placeholder"
+                                                            disabled
+                                                            selected
+                                                            value="">
+                                                            {{ field.placeholder }}
+                                                        </option>
+                                                        @for (option of field.conditionalFields[form.get(field.name)?.value][0].options; track option) {
+                                                            <option [value]="option">
+                                                                {{ option }}
+                                                            </option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                            }
+                                        }
+                                        @case ('textarea') {
+                                            <label>{{ field.label }}</label>
+                                            <textarea
+                                                [formControlName]="field.name"
+                                                [placeholder]="field.placeholder">
+                                            </textarea>
+                                        }
+                                        @case ('checkbox') {
+                                            <label>{{ field.label }}</label>
+                                            @for (option of field.options; track option) {
+                                                <div>
+                                                    <input
+                                                        [formControlName]="field.name"
+                                                        [value]="option"
+                                                        type="checkbox">
+                                                        {{ option }}
+                                                </div>
+                                            }
+                                        }
+                                        @case ('radio') {
+                                            <label>{{ field.label }}</label>
+                                            @for (option of field.options; track option) {
+                                                <div>
+                                                    <input
+                                                        [formControlName]="field.name"
+                                                        [value]="option.value"
+                                                        type="radio">
+                                                        {{ option.label }}
+                                                </div>
+                                            }
+                                        }
+                                        @case ('custom_checkbox') {
+                                            <input
+                                                hidden
+                                                [formControlName]="field.name"
+                                                type="text">
+                                            <div class="wrap-checkboxes">
+                                                @for (option of field.options; track option) {
+                                                    <div
+                                                        class="checkbox"
+                                                        [class.active]="form.get(field.name)?.value === option"
+                                                        (click)="onClickCustomCheckbox(field.name, option)">
+                                                        {{ option }}
+                                                    </div>
+                                                }
                                             </div>
-                                            <!-- <div
-                                                class="checkbox">
-                                                Caregiver
-                                            </div> -->
-                                        </div>
-                                        <!-- <label>{{ field.label }}</label>
-                                        <div *ngFor="let option of field.options">
-                                        <input
-                                            [formControlName]="field.name"
-                                            [value]="option.value"
-                                            type="radio">
-                                            {{ option.label }}
-                                        </div> -->
+                                        }
                                     }
-                                }
+                                </div>
                             </div>
-                        </div>
-                    }
-                </div>
+                        }
+                    </div>
+                }
             }
-        }
-
-        @if (formConfig.steps[currentStep]?.type === 'select') {
-            <app-flow-select [data]="formConfig.steps[currentStep]" />
-        }
-
-        <!-- @if (formConfig.steps[currentStep]?.button) { -->
-            <div class="form-navigation">
+    
+            @if (formConfig.steps[currentStep]?.type === 'select') {
+                <app-flow-select 
+                    [data]="formConfig.steps[currentStep]"
+                    (next)="goToNextStep($event)" />
+            }
+    
+            <!-- @if (formConfig.steps[currentStep]?.button) { -->
+            <div class="wrap-btn">
                 <button
-                    *ngIf="currentStep > 0"
-                    (click)="prevStep()">
+                    (click)="prevStep()"
+                    type="button">
                     Previous
                 </button>
-                <button
-                    *ngIf="currentStep < formConfig.steps.length - 1"
-                    (click)="nextStep()">
-                    Next
-                </button>
-                <button
-                    *ngIf="currentStep === formConfig.steps.length - 1"
-                    (click)="submit()">
-                    Submit
-                </button>
+                @if (currentStep < formConfig.steps.length - 1) {
+                    <button
+                        class="btn-green"
+                        (click)="nextStep()"
+                        type="button">
+                        Next
+                    </button>
+                } @else {
+                    <button
+                        *ngIf="currentStep === formConfig.steps.length - 1"
+                        type="submit"
+                        class="btn-green"
+                        (click)="submit()">
+                        Submit
+                    </button>
+                }
             </div>
-        <!-- } -->
-    </form>
-</div>
+            <!-- } -->
+        </form>
+    </div>
+}

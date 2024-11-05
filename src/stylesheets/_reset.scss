@@ -99,7 +99,7 @@ table {
 	border-spacing: 0;
 }
 
-input {
+input:not([type="checkbox"]) {
 	-webkit-appearance: none;
 	border-radius: 0;
 }

@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IFlowSelect } from 'src/app/shared/interfaces/IFlowSelect';
 import { TFormFlow } from 'src/app/shared/interfaces/TFormFlow';
 import { FlowDataService } from 'src/app/shared/services/flow-data.service';
-import { FlowData } from '../../flow.component';
 
 @Component({
     selector: 'app-flow-select',
@@ -10,14 +8,13 @@ import { FlowData } from '../../flow.component';
     styleUrls: ['./flow-select.component.scss'],
 })
 export class FlowSelectComponent {
-    @Output() next = new EventEmitter<FlowData>();
+    @Output() next = new EventEmitter<string>();
     @Input() flowType: TFormFlow = 'patients';
     @Input() public data: any;
 
     public selectOptions: boolean[] = [false, false, false, false];
     public checkedItem: string = '';
 
-    public currenTFormFlowData: IFlowSelect;
     private oldFlowType: TFormFlow;
 
     constructor(private flowSelectService: FlowDataService) {}
@@ -35,11 +32,6 @@ export class FlowSelectComponent {
             // this.getCurrentSelecTFormFlowData(this.flowType);
             this.oldFlowType = this.flowType;
         }
-    }
-
-    private getCurrentSelecTFormFlowData(id: string) {
-        this.currenTFormFlowData =
-            this.flowSelectService.getCurrenTFormFlowSelectData(id);
     }
 
     public toggleCheck(index: number, itemName: string) {
@@ -61,10 +53,9 @@ export class FlowSelectComponent {
 
     public onNextStepButton(): void {
         const checkedItem = this.checkedItem;
+        this.next.emit(checkedItem);
         // if (this.flowType === 'patients')
         //     this.next.emit({ patientSituationType: checkedItem });
         // else this.next.emit({ companyType: checkedItem });
     }
-
-    // write login with next step, sending data into parent
 }

@@ -1,22 +1,20 @@
-import { 
+import {
   Component,
-  ElementRef, 
-  EventEmitter, 
-  HostListener,
+  ElementRef,
+  EventEmitter,
   Inject,
-  Input, 
-  Output, 
-  ViewChild,
-  forwardRef,
-  Renderer2, } from '@angular/core';
+  Output,
+  Renderer2,
+  ViewChild
+} from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 
+import { countryPhonesData } from 'src/assets/data/country-phones.data';
 import { ICountryPhone, ICountryPhones } from '../../interfaces/country-phone.interface';
 import { COUNTRY_PHONE_DATA } from '../../tokens/country-phone-data.token';
-import { countryPhonesData } from 'src/assets/data/country-phones.data';
 
 
 @Component({
@@ -49,8 +47,6 @@ export class CountryPickerComponent {
   ){}
 
   ngOnInit(): void {
-    console.log(this.countryCodes);
-    
     this.sortCountriesBySuggested();
   }
 

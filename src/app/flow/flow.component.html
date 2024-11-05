@@ -15,7 +15,7 @@
             (next)="onNextStep($event)">
         </app-flow-init>
     </div>
-    
+
     <div *ngSwitchDefault>
         <app-dynamic-form [formConfig]="formsData.flows[flow]" />
     </div>

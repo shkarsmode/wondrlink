@@ -14,13 +14,15 @@
                                 "Myself",
                                 "Someone else"
                             ],
-                            "name": "signingFor"
+                            "name": "signingFor",
+                            "defaultValue": "Myself"
                         },
                         {
                             "type": "text",
                             "label": "Name",
                             "name": "fullName",
-                            "required": true
+                            "required": true,
+                            "placeholder": "Full Name (e.g. Alex Johnson)"
                         },
                         {
                             "type": "phone",
@@ -35,7 +37,8 @@
                             "label": "Email",
                             "name": "email",
                             "required": true,
-                            "inline": true
+                            "inline": true,
+                            "placeholder": "name@example.com"
                         }
                         
                     ],
@@ -49,6 +52,15 @@
                     "type": "select",
                     "header": "How would you describe your situation?",
                     "subheader": "I'm currently in need of:",
+                    "fields": [
+                        {
+                            "type": "text",
+                            "label": "",
+                            "name": "situation",
+                            "required": true,
+                            "hidden": true
+                        }
+                    ],
                     "options": [
                         {
                             "label": "Research/Investigation",
@@ -132,6 +144,16 @@
                     "header": "Join Our Drug Developer Network",
                     "subheader": "Offer Your Life-Saving Therapies to help Patients",
                     "type": "select",
+                    "fields": [
+                        {
+                            "type": "text",
+                            "label": "",
+                            "name": "organizationType",
+                            "required": true,
+                            "hidden": true,
+                            "placeholder": "Company name"
+                        }
+                    ],
                     "options": [
                         {
                             "label": "Biotech/Pharma",
@@ -158,51 +180,45 @@
                 {
                     "step": 2,
                     "header": "Common Sections",
-                    "sections": [
+                    "fields": [
                         {
-                            "name": "Personal Information",
-                            "fields": [
-                                {
-                                    "type": "text",
-                                    "label": "Name",
-                                    "name": "fullName",
-                                    "required": true
-                                },
-                                {
-                                    "type": "phone",
-                                    "label": "Phone",
-                                    "name": "phone",
-                                    "required": true
-                                },
-                                {
-                                    "type": "email",
-                                    "label": "Email",
-                                    "name": "email",
-                                    "required": true
-                                }
-                            ]
+                            "type": "text",
+                            "label": "Name",
+                            "name": "fullName",
+                            "required": true,
+                            "placeholder": "Full Name (e.g. Alex Johnson)"
                         },
                         {
-                            "name": "Organization Details",
-                            "fields": [
-                                {
-                                    "type": "text",
-                                    "label": "Organization Name",
-                                    "name": "organizationName",
-                                    "required": true
-                                },
-                                {
-                                    "type": "text",
-                                    "label": "Location/City",
-                                    "name": "location"
-                                },
-                                {
-                                    "type": "url",
-                                    "label": "Website URL",
-                                    "name": "website",
-                                    "optional": true
-                                }
-                            ]
+                            "type": "phone",
+                            "label": "Phone",
+                            "name": "phone",
+                            "required": true
+                        },
+                        {
+                            "type": "email",
+                            "label": "Email",
+                            "name": "email",
+                            "required": true,
+                            "placeholder": "name@example.com"
+                        },
+                        {
+                            "type": "text",
+                            "label": "Organization Name",
+                            "name": "organizationName",
+                            "required": true,
+                            "placeholder": "Company name"
+                        },
+                        {
+                            "type": "text",
+                            "label": "Location/City",
+                            "name": "location",
+                            "placeholder": "City"
+                        },
+                        {
+                            "type": "url",
+                            "label": "Website URL",
+                            "name": "website",
+                            "optional": true
                         }
                     ],
                     "button": {
@@ -212,8 +228,11 @@
                 },
                 {
                     "step": 3,
-                    "conditionalSections": {
+                    "basedOnStep": 1,
+                    "specificForms": {
                         "Biotech/Pharma": {
+                            "header": "Biotech/Pharma Signup",
+                            "subheader": "Biotech/Pharma subheader",
                             "fields": [
                                 {
                                     "type": "dropdown",
@@ -227,12 +246,14 @@
                                         "Medical Affairs",
                                         "Other"
                                     ],
-                                    "name": "department"
+                                    "name": "department",
+                                    "placeholder": "Select Department"
                                 },
                                 {
                                     "type": "text",
                                     "label": "Position Title",
-                                    "name": "positionTitle"
+                                    "name": "positionTitle",
+                                    "placeholder": "Role"
                                 },
                                 {
                                     "type": "checkbox",
@@ -244,10 +265,84 @@
                                         "Not Applicable"
                                     ],
                                     "name": "developmentStage"
+                                },
+                                {
+                                    "type": "dropdown",
+                                    "label": "Which Disease or Subtype Are Your Drugs or Therapies Targeting?",
+                                    "options": [
+                                        "Cancer",
+                                        "Autoimmune",
+                                        "Neurological",
+                                        "Rare Disease",
+                                        "Other"
+                                    ],
+                                    "name": "diseaseCategory",
+                                    "conditionalFields": {
+                                        "Cancer": [
+                                            {
+                                                "type": "dropdown",
+                                                "label": "Cancer Type",
+                                                "options": [
+                                                    "Lung Cancer",
+                                                    "Breast Cancer",
+                                                    "Liver Cancer"
+                                                ],
+                                                "name": "cancerType"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "textarea",
+                                    "label": "Details",
+                                    "name": "additionalInformation",
+                                    "placeholder": "Provide any specific information or further context."
+                                },
+                                {
+                                    "type": "dropdown",
+                                    "label": "Would you be willing to offer your drugs in development to patients facing terminal illness through a legal pathway such as compassionate use or expanded access?",
+                                    "options": [
+                                        "Yes",
+                                        "No"
+                                    ],
+                                    "placeholder": "Select",
+                                    "name": "willing",
+                                    "conditionalFields": {
+                                        "Yes": [
+                                            {
+                                                "type": "dropdown",
+                                                "label": "How would you be willing to offer?",
+                                                "options": [
+                                                    "Free",
+                                                    "For a fee",
+                                                    "Write in details"
+                                                ],
+                                                "name": "willingToOffer",
+                                                "placeholder": "Select"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "dropdown",
+                                    "label": "Has Your Organization Participated in Expanded Access or Compassionate Use Programs in the Past?",
+                                    "options": [
+                                        "Expanded Access Program",
+                                        "Compassionate Use Program",
+                                        "Neither"
+                                    ],
+                                    "placeholder": "Select",
+                                    "name": "organizationParticipated"
                                 }
-                            ]
+                            ],
+                            "button": {
+                                "label": "Submit",
+                                "action": "submitAndVerifyEmail"
+                            }
                         },
                         "Research Lab": {
+                            "header": "Research Lab Signup",
+                            "subheader": "Research Lab subheader",
                             "fields": [
                                 {
                                     "type": "dropdown",
@@ -263,11 +358,96 @@
                                 {
                                     "type": "text",
                                     "label": "Position Title",
-                                    "name": "positionTitle"
+                                    "name": "positionTitle",
+                                    "placeholder": "Role"
+                                },
+                                {
+                                    "type": "checkbox",
+                                    "label": "At What Stage Are Your Drugs or Therapies? ",
+                                    "name": "drugsTherapies",
+                                    "options": [
+                                        "Preclinical",
+                                        "Near-IND",
+                                        "Clinical Stage",
+                                        "Not Applicable"
+                                    ]
+                                },
+                                {
+                                    "type": "dropdown",
+                                    "label": "Which Disease or Subtype Are Your Drugs or Therapies Targeting?",
+                                    "options": [
+                                        "Yes",
+                                        "No"
+                                    ],
+                                    "placeholder": "Select",
+                                    "name": "willing",
+                                    "conditionalFields": {
+                                        "Yes": [
+                                            {
+                                                "type": "dropdown",
+                                                "label": "How would you be willing to offer?",
+                                                "options": [
+                                                    "Free",
+                                                    "For a fee",
+                                                    "Write in details"
+                                                ],
+                                                "name": "willingToOffer",
+                                                "placeholder": "Select"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "textarea",
+                                    "label": "Details",
+                                    "name": "additionalInformation",
+                                    "placeholder": "Provide any specific information or further context."
+                                },
+                                {
+                                    "type": "dropdown",
+                                    "label": "Would you be willing to offer your drugs in development to patients facing terminal illness through a legal pathway such as compassionate use or expanded access?",
+                                    "options": [
+                                        "Yes",
+                                        "No"
+                                    ],
+                                    "placeholder": "Select",
+                                    "name": "willing",
+                                    "conditionalFields": {
+                                        "Yes": [
+                                            {
+                                                "type": "dropdown",
+                                                "label": "How would you be willing to offer?",
+                                                "options": [
+                                                    "Free",
+                                                    "For a fee",
+                                                    "Write in details"
+                                                ],
+                                                "name": "willingToOffer",
+                                                "placeholder": "Select"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "dropdown",
+                                    "label": "Has Your Organization Participated in Expanded Access or Compassionate Use Programs in the Past?",
+                                    "options": [
+                                        "Expanded Access Program",
+                                        "Compassionate Use Program",
+                                        "Neither"
+                                    ],
+                                    "placeholder": "Select",
+                                    "name": "organizationParticipated"
                                 }
-                            ]
+                            ],
+                            "button": {
+                                "label": "Submit",
+                                "action": "submitAndVerifyEmail"
+                            }
                         },
                         "University/Academic Institution": {
+                            "header": "University/Academic Institution Signup",
+                            "subheader": "University/Academic Institution subheader",
                             "fields": [
                                 {
                                     "type": "dropdown",
@@ -286,11 +466,96 @@
                                 {
                                     "type": "text",
                                     "label": "Position Title",
-                                    "name": "positionTitle"
+                                    "name": "positionTitle",
+                                    "placeholder": "Role"
+                                },
+                                {
+                                    "type": "checkbox",
+                                    "label": "At What Stage Are Your Drugs or Therapies? ",
+                                    "name": "drugsTherapies",
+                                    "options": [
+                                        "Preclinical",
+                                        "Near-IND",
+                                        "Clinical Stage",
+                                        "Not Applicable"
+                                    ]
+                                },
+                                {
+                                    "type": "dropdown",
+                                    "label": "Which Disease or Subtype Are Your Drugs or Therapies Targeting?",
+                                    "options": [
+                                        "Yes",
+                                        "No"
+                                    ],
+                                    "placeholder": "Select",
+                                    "name": "willing",
+                                    "conditionalFields": {
+                                        "Yes": [
+                                            {
+                                                "type": "dropdown",
+                                                "label": "How would you be willing to offer?",
+                                                "options": [
+                                                    "Free",
+                                                    "For a fee",
+                                                    "Write in details"
+                                                ],
+                                                "name": "willingToOffer",
+                                                "placeholder": "Select"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "textarea",
+                                    "label": "Details",
+                                    "name": "additionalInformation",
+                                    "placeholder": "Provide any specific information or further context."
+                                },
+                                {
+                                    "type": "dropdown",
+                                    "label": "Would you be willing to offer your drugs in development to patients facing terminal illness through a legal pathway such as compassionate use or expanded access?",
+                                    "options": [
+                                        "Yes",
+                                        "No"
+                                    ],
+                                    "placeholder": "Select",
+                                    "name": "willing",
+                                    "conditionalFields": {
+                                        "Yes": [
+                                            {
+                                                "type": "dropdown",
+                                                "label": "How would you be willing to offer?",
+                                                "options": [
+                                                    "Free",
+                                                    "For a fee",
+                                                    "Write in details"
+                                                ],
+                                                "name": "willingToOffer",
+                                                "placeholder": "Select"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "dropdown",
+                                    "label": "Has Your Organization Participated in Expanded Access or Compassionate Use Programs in the Past?",
+                                    "options": [
+                                        "Expanded Access Program",
+                                        "Compassionate Use Program",
+                                        "Neither"
+                                    ],
+                                    "placeholder": "Select",
+                                    "name": "organizationParticipated"
                                 }
-                            ]
+                            ],
+                            "button": {
+                                "label": "Submit",
+                                "action": "submitAndVerifyEmail"
+                            }
                         },
                         "Life Sciences Consulting": {
+                            "header": "Life Sciences Consulting Signup",
+                            "subheader": "Life Sciences Consulting subheader",
                             "fields": [
                                 {
                                     "type": "dropdown",
@@ -302,14 +567,62 @@
                                         "Clinical Development",
                                         "Other"
                                     ],
-                                    "name": "department"
+                                    "name": "department",
+                                    "placeholder": "Select department"
                                 },
                                 {
                                     "type": "text",
                                     "label": "Position Title",
-                                    "name": "positionTitle"
+                                    "name": "positionTitle",
+                                    "placeholder": "Position"
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Primary Services Offered",
+                                    "placeholder": "Primary Services Offered",
+                                    "name": "primaryServices"
+                                },
+                                {
+                                    "type": "custom_checkbox",
+                                    "label": "Do You Work with Drug Development Companies?",
+                                    "options": [
+                                        "Yes",
+                                        "No"
+                                    ],
+                                    "name": "workDevCompanies"
+                                },
+                                {
+                                    "type": "custom_checkbox",
+                                    "label": "Do You Provide Regulatory or Clinical Trial Support Services?",
+                                    "options": [
+                                        "Yes",
+                                        "No"
+                                    ],
+                                    "name": "provideRegulatory"
+                                },
+                                {
+                                    "type": "checkbox",
+                                    "label": "Are You Interested in Enabling Biotech/Pharma Companies to Offer Life-Saving Therapies?",
+                                    "options": [
+                                        "Yes",
+                                        "No"
+                                    ],
+                                    "name": "interestedInEnabling"
+                                },
+                                {
+                                    "type": "checkbox",
+                                    "label": "Are You Able to Provide Regulatory Support for Expanded Access Programs / Compassionate Use?",
+                                    "options": [
+                                        "Yes",
+                                        "No"
+                                    ],
+                                    "name": "ableToProvide"
                                 }
-                            ]
+                            ],
+                            "button": {
+                                "label": "Submit",
+                                "action": "submitAndVerifyEmail"
+                            }
                         }
                     },
                     "button": {
@@ -319,7 +632,7 @@
                 }
             ]
         },
-        "ecosystem": {
+        "physicians": {
             "steps": [
                 {
                     "step": 1,
@@ -330,13 +643,15 @@
                             "type": "text",
                             "label": "Name",
                             "name": "fullName",
-                            "required": true
+                            "required": true,
+                            "placeholder": "Full Name (e.g. Alex Johnson)"
                         },
                         {
                             "type": "email",
                             "label": "Email",
                             "name": "email",
-                            "required": true
+                            "required": true,
+                            "placeholder": "name@example.com"
                         },
                         {
                             "type": "phone",
@@ -363,7 +678,8 @@
                                 "Hematology",
                                 "Internal Medicine"
                             ],
-                            "name": "specialty"
+                            "name": "specialty",
+                            "placeholder": "Select Specialty"
                         },
                         {
                             "type": "text",
@@ -380,13 +696,15 @@
                                 "Concierge Practice",
                                 "Independent"
                             ],
-                            "name": "affiliation"
+                            "name": "affiliation",
+                            "placeholder": "Select Affiliation"
                         },
                         {
                             "type": "text",
                             "label": "Organization Name",
                             "name": "organizationName",
-                            "optional": true
+                            "optional": true,
+                            "placeholder": "Company name"
                         }
                     ],
                     "button": {
@@ -434,13 +752,23 @@
                 }
             ]
         },
-        "physicians": {
+        "ecosystem": {
             "steps": [
                 {
                     "step": 1,
                     "header": "Ecosystem Signup",
                     "subheader": "Tell us who you are",
                     "type": "select",
+                    "fields": [
+                        {
+                            "type": "text",
+                            "label": "",
+                            "name": "ecosystemRole",
+                            "required": true,
+                            "inline": true,
+                            "hidden": true
+                        }
+                    ],
                     "options": [
                         {
                             "label": "Patient Support",
@@ -464,8 +792,9 @@
                 },
                 {
                     "step": 2,
-                    "specifForms": {
-                        "patientSupport": {
+                    "basedOnStep": 1,
+                    "specificForms": {
+                        "Patient Support": {
                             "header": "Patient Support Signup",
                             "subheader": "Join our network to support patients with essential care services.",
                             "fields": [
@@ -473,7 +802,8 @@
                                     "type": "text",
                                     "label": "Name",
                                     "name": "fullName",
-                                    "required": true
+                                    "required": true,
+                                    "placeholder": "Full Name (e.g. Alex Johnson)"
                                 },
                                 {
                                     "type": "phone",
@@ -486,12 +816,14 @@
                                     "type": "email",
                                     "label": "Email",
                                     "name": "email",
-                                    "required": true
+                                    "required": true,
+                                    "placeholder": "name@example.com"
                                 },
                                 {
                                     "type": "text",
                                     "label": "Organization",
-                                    "name": "organization"
+                                    "name": "organization",
+                                    "placeholder": "Company name"
                                 },
                                 {
                                     "type": "text",
@@ -512,7 +844,8 @@
                                         "Planner/Legal",
                                         "Other"
                                     ],
-                                    "name": "function"
+                                    "name": "function",
+                                    "placeholder": "Select function"
                                 },
                                 {
                                     "type": "dropdown",
@@ -527,7 +860,8 @@
                                         "Independent/Consulting",
                                         "Other"
                                     ],
-                                    "name": "affiliation"
+                                    "name": "affiliation",
+                                    "placeholder": "Select Affiliation"
                                 }
                             ],
                             "button": {
@@ -535,7 +869,7 @@
                                 "action": "submitAndVerifyEmail"
                             }
                         },
-                        "licensingVenture": {
+                        "Licensing / Venture": {
                             "header": "Licensing / Venture Signup",
                             "subheader": "Help accelerate access to novel therapies through licensing and venture support.",
                             "fields": [
@@ -543,7 +877,8 @@
                                     "type": "text",
                                     "label": "Name",
                                     "name": "fullName",
-                                    "required": true
+                                    "required": true,
+                                    "placeholder": "Full Name (e.g. Alex Johnson)"
                                 },
                                 {
                                     "type": "phone",
@@ -556,12 +891,14 @@
                                     "type": "email",
                                     "label": "Email",
                                     "name": "email",
-                                    "required": true
+                                    "required": true,
+                                    "placeholder": "name@example.com"
                                 },
                                 {
                                     "type": "text",
                                     "label": "Organization",
-                                    "name": "organization"
+                                    "name": "organization",
+                                    "placeholder": "Company name"
                                 },
                                 {
                                     "type": "text",
@@ -580,12 +917,14 @@
                                         "Business Development",
                                         "Other"
                                     ],
-                                    "name": "function"
+                                    "name": "function",
+                                    "placeholder": "Select Function"
                                 },
                                 {
                                     "type": "text",
                                     "label": "Position",
-                                    "name": "position"
+                                    "name": "position",
+                                    "placeholder": "Role"
                                 }
                             ],
                             "button": {
@@ -593,7 +932,7 @@
                                 "action": "submitAndVerifyEmail"
                             }
                         },
-                        "philanthropy": {
+                        "Philanthropy / Donors": {
                             "header": "Philanthropy / Donors Signup",
                             "subheader": "Support access to life-saving therapies through philanthropic contributions.",
                             "fields": [
@@ -601,7 +940,8 @@
                                     "type": "text",
                                     "label": "Name",
                                     "name": "fullName",
-                                    "required": true
+                                    "required": true,
+                                    "placeholder": "Full Name (e.g. Alex Johnson)"
                                 },
                                 {
                                     "type": "phone",
@@ -614,12 +954,14 @@
                                     "type": "email",
                                     "label": "Email",
                                     "name": "email",
-                                    "required": true
+                                    "required": true,
+                                    "placeholder": "name@example.com"
                                 },
                                 {
                                     "type": "text",
                                     "label": "Organization",
-                                    "name": "organization"
+                                    "name": "organization",
+                                    "placeholder": "Company name"
                                 },
                                 {
                                     "type": "text",
@@ -637,12 +979,14 @@
                                         "Non-Profit",
                                         "Other"
                                     ],
-                                    "name": "function"
+                                    "name": "function",
+                                    "placeholder": "Select Function"
                                 },
                                 {
                                     "type": "text",
                                     "label": "Position",
-                                    "name": "position"
+                                    "name": "position",
+                                    "placeholder": "Role"
                                 }
                             ],
                             "button": {

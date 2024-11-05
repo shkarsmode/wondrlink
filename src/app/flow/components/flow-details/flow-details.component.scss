@@ -88,10 +88,10 @@ select, textarea {
 }
 
 select {
-  cursor: pointer;
-  padding: 0 28px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+	cursor: pointer;
+	padding: 0 28px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
 }
 
 .group[data-select]::after {
