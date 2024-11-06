@@ -96,6 +96,7 @@ export class DynamicFormComponent {
     public initializeForm() {
         this.formConfig.steps.forEach((step: any) => {
             step?.fields?.forEach((field: any) => {
+                console.log(field);
                 if (!this.form.contains(field.name)) {
                     const control = new FormControl(
                         field?.defaultValue ?? '',
@@ -126,6 +127,27 @@ export class DynamicFormComponent {
         }
     }
 
+    public onChangeCheckBox(event: any, fieldName: string): void {
+        const checkboxFormControl = this.form.get(fieldName);
+        const checkboxFormControlArray = 
+            checkboxFormControl?.value ? 
+                JSON.parse(checkboxFormControl?.value) : 
+                JSON.parse('[]');
+
+        if (event.target.checked) {
+            checkboxFormControlArray.push(event.target.value);
+        } else {
+            checkboxFormControlArray.splice(
+                checkboxFormControlArray.indexOf(event.target.value), 
+                1
+            );
+        }
+        
+        checkboxFormControl?.setValue(JSON.stringify(checkboxFormControlArray));
+
+        console.log(checkboxFormControl?.value);
+    }
+
     nextStep() {
         if (this.currentStep < this.formConfig.steps.length - 1) {
             this.currentStep++;
@@ -149,8 +171,8 @@ export class DynamicFormComponent {
 
     public onDropDownForConditionalFieldsChangeEvent(field: any): void {
         if (!field?.conditionalFields) return;
-    
-        Object.keys(field.conditionalFields).forEach(key => {
+
+        Object.keys(field.conditionalFields).forEach((key) => {
             this.form.get(field.conditionalFields[key][0].name)?.setValue('');
         });
     }

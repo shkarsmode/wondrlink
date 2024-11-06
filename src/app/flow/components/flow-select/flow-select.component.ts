@@ -11,6 +11,7 @@ export class FlowSelectComponent {
     @Output() next = new EventEmitter<string>();
     @Input() flowType: TFormFlow = 'patients';
     @Input() public data: any;
+    @Input() public isInline: any;
 
     public selectOptions: boolean[] = [false, false, false, false];
     public checkedItem: string = '';

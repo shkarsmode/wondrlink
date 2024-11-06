@@ -15,14 +15,16 @@
                                 "Someone else"
                             ],
                             "name": "signingFor",
-                            "defaultValue": "Myself"
+                            "defaultValue": "Myself",
+                            "inline": true
                         },
                         {
                             "type": "text",
                             "label": "Name",
                             "name": "fullName",
                             "required": true,
-                            "placeholder": "Full Name (e.g. Alex Johnson)"
+                            "placeholder": "Full Name (e.g. Alex Johnson)",
+                            "inline": true
                         },
                         {
                             "type": "phone",
@@ -107,6 +109,8 @@
                                 "Rare Disease",
                                 "Other"
                             ],
+                            "inline": true,
+                            "placeholder": "Select category",
                             "name": "diseaseCategory",
                             "conditionalFields": {
                                 "Cancer": [
@@ -118,7 +122,8 @@
                                             "Breast Cancer",
                                             "Liver Cancer"
                                         ],
-                                        "name": "cancerType"
+                                        "name": "cancerType",
+                                        "placeholder": "Select type"
                                     }
                                 ]
                             }
@@ -144,6 +149,7 @@
                     "header": "Join Our Drug Developer Network",
                     "subheader": "Offer Your Life-Saving Therapies to help Patients",
                     "type": "select",
+                    "inline": true,
                     "fields": [
                         {
                             "type": "text",
@@ -192,14 +198,16 @@
                             "type": "phone",
                             "label": "Phone",
                             "name": "phone",
-                            "required": true
+                            "required": true,
+                            "inline": true
                         },
                         {
                             "type": "email",
                             "label": "Email",
                             "name": "email",
                             "required": true,
-                            "placeholder": "name@example.com"
+                            "placeholder": "name@example.com",
+                            "inline": true
                         },
                         {
                             "type": "text",
@@ -276,6 +284,7 @@
                                         "Rare Disease",
                                         "Other"
                                     ],
+                                    "placeholder": "Select",
                                     "name": "diseaseCategory",
                                     "conditionalFields": {
                                         "Cancer": [
@@ -287,7 +296,8 @@
                                                     "Breast Cancer",
                                                     "Liver Cancer"
                                                 ],
-                                                "name": "cancerType"
+                                                "name": "cancerType",
+                                                "placeholder": "Select type"
                                             }
                                         ]
                                     }
@@ -651,14 +661,16 @@
                             "label": "Email",
                             "name": "email",
                             "required": true,
-                            "placeholder": "name@example.com"
+                            "placeholder": "name@example.com",
+                            "inline": true
                         },
                         {
                             "type": "phone",
                             "label": "Phone",
                             "name": "phone",
                             "countryCodeDropdown": true,
-                            "required": true
+                            "required": true,
+                            "inline": true
                         }
                     ],
                     "button": {
@@ -739,6 +751,7 @@
                             "type": "textarea",
                             "label": "Comments or Support Requirements",
                             "name": "supportComments",
+                            "placeholder": "Text",
                             "condition": {
                                 "field": "compassionateUse",
                                 "value": "maybe"
@@ -810,14 +823,16 @@
                                     "label": "Phone",
                                     "name": "phone",
                                     "countryCodeDropdown": true,
-                                    "required": true
+                                    "required": true,
+                                    "inline": true
                                 },
                                 {
                                     "type": "email",
                                     "label": "Email",
                                     "name": "email",
                                     "required": true,
-                                    "placeholder": "name@example.com"
+                                    "placeholder": "name@example.com",
+                                    "inline": true
                                 },
                                 {
                                     "type": "text",
@@ -885,14 +900,16 @@
                                     "label": "Phone",
                                     "name": "phone",
                                     "countryCodeDropdown": true,
-                                    "required": true
+                                    "required": true,
+                                    "inline": true
                                 },
                                 {
                                     "type": "email",
                                     "label": "Email",
                                     "name": "email",
                                     "required": true,
-                                    "placeholder": "name@example.com"
+                                    "placeholder": "name@example.com",
+                                    "inline": true
                                 },
                                 {
                                     "type": "text",
@@ -948,14 +965,16 @@
                                     "label": "Phone",
                                     "name": "phone",
                                     "countryCodeDropdown": true,
-                                    "required": true
+                                    "required": true,
+                                    "inline": true
                                 },
                                 {
                                     "type": "email",
                                     "label": "Email",
                                     "name": "email",
                                     "required": true,
-                                    "placeholder": "name@example.com"
+                                    "placeholder": "name@example.com",
+                                    "inline": true
                                 },
                                 {
                                     "type": "text",

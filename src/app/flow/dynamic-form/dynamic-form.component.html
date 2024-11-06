@@ -41,28 +41,32 @@
                                             </app-phone-input>
                                         }
                                         @case ('dropdown') {
-                                            <label>{{ field.label }}</label>
-                                            <select
-                                                [formControlName]="field.name"
-                                                (change)="onDropDownForConditionalFieldsChangeEvent(field)"
-                                                data-select>
-                                                <option
-                                                    hidden
-                                                    role="placeholder"
-                                                    disabled
-                                                    selected
-                                                    value="">
-                                                    {{ field.placeholder }}
-                                                </option>
-                                                @for (option of field.options; track option) {
-                                                    <option [value]="option">
-                                                        {{ option }}
+                                            <div 
+                                                class="dropdown"
+                                                [class.dropdown--inline]="field.inline">
+                                                <label>{{ field.label }}</label>
+                                                <select
+                                                    [formControlName]="field.name"
+                                                    (change)="onDropDownForConditionalFieldsChangeEvent(field)"
+                                                    data-select>
+                                                    <option
+                                                        hidden
+                                                        role="placeholder"
+                                                        disabled
+                                                        selected
+                                                        value="">
+                                                        {{ field.placeholder }}
                                                     </option>
-                                                }
-                                            </select>
+                                                    @for (option of field.options; track option) {
+                                                        <option [value]="option">
+                                                            {{ option }}
+                                                        </option>
+                                                    }
+                                                </select>
+                                            </div>
     
                                             @if (field.conditionalFields && isFieldVisible(field)) {
-                                                <div style="margin-top: 20px" class="group">
+                                                <div class="group">
                                                     <label>
                                                         {{ field.conditionalFields?.[form.get(field.name)?.value][0]?.label }}
                                                     </label>
@@ -77,7 +81,7 @@
                                                             disabled
                                                             selected
                                                             value="">
-                                                            {{ field.placeholder }}
+                                                            {{ field.conditionalFields[form.get(field.name)?.value][0].placeholder }}
                                                         </option>
                                                         @for (option of field.conditionalFields[form.get(field.name)?.value][0].options; track option) {
                                                             <option [value]="option">
@@ -96,30 +100,41 @@
                                             </textarea>
                                         }
                                         @case ('checkbox') {
-                                            <label>{{ field.label }}</label>
+                                            <div>
+                                                <label [for]="field.name">{{ field.label }}</label>
+                                                <input
+                                                    hidden
+                                                    [formControlName]="field.name"
+                                                    type="text">
+                                            </div>
                                             @for (option of field.options; track option) {
-                                                <div>
+                                                <div class="checkbox">
                                                     <input
-                                                        [formControlName]="field.name"
                                                         [value]="option"
+                                                        (change)="onChangeCheckBox($event, field.name)"
+                                                        [id]="option"
                                                         type="checkbox">
-                                                        {{ option }}
+                                                        <label [for]="option">{{ option }}</label>
                                                 </div>
                                             }
                                         }
                                         @case ('radio') {
                                             <label>{{ field.label }}</label>
-                                            @for (option of field.options; track option) {
-                                                <div>
-                                                    <input
-                                                        [formControlName]="field.name"
-                                                        [value]="option.value"
-                                                        type="radio">
-                                                        {{ option.label }}
-                                                </div>
-                                            }
+                                            <div class="radio-group">
+                                                @for (option of field.options; track option) {
+                                                    <div [class.active]="radioInput.checked">
+                                                        <input
+                                                            [formControlName]="field.name"
+                                                            [value]="option.value"
+                                                            type="radio"
+                                                            #radioInput>
+                                                            {{ option.label }}
+                                                    </div>
+                                                }
+                                            </div>
                                         }
                                         @case ('custom_checkbox') {
+                                            <label>{{ field.label }}</label>
                                             <input
                                                 hidden
                                                 [formControlName]="field.name"
@@ -146,6 +161,7 @@
             @if (formConfig.steps[currentStep]?.type === 'select') {
                 <app-flow-select 
                     [data]="formConfig.steps[currentStep]"
+                    [isInline]="!!formConfig.steps[currentStep]?.inline"
                     (next)="goToNextStep($event)" />
             }
     

@@ -2,7 +2,9 @@
     <div class="content">
         <h1>{{ data.header }}</h1>
         <span>{{ data.subheader }}</span>
-        <ol class="wrap-options">
+        <ol
+            class="wrap-options"
+            [class.wrap-options--inline]="isInline">
             <li
                 *ngFor="let option of data.options; let i=index"
                 [class.active]="selectOptions[i]"
