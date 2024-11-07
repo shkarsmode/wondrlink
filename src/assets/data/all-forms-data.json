@@ -112,6 +112,7 @@
                             "inline": true,
                             "placeholder": "Select category",
                             "name": "diseaseCategory",
+                            "required": true,
                             "conditionalFields": {
                                 "Cancer": [
                                     {
@@ -123,7 +124,8 @@
                                             "Liver Cancer"
                                         ],
                                         "name": "cancerType",
-                                        "placeholder": "Select type"
+                                        "placeholder": "Select type",
+                                        "required": true
                                     }
                                 ]
                             }
@@ -255,7 +257,8 @@
                                         "Other"
                                     ],
                                     "name": "department",
-                                    "placeholder": "Select Department"
+                                    "placeholder": "Select Department",
+                                    "required": true
                                 },
                                 {
                                     "type": "text",
@@ -300,7 +303,8 @@
                                                 "placeholder": "Select type"
                                             }
                                         ]
-                                    }
+                                    },
+                                    "required": true
                                 },
                                 {
                                     "type": "textarea",
@@ -317,6 +321,7 @@
                                     ],
                                     "placeholder": "Select",
                                     "name": "willing",
+                                    "required": true,
                                     "conditionalFields": {
                                         "Yes": [
                                             {
@@ -328,7 +333,8 @@
                                                     "Write in details"
                                                 ],
                                                 "name": "willingToOffer",
-                                                "placeholder": "Select"
+                                                "placeholder": "Select",
+                                                "required": true
                                             }
                                         ]
                                     }
@@ -342,7 +348,8 @@
                                         "Neither"
                                     ],
                                     "placeholder": "Select",
-                                    "name": "organizationParticipated"
+                                    "name": "organizationParticipated",
+                                    "required": true
                                 }
                             ],
                             "button": {
@@ -363,7 +370,8 @@
                                         "Translational Research",
                                         "Other"
                                     ],
-                                    "name": "division"
+                                    "name": "division",
+                                    "required": true
                                 },
                                 {
                                     "type": "text",
@@ -391,6 +399,7 @@
                                     ],
                                     "placeholder": "Select",
                                     "name": "willing",
+                                    "required": true,
                                     "conditionalFields": {
                                         "Yes": [
                                             {
@@ -402,7 +411,8 @@
                                                     "Write in details"
                                                 ],
                                                 "name": "willingToOffer",
-                                                "placeholder": "Select"
+                                                "placeholder": "Select",
+                                                "required": true
                                             }
                                         ]
                                     }
@@ -422,6 +432,7 @@
                                     ],
                                     "placeholder": "Select",
                                     "name": "willing",
+                                    "required": true,
                                     "conditionalFields": {
                                         "Yes": [
                                             {
@@ -433,7 +444,8 @@
                                                     "Write in details"
                                                 ],
                                                 "name": "willingToOffer",
-                                                "placeholder": "Select"
+                                                "placeholder": "Select",
+                                                "required": true
                                             }
                                         ]
                                     }
@@ -447,7 +459,8 @@
                                         "Neither"
                                     ],
                                     "placeholder": "Select",
-                                    "name": "organizationParticipated"
+                                    "name": "organizationParticipated",
+                                    "required": true
                                 }
                             ],
                             "button": {
@@ -471,7 +484,8 @@
                                         "Administrative",
                                         "Other"
                                     ],
-                                    "name": "department"
+                                    "name": "department",
+                                    "required": true
                                 },
                                 {
                                     "type": "text",
@@ -499,6 +513,7 @@
                                     ],
                                     "placeholder": "Select",
                                     "name": "willing",
+                                    "required": true,
                                     "conditionalFields": {
                                         "Yes": [
                                             {
@@ -510,7 +525,8 @@
                                                     "Write in details"
                                                 ],
                                                 "name": "willingToOffer",
-                                                "placeholder": "Select"
+                                                "placeholder": "Select",
+                                                "required": true
                                             }
                                         ]
                                     }
@@ -530,6 +546,7 @@
                                     ],
                                     "placeholder": "Select",
                                     "name": "willing",
+                                    "required": true,
                                     "conditionalFields": {
                                         "Yes": [
                                             {
@@ -541,7 +558,8 @@
                                                     "Write in details"
                                                 ],
                                                 "name": "willingToOffer",
-                                                "placeholder": "Select"
+                                                "placeholder": "Select",
+                                                "required": true
                                             }
                                         ]
                                     }
@@ -555,7 +573,8 @@
                                         "Neither"
                                     ],
                                     "placeholder": "Select",
-                                    "name": "organizationParticipated"
+                                    "name": "organizationParticipated",
+                                    "required": true
                                 }
                             ],
                             "button": {
@@ -578,7 +597,8 @@
                                         "Other"
                                     ],
                                     "name": "department",
-                                    "placeholder": "Select department"
+                                    "placeholder": "Select department",
+                                    "required": true
                                 },
                                 {
                                     "type": "text",
@@ -691,13 +711,15 @@
                                 "Internal Medicine"
                             ],
                             "name": "specialty",
-                            "placeholder": "Select Specialty"
+                            "placeholder": "Select Specialty",
+                            "required": true
                         },
                         {
                             "type": "text",
                             "label": "Practice Location",
                             "name": "practiceLocation",
-                            "placeholder": "City name"
+                            "placeholder": "City name",
+                            "required": true
                         },
                         {
                             "type": "dropdown",
@@ -709,7 +731,8 @@
                                 "Independent"
                             ],
                             "name": "affiliation",
-                            "placeholder": "Select Affiliation"
+                            "placeholder": "Select Affiliation",
+                            "required": true
                         },
                         {
                             "type": "text",
@@ -837,12 +860,14 @@
                                 {
                                     "type": "text",
                                     "label": "Organization",
+                                    "required": true,
                                     "name": "organization",
                                     "placeholder": "Company name"
                                 },
                                 {
                                     "type": "text",
                                     "label": "Location",
+                                    "required": true,
                                     "name": "location",
                                     "placeholder": "City"
                                 },
@@ -860,7 +885,8 @@
                                         "Other"
                                     ],
                                     "name": "function",
-                                    "placeholder": "Select function"
+                                    "placeholder": "Select function",
+                                    "required": true
                                 },
                                 {
                                     "type": "dropdown",
@@ -876,7 +902,8 @@
                                         "Other"
                                     ],
                                     "name": "affiliation",
-                                    "placeholder": "Select Affiliation"
+                                    "placeholder": "Select Affiliation",
+                                    "required": true
                                 }
                             ],
                             "button": {
@@ -914,12 +941,14 @@
                                 {
                                     "type": "text",
                                     "label": "Organization",
+                                    "required": true,
                                     "name": "organization",
                                     "placeholder": "Company name"
                                 },
                                 {
                                     "type": "text",
                                     "label": "Location",
+                                    "required": true,
                                     "name": "location",
                                     "placeholder": "City"
                                 },
@@ -935,7 +964,8 @@
                                         "Other"
                                     ],
                                     "name": "function",
-                                    "placeholder": "Select Function"
+                                    "placeholder": "Select Function",
+                                    "required": true
                                 },
                                 {
                                     "type": "text",
@@ -979,12 +1009,14 @@
                                 {
                                     "type": "text",
                                     "label": "Organization",
+"                                    required": true,
                                     "name": "organization",
                                     "placeholder": "Company name"
                                 },
                                 {
                                     "type": "text",
                                     "label": "Location",
+                                    "required": true,
                                     "name": "location",
                                     "placeholder": "City"
                                 },
@@ -999,7 +1031,8 @@
                                         "Other"
                                     ],
                                     "name": "function",
-                                    "placeholder": "Select Function"
+                                    "placeholder": "Select Function",
+                                    "required": true
                                 },
                                 {
                                     "type": "text",
@@ -1013,6 +1046,10 @@
                                 "action": "submitAndVerifyEmail"
                             }
                         }
+                    },
+                    "button": {
+                        "label": "Submit",
+                        "action": "submitAndVerifyEmail"
                     }
                 }
             ]

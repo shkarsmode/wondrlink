@@ -13,8 +13,11 @@ import {
 })
 export class DynamicFormComponent {
     @Input() public formConfig: any;
+    @Input() public onParentStepBack: () => void;
+
     public form: FormGroup;
     public currentStep: number = 0;
+    public currentVisibleFields: Array<string> = [];
 
     constructor(private fb: FormBuilder) {
         this.form = this.fb.group({});
@@ -22,9 +25,10 @@ export class DynamicFormComponent {
 
     public ngOnInit() {
         this.initializeForm();
+        this.updateCurrentFieldsToCheck();
     }
 
-    public getCurrentInfoBasedOnStep(step: any, index: number): any {
+    public getCurrentInfoBasedOnStep(step: any): any {
         const { dependedStepOn } = this.getDependenciesOfStep();
 
         if (!step?.specificForms || dependedStepOn === null) return step;
@@ -96,7 +100,6 @@ export class DynamicFormComponent {
     public initializeForm() {
         this.formConfig.steps.forEach((step: any) => {
             step?.fields?.forEach((field: any) => {
-                console.log(field);
                 if (!this.form.contains(field.name)) {
                     const control = new FormControl(
                         field?.defaultValue ?? '',
@@ -115,10 +118,17 @@ export class DynamicFormComponent {
             Object.keys(field.conditionalFields).forEach((conditionKey) => {
                 field.conditionalFields[conditionKey].forEach(
                     (conditionalField: any) => {
+                        console.log(field);
                         if (!this.form.contains(conditionalField.name)) {
+                            const control = new FormControl(
+                                conditionalField?.defaultValue ?? '',
+                                conditionalField.required
+                                    ? Validators.required
+                                    : null
+                            );
                             this.form.addControl(
                                 conditionalField.name,
-                                new FormControl('')
+                                control
                             );
                         }
                     }
@@ -129,34 +139,75 @@ export class DynamicFormComponent {
 
     public onChangeCheckBox(event: any, fieldName: string): void {
         const checkboxFormControl = this.form.get(fieldName);
-        const checkboxFormControlArray = 
-            checkboxFormControl?.value ? 
-                JSON.parse(checkboxFormControl?.value) : 
-                JSON.parse('[]');
+        const checkboxFormControlArray = checkboxFormControl?.value
+            ? JSON.parse(checkboxFormControl?.value)
+            : JSON.parse('[]');
 
         if (event.target.checked) {
             checkboxFormControlArray.push(event.target.value);
         } else {
             checkboxFormControlArray.splice(
-                checkboxFormControlArray.indexOf(event.target.value), 
+                checkboxFormControlArray.indexOf(event.target.value),
                 1
             );
         }
-        
+
         checkboxFormControl?.setValue(JSON.stringify(checkboxFormControlArray));
 
         console.log(checkboxFormControl?.value);
     }
 
-    nextStep() {
+    public updateCurrentFieldsToCheck(): void {
+        const currentVisibleFields: string[] = [];
+        console.log(this.getCurrentInfoBasedOnStep(this.formConfig.steps[this.currentStep]));
+        this.getCurrentInfoBasedOnStep(this.formConfig.steps[this.currentStep])?.fields?.forEach(
+            (field: any) => {
+                currentVisibleFields.push(field.name);
+                if (field?.conditionalFields && this.isFieldVisible(field)) {
+                    const name =
+                        field.conditionalFields[
+                            Object.keys(field.conditionalFields)[0]
+                        ][0].name;
+
+                    currentVisibleFields.push(name);
+                }
+            }
+        );
+
+
+        this.currentVisibleFields = currentVisibleFields;
+        console.log(this.currentVisibleFields);
+    }
+
+    public get isNextButtonAvailableOnCurrentStep(): boolean {
+        return this.currentVisibleFields.every(
+            (fieldName) => this.form.get(fieldName)?.valid
+        );
+    }
+
+    public onPhoneValidityChange(isValid: boolean, fieldName: string): void {
+        setTimeout(() => {
+            this.form
+                .get(fieldName)
+                ?.setErrors(isValid ? null : { invalidPhone: true });
+        });
+    }
+
+    public nextStep(): void {
         if (this.currentStep < this.formConfig.steps.length - 1) {
             this.currentStep++;
+            this.updateCurrentFieldsToCheck();
         }
     }
 
-    prevStep() {
+    public prevStep(): void {
+        if (this.currentStep === 0) {
+            this.onParentStepBack();
+            return;
+        }
         if (this.currentStep > 0) {
             this.currentStep--;
+            this.updateCurrentFieldsToCheck();
         }
     }
 
@@ -175,6 +226,8 @@ export class DynamicFormComponent {
         Object.keys(field.conditionalFields).forEach((key) => {
             this.form.get(field.conditionalFields[key][0].name)?.setValue('');
         });
+
+        this.updateCurrentFieldsToCheck();
     }
 
     public isFieldVisible(field: any) {

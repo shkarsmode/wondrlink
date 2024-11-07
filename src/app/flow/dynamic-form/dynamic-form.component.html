@@ -1,3 +1,10 @@
+<img
+    class="back"
+    (click)="prevStep()"
+    src="assets/img/arrowback.svg"
+    alt="Back">
+
+
 @if (formConfig) {
     <div>
         <form [formGroup]="form" class="content">
@@ -6,12 +13,12 @@
                     <div
                         [hidden]="i !== currentStep"
                         class="wrap-inputs">
-                        <h1>{{ getCurrentInfoBasedOnStep(step, i).header }}</h1>
-                        @if (getCurrentInfoBasedOnStep(step, i).subheader) {
-                            <span>{{ getCurrentInfoBasedOnStep(step, i).subheader }}</span>
+                        <h1>{{ getCurrentInfoBasedOnStep(step).header }}</h1>
+                        @if (getCurrentInfoBasedOnStep(step).subheader) {
+                            <span>{{ getCurrentInfoBasedOnStep(step).subheader }}</span>
                         }
             
-                        @for (field of getCurrentInfoBasedOnStep(step, i).fields; track field;) {
+                        @for (field of getCurrentInfoBasedOnStep(step).fields; track field;) {
                             <div
                                 class="row"
                                 [class.inline]="field?.inline">
@@ -36,8 +43,8 @@
                                         }
                                         @case ('phone') {
                                             <app-phone-input 
-                                                formControlName="phone" 
-                                                > <!-- (valid)="onPhoneValidityChange($event)" -->
+                                                formControlName="phone"
+                                                (valid)="onPhoneValidityChange($event, field.name)">
                                             </app-phone-input>
                                         }
                                         @case ('dropdown') {
@@ -165,31 +172,28 @@
                     (next)="goToNextStep($event)" />
             }
     
-            <!-- @if (formConfig.steps[currentStep]?.button) { -->
-            <div class="wrap-btn">
-                <button
-                    (click)="prevStep()"
-                    type="button">
-                    Previous
-                </button>
-                @if (currentStep < formConfig.steps.length - 1) {
-                    <button
-                        class="btn-green"
-                        (click)="nextStep()"
-                        type="button">
-                        Next
-                    </button>
-                } @else {
-                    <button
-                        *ngIf="currentStep === formConfig.steps.length - 1"
-                        type="submit"
-                        class="btn-green"
-                        (click)="submit()">
-                        Submit
-                    </button>
-                }
-            </div>
-            <!-- } -->
+            @if (formConfig.steps[currentStep]?.button) {
+                <div class="wrap-btn">
+                    @if (currentStep < formConfig.steps.length - 1) {
+                        <button
+                            class="btn-green"
+                            [disabled]="!isNextButtonAvailableOnCurrentStep"
+                            (click)="nextStep()"
+                            type="button">
+                            Next
+                        </button>
+                    } @else {
+                        <button
+                            *ngIf="currentStep === formConfig.steps.length - 1"
+                            type="submit"
+                            [disabled]="!isNextButtonAvailableOnCurrentStep"
+                            class="btn-green"
+                            (click)="submit()">
+                            Submit
+                        </button>
+                    }
+                </div>
+            }
         </form>
     </div>
 }

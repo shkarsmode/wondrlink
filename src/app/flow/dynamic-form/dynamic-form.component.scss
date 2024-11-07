@@ -413,6 +413,26 @@ textarea {
     height: 150px;
 }
 
+.back {
+    position: absolute;
+    cursor: pointer;
+}
+
+.back {
+    top: 32px;
+    left: 30px;
+}
+
+
+@media screen and (max-width: 800px) {
+    .back {
+        top: 20px;
+        left: 20px;
+    }
+
+}
+
+
 @media screen and (max-width: 800px) {
     button {
         width: 240px;

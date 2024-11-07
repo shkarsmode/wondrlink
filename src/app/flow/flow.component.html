@@ -1,10 +1,4 @@
 <!-- navigation -->
-<img
-    *ngIf="step === 1 ? false : isSkipFirstStep && step === 2 ? false : true"
-    class="back"
-    (click)="onStepBack()"
-    src="assets/img/arrowback.svg"
-    alt="Back">
 
 <!-- flow control -->
 <div [ngSwitch]="step">
@@ -17,7 +11,9 @@
     </div>
 
     <div *ngSwitchDefault>
-        <app-dynamic-form [formConfig]="formsData.flows[flow]" />
+        <app-dynamic-form 
+            [formConfig]="formsData.flows[flow]" 
+            [onParentStepBack]="onStepBack.bind(this)"/>
     </div>
 
     <!-- <div *ngSwitchCase="2">

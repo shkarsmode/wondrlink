@@ -64,7 +64,7 @@ export class FlowComponent {
         this.flow = newFlow;
     }
 
-    public onStepBack() {
+    public onStepBack(): void {
         this.step--;
         this.flowData.pop();
     }
