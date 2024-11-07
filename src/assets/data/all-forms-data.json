@@ -16,7 +16,8 @@
                             ],
                             "name": "signingFor",
                             "defaultValue": "Myself",
-                            "inline": true
+                            "inline": true,
+                            "required": true
                         },
                         {
                             "type": "text",
@@ -222,7 +223,8 @@
                             "type": "text",
                             "label": "Location/City",
                             "name": "location",
-                            "placeholder": "City"
+                            "placeholder": "City",
+                            "required": true
                         },
                         {
                             "type": "url",
@@ -300,7 +302,8 @@
                                                     "Liver Cancer"
                                                 ],
                                                 "name": "cancerType",
-                                                "placeholder": "Select type"
+                                                "placeholder": "Select type",
+                                                "required": true
                                             }
                                         ]
                                     },
@@ -320,7 +323,7 @@
                                         "No"
                                     ],
                                     "placeholder": "Select",
-                                    "name": "willing",
+                                    "name": "willing2",
                                     "required": true,
                                     "conditionalFields": {
                                         "Yes": [
@@ -332,7 +335,7 @@
                                                     "For a fee",
                                                     "Write in details"
                                                 ],
-                                                "name": "willingToOffer",
+                                                "name": "willingToOffer2",
                                                 "placeholder": "Select",
                                                 "required": true
                                             }
@@ -398,7 +401,7 @@
                                         "No"
                                     ],
                                     "placeholder": "Select",
-                                    "name": "willing",
+                                    "name": "willing3",
                                     "required": true,
                                     "conditionalFields": {
                                         "Yes": [
@@ -410,7 +413,7 @@
                                                     "For a fee",
                                                     "Write in details"
                                                 ],
-                                                "name": "willingToOffer",
+                                                "name": "willingToOffer3",
                                                 "placeholder": "Select",
                                                 "required": true
                                             }
@@ -431,7 +434,7 @@
                                         "No"
                                     ],
                                     "placeholder": "Select",
-                                    "name": "willing",
+                                    "name": "willing4",
                                     "required": true,
                                     "conditionalFields": {
                                         "Yes": [
@@ -443,7 +446,7 @@
                                                     "For a fee",
                                                     "Write in details"
                                                 ],
-                                                "name": "willingToOffer",
+                                                "name": "willingToOffer4",
                                                 "placeholder": "Select",
                                                 "required": true
                                             }
@@ -485,7 +488,8 @@
                                         "Other"
                                     ],
                                     "name": "department",
-                                    "required": true
+                                    "required": true,
+                                    "placeholder": "Select"
                                 },
                                 {
                                     "type": "text",
@@ -512,7 +516,7 @@
                                         "No"
                                     ],
                                     "placeholder": "Select",
-                                    "name": "willing",
+                                    "name": "willing3",
                                     "required": true,
                                     "conditionalFields": {
                                         "Yes": [
@@ -524,7 +528,7 @@
                                                     "For a fee",
                                                     "Write in details"
                                                 ],
-                                                "name": "willingToOffer",
+                                                "name": "willingToOffer3",
                                                 "placeholder": "Select",
                                                 "required": true
                                             }
@@ -545,7 +549,7 @@
                                         "No"
                                     ],
                                     "placeholder": "Select",
-                                    "name": "willing",
+                                    "name": "willing1",
                                     "required": true,
                                     "conditionalFields": {
                                         "Yes": [
@@ -557,7 +561,7 @@
                                                     "For a fee",
                                                     "Write in details"
                                                 ],
-                                                "name": "willingToOffer",
+                                                "name": "willingToOffer1",
                                                 "placeholder": "Select",
                                                 "required": true
                                             }
@@ -637,7 +641,7 @@
                                         "Yes",
                                         "No"
                                     ],
-                                    "name": "interestedInEnabling"
+                                    "name": "interestedInEnabling1"
                                 },
                                 {
                                     "type": "checkbox",
@@ -768,7 +772,8 @@
                                     "value": "maybe"
                                 }
                             ],
-                            "name": "compassionateUse"
+                            "name": "compassionateUse",
+                            "required": true
                         },
                         {
                             "type": "textarea",

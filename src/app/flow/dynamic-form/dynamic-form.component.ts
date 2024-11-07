@@ -84,8 +84,10 @@ export class DynamicFormComponent {
             if (!this.form.contains(field.name)) {
                 const control = new FormControl(
                     '',
-                    field.required ? Validators.required : null
+                    this.getValidatorsOfField(field)
                 );
+                // @ts-ignore
+                control.label = field.label;
                 this.form.addControl(field.name, control);
 
                 this.initConditionalFields(field);
@@ -103,8 +105,11 @@ export class DynamicFormComponent {
                 if (!this.form.contains(field.name)) {
                     const control = new FormControl(
                         field?.defaultValue ?? '',
-                        field.required ? Validators.required : null
+                        this.getValidatorsOfField(field)
                     );
+                    // @ts-ignore
+                    control.label = field.label;
+                    
                     this.form.addControl(field.name, control);
 
                     this.initConditionalFields(field);
@@ -113,19 +118,32 @@ export class DynamicFormComponent {
         });
     }
 
+    public getValidatorsOfField(field: any): Array<any> {
+        const validators = [];
+        if (field.type === 'email') {
+            validators.push(Validators.email);
+        }
+
+        if (field.required) {
+            validators.push(Validators.required);
+        }
+
+        return validators;
+    }
+
     public initConditionalFields(field: any): void {
         if (field.conditionalFields) {
             Object.keys(field.conditionalFields).forEach((conditionKey) => {
                 field.conditionalFields[conditionKey].forEach(
                     (conditionalField: any) => {
-                        console.log(field);
                         if (!this.form.contains(conditionalField.name)) {
                             const control = new FormControl(
                                 conditionalField?.defaultValue ?? '',
-                                conditionalField.required
-                                    ? Validators.required
-                                    : null
+                                this.getValidatorsOfField(conditionalField)
                             );
+                            // @ts-ignore
+                            control.label = conditionalField.label;
+
                             this.form.addControl(
                                 conditionalField.name,
                                 control
@@ -153,13 +171,11 @@ export class DynamicFormComponent {
         }
 
         checkboxFormControl?.setValue(JSON.stringify(checkboxFormControlArray));
-
-        console.log(checkboxFormControl?.value);
     }
 
     public updateCurrentFieldsToCheck(): void {
         const currentVisibleFields: string[] = [];
-        console.log(this.getCurrentInfoBasedOnStep(this.formConfig.steps[this.currentStep]));
+
         this.getCurrentInfoBasedOnStep(this.formConfig.steps[this.currentStep])?.fields?.forEach(
             (field: any) => {
                 currentVisibleFields.push(field.name);
@@ -176,7 +192,6 @@ export class DynamicFormComponent {
 
 
         this.currentVisibleFields = currentVisibleFields;
-        console.log(this.currentVisibleFields);
     }
 
     public get isNextButtonAvailableOnCurrentStep(): boolean {
@@ -211,11 +226,22 @@ export class DynamicFormComponent {
         }
     }
 
-    submit() {
+    public submit() {
+        const result: {[key: string]: { value: string, label: string }} = {};
+
+        Object.keys(this.form.value).forEach(
+            (key: string) =>
+                (result[key] = {
+                    value: this.form.get(key)?.value,
+                    // @ts-ignore
+                    label: this.form.get(key)?.label,
+                })
+        );
+
         if (this.form.valid) {
-            console.log('Form Data:', this.form.value);
+            console.log('Form Data:', result);
         } else {
-            console.log('Form Data:', this.form.value);
+            console.log('Form Data:', result);
             console.error('Form is invalid');
         }
     }

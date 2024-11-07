@@ -25,7 +25,7 @@
                                 <div class="group">
                                     @switch (field.type) {
                                         @case ('text') {
-                                            <label>{{ field.label }}</label>
+                                            <label>{{ field.label }}{{ field?.required ? '*' : '' }}</label>
                                             <input
                                                 [formControlName]="field.name"
                                                 [required]="field.required"
@@ -34,7 +34,7 @@
                                                 type="text" />
                                         }
                                         @case ('email') {
-                                            <label>{{ field.label }}</label>
+                                            <label>{{ field.label }}{{ field?.required ? '*' : '' }}</label>
                                             <input
                                                 [formControlName]="field.name"
                                                 [required]="field.required"
@@ -51,7 +51,7 @@
                                             <div 
                                                 class="dropdown"
                                                 [class.dropdown--inline]="field.inline">
-                                                <label>{{ field.label }}</label>
+                                                <label>{{ field.label }}{{ field?.required ? '*' : '' }}</label>
                                                 <select
                                                     [formControlName]="field.name"
                                                     (change)="onDropDownForConditionalFieldsChangeEvent(field)"
@@ -75,7 +75,7 @@
                                             @if (field.conditionalFields && isFieldVisible(field)) {
                                                 <div class="group">
                                                     <label>
-                                                        {{ field.conditionalFields?.[form.get(field.name)?.value][0]?.label }}
+                                                        {{ field.conditionalFields?.[form.get(field.name)?.value][0]?.label }}*
                                                     </label>
                                                     <select 
                                                         [formControlName]="
@@ -100,7 +100,7 @@
                                             }
                                         }
                                         @case ('textarea') {
-                                            <label>{{ field.label }}</label>
+                                            <label>{{ field.label }}{{ field?.required ? '*' : '' }}</label>
                                             <textarea
                                                 [formControlName]="field.name"
                                                 [placeholder]="field.placeholder">
@@ -108,25 +108,25 @@
                                         }
                                         @case ('checkbox') {
                                             <div>
-                                                <label [for]="field.name">{{ field.label }}</label>
+                                                <label [for]="field.name">{{ field.label }}{{ field?.required ? '*' : '' }}</label>
                                                 <input
                                                     hidden
                                                     [formControlName]="field.name"
                                                     type="text">
                                             </div>
-                                            @for (option of field.options; track option) {
+                                            @for (option of field.options; track option; let i = $index) {
                                                 <div class="checkbox">
                                                     <input
                                                         [value]="option"
                                                         (change)="onChangeCheckBox($event, field.name)"
-                                                        [id]="option"
+                                                        [id]="field.label + option"
                                                         type="checkbox">
-                                                        <label [for]="option">{{ option }}</label>
+                                                        <label [for]="field.label + option">{{ option }}</label>
                                                 </div>
                                             }
                                         }
                                         @case ('radio') {
-                                            <label>{{ field.label }}</label>
+                                            <label>{{ field.label }}{{ field?.required ? '*' : '' }}</label>
                                             <div class="radio-group">
                                                 @for (option of field.options; track option) {
                                                     <div [class.active]="radioInput.checked">
@@ -141,7 +141,7 @@
                                             </div>
                                         }
                                         @case ('custom_checkbox') {
-                                            <label>{{ field.label }}</label>
+                                            <label>{{ field.label }}{{ field?.required ? '*' : '' }}</label>
                                             <input
                                                 hidden
                                                 [formControlName]="field.name"

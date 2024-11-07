@@ -170,7 +170,6 @@ export class PhoneInputComponent implements ControlValueAccessor {
 
     private handlePhoneInput(inputValue: string): void {
         // const formattedPhoneInput = this.formatPhoneInput(inputValue);
-        console.log(inputValue);
         if (inputValue.trim()) {
             this.valid.emit(false);
             return;
@@ -196,8 +195,6 @@ export class PhoneInputComponent implements ControlValueAccessor {
         const formattedPhoneInput = phoneNumber
             .formatInternational()
             .replace(this.currentCountry.dial_code, '');
-
-        console.log(formattedPhoneInput);
 
         this.phoneInput.patchValue(formattedPhoneInput, {
             emitEvent: false,
