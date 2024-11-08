@@ -24,6 +24,7 @@ export class DynamicFormComponent {
     }
 
     public ngOnInit() {
+        console.log(this.form);
         this.initializeForm();
         this.updateCurrentFieldsToCheck();
     }

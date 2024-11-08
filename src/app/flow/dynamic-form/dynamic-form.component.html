@@ -8,13 +8,13 @@
 @if (formConfig) {
     <div>
         <form [formGroup]="form" class="content">
-            @if (!formConfig.steps[currentStep]?.type) {
+            
                 @for (step of formConfig.steps; track step; let i = $index) {
                     <div
-                        [hidden]="i !== currentStep"
+                        [hidden]="i !== currentStep || formConfig.steps[currentStep]?.type"
                         class="wrap-inputs">
-                        <h1>{{ getCurrentInfoBasedOnStep(step).header }}</h1>
-                        @if (getCurrentInfoBasedOnStep(step).subheader) {
+                        <h1>{{ getCurrentInfoBasedOnStep(step)?.header }}</h1>
+                        @if (getCurrentInfoBasedOnStep(step)?.subheader) {
                             <span>{{ getCurrentInfoBasedOnStep(step).subheader }}</span>
                         }
             
@@ -163,7 +163,7 @@
                         }
                     </div>
                 }
-            }
+            
     
             @if (formConfig.steps[currentStep]?.type === 'select') {
                 <app-flow-select 

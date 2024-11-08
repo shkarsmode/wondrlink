@@ -100,7 +100,8 @@ export class PhoneInputComponent implements ControlValueAccessor {
             this.validate(),
             this.checkLength(),
         ]);
-        this.phoneInput.statusChanges.subscribe((el) => this.emitValidity());
+        this.phoneInput.statusChanges
+            .subscribe((el) => this.emitValidity());
     }
 
     ngAfterViewInit(): void {
@@ -142,6 +143,8 @@ export class PhoneInputComponent implements ControlValueAccessor {
 
     //============
     public writeValue(value: string): void {
+        // if (!value) return;
+        // this.handlePhoneInput(value);
         this.phoneInput.setValue(value, { emitEvent: false });
     }
 
@@ -170,7 +173,7 @@ export class PhoneInputComponent implements ControlValueAccessor {
 
     private handlePhoneInput(inputValue: string): void {
         // const formattedPhoneInput = this.formatPhoneInput(inputValue);
-        if (inputValue.trim()) {
+        if (!inputValue.trim()) {
             this.valid.emit(false);
             return;
         }
@@ -192,9 +195,11 @@ export class PhoneInputComponent implements ControlValueAccessor {
             this.currentCountry.code as CountryCode
         );
 
-        const formattedPhoneInput = phoneNumber
-            .formatInternational()
-            .replace(this.currentCountry.dial_code, '');
+        const formattedPhoneInput = phoneNumber.nationalNumber
+            .replace(phoneNumber.countryCallingCode, '');
+
+        console.log(formattedPhoneInput)
+        this.writeValue(formattedPhoneInput);
 
         this.phoneInput.patchValue(formattedPhoneInput, {
             emitEvent: false,
