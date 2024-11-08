@@ -777,9 +777,9 @@
                         },
                         {
                             "type": "text",
-                            "label": "Practice Location",
+                            "label": "Location/City",
                             "name": "location",
-                            "placeholder": "City name",
+                            "placeholder": "City",
                             "required": true
                         },
                         {
@@ -921,17 +921,17 @@
                                 },
                                 {
                                     "type": "text",
+                                    "label": "Location/City",
+                                    "name": "location",
+                                    "placeholder": "City",
+                                    "required": true
+                                },
+                                {
+                                    "type": "text",
                                     "label": "Organization",
                                     "required": true,
                                     "name": "organization",
                                     "placeholder": "Company name"
-                                },
-                                {
-                                    "type": "text",
-                                    "label": "Location",
-                                    "required": true,
-                                    "name": "location",
-                                    "placeholder": "City"
                                 },
                                 {
                                     "type": "dropdown",
@@ -1009,7 +1009,7 @@
                                 },
                                 {
                                     "type": "text",
-                                    "label": "Location",
+                                    "label": "Location/City",
                                     "required": true,
                                     "name": "location",
                                     "placeholder": "City"
@@ -1077,7 +1077,7 @@
                                 },
                                 {
                                     "type": "text",
-                                    "label": "Location",
+                                    "label": "Location/City",
                                     "required": true,
                                     "name": "location",
                                     "placeholder": "City"

@@ -7,7 +7,7 @@
 
 @if (formConfig) {
     <div>
-        <form [formGroup]="form" class="content">     
+        <form [formGroup]="form" class="content" autocomplete="on">     
             @for (step of formConfig.steps; track step; let i = $index) {
                 <div
                     [hidden]="i !== currentStep || formConfig.steps[currentStep]?.type"

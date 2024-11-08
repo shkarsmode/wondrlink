@@ -11,9 +11,11 @@
     </div>
 
     <div *ngSwitchDefault>
-        <app-dynamic-form 
-            [formConfig]="formsData.flows[flow]" 
-            [onParentStepBack]="onStepBack.bind(this)"/>
+        @if (formsData?.flows[flow]) {
+            <app-dynamic-form 
+                [formConfig]="formsData?.flows[flow]" 
+                [onParentStepBack]="onStepBack.bind(this)"/>
+        }
     </div>
 
     <!-- <div *ngSwitchCase="2">
