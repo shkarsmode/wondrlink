@@ -195,8 +195,12 @@ export class PhoneInputComponent implements ControlValueAccessor {
             this.currentCountry.code as CountryCode
         );
 
-        const formattedPhoneInput = phoneNumber.nationalNumber
-            .replace(phoneNumber.countryCallingCode, '');
+        // const formattedPhoneInput = phoneNumber.nationalNumber
+        //     .replace(phoneNumber.countryCallingCode, '');
+
+        const formattedPhoneInput = phoneNumber
+            .formatInternational()
+            .replace(this.currentCountry.dial_code, '');
 
         console.log(formattedPhoneInput)
         this.writeValue(formattedPhoneInput);
@@ -258,7 +262,7 @@ export class PhoneInputComponent implements ControlValueAccessor {
             let phone = control.value as string;
 
             let countryData = Object.assign({}, this.currentCountry); // Отримання даних країни
-
+            console.log(this.currentCountry)
             if (!phone || !countryData) {
                 // Якщо номер телефону або дані країни відсутні, повертаємо null (валідація не потрібна)
                 return null;
@@ -269,7 +273,9 @@ export class PhoneInputComponent implements ControlValueAccessor {
             const phoneLength = countryData.phoneLength;
             if (typeof phoneLength === 'number') {
                 // Якщо вказано конкретну довжину номера
-                return phone.length === phoneLength
+                return phone.length === phoneLength || 
+                    phone.length === phoneLength - 1 ||
+                    phone.length === phoneLength + 1
                     ? null
                     : { invalidLength: true };
             } else if (Array.isArray(phoneLength)) {
