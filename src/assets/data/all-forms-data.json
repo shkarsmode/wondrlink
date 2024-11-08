@@ -216,27 +216,27 @@
                             "inline": true
                         },
                         {
-                                    "type": "dropdown",
-                                    "label": "Department",
-                                    "options": [
-                                        "Management",
-                                        "Clinical Development",
-                                        "Research & Development",
-                                        "Regulatory Affairs",
-                                        "Business Development",
-                                        "Medical Affairs",
-                                        "Other"
-                                    ],
-                                    "name": "department",
-                                    "placeholder": "Select Department",
-                                    "required": true
-                                },
-                                {
-                                    "type": "text",
-                                    "label": "Position Title",
-                                    "name": "positionTitle",
-                                    "placeholder": "Role"
-                                },
+                            "type": "dropdown",
+                            "label": "Department",
+                            "options": [
+                                "Management",
+                                "Clinical Development",
+                                "Research & Development",
+                                "Regulatory Affairs",
+                                "Business Development",
+                                "Medical Affairs",
+                                "Other"
+                            ],
+                            "name": "department",
+                            "placeholder": "Select Department",
+                            "required": true
+                        },
+                        {
+                            "type": "text",
+                            "label": "Position Title",
+                            "name": "positionTitle",
+                            "placeholder": "Role"
+                        },
                         {
                             "type": "text",
                             "label": "Organization Name",
@@ -252,8 +252,9 @@
                             "required": true
                         },
                         {
-                            "type": "url",
+                            "type": "text",
                             "label": "Website URL",
+                            "placeholder": "google.com",
                             "name": "website",
                             "optional": true
                         }
@@ -268,8 +269,7 @@
                     "basedOnStep": 1,
                     "specificForms": {
                         "Biotech/Pharma": {
-                            "header": "Biotech/Pharma Signup",
-                            "subheader": "Biotech/Pharma subheader",
+                            "header": "Role and Therapy Development Details",
                             "fields": [
                                 {
                                     "type": "checkbox",
@@ -364,8 +364,7 @@
                             }
                         },
                         "Research Lab": {
-                            "header": "Research Lab Signup",
-                            "subheader": "Research Lab subheader",
+                            "header": "Role and Research Focus Details",
                             "fields": [
                                 {
                                     "type": "dropdown",
@@ -475,8 +474,7 @@
                             }
                         },
                         "University/Academic Institution": {
-                            "header": "University/Academic Institution Signup",
-                            "subheader": "University/Academic Institution subheader",
+                            "header": "Role and Research Focus Details",
                             "fields": [
                                 {
                                     "type": "dropdown",
@@ -590,8 +588,7 @@
                             }
                         },
                         "Life Sciences Consulting": {
-                            "header": "Life Sciences Consulting Signup",
-                            "subheader": "Life Sciences Consulting subheader",
+                            "header": "Role and Services Offered",
                             "fields": [
                                 {
                                     "type": "dropdown",
@@ -715,7 +712,64 @@
                             "options": [
                                 "Oncology",
                                 "Hematology",
-                                "Internal Medicine"
+                                "Internal Medicine",
+                                "Cardiology",
+                                "Endocrinology",
+                                "Gastroenterology",
+                                "Pulmonology",
+                                "Nephrology",
+                                "Rheumatology",
+                                "Neurology",
+                                "Dermatology",
+                                "Pediatrics",
+                                "Psychiatry",
+                                "Orthopedics",
+                                "Ophthalmology",
+                                "Obstetrics and Gynecology",
+                                "General Surgery",
+                                "Vascular Surgery",
+                                "Plastic Surgery",
+                                "Urology",
+                                "Anesthesiology",
+                                "Pain Management",
+                                "Critical Care",
+                                "Family Medicine",
+                                "Infectious Disease",
+                                "Immunology",
+                                "Pathology",
+                                "Radiology",
+                                "Nuclear Medicine",
+                                "Rehabilitation Medicine",
+                                "Geriatrics",
+                                "Allergy and Immunology",
+                                "Sports Medicine",
+                                "Preventive Medicine",
+                                "Emergency Medicine",
+                                "Occupational Medicine",
+                                "Medical Genetics",
+                                "Thoracic Surgery",
+                                "Colon and Rectal Surgery",
+                                "Oral and Maxillofacial Surgery",
+                                "Transplant Surgery",
+                                "Pediatric Surgery",
+                                "Sleep Medicine",
+                                "Addiction Medicine",
+                                "Public Health",
+                                "Hyperbaric Medicine",
+                                "Radiation Oncology",
+                                "Molecular Medicine",
+                                "Palliative Medicine",
+                                "Genomic Medicine",
+                                "Hospice Care",
+                                "Psychosomatic Medicine",
+                                "Clinical Neurophysiology",
+                                "Child and Adolescent Psychiatry",
+                                "Developmental-Behavioral Pediatrics",
+                                "Physical Medicine and Rehabilitation",
+                                "Vascular Interventional Radiology",
+                                "Interventional Cardiology",
+                                "Spine Surgery"
+
                             ],
                             "name": "specialty",
                             "placeholder": "Select Specialty",
