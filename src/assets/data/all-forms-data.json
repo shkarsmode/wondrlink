@@ -16,7 +16,6 @@
                             ],
                             "name": "signingFor",
                             "defaultValue": "Myself",
-                            "inline": true,
                             "required": true
                         },
                         {
@@ -24,23 +23,20 @@
                             "label": "Name",
                             "name": "fullName",
                             "required": true,
-                            "placeholder": "Full Name (e.g. Alex Johnson)",
-                            "inline": true
+                            "placeholder": "Full Name (e.g. Alex Johnson)"
                         },
                         {
                             "type": "phone",
                             "label": "Phone",
                             "name": "phone",
                             "countryCodeDropdown": true,
-                            "required": true,
-                            "inline": true
+                            "required": true
                         },
                         {
                             "type": "email",
                             "label": "Email",
                             "name": "email",
                             "required": true,
-                            "inline": true,
                             "placeholder": "name@example.com"
                         }
                         
