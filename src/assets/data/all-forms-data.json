@@ -38,6 +38,13 @@
                             "name": "email",
                             "required": true,
                             "placeholder": "name@example.com"
+                        },
+                        {
+                            "type": "text",
+                            "label": "Location/City",
+                            "name": "location",
+                            "placeholder": "City",
+                            "required": true
                         }
                         
                     ],
