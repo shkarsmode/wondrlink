@@ -191,7 +191,7 @@
                 },
                 {
                     "step": 2,
-                    "header": "Common Sections",
+                    "header": "Your Information and Organization Details",
                     "fields": [
                         {
                             "type": "text",
@@ -215,6 +215,28 @@
                             "placeholder": "name@example.com",
                             "inline": true
                         },
+                        {
+                                    "type": "dropdown",
+                                    "label": "Department",
+                                    "options": [
+                                        "Management",
+                                        "Clinical Development",
+                                        "Research & Development",
+                                        "Regulatory Affairs",
+                                        "Business Development",
+                                        "Medical Affairs",
+                                        "Other"
+                                    ],
+                                    "name": "department",
+                                    "placeholder": "Select Department",
+                                    "required": true
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Position Title",
+                                    "name": "positionTitle",
+                                    "placeholder": "Role"
+                                },
                         {
                             "type": "text",
                             "label": "Organization Name",
@@ -249,28 +271,6 @@
                             "header": "Biotech/Pharma Signup",
                             "subheader": "Biotech/Pharma subheader",
                             "fields": [
-                                {
-                                    "type": "dropdown",
-                                    "label": "Department",
-                                    "options": [
-                                        "Management",
-                                        "Clinical Development",
-                                        "Research & Development",
-                                        "Regulatory Affairs",
-                                        "Business Development",
-                                        "Medical Affairs",
-                                        "Other"
-                                    ],
-                                    "name": "department",
-                                    "placeholder": "Select Department",
-                                    "required": true
-                                },
-                                {
-                                    "type": "text",
-                                    "label": "Position Title",
-                                    "name": "positionTitle",
-                                    "placeholder": "Role"
-                                },
                                 {
                                     "type": "checkbox",
                                     "label": "Therapy Development Stage",
