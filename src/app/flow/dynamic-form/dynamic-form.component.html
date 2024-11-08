@@ -7,54 +7,79 @@
 
 @if (formConfig) {
     <div>
-        <form [formGroup]="form" class="content">
-            
-                @for (step of formConfig.steps; track step; let i = $index) {
-                    <div
-                        [hidden]="i !== currentStep || formConfig.steps[currentStep]?.type"
-                        class="wrap-inputs">
-                        <h1>{{ getCurrentInfoBasedOnStep(step)?.header }}</h1>
-                        @if (getCurrentInfoBasedOnStep(step)?.subheader) {
-                            <span>{{ getCurrentInfoBasedOnStep(step).subheader }}</span>
-                        }
-            
-                        @for (field of getCurrentInfoBasedOnStep(step).fields; track field;) {
-                            <div
-                                class="row"
-                                [class.inline]="field?.inline">
-                                <div class="group">
-                                    @switch (field.type) {
-                                        @case ('text') {
+        <form [formGroup]="form" class="content">     
+            @for (step of formConfig.steps; track step; let i = $index) {
+                <div
+                    [hidden]="i !== currentStep || formConfig.steps[currentStep]?.type"
+                    class="wrap-inputs">
+                    <h1>{{ getCurrentInfoBasedOnStep(step)?.header }}</h1>
+                    @if (getCurrentInfoBasedOnStep(step)?.subheader) {
+                        <span>{{ getCurrentInfoBasedOnStep(step).subheader }}</span>
+                    }
+        
+                    @for (field of getCurrentInfoBasedOnStep(step)?.fields; track field;) {
+                        <div
+                            class="row"
+                            [class.inline]="field?.inline">
+                            <div class="group">
+                                @switch (field.type) {
+                                    @case ('text') {
+                                        <label>{{ field.label }}{{ field?.required ? '*' : '' }}</label>
+                                        <input
+                                            [formControlName]="field.name"
+                                            [required]="field.required"
+                                            [hidden]="field.hidden"
+                                            [placeholder]="field.placeholder"
+                                            type="text" />
+                                    }
+                                    @case ('email') {
+                                        <label>{{ field.label }}{{ field?.required ? '*' : '' }}</label>
+                                        <input
+                                            [formControlName]="field.name"
+                                            [required]="field.required"
+                                            [placeholder]="field.placeholder"
+                                            type="email" />
+                                    }
+                                    @case ('phone') {
+                                        <app-phone-input 
+                                            formControlName="phone"
+                                            (valid)="onPhoneValidityChange($event, field.name)">
+                                        </app-phone-input>
+                                    }
+                                    @case ('dropdown') {
+                                        <div 
+                                            class="dropdown"
+                                            [class.dropdown--inline]="field.inline">
                                             <label>{{ field.label }}{{ field?.required ? '*' : '' }}</label>
-                                            <input
+                                            <select
                                                 [formControlName]="field.name"
-                                                [required]="field.required"
-                                                [hidden]="field.hidden"
-                                                [placeholder]="field.placeholder"
-                                                type="text" />
-                                        }
-                                        @case ('email') {
-                                            <label>{{ field.label }}{{ field?.required ? '*' : '' }}</label>
-                                            <input
-                                                [formControlName]="field.name"
-                                                [required]="field.required"
-                                                [placeholder]="field.placeholder"
-                                                type="email" />
-                                        }
-                                        @case ('phone') {
-                                            <app-phone-input 
-                                                formControlName="phone"
-                                                (valid)="onPhoneValidityChange($event, field.name)">
-                                            </app-phone-input>
-                                        }
-                                        @case ('dropdown') {
-                                            <div 
-                                                class="dropdown"
-                                                [class.dropdown--inline]="field.inline">
-                                                <label>{{ field.label }}{{ field?.required ? '*' : '' }}</label>
-                                                <select
-                                                    [formControlName]="field.name"
-                                                    (change)="onDropDownForConditionalFieldsChangeEvent(field)"
+                                                (change)="onDropDownForConditionalFieldsChangeEvent(field)"
+                                                data-select>
+                                                <option
+                                                    hidden
+                                                    role="placeholder"
+                                                    disabled
+                                                    selected
+                                                    value="">
+                                                    {{ field.placeholder }}
+                                                </option>
+                                                @for (option of field.options; track option) {
+                                                    <option [value]="option">
+                                                        {{ option }}
+                                                    </option>
+                                                }
+                                            </select>
+                                        </div>
+
+                                        @if (field.conditionalFields && isFieldVisible(field)) {
+                                            <div class="group">
+                                                <label>
+                                                    {{ field.conditionalFields?.[form.get(field.name)?.value][0]?.label }}*
+                                                </label>
+                                                <select 
+                                                    [formControlName]="
+                                                        field.conditionalFields[form.get(field.name)?.value][0].name
+                                                    "
                                                     data-select>
                                                     <option
                                                         hidden
@@ -62,107 +87,81 @@
                                                         disabled
                                                         selected
                                                         value="">
-                                                        {{ field.placeholder }}
+                                                        {{ field.conditionalFields[form.get(field.name)?.value][0].placeholder }}
                                                     </option>
-                                                    @for (option of field.options; track option) {
+                                                    @for (option of field.conditionalFields[form.get(field.name)?.value][0].options; track option) {
                                                         <option [value]="option">
                                                             {{ option }}
                                                         </option>
                                                     }
                                                 </select>
                                             </div>
-    
-                                            @if (field.conditionalFields && isFieldVisible(field)) {
-                                                <div class="group">
-                                                    <label>
-                                                        {{ field.conditionalFields?.[form.get(field.name)?.value][0]?.label }}*
-                                                    </label>
-                                                    <select 
-                                                        [formControlName]="
-                                                            field.conditionalFields[form.get(field.name)?.value][0].name
-                                                        "
-                                                        data-select>
-                                                        <option
-                                                            hidden
-                                                            role="placeholder"
-                                                            disabled
-                                                            selected
-                                                            value="">
-                                                            {{ field.conditionalFields[form.get(field.name)?.value][0].placeholder }}
-                                                        </option>
-                                                        @for (option of field.conditionalFields[form.get(field.name)?.value][0].options; track option) {
-                                                            <option [value]="option">
-                                                                {{ option }}
-                                                            </option>
-                                                        }
-                                                    </select>
-                                                </div>
-                                            }
                                         }
-                                        @case ('textarea') {
-                                            <label>{{ field.label }}{{ field?.required ? '*' : '' }}</label>
-                                            <textarea
-                                                [formControlName]="field.name"
-                                                [placeholder]="field.placeholder">
-                                            </textarea>
-                                        }
-                                        @case ('checkbox') {
-                                            <div>
-                                                <label [for]="field.name">{{ field.label }}{{ field?.required ? '*' : '' }}</label>
-                                                <input
-                                                    hidden
-                                                    [formControlName]="field.name"
-                                                    type="text">
-                                            </div>
-                                            @for (option of field.options; track option; let i = $index) {
-                                                <div class="checkbox">
-                                                    <input
-                                                        [value]="option"
-                                                        (change)="onChangeCheckBox($event, field.name)"
-                                                        [id]="field.label + option"
-                                                        type="checkbox">
-                                                        <label [for]="field.label + option">{{ option }}</label>
-                                                </div>
-                                            }
-                                        }
-                                        @case ('radio') {
-                                            <label>{{ field.label }}{{ field?.required ? '*' : '' }}</label>
-                                            <div class="radio-group">
-                                                @for (option of field.options; track option) {
-                                                    <div [class.active]="radioInput.checked">
-                                                        <input
-                                                            [formControlName]="field.name"
-                                                            [value]="option.value"
-                                                            type="radio"
-                                                            #radioInput>
-                                                            {{ option.label }}
-                                                    </div>
-                                                }
-                                            </div>
-                                        }
-                                        @case ('custom_checkbox') {
-                                            <label>{{ field.label }}{{ field?.required ? '*' : '' }}</label>
+                                    }
+                                    @case ('textarea') {
+                                        <label>{{ field.label }}{{ field?.required ? '*' : '' }}</label>
+                                        <textarea
+                                            [formControlName]="field.name"
+                                            [placeholder]="field.placeholder">
+                                        </textarea>
+                                    }
+                                    @case ('checkbox') {
+                                        <div>
+                                            <label [for]="field.name">{{ field.label }}{{ field?.required ? '*' : '' }}</label>
                                             <input
                                                 hidden
                                                 [formControlName]="field.name"
                                                 type="text">
-                                            <div class="wrap-checkboxes">
-                                                @for (option of field.options; track option) {
-                                                    <div
-                                                        class="checkbox"
-                                                        [class.active]="form.get(field.name)?.value === option"
-                                                        (click)="onClickCustomCheckbox(field.name, option)">
-                                                        {{ option }}
-                                                    </div>
-                                                }
+                                        </div>
+                                        @for (option of field.options; track option; let i = $index) {
+                                            <div class="checkbox">
+                                                <input
+                                                    [value]="option"
+                                                    (change)="onChangeCheckBox($event, field.name)"
+                                                    [id]="field.label + option"
+                                                    type="checkbox">
+                                                    <label [for]="field.label + option">{{ option }}</label>
                                             </div>
                                         }
                                     }
-                                </div>
+                                    @case ('radio') {
+                                        <label>{{ field.label }}{{ field?.required ? '*' : '' }}</label>
+                                        <div class="radio-group">
+                                            @for (option of field.options; track option) {
+                                                <div [class.active]="radioInput.checked">
+                                                    <input
+                                                        [formControlName]="field.name"
+                                                        [value]="option.value"
+                                                        type="radio"
+                                                        #radioInput>
+                                                        {{ option.label }}
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                    @case ('custom_checkbox') {
+                                        <label>{{ field.label }}{{ field?.required ? '*' : '' }}</label>
+                                        <input
+                                            hidden
+                                            [formControlName]="field.name"
+                                            type="text">
+                                        <div class="wrap-checkboxes">
+                                            @for (option of field.options; track option) {
+                                                <div
+                                                    class="checkbox"
+                                                    [class.active]="form.get(field.name)?.value === option"
+                                                    (click)="onClickCustomCheckbox(field.name, option)">
+                                                    {{ option }}
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                }
                             </div>
-                        }
-                    </div>
-                }
+                        </div>
+                    }
+                </div>
+            }
             
     
             @if (formConfig.steps[currentStep]?.type === 'select') {
