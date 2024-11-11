@@ -314,7 +314,8 @@ export class PhoneInputComponent implements ControlValueAccessor {
                 this.currentCountry.code as CountryCode
             );
 
-            if (!isPossible) return { impossible: true };
+            // if (!isPossible) return { impossible: true };
+            if (!isPossible) return { invalid: true };
             if (!isValid) return { invalid: true };
 
             return null;
