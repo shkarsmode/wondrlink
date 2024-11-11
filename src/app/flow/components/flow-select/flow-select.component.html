@@ -7,7 +7,7 @@
             [class.wrap-options--inline]="isInline">
             <li
                 *ngFor="let option of data.options; let i=index"
-                [class.active]="selectOptions[i]"
+                [class.active]="activeName === option.label"
                 (click)="toggleCheck(i, option.label)">
                 <div class="left">
                     <img [src]="'assets/svg/'+option.icon" alt="Icon">

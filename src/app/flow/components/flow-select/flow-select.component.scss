@@ -103,11 +103,13 @@ button {
             margin-top: .5em;
         }
 
-        &:hover {
-            border: 1px solid rgba(119, 119, 119, 1);
-
-            .right h4 {
-                font-weight: 600;
+        @media screen and (min-width: 500px) {
+            &:hover {
+                border: 1px solid rgba(119, 119, 119, 1);
+    
+                .right h4 {
+                    font-weight: 600;
+                }
             }
         }
 
@@ -176,7 +178,7 @@ button {
 }
 
 
-@media (max-width: 500px) {
+@media (max-width: 550px) {
 
     .wrap-options>li {
         width: 100%;

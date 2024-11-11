@@ -167,6 +167,7 @@
             @if (formConfig.steps[currentStep]?.type === 'select') {
                 <app-flow-select 
                     [data]="formConfig.steps[currentStep]"
+                    [activeName]="form.get(formConfig.steps[currentStep].fields[0].name)?.value"
                     [isInline]="!!formConfig.steps[currentStep]?.inline"
                     (next)="goToNextStep($event)" />
             }

@@ -12,6 +12,7 @@ export class FlowSelectComponent {
     @Input() flowType: TFormFlow = 'patients';
     @Input() public data: any;
     @Input() public isInline: any;
+    @Input() public activeName: any;
 
     public selectOptions: boolean[] = [false, false, false, false];
     public checkedItem: string = '';
