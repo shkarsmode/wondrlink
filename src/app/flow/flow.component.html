@@ -14,7 +14,8 @@
         @if (formsData?.flows[flow]) {
             <app-dynamic-form 
                 [formConfig]="formsData?.flows[flow]" 
-                [onParentStepBack]="onStepBack.bind(this)"/>
+                [onParentStepBack]="onStepBack.bind(this)"
+                (onSubmit)="onContactFormSubmit($event)"/>
         }
     </div>
 

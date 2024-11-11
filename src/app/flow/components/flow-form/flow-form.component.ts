@@ -18,7 +18,6 @@ import {
 } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CheckEmailComponent } from 'src/app/shared/dialogs/check-email/check-email.component';
-import { matchFlowUserType } from 'src/app/shared/features/matchFlowUserType.helper';
 import { IAffiliationData } from 'src/app/shared/interfaces/AffiliationData.type';
 import { ISpecialityData } from 'src/app/shared/interfaces/SpecialityData.type';
 import { TFormFlow } from 'src/app/shared/interfaces/TFormFlow';
@@ -242,30 +241,32 @@ export class FlowFormComponent {
         // now registration unneeded
         // but we still have to send password for correct back-end working
 
-        let password = this.password;
-        let phone = this.phone.value
+        // let password = this.password;
+        // let phone = this.phone.value
 
-        let body; 
-        if(this.formType === 'physicians') {
-            body = Object.assign(
-                this.contactForm.value,
-                { password: password,
-                  phone: phone,
-                  type: matchFlowUserType(this.formType)
-                },
-                this.convertLicense(),
-            );
-            delete body.license;
-        } else {
-            body = Object.assign(
-                this.contactForm.value,
-                ...this.flowData,
-                { 
-                    password: password,
-                    phone: phone,
-                },
-            );
-        }
+        // let body; 
+        // if(this.formType === 'physicians') {
+        //     body = Object.assign(
+        //         this.contactForm.value,
+        //         { password: password,
+        //           phone: phone,
+        //           type: matchFlowUserType(this.formType)
+        //         },
+        //         this.convertLicense(),
+        //     );
+        //     delete body.license;
+        // } else {
+        //     body = Object.assign(
+        //         this.contactForm.value,
+        //         ...this.flowData,
+        //         { 
+        //             password: password,
+        //             phone: phone,
+        //         },
+        //     );
+        // }
+
+        const body = {};
 
         this.authService.registration(body).subscribe({
             next: (res) => {

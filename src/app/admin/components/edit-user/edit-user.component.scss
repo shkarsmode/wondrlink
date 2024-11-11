@@ -449,3 +449,33 @@ h2 {
         color: #102C58;
     }
 }
+
+
+.wrap {
+    display: flex;
+
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // height: 15px;
+        border: 1px solid rgb(133, 133, 133);
+        padding: 5px 5px;
+        max-width: 250px;
+        width: 100%;
+        border-bottom: unset;
+
+        &:first-child {
+            background-color: rgb(193, 193, 193);
+            border-right: unset;
+            font-weight: 500;
+        }
+    }
+
+    &:nth-last-child(1) {
+        div {
+            border-bottom: 1px solid rgb(133, 133, 133);
+        }
+    }
+
+}

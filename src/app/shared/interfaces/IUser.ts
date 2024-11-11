@@ -1,4 +1,3 @@
-import { PatientPositionRoleEnum } from "./PositionRoleEnum";
 import { UserRoleEnum } from "./UserRoleEnum";
 import { UserTypeEnum } from "./UserTypeEnum";
 import { CompanyTypeEnum } from "./company-type.enum";
@@ -25,5 +24,7 @@ export interface IUser {
     readonly position: string | null;
     readonly function?: string | null;
     readonly isMySelf: 'true' | 'false';
+    fullName: string;
+    additionalInfo: any;
     type: UserTypeEnum;
 }

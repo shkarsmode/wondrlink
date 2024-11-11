@@ -177,7 +177,7 @@
                     @if (currentStep < formConfig.steps.length - 1) {
                         <button
                             class="btn-green"
-                            [disabled]="!isNextButtonAvailableOnCurrentStep"
+                            [disabled]="!isButtonAvailableOnCurrentStep"
                             (click)="nextStep()"
                             type="button">
                             Next
@@ -186,7 +186,7 @@
                         <button
                             *ngIf="currentStep === formConfig.steps.length - 1"
                             type="submit"
-                            [disabled]="!isNextButtonAvailableOnCurrentStep"
+                            [disabled]="!isButtonAvailableOnCurrentStep"
                             class="btn-green"
                             (click)="submit()">
                             Submit

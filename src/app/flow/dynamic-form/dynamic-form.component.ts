@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
     FormBuilder,
     FormControl,
@@ -14,6 +14,7 @@ import {
 export class DynamicFormComponent {
     @Input() public formConfig: any;
     @Input() public onParentStepBack: () => void;
+    @Output() public onSubmit: EventEmitter<{}> = new EventEmitter();
 
     public form: FormGroup;
     public currentStep: number = 0;
@@ -24,7 +25,6 @@ export class DynamicFormComponent {
     }
 
     public ngOnInit() {
-        console.log(this.form);
         this.initializeForm();
         this.updateCurrentFieldsToCheck();
     }
@@ -195,8 +195,8 @@ export class DynamicFormComponent {
     }
 
     public isNotToValidFields: boolean = !!localStorage.getItem('validity');
-    
-    public get isNextButtonAvailableOnCurrentStep(): boolean {
+
+    public get isButtonAvailableOnCurrentStep(): boolean {
         return (
             this.isNotToValidFields ||
             this.currentVisibleFields.every(
@@ -231,24 +231,20 @@ export class DynamicFormComponent {
         }
     }
 
-    public submit() {
+    public submit(): void {
         const result: { [key: string]: { value: string; label: string } } = {};
 
         Object.keys(this.form.value).forEach(
             (key: string) =>
-                (result[key] = {
+                this.form.get(key)?.value ? (result[key] = {
                     value: this.form.get(key)?.value,
                     // @ts-ignore
                     label: this.form.get(key)?.label,
-                })
+                }) : null
         );
 
-        if (this.form.valid) {
-            console.log('Form Data:', result);
-        } else {
-            console.log('Form Data:', result);
-            console.error('Form is invalid');
-        }
+        console.log('Form Data:', result);
+        this.onSubmit.emit(result);
     }
 
     public onDropDownForConditionalFieldsChangeEvent(field: any): void {

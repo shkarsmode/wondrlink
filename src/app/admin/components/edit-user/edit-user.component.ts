@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
 import { IUser } from 'src/app/shared/interfaces/IUser';
+import { PatientPositionRoleEnum } from 'src/app/shared/interfaces/PositionRoleEnum';
 import { UserRoleEnum } from 'src/app/shared/interfaces/UserRoleEnum';
 import { UserTypeEnum } from 'src/app/shared/interfaces/UserTypeEnum';
 import { CompanyTypeEnum } from 'src/app/shared/interfaces/company-type.enum';
@@ -12,7 +13,6 @@ import { CloudinaryService } from 'src/app/shared/services/cloudinary.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AuthService } from '../../../shared/services/auth.service';
 import { FlowDataService } from '../../../shared/services/flow-data.service';
-import { PatientPositionRoleEnum } from 'src/app/shared/interfaces/PositionRoleEnum';
 
 @Component({
     selector: 'app-edit-user',
@@ -43,7 +43,7 @@ export class EditUserComponent implements OnInit {
 
 
     private deleteTimeout: any;
-    private userId: number | null;
+    public userId: number | null;
     @ViewChild('preview') preview: ElementRef;
 
     constructor(
@@ -81,6 +81,7 @@ export class EditUserComponent implements OnInit {
         });
     }
 
+    public userAddInfoFieldKeys: Array<string> = [];
     private getUserById(): void {
         if (!this.userId) return;
 
@@ -90,6 +91,7 @@ export class EditUserComponent implements OnInit {
             .subscribe({
                 next: (user) => {
                     this.user = user;
+                    this.userAddInfoFieldKeys = Object.keys(this.user.additionalInfo);
                     this.user.type = user.type ? user.type : UserTypeEnum.None;
                     this.isUserInited = true;
                     this.initReactiveForm();

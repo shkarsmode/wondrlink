@@ -23,7 +23,7 @@
                             "label": "Name",
                             "name": "fullName",
                             "required": true,
-                            "placeholder": "Full Name (e.g. Alex Johnson)"
+                            "placeholder": "Full Name (e.g., Alex Johnson)"
                         },
                         {
                             "type": "phone",
@@ -37,13 +37,13 @@
                             "label": "Email",
                             "name": "email",
                             "required": true,
-                            "placeholder": "name@example.com"
+                            "placeholder": "yourname@example.com"
                         },
                         {
                             "type": "text",
                             "label": "Location/City",
                             "name": "location",
-                            "placeholder": "City",
+                            "placeholder": "City (e.g., San Francisco)",
                             "required": true
                         }
                         
@@ -159,7 +159,7 @@
                     "fields": [
                         {
                             "type": "text",
-                            "label": "",
+                            "label": "Organization Type",
                             "name": "organizationType",
                             "required": true,
                             "hidden": true,
@@ -198,7 +198,7 @@
                             "label": "Name",
                             "name": "fullName",
                             "required": true,
-                            "placeholder": "Full Name (e.g. Alex Johnson)"
+                            "placeholder": "Full Name (e.g., Alex Johnson)"
                         },
                         {
                             "type": "phone",
@@ -212,7 +212,7 @@
                             "label": "Email",
                             "name": "email",
                             "required": true,
-                            "placeholder": "name@example.com",
+                            "placeholder": "yourname@example.com",
                             "inline": true
                         },
                         {
@@ -228,33 +228,33 @@
                                 "Other"
                             ],
                             "name": "department",
-                            "placeholder": "Select Department",
+                            "placeholder": "Select Your Department",
                             "required": true
                         },
                         {
                             "type": "text",
                             "label": "Position Title",
                             "name": "positionTitle",
-                            "placeholder": "Role"
+                            "placeholder": "Position (e.g., Chief Medical Officer)"
                         },
                         {
                             "type": "text",
                             "label": "Organization Name",
                             "name": "organizationName",
                             "required": true,
-                            "placeholder": "Company name"
+                            "placeholder": "Organization (e.g., Merck, Stanford University, Mayo Clinic)"
                         },
                         {
                             "type": "text",
                             "label": "Location/City",
                             "name": "location",
-                            "placeholder": "City",
+                            "placeholder": "City (e.g., San Francisco)",
                             "required": true
                         },
                         {
                             "type": "text",
                             "label": "Website URL",
-                            "placeholder": "google.com",
+                            "placeholder": "www.example.com",
                             "name": "website",
                             "optional": true
                         }
@@ -376,13 +376,14 @@
                                         "Other"
                                     ],
                                     "name": "division",
-                                    "required": true
+                                    "required": true,
+                                    "placeholder": "Select"
                                 },
                                 {
                                     "type": "text",
                                     "label": "Position Title",
                                     "name": "positionTitle",
-                                    "placeholder": "Role"
+                                    "placeholder": "Position (e.g., Chief Medical Officer)"
                                 },
                                 {
                                     "type": "checkbox",
@@ -496,7 +497,7 @@
                                     "type": "text",
                                     "label": "Position Title",
                                     "name": "positionTitle",
-                                    "placeholder": "Role"
+                                    "placeholder": "Position (e.g., Chief Medical Officer)"
                                 },
                                 {
                                     "type": "checkbox",
@@ -601,14 +602,14 @@
                                         "Other"
                                     ],
                                     "name": "department",
-                                    "placeholder": "Select department",
+                                    "placeholder": "Select Your Department",
                                     "required": true
                                 },
                                 {
                                     "type": "text",
                                     "label": "Position Title",
                                     "name": "positionTitle",
-                                    "placeholder": "Position"
+                                    "placeholder": "Position (e.g., Chief Medical Officer)"
                                 },
                                 {
                                     "type": "text",
@@ -678,14 +679,14 @@
                             "label": "Name",
                             "name": "fullName",
                             "required": true,
-                            "placeholder": "Full Name (e.g. Alex Johnson)"
+                            "placeholder": "Full Name (e.g., Alex Johnson)"
                         },
                         {
                             "type": "email",
                             "label": "Email",
                             "name": "email",
                             "required": true,
-                            "placeholder": "name@example.com",
+                            "placeholder": "yourname@example.com",
                             "inline": true
                         },
                         {
@@ -779,7 +780,7 @@
                             "type": "text",
                             "label": "Location/City",
                             "name": "location",
-                            "placeholder": "City",
+                            "placeholder": "City (e.g., San Francisco)",
                             "required": true
                         },
                         {
@@ -800,7 +801,7 @@
                             "label": "Organization Name",
                             "name": "organizationName",
                             "optional": true,
-                            "placeholder": "Company name"
+                            "placeholder": "Organization (e.g., Merck, Stanford University, Mayo Clinic)"
                         }
                     ],
                     "button": {
@@ -901,7 +902,7 @@
                                     "label": "Name",
                                     "name": "fullName",
                                     "required": true,
-                                    "placeholder": "Full Name (e.g. Alex Johnson)"
+                                    "placeholder": "Full Name (e.g., Alex Johnson)"
                                 },
                                 {
                                     "type": "phone",
@@ -916,14 +917,14 @@
                                     "label": "Email",
                                     "name": "email",
                                     "required": true,
-                                    "placeholder": "name@example.com",
+                                    "placeholder": "yourname@example.com",
                                     "inline": true
                                 },
                                 {
                                     "type": "text",
                                     "label": "Location/City",
                                     "name": "location",
-                                    "placeholder": "City",
+                                    "placeholder": "City (e.g., San Francisco)",
                                     "required": true
                                 },
                                 {
@@ -982,7 +983,7 @@
                                     "label": "Name",
                                     "name": "fullName",
                                     "required": true,
-                                    "placeholder": "Full Name (e.g. Alex Johnson)"
+                                    "placeholder": "Full Name (e.g., Alex Johnson)"
                                 },
                                 {
                                     "type": "phone",
@@ -997,7 +998,7 @@
                                     "label": "Email",
                                     "name": "email",
                                     "required": true,
-                                    "placeholder": "name@example.com",
+                                    "placeholder": "yourname@example.com",
                                     "inline": true
                                 },
                                 {
@@ -1012,7 +1013,7 @@
                                     "label": "Location/City",
                                     "required": true,
                                     "name": "location",
-                                    "placeholder": "City"
+                                    "placeholder": "City (e.g., San Francisco)"
                                 },
                                 {
                                     "type": "dropdown",
@@ -1050,7 +1051,7 @@
                                     "label": "Name",
                                     "name": "fullName",
                                     "required": true,
-                                    "placeholder": "Full Name (e.g. Alex Johnson)"
+                                    "placeholder": "Full Name (e.g., Alex Johnson)"
                                 },
                                 {
                                     "type": "phone",
@@ -1065,7 +1066,7 @@
                                     "label": "Email",
                                     "name": "email",
                                     "required": true,
-                                    "placeholder": "name@example.com",
+                                    "placeholder": "yourname@example.com",
                                     "inline": true
                                 },
                                 {
@@ -1080,7 +1081,7 @@
                                     "label": "Location/City",
                                     "required": true,
                                     "name": "location",
-                                    "placeholder": "City"
+                                    "placeholder": "City (e.g., San Francisco)"
                                 },
                                 {
                                     "type": "dropdown",
