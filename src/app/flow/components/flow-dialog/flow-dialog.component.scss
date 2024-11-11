@@ -1,18 +1,18 @@
 .wrap {
-  position: relative;
-  padding: 80px 100px;
-  max-height: 750px;
-  overflow-x: hidden;
-  width: 100%;
-  max-width: 850px;
+    position: relative;
+    padding: 80px 100px;
+    max-height: 750px;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 850px;
 }
 
 .close {
-  position: absolute;
-  z-index: 1000;
-  top: 30px;
-  right: 30px;
-  cursor: pointer;
+    position: absolute;
+    z-index: 1000;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
 }
 
 
@@ -20,41 +20,41 @@
 // @media screen and (max-height: 1000px) {
 //   .wrap {
 //     // height: 90dvh;
-    
+
 //     min-width: 850px;
 //   }
 // }
 
 @media screen and (max-height: 700px) and (max-width: 500px) {
-  // .wrap {
-  //   height: 100dvh;
-  // }
+    // .wrap {
+    //   height: 100dvh;
+    // }
 }
 
 @media screen and (max-width: 800px) {
-  .wrap {
-    padding: 80px 30px;
-    height: 100dvh;
-    max-height: 100dvh;
+    .wrap {
+        padding: 80px 30px;
+        height: 100dvh;
+        max-height: 100dvh;
 
-    &::-webkit-scrollbar {
-      width: 0px;
+        &::-webkit-scrollbar {
+            width: 0px;
+        }
+
+        &::-webkit-scrollbar-track {
+            width: 0px;
+        }
     }
 
-    &::-webkit-scrollbar-track {
-      width: 0px;
+    .close {
+        top: 22px;
+        right: 20px;
     }
-  }
-
-  .close {
-    top: 22px;
-    right: 20px;
-  }
 
 }
 
 @media screen and (max-width: 700px) {
-  .wrap {
-    padding: 80px 30px;
-  }
+    .wrap {
+        padding: 80px 15px;
+    }
 }

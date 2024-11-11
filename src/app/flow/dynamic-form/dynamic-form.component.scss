@@ -448,6 +448,14 @@ textarea {
     .full-name {
         flex-direction: row !important;
     }
+
+    .row.inline {
+        max-width: 100%;
+    }
+
+    .group:has(div.dropdown--inline) {
+        flex-direction: column;
+    }
 }
 
 @media (max-width: 765px) {

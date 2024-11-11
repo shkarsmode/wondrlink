@@ -110,7 +110,7 @@ export class DynamicFormComponent {
                     );
                     // @ts-ignore
                     control.label = field.label;
-                    
+
                     this.form.addControl(field.name, control);
 
                     this.initConditionalFields(field);
@@ -177,27 +177,31 @@ export class DynamicFormComponent {
     public updateCurrentFieldsToCheck(): void {
         const currentVisibleFields: string[] = [];
 
-        this.getCurrentInfoBasedOnStep(this.formConfig.steps[this.currentStep])?.fields?.forEach(
-            (field: any) => {
-                currentVisibleFields.push(field.name);
-                if (field?.conditionalFields && this.isFieldVisible(field)) {
-                    const name =
-                        field.conditionalFields[
-                            Object.keys(field.conditionalFields)[0]
-                        ][0].name;
+        this.getCurrentInfoBasedOnStep(
+            this.formConfig.steps[this.currentStep]
+        )?.fields?.forEach((field: any) => {
+            currentVisibleFields.push(field.name);
+            if (field?.conditionalFields && this.isFieldVisible(field)) {
+                const name =
+                    field.conditionalFields[
+                        Object.keys(field.conditionalFields)[0]
+                    ][0].name;
 
-                    currentVisibleFields.push(name);
-                }
+                currentVisibleFields.push(name);
             }
-        );
-
+        });
 
         this.currentVisibleFields = currentVisibleFields;
     }
 
+    public isNotToValidFields: boolean = !!localStorage.getItem('validity');
+    
     public get isNextButtonAvailableOnCurrentStep(): boolean {
-        return this.currentVisibleFields.every(
-            (fieldName) => this.form.get(fieldName)?.valid
+        return (
+            this.isNotToValidFields ||
+            this.currentVisibleFields.every(
+                (fieldName) => this.form.get(fieldName)?.valid
+            )
         );
     }
 
@@ -228,7 +232,7 @@ export class DynamicFormComponent {
     }
 
     public submit() {
-        const result: {[key: string]: { value: string, label: string }} = {};
+        const result: { [key: string]: { value: string; label: string } } = {};
 
         Object.keys(this.form.value).forEach(
             (key: string) =>
