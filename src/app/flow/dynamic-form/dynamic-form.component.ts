@@ -132,6 +132,10 @@ export class DynamicFormComponent {
             validators.push(Validators.required);
         }
 
+        if (field.name === 'website') {
+            validators.push(customUrlValidator());
+        }
+
         return validators;
     }
 
@@ -246,11 +250,10 @@ export class DynamicFormComponent {
         Object.keys(this.form.value).forEach((key: string) =>
             this.form.get(key)?.value
                 ? (result[key] = {
-                      value: this.form.get(key)?.value,
+                    value: this.form.get(key)?.value,
                       // @ts-ignore
-                      label: this.form.get(key)?.label,
-                  })
-                : null
+                    label: this.form.get(key)?.label,
+                }) : null
         );
 
         console.log('Form Data:', result);
@@ -304,6 +307,29 @@ export function customEmailValidator(): ValidatorFn {
         // if (emailDomain && emailDomain !== allowedDomain) {
         //     return { domainNotAllowed: true };
         // }
+
+        return null; // Passes validation
+    };
+}
+
+export function customUrlValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+        const url = control.value;
+
+        if (!url) {
+            return null; // No need to validate if the field is empty
+        }
+
+        // Regular expression to validate URLs in various formats (e.g., http, https, ftp, mailto, etc.)
+        const urlRegex = /^(https?|ftp|mailto|file):\/\/[^\s/$.?#].[^\s]*$/i;
+
+        // Additional check to allow URLs without any protocol (e.g., "www.example.com")
+        const urlWithoutProtocolRegex = /^[^\s/$.?#].[^\s]*\.[a-z]{2,}$/i;
+
+        // Combining the checks to allow URLs with or without protocols
+        if (!urlRegex.test(url) && !urlWithoutProtocolRegex.test(url)) {
+            return { invalidUrlFormat: true };
+        }
 
         return null; // Passes validation
     };
