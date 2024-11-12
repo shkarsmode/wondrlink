@@ -1,8 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
+    AbstractControl,
     FormBuilder,
     FormControl,
     FormGroup,
+    ValidationErrors,
+    ValidatorFn,
     Validators,
 } from '@angular/forms';
 
@@ -122,7 +125,7 @@ export class DynamicFormComponent {
     public getValidatorsOfField(field: any): Array<any> {
         const validators = [];
         if (field.type === 'email') {
-            validators.push(Validators.email);
+            validators.push(customEmailValidator());
         }
 
         if (field.required) {
@@ -274,4 +277,34 @@ export class DynamicFormComponent {
         }
         return true;
     }
+}
+
+export function customEmailValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+        const email = control.value;
+
+        if (!email) {
+            return null;
+        }
+
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const suspiciousCharacters = /[<>()[\]{};:'"\\|,]/;
+
+        if (!emailRegex.test(email)) {
+            return { invalidEmailFormat: true };
+        }
+
+        if (suspiciousCharacters.test(email)) {
+            return { suspiciousCharactersFound: true };
+        }
+
+        // Example of domain restriction (e.g., only allowing emails with example.com)
+        // const allowedDomain = 'example.com';
+        // const emailDomain = email.split('@')[1];
+        // if (emailDomain && emailDomain !== allowedDomain) {
+        //     return { domainNotAllowed: true };
+        // }
+
+        return null; // Passes validation
+    };
 }

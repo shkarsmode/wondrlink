@@ -269,7 +269,7 @@
                     "basedOnStep": 1,
                     "specificForms": {
                         "Biotech/Pharma": {
-                            "header": "Role and Therapy Development Details",
+                            "header": "Therapy Development Details",
                             "fields": [
                                 {
                                     "type": "checkbox",
