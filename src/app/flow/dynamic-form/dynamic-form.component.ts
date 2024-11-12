@@ -217,6 +217,7 @@ export class DynamicFormComponent {
         if (this.currentStep < this.formConfig.steps.length - 1) {
             this.currentStep++;
             this.updateCurrentFieldsToCheck();
+            this.scrollToTop();
         }
     }
 
@@ -229,18 +230,24 @@ export class DynamicFormComponent {
             this.currentStep--;
             this.updateCurrentFieldsToCheck();
         }
+        this.scrollToTop();
+    }
+
+    private scrollToTop(): void {
+        document.querySelector('app-flow-dialog .wrap')?.scroll(0, 0)
     }
 
     public submit(): void {
         const result: { [key: string]: { value: string; label: string } } = {};
 
-        Object.keys(this.form.value).forEach(
-            (key: string) =>
-                this.form.get(key)?.value ? (result[key] = {
-                    value: this.form.get(key)?.value,
-                    // @ts-ignore
-                    label: this.form.get(key)?.label,
-                }) : null
+        Object.keys(this.form.value).forEach((key: string) =>
+            this.form.get(key)?.value
+                ? (result[key] = {
+                      value: this.form.get(key)?.value,
+                      // @ts-ignore
+                      label: this.form.get(key)?.label,
+                  })
+                : null
         );
 
         console.log('Form Data:', result);

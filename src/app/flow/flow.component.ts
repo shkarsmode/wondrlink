@@ -122,13 +122,19 @@ export class FlowComponent {
     public onStepBack(): void {
         this.step--;
         this.flowData.pop();
+        this.scrollToTop();
     }
 
     public onNextStep(flowData: FlowData) {
         if (flowData) {
             this.flowData[this.step] = flowData;
             this.step++;
+            this.scrollToTop();
         }
+    }
+
+    private scrollToTop(): void {
+        document.querySelector('app-flow-dialog .wrap')?.scroll(0, 0);
     }
 
     private initFormFlowDataFirstStep(flow: TFormFlow) {
