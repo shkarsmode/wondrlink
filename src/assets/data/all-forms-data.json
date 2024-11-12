@@ -190,7 +190,7 @@
                 },
                 {
                     "step": 2,
-                    "header": "Your Information and Organization Details",
+                    "header": "Your Personal Information",
                     "fields": [
                         {
                             "type": "text",
@@ -225,7 +225,7 @@
                     "basedOnStep": 1,
                     "specificForms": {
                         "Biotech/Pharma": {
-                            "header": "Therapy Development Details",
+                            "header": "Your Department and Position/Role",
                             "fields": [
                                 {
                                     "type": "dropdown",
@@ -277,7 +277,7 @@
                             }
                         },
                         "Research Lab": {
-                            "header": "Role and Research Focus Details",
+                            "header": "Your Department and Position/Role",
                             "fields": [
                                 {
                                     "type": "dropdown",
@@ -326,7 +326,7 @@
                             }
                         },
                         "University/Academic Institution": {
-                            "header": "Role and Research Focus Details",
+                            "header": "Your Department and Position/Role",
                             "fields": [
                                 {
                                     "type": "dropdown",
@@ -378,7 +378,7 @@
                             }
                         },
                         "Life Sciences Consulting": {
-                            "header": "Role and Services Offered",
+                            "header": "Your Department and Position/Role",
                             "fields": [
                                 {
                                     "type": "dropdown",
@@ -438,7 +438,7 @@
                     "basedOnStep": 1,
                     "specificForms": {
                         "Biotech/Pharma": {
-                            "header": "Therapy Development Details",
+                            "header": "Therapy Development and Disease Focus",
                             "fields": [
                                 {
                                     "type": "checkbox",
