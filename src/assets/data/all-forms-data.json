@@ -152,8 +152,7 @@
             "steps": [
                 {
                     "step": 1,
-                    "header": "Join Our Drug Developer Network",
-                    "subheader": "Offer Your Life-Saving Therapies to help Patients",
+                    "header": "Select Organization Type",
                     "type": "select",
                     "inline": true,
                     "fields": [
@@ -214,49 +213,6 @@
                             "required": true,
                             "placeholder": "yourname@example.com",
                             "inline": true
-                        },
-                        {
-                            "type": "dropdown",
-                            "label": "Department",
-                            "options": [
-                                "Management",
-                                "Clinical Development",
-                                "Research & Development",
-                                "Regulatory Affairs",
-                                "Business Development",
-                                "Medical Affairs",
-                                "Other"
-                            ],
-                            "name": "department",
-                            "placeholder": "Select Your Department",
-                            "required": true
-                        },
-                        {
-                            "type": "text",
-                            "label": "Position Title",
-                            "name": "positionTitle",
-                            "placeholder": "Position (e.g., Chief Medical Officer)"
-                        },
-                        {
-                            "type": "text",
-                            "label": "Organization Name",
-                            "name": "organizationName",
-                            "required": true,
-                            "placeholder": "Organization (e.g., Merck, Stanford University, Mayo Clinic)"
-                        },
-                        {
-                            "type": "text",
-                            "label": "Location/City",
-                            "name": "location",
-                            "placeholder": "City (e.g., San Francisco)",
-                            "required": true
-                        },
-                        {
-                            "type": "text",
-                            "label": "Website URL",
-                            "placeholder": "www.example.com",
-                            "name": "website",
-                            "optional": true
                         }
                     ],
                     "button": {
@@ -266,6 +222,219 @@
                 },
                 {
                     "step": 3,
+                    "basedOnStep": 1,
+                    "specificForms": {
+                        "Biotech/Pharma": {
+                            "header": "Therapy Development Details",
+                            "fields": [
+                                {
+                                    "type": "dropdown",
+                                    "label": "Department",
+                                    "options": [
+                                        "Management",
+                                        "Clinical Development",
+                                        "Research & Development",
+                                        "Regulatory Affairs",
+                                        "Business Development",
+                                        "Medical Affairs",
+                                        "Other"
+                                    ],
+                                    "name": "department",
+                                    "placeholder": "Select Your Department",
+                                    "required": true
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Position Title",
+                                    "name": "positionTitle",
+                                    "placeholder": "Position (e.g., Chief Medical Officer)"
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Organization Name",
+                                    "name": "organizationName",
+                                    "required": true,
+                                    "placeholder": "Organization (e.g., Merck, Stanford University, Mayo Clinic)"
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Location/City",
+                                    "name": "location",
+                                    "placeholder": "City (e.g., San Francisco)",
+                                    "required": true
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Website URL",
+                                    "placeholder": "www.example.com",
+                                    "name": "website",
+                                    "optional": true
+                                }
+                            ],
+                            "button": {
+                                "label": "Submit",
+                                "action": "submitAndVerifyEmail"
+                            }
+                        },
+                        "Research Lab": {
+                            "header": "Role and Research Focus Details",
+                            "fields": [
+                                {
+                                    "type": "dropdown",
+                                    "label": "Department",
+                                    "options": [
+                                        "Basic Research",
+                                        "Clinical Research",
+                                        "Translational Research",
+                                        "Other"
+                                    ],
+                                    "name": "department",
+                                    "placeholder": "Select Your Department",
+                                    "required": true
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Position Title",
+                                    "name": "positionTitle",
+                                    "placeholder": "Position (e.g., Chief Medical Officer)"
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Organization Name",
+                                    "name": "organizationName",
+                                    "required": true,
+                                    "placeholder": "Organization (e.g., Merck, Stanford University, Mayo Clinic)"
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Location/City",
+                                    "name": "location",
+                                    "placeholder": "City (e.g., San Francisco)",
+                                    "required": true
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Website URL",
+                                    "placeholder": "www.example.com",
+                                    "name": "website",
+                                    "optional": true
+                                }
+                            ],
+                            "button": {
+                                "label": "Submit",
+                                "action": "submitAndVerifyEmail"
+                            }
+                        },
+                        "University/Academic Institution": {
+                            "header": "Role and Research Focus Details",
+                            "fields": [
+                                {
+                                    "type": "dropdown",
+                                    "label": "Department/Division",
+                                    "options": [
+                                        "Management",
+                                        "Basic Research",
+                                        "Clinical Research",
+                                        "Technology Transfer",
+                                        "Commercialization",
+                                        "Administrative",
+                                        "Other"
+                                    ],
+                                    "name": "department",
+                                    "required": true,
+                                    "placeholder": "Select"
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Position Title",
+                                    "name": "positionTitle",
+                                    "placeholder": "Position (e.g., Chief Medical Officer)"
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Organization Name",
+                                    "name": "organizationName",
+                                    "required": true,
+                                    "placeholder": "Organization (e.g., Merck, Stanford University, Mayo Clinic)"
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Location/City",
+                                    "name": "location",
+                                    "placeholder": "City (e.g., San Francisco)",
+                                    "required": true
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Website URL",
+                                    "placeholder": "www.example.com",
+                                    "name": "website",
+                                    "optional": true
+                                }
+                            ],
+                            "button": {
+                                "label": "Submit",
+                                "action": "submitAndVerifyEmail"
+                            }
+                        },
+                        "Life Sciences Consulting": {
+                            "header": "Role and Services Offered",
+                            "fields": [
+                                {
+                                    "type": "dropdown",
+                                    "label": "Department",
+                                    "options": [
+                                        "Business Development",
+                                        "Regulatory Affairs",
+                                        "Research & Development",
+                                        "Clinical Development",
+                                        "Other"
+                                    ],
+                                    "name": "department",
+                                    "placeholder": "Select Your Department",
+                                    "required": true
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Position Title",
+                                    "name": "positionTitle",
+                                    "placeholder": "Position (e.g., Chief Medical Officer)"
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Organization Name",
+                                    "name": "organizationName",
+                                    "required": true,
+                                    "placeholder": "Organization (e.g., Merck, Stanford University, Mayo Clinic)"
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Location/City",
+                                    "name": "location",
+                                    "placeholder": "City (e.g., San Francisco)",
+                                    "required": true
+                                },
+                                {
+                                    "type": "text",
+                                    "label": "Website URL",
+                                    "placeholder": "www.example.com",
+                                    "name": "website",
+                                    "optional": true
+                                }
+                            ],
+                            "button": {
+                                "label": "Submit",
+                                "action": "submitAndVerifyEmail"
+                            }
+                        }
+                    },
+                    "button": {
+                        "label": "Submit",
+                        "action": "submitAndVerifyEmail"
+                    }
+                },
+                {
+                    "step": 4,
                     "basedOnStep": 1,
                     "specificForms": {
                         "Biotech/Pharma": {
@@ -336,7 +505,7 @@
                                                 "options": [
                                                     "Free",
                                                     "For a fee",
-                                                    "Write in details"
+                                                    "Other - Describe"
                                                 ],
                                                 "name": "willingToOffer2",
                                                 "placeholder": "Select",
@@ -364,68 +533,52 @@
                             }
                         },
                         "Research Lab": {
-                            "header": "Role and Research Focus Details",
+                            "header": "Research Focus and Disease Targeting",
                             "fields": [
                                 {
-                                    "type": "dropdown",
-                                    "label": "Division/Area of Expertise",
-                                    "options": [
-                                        "Basic Research",
-                                        "Clinical Research",
-                                        "Translational Research",
-                                        "Other"
-                                    ],
-                                    "name": "division",
-                                    "required": true,
-                                    "placeholder": "Select"
-                                },
-                                {
-                                    "type": "text",
-                                    "label": "Position Title",
-                                    "name": "positionTitle",
-                                    "placeholder": "Position (e.g., Chief Medical Officer)"
-                                },
-                                {
                                     "type": "checkbox",
-                                    "label": "At What Stage Are Your Drugs or Therapies? ",
-                                    "name": "drugsTherapies",
+                                    "label": "At What Stage Are Your Drugs or Therapies?",
                                     "options": [
                                         "Preclinical",
                                         "Near-IND",
                                         "Clinical Stage",
                                         "Not Applicable"
-                                    ]
+                                    ],
+                                    "name": "developmentStage"
                                 },
                                 {
                                     "type": "dropdown",
                                     "label": "Which Disease or Subtype Are Your Drugs or Therapies Targeting?",
                                     "options": [
-                                        "Yes",
-                                        "No"
+                                        "Cancer",
+                                        "Autoimmune",
+                                        "Neurological",
+                                        "Rare Disease",
+                                        "Other"
                                     ],
                                     "placeholder": "Select",
-                                    "name": "willing3",
-                                    "required": true,
+                                    "name": "diseaseCategory",
                                     "conditionalFields": {
-                                        "Yes": [
+                                        "Cancer": [
                                             {
                                                 "type": "dropdown",
-                                                "label": "How would you be willing to offer?",
+                                                "label": "If Cancer, specify subtype",
                                                 "options": [
-                                                    "Free",
-                                                    "For a fee",
-                                                    "Write in details"
+                                                    "Lung Cancer",
+                                                    "Breast Cancer",
+                                                    "Liver Cancer"
                                                 ],
-                                                "name": "willingToOffer3",
-                                                "placeholder": "Select",
+                                                "name": "cancerType",
+                                                "placeholder": "Select type",
                                                 "required": true
                                             }
                                         ]
-                                    }
+                                    },
+                                    "required": true
                                 },
                                 {
                                     "type": "textarea",
-                                    "label": "Details",
+                                    "label": "Details (Optional):",
                                     "name": "additionalInformation",
                                     "placeholder": "Provide any specific information or further context."
                                 },
@@ -437,7 +590,7 @@
                                         "No"
                                     ],
                                     "placeholder": "Select",
-                                    "name": "willing4",
+                                    "name": "willingToOffer",
                                     "required": true,
                                     "conditionalFields": {
                                         "Yes": [
@@ -447,9 +600,9 @@
                                                 "options": [
                                                     "Free",
                                                     "For a fee",
-                                                    "Write in details"
+                                                    "Other - Describe"
                                                 ],
-                                                "name": "willingToOffer4",
+                                                "name": "offerMethod",
                                                 "placeholder": "Select",
                                                 "required": true
                                             }
@@ -457,15 +610,14 @@
                                     }
                                 },
                                 {
-                                    "type": "dropdown",
+                                    "type": "checkbox",
                                     "label": "Has Your Organization Participated in Expanded Access or Compassionate Use Programs in the Past?",
                                     "options": [
                                         "Expanded Access Program",
                                         "Compassionate Use Program",
                                         "Neither"
                                     ],
-                                    "placeholder": "Select",
-                                    "name": "organizationParticipated",
+                                    "name": "pastPrograms",
                                     "required": true
                                 }
                             ],
@@ -475,71 +627,51 @@
                             }
                         },
                         "University/Academic Institution": {
-                            "header": "Role and Research Focus Details",
+                            "header": "Research Focus and Disease Targeting",
                             "fields": [
                                 {
-                                    "type": "dropdown",
-                                    "label": "Department/Division",
-                                    "options": [
-                                        "Management",
-                                        "Basic Research",
-                                        "Clinical Research",
-                                        "Technology Transfer",
-                                        "Commercialization",
-                                        "Administrative",
-                                        "Other"
-                                    ],
-                                    "name": "department",
-                                    "required": true,
-                                    "placeholder": "Select"
-                                },
-                                {
-                                    "type": "text",
-                                    "label": "Position Title",
-                                    "name": "positionTitle",
-                                    "placeholder": "Position (e.g., Chief Medical Officer)"
-                                },
-                                {
                                     "type": "checkbox",
-                                    "label": "At What Stage Are Your Drugs or Therapies? ",
-                                    "name": "drugsTherapies",
+                                    "label": "At What Stage Are Your Drugs or Therapies?",
                                     "options": [
                                         "Preclinical",
                                         "Near-IND",
                                         "Clinical Stage",
                                         "Not Applicable"
-                                    ]
+                                    ],
+                                    "name": "developmentStage"
                                 },
                                 {
                                     "type": "dropdown",
                                     "label": "Which Disease or Subtype Are Your Drugs or Therapies Targeting?",
                                     "options": [
-                                        "Yes",
-                                        "No"
+                                        "Cancer",
+                                        "Autoimmune",
+                                        "Rare Disease",
+                                        "Other"
                                     ],
                                     "placeholder": "Select",
-                                    "name": "willing3",
-                                    "required": true,
+                                    "name": "diseaseCategory",
                                     "conditionalFields": {
-                                        "Yes": [
+                                        "Cancer": [
                                             {
                                                 "type": "dropdown",
-                                                "label": "How would you be willing to offer?",
+                                                "label": "If Cancer, specify subtype",
                                                 "options": [
-                                                    "Free",
-                                                    "For a fee",
-                                                    "Write in details"
+                                                    "Lung Cancer",
+                                                    "Breast Cancer",
+                                                    "Liver Cancer"
                                                 ],
-                                                "name": "willingToOffer3",
-                                                "placeholder": "Select",
+                                                "name": "cancerType",
+                                                "placeholder": "Select type",
                                                 "required": true
                                             }
                                         ]
-                                    }
+                                    },
+                                    "required": true
                                 },
                                 {
                                     "type": "textarea",
-                                    "label": "Details",
+                                    "label": "Details (Optional):",
                                     "name": "additionalInformation",
                                     "placeholder": "Provide any specific information or further context."
                                 },
@@ -551,7 +683,7 @@
                                         "No"
                                     ],
                                     "placeholder": "Select",
-                                    "name": "willing1",
+                                    "name": "willingToOffer",
                                     "required": true,
                                     "conditionalFields": {
                                         "Yes": [
@@ -561,9 +693,9 @@
                                                 "options": [
                                                     "Free",
                                                     "For a fee",
-                                                    "Write in details"
+                                                    "Other - Describe"
                                                 ],
-                                                "name": "willingToOffer1",
+                                                "name": "offerMethod",
                                                 "placeholder": "Select",
                                                 "required": true
                                             }
@@ -571,15 +703,14 @@
                                     }
                                 },
                                 {
-                                    "type": "dropdown",
+                                    "type": "checkbox",
                                     "label": "Has Your Organization Participated in Expanded Access or Compassionate Use Programs in the Past?",
                                     "options": [
                                         "Expanded Access Program",
                                         "Compassionate Use Program",
                                         "Neither"
                                     ],
-                                    "placeholder": "Select",
-                                    "name": "organizationParticipated",
+                                    "name": "pastPrograms",
                                     "required": true
                                 }
                             ],
@@ -589,69 +720,53 @@
                             }
                         },
                         "Life Sciences Consulting": {
-                            "header": "Role and Services Offered",
+                            "header": "Services Offered and Client Support",
                             "fields": [
-                                {
-                                    "type": "dropdown",
-                                    "label": "Department",
-                                    "options": [
-                                        "Business Development",
-                                        "Regulatory Affairs",
-                                        "Research & Development",
-                                        "Clinical Development",
-                                        "Other"
-                                    ],
-                                    "name": "department",
-                                    "placeholder": "Select Your Department",
-                                    "required": true
-                                },
-                                {
-                                    "type": "text",
-                                    "label": "Position Title",
-                                    "name": "positionTitle",
-                                    "placeholder": "Position (e.g., Chief Medical Officer)"
-                                },
                                 {
                                     "type": "text",
                                     "label": "Primary Services Offered",
-                                    "placeholder": "Primary Services Offered",
-                                    "name": "primaryServices"
+                                    "name": "primaryServices",
+                                    "placeholder": "Describe your services (e.g., Regulatory Support)"
                                 },
                                 {
-                                    "type": "custom_checkbox",
+                                    "type": "dropdown",
                                     "label": "Do You Work with Drug Development Companies?",
                                     "options": [
                                         "Yes",
                                         "No"
                                     ],
-                                    "name": "workDevCompanies"
+                                    "name": "workWithDrugCompanies",
+                                    "required": true
                                 },
                                 {
-                                    "type": "custom_checkbox",
+                                    "type": "dropdown",
                                     "label": "Do You Provide Regulatory or Clinical Trial Support Services?",
                                     "options": [
                                         "Yes",
                                         "No"
                                     ],
-                                    "name": "provideRegulatory"
+                                    "name": "provideRegulatoryOrClinicalSupport",
+                                    "required": true
                                 },
                                 {
-                                    "type": "checkbox",
+                                    "type": "dropdown",
                                     "label": "Are You Interested in Enabling Biotech/Pharma Companies to Offer Life-Saving Therapies?",
                                     "options": [
                                         "Yes",
                                         "No"
                                     ],
-                                    "name": "interestedInEnabling1"
+                                    "name": "interestedInLifeSavingTherapies",
+                                    "required": true
                                 },
                                 {
-                                    "type": "checkbox",
+                                    "type": "dropdown",
                                     "label": "Are You Able to Provide Regulatory Support for Expanded Access Programs / Compassionate Use?",
                                     "options": [
                                         "Yes",
                                         "No"
                                     ],
-                                    "name": "ableToProvide"
+                                    "name": "provideExpandedAccessSupport",
+                                    "required": true
                                 }
                             ],
                             "button": {
