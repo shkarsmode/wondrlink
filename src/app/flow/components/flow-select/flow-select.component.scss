@@ -106,7 +106,7 @@ button {
         @media screen and (min-width: 500px) {
             &:hover {
                 border: 1px solid rgba(119, 119, 119, 1);
-    
+
                 .right h4 {
                     font-weight: 600;
                 }
@@ -119,6 +119,7 @@ button {
             align-self: flex-start;
             padding-top: 5px;
             width: 33px;
+            min-width: 33px;
         }
 
         .right {
