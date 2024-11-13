@@ -9,9 +9,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CountryCodesComponent } from '../shared/components/country-codes/country-codes.component';
 import { InputLocationAutocompleteComponent } from '../shared/components/input-location-autocomplete/input-location-autocomplete.component';
 import { PhoneInputComponent } from '../shared/components/phone-input/phone-input.component';
-import { FlowDetailsComponent } from './components/flow-details/flow-details.component';
 import { FlowDialogComponent } from './components/flow-dialog/flow-dialog.component';
-import { FlowFormComponent } from './components/flow-form/flow-form.component';
 import { FlowInitComponent } from './components/flow-init/flow-init.component';
 import { FlowSelectComponent } from './components/flow-select/flow-select.component';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
@@ -21,11 +19,9 @@ import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 @NgModule({
     declarations: [
         FlowComponent,
-        FlowFormComponent,
         FlowSelectComponent,
         FlowInitComponent,
         FlowDialogComponent,
-        FlowDetailsComponent,
         DynamicFormComponent,
     ],
     imports: [
@@ -40,7 +36,6 @@ import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
     ],
     exports: [
         FlowComponent,
-        FlowFormComponent,
         FlowSelectComponent,
         FlowInitComponent,
         FlowDialogComponent,

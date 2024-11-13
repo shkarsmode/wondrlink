@@ -1,18 +1,19 @@
 .back {
-  position: absolute;
-  cursor: pointer;
+    position: absolute;
+    cursor: pointer;
 }
 
 .back {
-  top: 32px;
-  left: 30px;
+    top: 32px;
+    left: 30px;
 }
 
 
 @media screen and (max-width: 800px) {
-  .back {
-    top: 20px;
-    left: 20px;
-  }
+    .back {
+        top: -5px;
+        left: -5px;
+        padding: 25px;
+    }
 
 }

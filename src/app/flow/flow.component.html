@@ -1,8 +1,4 @@
-<!-- navigation -->
-
-<!-- flow control -->
 <div [ngSwitch]="step">
-
     <div *ngSwitchCase="1">
         <app-flow-init
             (flow)="onFlowChange($event)"
@@ -18,49 +14,4 @@
                 (onSubmit)="onContactFormSubmit($event)"/>
         }
     </div>
-
-    <!-- <div *ngSwitchCase="2">
-
-        <ng-container [ngSwitch]="flow">
-
-                <ng-container *ngSwitchCase="'patients'">
-                    <app-flow-form
-                        [formType]="flow"
-                        (next)="onNextStep($event)" />      
-                </ng-container>
-                
-                <ng-container *ngSwitchCase="'physicians'">
-                    <app-flow-form
-                        [formType]="flow"
-                        (next)="onNextStep($event)" />      
-                </ng-container>
-
-                <ng-container *ngSwitchDefault>
-                    <app-flow-select
-                        [flowType]="flow"
-                        (next)="onNextStep($event)" />
-                </ng-container>
-
-        </ng-container>
-        
-    </div>
-
-    <div *ngSwitchCase="3">
-
-        <app-flow-select [flowType]="flow"
-            (next)="onNextStep($event)"
-            *ngIf="flow === 'patients'; else anotherFlow">
-        </app-flow-select>
-        
-        <ng-template #anotherFlow>
-            <app-flow-form [formType]="flow" [flowData]="flowData"></app-flow-form>
-        </ng-template>
-        
-    </div>
-
-    <div *ngSwitchCase="4">
-        <app-flow-details [flowData]="flowData"></app-flow-details>
-    </div> -->
-
-
 </div>

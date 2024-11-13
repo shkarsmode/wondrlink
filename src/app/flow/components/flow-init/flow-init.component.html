@@ -1,71 +1,52 @@
-
 <div class="content">
+    <h1>Get Started</h1>
+    <span>
+        Tell us who you are
+    </span>
 
-  <h1>Get Started</h1>
-  <span>
-    Tell us who you are
-  </span>
+    <ol class="wrap-options">
+        <li (click)="nextStep('patients')">
+            <div class="left">
+                <img src="assets/img/flow-init/patient.svg" alt="patient">
+            </div>
+            <div class="right">
+                <h4>Patient/Caregiver</h4>
+                <div class="sub-title">Looking for novel therapies</div>
+            </div>
+        </li>
 
-  <ol class="wrap-options">
-    
-      <li (click)="nextStep('patients')">
-        <div class="left">
-          <img src="assets/img/flow-init/patient.svg" alt="patient">
-        </div>
-        <div class="right">
-          <h4>Patient/Caregiver</h4>
-          <div class="sub-title">Looking for novel therapies</div>
-        </div>
-      </li>
-    
-      <li (click)="nextStep('drug-developers')">
-        <div class="left">
-          <img src="assets/img/flow-init/drug.svg" alt="drug">
-        </div>
-        <div class="right">
-          <h4>Drug Developers</h4>
-          <div class="sub-title">Working on novel therapies</div>
-        </div>
-      </li>
-    
-    
+        <li (click)="nextStep('drug-developers')">
+            <div class="left">
+                <img src="assets/img/flow-init/drug.svg" alt="drug">
+            </div>
+            <div class="right">
+                <h4>Drug Developers</h4>
+                <div class="sub-title">Working on novel therapies</div>
+            </div>
+        </li>
 
-      <li (click)="nextStep('physicians')">
-        <div class="left">
-          <img src="assets/img/flow-init/stethoscope.svg" alt="stethoscope">
-        </div>
-        <div class="right">
-          <h4>Physicians</h4>
-          <div class="sub-title">Willing to treat patients using novel therapies</div>
-        </div>
-      </li>
+        <li (click)="nextStep('physicians')">
+            <div class="left">
+                <img src="assets/img/flow-init/stethoscope.svg" alt="stethoscope">
+            </div>
+            <div class="right">
+                <h4>Physicians</h4>
+                <div class="sub-title">Willing to treat patients using novel therapies</div>
+            </div>
+        </li>
 
 
-      <li (click)="nextStep('ecosystem')">
-        <div class="left">
-          <img src="assets/img/flow-init/hand-heart.svg" alt="hand-heart">
-        </div>
-        <div class="right">
-          <h4>The Ecosystem</h4>
-          <div class="sub-title">Everyone else helping bring care, hope and support to patients needing novel therapies</div>
-          <!-- <div class="sub-title">
-            Everyone else helping bring care, hope and support to patients needing novel therapies
-            <ul>
-              <li>Health care providers/Facilities</li>
-              <li>Venture funding/Impact investors</li>
-              <li>Licensing/Tech transfer offices</li>
-              <li>Philanthropy, Donors</li>
-              <li>Social workers, Advocacy groups, Chaplains Spiritual Care</li>
-            </ul>
-          </div> -->
-        </div>
-      </li>
-
-
-
-
-  </ol>
+        <li (click)="nextStep('ecosystem')">
+            <div class="left">
+                <img src="assets/img/flow-init/hand-heart.svg" alt="hand-heart">
+            </div>
+            <div class="right">
+                <h4>The Ecosystem</h4>
+                <div class="sub-title">
+                    Everyone else helping bring care, hope and support to patients needing novel
+                    therapies
+                </div>
+            </div>
+        </li>
+    </ol>
 </div>
-
-
-
