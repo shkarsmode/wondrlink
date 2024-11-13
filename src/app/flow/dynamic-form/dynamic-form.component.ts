@@ -38,7 +38,7 @@ export class DynamicFormComponent {
         if (!step?.specificForms || dependedStepOn === null) return step;
 
         const nameOfHiddenInput =
-            this.formConfig.steps[dependedStepOn].fields[0].name;
+            this.formConfig.steps[dependedStepOn[0]].fields[0].name;
 
         const valueForCurrentStep = this.form.get(nameOfHiddenInput)?.value;
         return step.specificForms[valueForCurrentStep];
@@ -55,18 +55,19 @@ export class DynamicFormComponent {
         this.addMoreFieldsToFormBasedOnPreviousStep(event);
     }
 
-    // Supports only one dependence
+    // Supports more dependencies
+    // * Maybe it's better to have key-map
     private getDependenciesOfStep(): {
-        dependedStepOn: number | null;
-        indexOfDependedStep: number | null;
+        dependedStepOn: number[];
+        indexOfDependedStep: number[];
     } {
-        let dependedStepOn = null;
-        let indexOfDependedStep = null;
+        let dependedStepOn: number[] = [];
+        let indexOfDependedStep: number[] = [];
 
         this.formConfig.steps.forEach((step: any, index: number) => {
             if (step?.basedOnStep) {
-                dependedStepOn = step?.basedOnStep - 1;
-                indexOfDependedStep = index;
+                dependedStepOn.push(step?.basedOnStep - 1);
+                indexOfDependedStep.push(index);
             }
         });
 
@@ -82,21 +83,23 @@ export class DynamicFormComponent {
 
         if (dependedStepOn === null || indexOfDependedStep === null) return;
 
-        this.formConfig.steps[indexOfDependedStep]?.specificForms[
-            event
-        ].fields.forEach((field: any) => {
-            if (!this.form.contains(field.name)) {
-                const control = new FormControl(
-                    '',
-                    this.getValidatorsOfField(field)
-                );
-                // @ts-ignore
-                control.label = field.label;
-                this.form.addControl(field.name, control);
-
-                this.initConditionalFields(field);
-            }
-        });
+        indexOfDependedStep.forEach(indexOfStep => {
+            this.formConfig.steps[indexOfStep]?.specificForms[
+                event
+            ].fields.forEach((field: any) => {
+                if (!this.form.contains(field.name)) {
+                    const control = new FormControl(
+                        '',
+                        this.getValidatorsOfField(field)
+                    );
+                    // @ts-ignore
+                    control.label = field.label;
+                    this.form.addControl(field.name, control);
+    
+                    this.initConditionalFields(field);
+                }
+            });
+        })
     }
 
     public onClickCustomCheckbox(fieldName: string, option: string): void {
