@@ -254,7 +254,7 @@
                         },
                         {
                             "type": "textarea",
-                            "label": "Details",
+                            "label": "Additional Details (Optional)",
                             "name": "diseaseDetails",
                             "placeholder": "Provide any specific disease information or further context."
                         }
@@ -719,17 +719,18 @@
                                 },
                                 {
                                     "type": "textarea",
-                                    "label": "Details",
+                                    "label": "Additional Details (Optional)",
                                     "name": "additionalInformation",
                                     "placeholder": "Provide any specific information or further context."
                                 },
                                 {
                                     "type": "dropdown",
-                                    "label": "Would you be willing to offer your drugs in development to patients facing terminal illness through a legal pathway such as compassionate use or expanded access?",
+                                    "label": "Are You Willing to Offer Drugs to Terminally Ill Patients via Legal Pathways?",
                                     "options": [
                                         "Yes",
                                         "No"
                                     ],
+                                    "tooltip": "This may include offering your therapies through compassionate use or expanded access programs for patients who have no other options.",
                                     "placeholder": "Select",
                                     "name": "willing2",
                                     "required": true,
@@ -737,7 +738,7 @@
                                         "Yes": [
                                             {
                                                 "type": "dropdown",
-                                                "label": "How would you be willing to offer?",
+                                                "label": "How Would You Be Willing to Offer Your Drugs?",
                                                 "options": [
                                                     "Free",
                                                     "For a fee",
@@ -752,12 +753,13 @@
                                 },
                                 {
                                     "type": "dropdown",
-                                    "label": "Has Your Organization Participated in Expanded Access or Compassionate Use Programs in the Past?",
+                                    "label": "Has Your Organization Participated in Compassionate Use or Expanded Access?",
                                     "options": [
                                         "Expanded Access Program",
                                         "Compassionate Use Program",
                                         "Neither"
                                     ],
+                                    "tooltip": "Examples include expanded access or compassionate use programs that provide unapproved therapies to patients with critical needs.",
                                     "placeholder": "Select",
                                     "name": "organizationParticipated",
                                     "required": true
@@ -932,13 +934,13 @@
                                 },
                                 {
                                     "type": "textarea",
-                                    "label": "Details (Optional):",
+                                    "label": "Additional Details (Optional)",
                                     "name": "additionalInformation",
                                     "placeholder": "Provide any specific information or further context."
                                 },
                                 {
                                     "type": "dropdown",
-                                    "label": "Would you be willing to offer your drugs in development to patients facing terminal illness through a legal pathway such as compassionate use or expanded access?",
+                                    "label": "Are You Willing to Offer Drugs to Terminally Ill Patients via Legal Pathways?",
                                     "options": [
                                         "Yes",
                                         "No"
@@ -950,7 +952,7 @@
                                         "Yes": [
                                             {
                                                 "type": "dropdown",
-                                                "label": "How would you be willing to offer?",
+                                                "label": "How Would You Be Willing to Offer Your Drugs?",
                                                 "options": [
                                                     "Free",
                                                     "For a fee",
@@ -965,12 +967,13 @@
                                 },
                                 {
                                     "type": "checkbox",
-                                    "label": "Has Your Organization Participated in Expanded Access or Compassionate Use Programs in the Past?",
+                                    "label": "Has Your Organization Participated in Compassionate Use or Expanded Access?",
                                     "options": [
                                         "Expanded Access Program",
                                         "Compassionate Use Program",
                                         "Neither"
                                     ],
+                                    "tooltip": "Examples include expanded access or compassionate use programs that provide unapproved therapies to patients with critical needs.",
                                     "name": "pastPrograms",
                                     "required": true
                                 }
@@ -1143,13 +1146,13 @@
                                 },
                                 {
                                     "type": "textarea",
-                                    "label": "Details (Optional):",
+                                    "label": "Additional Details (Optional)",
                                     "name": "additionalInformation",
                                     "placeholder": "Provide any specific information or further context."
                                 },
                                 {
                                     "type": "dropdown",
-                                    "label": "Would you be willing to offer your drugs in development to patients facing terminal illness through a legal pathway such as compassionate use or expanded access?",
+                                    "label": "Are You Willing to Offer Drugs to Terminally Ill Patients via Legal Pathways?",
                                     "options": [
                                         "Yes",
                                         "No"
@@ -1161,7 +1164,7 @@
                                         "Yes": [
                                             {
                                                 "type": "dropdown",
-                                                "label": "How would you be willing to offer?",
+                                                "label": "How Would You Be Willing to Offer Your Drugs?",
                                                 "options": [
                                                     "Free",
                                                     "For a fee",
@@ -1176,12 +1179,13 @@
                                 },
                                 {
                                     "type": "checkbox",
-                                    "label": "Has Your Organization Participated in Expanded Access or Compassionate Use Programs in the Past?",
+                                    "label": "Has Your Organization Participated in Compassionate Use or Expanded Access?",
                                     "options": [
                                         "Expanded Access Program",
                                         "Compassionate Use Program",
                                         "Neither"
                                     ],
+                                    "tooltip": "Examples include expanded access or compassionate use programs that provide unapproved therapies to patients with critical needs.",
                                     "name": "pastPrograms",
                                     "required": true
                                 }
@@ -1201,42 +1205,68 @@
                                     "placeholder": "Describe your services (e.g., Regulatory Support)"
                                 },
                                 {
-                                    "type": "dropdown",
+                                    "type": "radio",
                                     "label": "Do You Work with Drug Development Companies?",
                                     "options": [
-                                        "Yes",
-                                        "No"
+                                        {
+                                            "label": "Yes",
+                                            "value": "yes"
+                                        },
+                                        {
+                                            "label": "No",
+                                            "value": "no"
+                                        }
                                     ],
                                     "name": "workWithDrugCompanies",
                                     "required": true
                                 },
                                 {
-                                    "type": "dropdown",
+                                    "type": "radio",
                                     "label": "Do You Provide Regulatory or Clinical Trial Support Services?",
                                     "options": [
-                                        "Yes",
-                                        "No"
+                                        {
+                                            "label": "Yes",
+                                            "value": "yes"
+                                        },
+                                        {
+                                            "label": "No",
+                                            "value": "no"
+                                        }
                                     ],
                                     "name": "provideRegulatoryOrClinicalSupport",
                                     "required": true
                                 },
                                 {
-                                    "type": "dropdown",
-                                    "label": "Are You Interested in Enabling Biotech/Pharma Companies to Offer Life-Saving Therapies?",
+                                    "type": "radio",
+                                    "label": "Are You Interested in Enabling Biotech/Pharma Companies to Offer Life-Saving Therapies Through Legal Pathways?",
                                     "options": [
-                                        "Yes",
-                                        "No"
+                                        {
+                                            "label": "Yes",
+                                            "value": "yes"
+                                        },
+                                        {
+                                            "label": "No",
+                                            "value": "no"
+                                        }
                                     ],
+                                    "tooltip": "This includes compassionate use and expanded access programs that provide unapproved therapies to patients in need.",
                                     "name": "interestedInLifeSavingTherapies",
                                     "required": true
                                 },
                                 {
-                                    "type": "dropdown",
-                                    "label": "Are You Able to Provide Regulatory Support for Expanded Access Programs / Compassionate Use?",
+                                    "type": "radio",
+                                    "label": "Are You Able to Provide Regulatory Support for Expanded Access Programs or Compassionate Use?",
                                     "options": [
-                                        "Yes",
-                                        "No"
+                                        {
+                                            "label": "Yes",
+                                            "value": "yes"
+                                        },
+                                        {
+                                            "label": "No",
+                                            "value": "no"
+                                        }
                                     ],
+                                    "tooltip": "This may include offering regulatory assistance for compassionate use or expanded access programs.",
                                     "name": "provideExpandedAccessSupport",
                                     "required": true
                                 }
