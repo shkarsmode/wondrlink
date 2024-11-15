@@ -23,7 +23,7 @@
                             "label": "Name",
                             "name": "fullName",
                             "required": true,
-                            "placeholder": "Full Name (e.g., Alex Johnson)"
+                            "placeholder": "Alex Johnson"
                         },
                         {
                             "type": "phone",
@@ -43,7 +43,7 @@
                             "type": "text",
                             "label": "Location/City",
                             "name": "location",
-                            "placeholder": "City (e.g., San Francisco)",
+                            "placeholder": "San Francisco",
                             "required": true
                         }
                         
@@ -315,7 +315,7 @@
                             "label": "Name",
                             "name": "fullName",
                             "required": true,
-                            "placeholder": "Full Name (e.g., Alex Johnson)"
+                            "placeholder": "Alex Johnson"
                         },
                         {
                             "type": "phone",
@@ -372,13 +372,13 @@
                                     "label": "Organization Name",
                                     "name": "organizationName",
                                     "required": true,
-                                    "placeholder": "Organization (e.g., Merck, Stanford University, Mayo Clinic)"
+                                    "placeholder": "Merck"
                                 },
                                 {
                                     "type": "text",
                                     "label": "Location/City",
                                     "name": "location",
-                                    "placeholder": "City (e.g., San Francisco)",
+                                    "placeholder": "San Francisco",
                                     "required": true
                                 },
                                 {
@@ -421,13 +421,13 @@
                                     "label": "Organization Name",
                                     "name": "organizationName",
                                     "required": true,
-                                    "placeholder": "Organization (e.g., Merck, Stanford University, Mayo Clinic)"
+                                    "placeholder": "Stanford University"
                                 },
                                 {
                                     "type": "text",
                                     "label": "Location/City",
                                     "name": "location",
-                                    "placeholder": "City (e.g., San Francisco)",
+                                    "placeholder": "San Francisco",
                                     "required": true
                                 },
                                 {
@@ -473,13 +473,13 @@
                                     "label": "Organization Name",
                                     "name": "organizationName",
                                     "required": true,
-                                    "placeholder": "Organization (e.g., Merck, Stanford University, Mayo Clinic)"
+                                    "placeholder": "Stanford University"
                                 },
                                 {
                                     "type": "text",
                                     "label": "Location/City",
                                     "name": "location",
-                                    "placeholder": "City (e.g., San Francisco)",
+                                    "placeholder": "San Francisco",
                                     "required": true
                                 },
                                 {
@@ -523,13 +523,13 @@
                                     "label": "Organization Name",
                                     "name": "organizationName",
                                     "required": true,
-                                    "placeholder": "Organization (e.g., Merck, Stanford University, Mayo Clinic)"
+                                    "placeholder": "Healthcare Partner"
                                 },
                                 {
                                     "type": "text",
                                     "label": "Location/City",
                                     "name": "location",
-                                    "placeholder": "City (e.g., San Francisco)",
+                                    "placeholder": "San Francisco",
                                     "required": true
                                 },
                                 {
@@ -1296,7 +1296,7 @@
                             "label": "Name",
                             "name": "fullName",
                             "required": true,
-                            "placeholder": "Full Name (e.g., Alex Johnson)"
+                            "placeholder": "Alex Johnson"
                         },
                         {
                             "type": "email",
@@ -1397,7 +1397,7 @@
                             "type": "text",
                             "label": "Location/City",
                             "name": "location",
-                            "placeholder": "City (e.g., San Francisco)",
+                            "placeholder": "San Francisco",
                             "required": true
                         },
                         {
@@ -1418,7 +1418,7 @@
                             "label": "Organization Name",
                             "name": "organizationName",
                             "optional": true,
-                            "placeholder": "Organization (e.g., Merck, Stanford University, Mayo Clinic)"
+                            "placeholder": "City Hospital"
                         }
                     ],
                     "button": {
@@ -1519,7 +1519,7 @@
                                     "label": "Name",
                                     "name": "fullName",
                                     "required": true,
-                                    "placeholder": "Full Name (e.g., Alex Johnson)"
+                                    "placeholder": "Alex Johnson"
                                 },
                                 {
                                     "type": "phone",
@@ -1541,7 +1541,7 @@
                                     "type": "text",
                                     "label": "Location/City",
                                     "name": "location",
-                                    "placeholder": "City (e.g., San Francisco)",
+                                    "placeholder": "San Francisco",
                                     "required": true
                                 },
                                 {
@@ -1549,7 +1549,7 @@
                                     "label": "Organization",
                                     "required": true,
                                     "name": "organization",
-                                    "placeholder": "Company name"
+                                    "placeholder": "ABC Foundation"
                                 },
                                 {
                                     "type": "dropdown",
@@ -1600,7 +1600,7 @@
                                     "label": "Name",
                                     "name": "fullName",
                                     "required": true,
-                                    "placeholder": "Full Name (e.g., Alex Johnson)"
+                                    "placeholder": "Alex Johnson"
                                 },
                                 {
                                     "type": "phone",
@@ -1623,14 +1623,14 @@
                                     "label": "Organization",
                                     "required": true,
                                     "name": "organization",
-                                    "placeholder": "Company name"
+                                    "placeholder": "ABC Foundation"
                                 },
                                 {
                                     "type": "text",
                                     "label": "Location/City",
                                     "required": true,
                                     "name": "location",
-                                    "placeholder": "City (e.g., San Francisco)"
+                                    "placeholder": "San Francisco"
                                 },
                                 {
                                     "type": "dropdown",
@@ -1668,7 +1668,7 @@
                                     "label": "Name",
                                     "name": "fullName",
                                     "required": true,
-                                    "placeholder": "Full Name (e.g., Alex Johnson)"
+                                    "placeholder": "Alex Johnson"
                                 },
                                 {
                                     "type": "phone",
@@ -1691,14 +1691,14 @@
                                     "label": "Organization",
 "                                    required": true,
                                     "name": "organization",
-                                    "placeholder": "Company name"
+                                    "placeholder": "ABC Foundation"
                                 },
                                 {
                                     "type": "text",
                                     "label": "Location/City",
                                     "required": true,
                                     "name": "location",
-                                    "placeholder": "City (e.g., San Francisco)"
+                                    "placeholder": "San Francisco"
                                 },
                                 {
                                     "type": "dropdown",
