@@ -752,7 +752,7 @@
                                     }
                                 },
                                 {
-                                    "type": "dropdown",
+                                    "type": "checkbox",
                                     "label": "Has Your Organization Participated in Compassionate Use or Expanded Access?",
                                     "options": [
                                         "Expanded Access Program",
