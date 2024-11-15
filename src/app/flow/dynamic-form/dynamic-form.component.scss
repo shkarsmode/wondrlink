@@ -102,6 +102,10 @@ h2 {
 
         cursor: pointer;
 
+        label {
+            cursor: pointer;
+        }
+
         &.active {
             border: 1px solid rgba(119, 119, 119, 1);
             font-weight: 600;
@@ -152,6 +156,41 @@ h2 {
         height: 17px;
         width: 17px;
         accent-color: #262626;
+    }
+}
+
+label[ng-reflect-tooltip-text] {
+    position: relative;
+    padding-right: 25px;
+
+    &:after {
+        content: 'i';
+        position: absolute;
+
+        right: 0px;
+        top: 0px;
+
+        width: 20px;
+        height: 20px;
+
+        background: #f4f4f4;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 50%;
+        font-weight: 600;
+        font-size: 11px;
+
+        cursor: pointer;
+
+        transition: all .2s;
+    }
+
+    &:hover:after {
+        box-shadow: 3px 3px 4px 0px #b2b2b264;
+
     }
 }
 
@@ -234,8 +273,8 @@ label {
 
     display: inline-block;
     margin-bottom: 4px;
-    cursor: pointer;
-    user-select: none;
+
+    // user-select: none;
 }
 
 
@@ -352,6 +391,10 @@ mat-spinner {
     display: flex;
     column-gap: 34px;
     margin-top: 6px;
+
+    label {
+        cursor: pointer;
+    }
 
     >div {
         display: flex;

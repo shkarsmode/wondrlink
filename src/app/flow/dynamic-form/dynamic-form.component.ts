@@ -283,6 +283,10 @@ export class DynamicFormComponent {
         }
         return true;
     }
+
+    public get isCurrentButtonNext(): boolean {
+        return this.currentStep < this.formConfig.steps.length - 1;
+    }
 }
 
 export function customEmailValidator(): ValidatorFn {

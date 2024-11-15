@@ -164,6 +164,14 @@ body ::ng-deep app-flow-dialog app-flow-details {
     min-height: 750px;
 }
 
+body:has(app-flow-dialog) {
+    .mdc-tooltip__surface {
+        background-color: #e9e9e99c !important;
+        pointer-events: none;
+        color: black !important;
+    }
+}
+
 @media screen and (max-width: 800px) {
 
     .mat-mdc-dialog-container .mdc-dialog__surface {

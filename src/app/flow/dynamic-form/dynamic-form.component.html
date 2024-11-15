@@ -4,7 +4,6 @@
     src="assets/img/arrowback.svg"
     alt="Back">
 
-
 @if (formConfig) {
     <div>
         <form [formGroup]="form" class="content" autocomplete="on">     
@@ -23,23 +22,6 @@
                             [class.inline]="field?.inline">
                             <div class="group">
                                 @switch (field.type) {
-                                    @case ('text') {
-                                        <label>{{ field.label }}{{ field?.required ? '*' : '' }}</label>
-                                        <input
-                                            [formControlName]="field.name"
-                                            [required]="field.required"
-                                            [hidden]="field.hidden"
-                                            [placeholder]="field.placeholder"
-                                            type="text" />
-                                    }
-                                    @case ('email') {
-                                        <label>{{ field.label }}{{ field?.required ? '*' : '' }}</label>
-                                        <input
-                                            [formControlName]="field.name"
-                                            [required]="field.required"
-                                            [placeholder]="field.placeholder"
-                                            type="email" />
-                                    }
                                     @case ('phone') {
                                         <app-phone-input 
                                             formControlName="phone"
@@ -125,7 +107,13 @@
                                         }
                                     }
                                     @case ('radio') {
-                                        <label>{{ field.label }}{{ field?.required ? '*' : '' }}</label>
+                                        <label 
+                                            [tooltipText]="field?.tooltip" 
+                                            [matTooltip]="field?.tooltip"
+                                            [matTooltipShowDelay]="200"
+                                            [matTooltipPosition]="'right'">
+                                            {{ field.label }}{{ field?.required ? '*' : '' }}
+                                        </label>
                                         <div class="radio-group">
                                             @for (option of field.options; track option) {
                                                 <div [class.active]="radioInput.checked">
@@ -156,6 +144,18 @@
                                             }
                                         </div>
                                     }
+                                    <!-- * Text, email, ... * -->
+                                    @default {
+                                        <label>
+                                            {{ field.label }}{{ field?.required ? '*' : '' }}
+                                        </label>
+                                        <input
+                                            [formControlName]="field.name"
+                                            [required]="field.required"
+                                            [hidden]="field.hidden"
+                                            [placeholder]="field.placeholder"
+                                            [type]="field.type" />
+                                    }
                                 }
                             </div>
                         </div>
@@ -174,24 +174,13 @@
     
             @if (formConfig.steps[currentStep]?.button) {
                 <div class="wrap-btn">
-                    @if (currentStep < formConfig.steps.length - 1) {
-                        <button
-                            class="btn-green"
-                            [disabled]="!isButtonAvailableOnCurrentStep"
-                            (click)="nextStep()"
-                            type="button">
-                            Next
-                        </button>
-                    } @else {
-                        <button
-                            *ngIf="currentStep === formConfig.steps.length - 1"
-                            type="submit"
-                            [disabled]="!isButtonAvailableOnCurrentStep"
-                            class="btn-green"
-                            (click)="submit()">
-                            Submit
-                        </button>
-                    }
+                    <button
+                        class="btn-green"
+                        [disabled]="!isButtonAvailableOnCurrentStep"
+                        (click)="(isCurrentButtonNext ? nextStep : submit).call(this)"
+                        [type]="isCurrentButtonNext ? 'button' : 'submit'">
+                        {{ isCurrentButtonNext ? 'Next' : 'Submit' }}
+                    </button>
                 </div>
             }
         </form>
