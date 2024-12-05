@@ -1350,7 +1350,6 @@
                                 "Hyperbaric Medicine",
                                 "Infectious Disease",
                                 "Internal Medicine",
-                                "Interventional Cardiology",
                                 "Interventional Radiology",
                                 "Molecular Medicine",
                                 "Nephrology",
@@ -1414,7 +1413,7 @@
                             "label": "Organization Name",
                             "name": "organizationName",
                             "optional": true,
-                            "placeholder": "Сity Hospital"
+                            "placeholder": "ABC Medical Center"
                         }
                     ],
                     "button": {
