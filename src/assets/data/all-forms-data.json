@@ -1386,8 +1386,9 @@
                                 "Physical Medicine and Rehabilitation",
                                 "Vascular Interventional Radiology",
                                 "Interventional Cardiology",
-                                "Spine Surgery"
-
+                                "Spine Surgery",
+                                "Interventional Radiology",
+                                "Other"
                             ],
                             "name": "specialty",
                             "placeholder": "Select Specialty",
