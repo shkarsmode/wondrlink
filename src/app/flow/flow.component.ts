@@ -78,7 +78,7 @@ export class FlowComponent {
             additionalInfo: result,
             fullName: result['fullName'].value,
             email: result['email'].value,
-            type: result['organizationType'].value,
+            type: result['organizationType']?.value,
         };
 
         console.log(body);
