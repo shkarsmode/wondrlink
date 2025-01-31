@@ -1,24 +1,53 @@
-name: Check Azure DevOps Build Status
+name: Check Build Status
 
 on:
-  schedule:
-    - cron: '*/5 * * * *'  # Проверяет билд каждые 5 минут
-  workflow_dispatch:  # Позволяет запустить вручную
+  workflow_dispatch:
 
 jobs:
   check-build-status:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Get latest build status from Azure DevOps
-        id: get-build
-        run: |
-         BUILD_INFO=$(curl -s -u "${AZURE_USERNAME}:${AZURE_PAT}" \ "https://dev.azure.com/fwollo/QApp/_apis/build/builds?definitions=26&api-version=7.1-preview.7")
-         echo "$BUILD_INFO"  # Выводим полный ответ
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Send status to Telegram
+      - name: Get Build Status from Azure DevOps
+        env:
+          AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}    # Azure username
+          AZURE_PAT: ${{ secrets.AZURE_PAT }}              # Personal Access Token
+        run: |
+          # Получаем ответ от Azure DevOps API
+          BUILD_INFO=$(curl -s -u "${AZURE_USERNAME}:${AZURE_PAT}" \
+              "https://dev.azure.com/fwollo/QApp/_apis/build/builds?definitions=26&api-version=7.1-preview.7")
+
+          # Выводим полный ответ, чтобы понять структуру
+          echo "$BUILD_INFO"
+
+          # Проверяем, что получили данные
+          if echo "$BUILD_INFO" | jq -e '.value | length == 0' > /dev/null; then
+              echo "No builds found"
+              exit 1
+          fi
+
+          # Парсим необходимые поля
+          BUILD_ID=$(echo "$BUILD_INFO" | jq -r '.value[0].id // "ID not found"')
+          STATUS=$(echo "$BUILD_INFO" | jq -r '.value[0].status // "Status not found"')
+          RESULT=$(echo "$BUILD_INFO" | jq -r '.value[0].result // "Result not found"')
+          QUEUE_TIME=$(echo "$BUILD_INFO" | jq -r '.value[0].queueTime // "Queue time not found"')
+          FINISH_TIME=$(echo "$BUILD_INFO" | jq -r '.value[0].finishTime // "Finish time not found"')
+
+          # Формируем сообщение
+          MESSAGE="🛠 Build #$BUILD_ID\n🔹 Status: *$STATUS*\n🔹 Result: *$RESULT*\n⏳ Started at: *$QUEUE_TIME*\n⏳ Finish time: *$FINISH_TIME*"
+          
+          # Выводим сообщение в GitHub Actions
+          echo "MESSAGE=$MESSAGE" >> $GITHUB_ENV
+          
+          # Опционально, выводим сообщение в консоль для проверки
+          echo "$MESSAGE"
+          
+      - name: Send message to Telegram
         run: |
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
-          -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+          -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
           -d parse_mode="Markdown" \
           -d text="${{ env.MESSAGE }}"
