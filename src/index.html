@@ -79,6 +79,13 @@
         gtag('config', 'G-9FV8PMSLSG');
     </script>
 
+    <script>
+        if (window.location.hostname.includes("vercel.app")) {
+            document.write('<meta name="robots" content="noindex, nofollow">');
+            location.href = 'wondrlink.com' + window.location.pathname;
+        }
+    </script>
+
     <!-- Disable indexing by google -->
     <!-- <meta name="robots" content="noindex"> -->
 </head>
