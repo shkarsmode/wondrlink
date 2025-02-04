@@ -12,7 +12,7 @@
     </app-preview-article>
 
     <app-blog-navigation
-        *ngIf="posts.length"
+        *ngIf="posts?.length"
         [page]="page"
         [pagesCount]="pagesCount"
         [@fadeIn]

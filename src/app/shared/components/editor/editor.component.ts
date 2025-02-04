@@ -4,6 +4,8 @@ import EditorJS, { OutputData } from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import List from '@editorjs/list';
 import Paragraph from '@editorjs/paragraph';
+import Quote from '@editorjs/quote';
+import Underline from '@editorjs/underline';
 import edjsHTML from 'editorjs-html';
 
 
@@ -25,6 +27,7 @@ export class EditorComponent implements OnInit, ControlValueAccessor {
     @ViewChild('editorJs', { static: true }) public editorElement: ElementRef;
     private editor: EditorJS;
     private onChange: (value: any) => void = () => {};
+
     private initialData = {
         blocks: [],
     };
@@ -50,10 +53,13 @@ export class EditorComponent implements OnInit, ControlValueAccessor {
                     class: List,
                     inlineToolbar: true,
                 },
+                underline: Underline,
+                quote: Quote,
             },
             onChange: () => {
                 this.editor.save().then((data) => {
-                    const pureHtmlString = this.getPureHtmlStringBasedOnEditorJsData(data);
+                    const pureHtmlString =
+                        this.getPureHtmlStringBasedOnEditorJsData(data);
                     this.onChange(pureHtmlString);
                 });
             },
@@ -61,8 +67,16 @@ export class EditorComponent implements OnInit, ControlValueAccessor {
     }
 
     public writeValue(value: any): void {
-        if (value) {
-            this.editor.blocks.render(value.blocks);
+        console.log('writeValue 0', value);
+        if (!value) return;
+
+        console.log('writeValue 1', value);
+
+        const updatedEditorJsData = this.convertHtmlToEditorJsData(value);
+        console.log('writeValue 2', updatedEditorJsData);
+        if (updatedEditorJsData) {
+            console.log(this.editor);
+            this.editor.blocks.render(updatedEditorJsData);
         }
     }
 
@@ -78,7 +92,7 @@ export class EditorComponent implements OnInit, ControlValueAccessor {
         return html;
     }
 
-    private convertHtmlToEditorJsData(html: string) {
+    private convertHtmlToEditorJsData(html: string): { blocks: any } {
         const doc = new DOMParser().parseFromString(html, 'text/html');
         const blocks = Array.from(doc.body.children).map((el) => ({
             type: 'paragraph',

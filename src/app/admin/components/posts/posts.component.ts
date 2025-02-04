@@ -98,7 +98,7 @@ export class PostsComponent implements OnInit {
                     const tempPage = this.page;
 
                     this.limit = 1;
-                    this.page = this.posts.length;
+                    this.page = this.posts?.length;
 
                     this.isLoadingMore = true;
                     this.getPosts(true);
