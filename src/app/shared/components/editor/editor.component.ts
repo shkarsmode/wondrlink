@@ -1,4 +1,4 @@
-import { Component, ElementRef, forwardRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import EditorJS, { OutputData } from '@editorjs/editorjs';
 import Header from '@editorjs/header';
@@ -22,19 +22,18 @@ import edjsHTML from 'editorjs-html';
             multi: true,
         },
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditorComponent implements OnInit, ControlValueAccessor {
-    @ViewChild('editorJs', { static: true }) public editorElement: ElementRef;
+export class EditorComponent implements ControlValueAccessor {
+    @ViewChild('editorJs', { static: true }) 
+    public editorElement: ElementRef;
+
     private editor: EditorJS;
     private onChange: (value: any) => void = () => {};
 
     private initialData = {
         blocks: [],
     };
-
-    public ngOnInit() {
-        //    this.initEditorJs();
-    }
 
     private initEditorJs(): void {
         this.editor = new EditorJS({
@@ -91,7 +90,7 @@ export class EditorComponent implements OnInit, ControlValueAccessor {
         const doc = new DOMParser().parseFromString(html, 'text/html');
         const blocks = Array.from(doc.body.children).map((el) => {
             let blockData: any = { type: '', data: {} };
-            console.log(el);
+
             switch (el.nodeName.toLowerCase()) {
                 case 'h1':
                 case 'h2':
