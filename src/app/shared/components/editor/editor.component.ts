@@ -33,6 +33,10 @@ export class EditorComponent implements OnInit, ControlValueAccessor {
     };
 
     public ngOnInit() {
+        //    this.initEditorJs();
+    }
+
+    private initEditorJs(): void {
         this.editor = new EditorJS({
             holder: this.editorElement.nativeElement,
             data: this.initialData,
@@ -67,17 +71,8 @@ export class EditorComponent implements OnInit, ControlValueAccessor {
     }
 
     public writeValue(value: any): void {
-        console.log('writeValue 0', value);
-        if (!value) return;
-
-        console.log('writeValue 1', value);
-
-        const updatedEditorJsData = this.convertHtmlToEditorJsData(value);
-        console.log('writeValue 2', updatedEditorJsData);
-        if (updatedEditorJsData) {
-            console.log(this.editor);
-            this.editor.blocks.render(updatedEditorJsData);
-        }
+        this.initialData = this.convertHtmlToEditorJsData(value);
+        this.initEditorJs();
     }
 
     public registerOnChange(fn: (value: any) => void): void {
@@ -94,10 +89,59 @@ export class EditorComponent implements OnInit, ControlValueAccessor {
 
     private convertHtmlToEditorJsData(html: string): { blocks: any } {
         const doc = new DOMParser().parseFromString(html, 'text/html');
-        const blocks = Array.from(doc.body.children).map((el) => ({
-            type: 'paragraph',
-            data: { text: el.innerHTML },
-        }));
+        const blocks = Array.from(doc.body.children).map((el) => {
+            let blockData: any = { type: '', data: {} };
+            console.log(el);
+            switch (el.nodeName.toLowerCase()) {
+                case 'h1':
+                case 'h2':
+                case 'h3':
+                case 'h4':
+                case 'h5':
+                case 'h6':
+                    blockData.type = 'header';
+                    blockData.data.text = el.innerHTML;
+                    blockData.data.level = Number(el.nodeName[1]);
+                    break;
+                case 'p':
+                    if (el.innerHTML === '<br>') return null;
+                    blockData.type = 'paragraph';
+                    blockData.data.text = el.innerHTML;
+                    break;
+                case 'ul':
+                case 'ol':
+                    blockData.type = 'list';
+                    blockData.data.items = Array.from(el.children).map(
+                        (li: any) => li.innerHTML
+                    );
+                    blockData.data.style =
+                        el.nodeName.toLowerCase() === 'ul'
+                            ? 'unordered'
+                            : 'ordered';
+                    break;
+                case 'blockquote':
+                    blockData.type = 'quote';
+                    blockData.data.text = el.innerHTML;
+                    break;
+                case 'strong':
+                    blockData.type = 'text';
+                    blockData.data.text = el.innerHTML;
+                    blockData.data.bold = true;
+                    break;
+                case 'em':
+                    blockData.type = 'text';
+                    blockData.data.text = el.innerHTML;
+                    blockData.data.italic = true;
+                    break;
+                default:
+                    blockData.type = 'paragraph';
+                    blockData.data.text = el.innerHTML;
+                    break;
+            }
+
+            return blockData;
+        }).filter(block => !!block);
+
         return { blocks };
     }
 }
