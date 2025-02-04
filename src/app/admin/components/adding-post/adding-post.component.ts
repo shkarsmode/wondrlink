@@ -1,12 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { QuillEditorComponent } from 'ngx-quill';
 import { ImageUrlResponseDto } from 'src/app/shared/interfaces/imageUrlResponse.dto';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { PostsService } from 'src/app/shared/services/posts.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { CloudinaryService } from '../../../shared/services/cloudinary.service';
-import { QuillEditorComponent } from 'ngx-quill';
 
 @Component({
     selector: 'app-adding-post',
@@ -14,13 +14,11 @@ import { QuillEditorComponent } from 'ngx-quill';
     styleUrls: ['./adding-post.component.scss']
 })
 export class AddingPostComponent implements OnInit {
-
     public form: FormGroup;
     public isLoading: boolean = false;
     public isUploadImageSelected: boolean = true;
     public isDrag: boolean = false;
     public isAuto: boolean = true;
-
 
     private userId: number;
     @ViewChild('preview') preview: ElementRef;
@@ -163,7 +161,6 @@ export class AddingPostComponent implements OnInit {
 
         return "";
     }
-
 
     public onAutogenerationChange(): void {
         this.isAuto = !this.isAuto;
