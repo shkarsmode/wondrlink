@@ -166,13 +166,13 @@ h2 {
     }
 }
 
-::ng-deep app-post quill-view-html .ql-container {
+::ng-deep app-post .wrap-content {
     display: flex;
     justify-content: center;
     height: fit-content;
     margin-bottom: 40px;
 
-    .ql-editor {
+    .content {
         max-width: 870px;
         width: 100%;
         padding: 0 !important;
@@ -192,7 +192,7 @@ h2 {
 
             font-size: 22px;
 
-            & + * {
+            &+* {
                 margin-top: 25px !important;
             }
 
@@ -401,7 +401,7 @@ $loading-animation: loading 1.8s linear infinite;
 
 @media (max-width: 1400px) {
 
-    quill-view-html ::ng-deep.ql-editor {
+    .wrap-content ::ng-deep.content {
         padding: 0 !important;
     }
 
@@ -519,7 +519,7 @@ $loading-animation: loading 1.8s linear infinite;
 ===================*/
 
 @media (max-width: 600px) {
-    quill-view-html ::ng-deep {
+    .wrap-content ::ng-deep {
         p {
             font-size: 18px !important;
             line-height: 25.5px;
@@ -541,7 +541,7 @@ $loading-animation: loading 1.8s linear infinite;
 }
 
 @media (max-width: 450px) {
-    quill-view-html ::ng-deep {
+    .wrap-content ::ng-deep {
         p {
             font-size: 18px !important;
         }

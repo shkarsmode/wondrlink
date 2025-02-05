@@ -184,7 +184,12 @@
                 class="post-main-picture" #mainPicture>
             
         
-            <quill-view-html [content]='post.htmlContent'></quill-view-html>
+            <div class="wrap-content">
+                <div
+                    class="content"
+                    [innerHTML]="post.htmlContent">
+                </div>
+            </div>
             
             <div class="wrap-end-center">
                 <div class="wrap-end">
