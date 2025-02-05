@@ -25,7 +25,7 @@ export class ArticleService {
 
     public info: IInfo[];
 
-    constructor(private http: HttpClient, private dialog: MatDialog) {}
+    constructor(private http: HttpClient, private dialog: MatDialog) { }
 
     public updateArticleFormState(state: TArticleFormState): void {
         this._ArticleFormSubject.next(state);
@@ -41,7 +41,9 @@ export class ArticleService {
     public setAllArticles(): void {
         this.http
             .get('assets/data/info.json')
-            .subscribe((info: any) => (this.info = info.data));
+            .subscribe((info: any) => {
+                this.info = info.data;
+            });
     }
 
     public getCurrentArticle(id: string): IInfo {

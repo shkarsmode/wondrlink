@@ -1,9 +1,18 @@
 <div class="wrap">
-    <h1>{{ formTitle }}</h1>
+    <h1 [innerHTML]="formTitle"></h1>
     @if (flow === 'drug-developers' || flow === 'patients' || flow === 'physicians') {
         <div class="description">
             Become a part of our mission to deliver groundbreaking treatments.
         </div>        
+    }
+    @if (flow === 'ecosystem') {
+        <div class="description">
+            <b>
+                The battle against life-threatening diseases is not one we can win alone. It takes all of us—working together, fighting
+                together, and believing together. <br />
+                Are you ready to make a difference?
+            </b>
+        </div>
     }
 
     <div 

@@ -17,6 +17,7 @@
         font-weight: 600;
         line-height: normal;
         letter-spacing: normal;
+        max-width: 1000px;
     }
 
 
@@ -43,15 +44,15 @@
         }
     }
 
-    
+
     @media (max-width: 500px) {
         padding: 100px 25px;
 
-        p { 
+        p {
             font-size: 20px;
             line-height: 24.5px;
         }
-   
+
     }
 
 }

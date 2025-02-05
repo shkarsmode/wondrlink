@@ -5,4 +5,5 @@ export interface IInfo {
     readonly subHeader: string;
     readonly content: string;
     readonly buttonName?: string;
+    readonly formDescription?: string;
 }
