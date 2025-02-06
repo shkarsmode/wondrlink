@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { QuillModule } from 'ngx-quill';
 import { EditorComponent } from '../shared/components/editor/editor.component';
 import { MaterialModule } from '../shared/materials/material.module';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -33,7 +32,6 @@ import { UsersComponent } from './components/users/users.component';
         CommonModule,
         AdminRoutingModule,
         FormsModule,
-        QuillModule.forRoot(),
         MaterialModule,
         ReactiveFormsModule,
         MaterialModule,

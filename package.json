@@ -34,7 +34,6 @@
         "editorjs-html": "^4.0.5",
         "editorjs-inline-tool": "^0.4.0",
         "libphonenumber-js": "^1.11.7",
-        "ngx-quill": "^16.2.1",
         "ngx-sharebuttons": "^12.0.0",
         "quill": "^1.3.7",
         "rxjs": "~7.8.0",
@@ -45,7 +44,6 @@
         "@angular-devkit/core": "^17.0.7",
         "@angular/cli": "~17.0.7",
         "@angular/compiler-cli": "^17.0.7",
-        "@types/quill": "^1.3.10",
         "sharp": "^0.33.3",
         "typescript": "~5.2.2"
     }

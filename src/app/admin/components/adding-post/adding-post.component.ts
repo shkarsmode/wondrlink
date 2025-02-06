@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { QuillEditorComponent } from 'ngx-quill';
 import { ImageUrlResponseDto } from 'src/app/shared/interfaces/imageUrlResponse.dto';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { PostsService } from 'src/app/shared/services/posts.service';
@@ -23,7 +22,6 @@ export class AddingPostComponent implements OnInit {
     private userId: number;
     @ViewChild('preview') preview: ElementRef;
     @ViewChild('subheader') subheader: ElementRef;
-    @ViewChild(QuillEditorComponent, { static: false }) editor: QuillEditorComponent;
 
     constructor(
         private fb: FormBuilder,
@@ -154,10 +152,10 @@ export class AddingPostComponent implements OnInit {
 
     private removeQuillEditorTags(): string {
 
-        if(this.editor && this.editor.quillEditor) {
-            let editorIns = this.editor.quillEditor;
-            return editorIns.getText();
-        }
+        // if(this.editor && this.editor.quillEditor) {
+        //     let editorIns = this.editor.quillEditor;
+        //     return editorIns.getText();
+        // }
 
         return "";
     }
