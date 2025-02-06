@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+        {
+            "source": "/api/:match*",
+            "destination": "https://wondrlink-back.vercel.app/api/:match*"
+        }
+    ]
+}
