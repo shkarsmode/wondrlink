@@ -5,6 +5,13 @@
     width: 100%;
     background-color: white;
     padding: 180px 25px;
+
+    > div {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+            
 }
 
 .btn-green {
@@ -28,7 +35,7 @@
         h2 {
             margin-top: 50px;
             margin-bottom: 20px;
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 800;
             line-height: 38.25px;
             text-align: left;

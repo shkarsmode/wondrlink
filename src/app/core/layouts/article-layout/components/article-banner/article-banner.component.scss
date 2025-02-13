@@ -35,6 +35,12 @@
 
     div::ng-deep b {
         font-weight: 800;
+        font-size: 28px;
+        transition: all .3s;
+
+        @media screen and (max-width: 1500px) {
+            font-size: 22px;
+        }
     }
 }
 
