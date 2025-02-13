@@ -1,11 +1,16 @@
 <div class="wrap">
     <h1 [innerHTML]="formTitle"></h1>
-    @if (flow === 'drug-developers' || flow === 'patients' || flow === 'physicians') {
+    @if (flow === 'patients') {
+        <div class="description">
+            Explore new treatment possibilities and get the support you need.
+        </div>
+    }
+    @if (flow === 'drug-developers' || flow === 'physicians') {
         <div class="description">
             Become a part of our mission to deliver groundbreaking treatments.
         </div>        
     }
-    @if (flow === 'ecosystem') {
+    <!-- @if (flow === 'ecosystem') {
         <div class="description">
             <b>
                 The battle against life-threatening diseases is not one we can win alone. It takes all of us—working together, fighting
@@ -13,7 +18,7 @@
                 Are you ready to make a difference?
             </b>
         </div>
-    }
+    } -->
 
     <div 
         class="flow-wrap"

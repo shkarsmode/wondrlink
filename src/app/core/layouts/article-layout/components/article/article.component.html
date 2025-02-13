@@ -1,20 +1,35 @@
-<div class="wrap" *ngIf="article">
-
-	<div>
-		<div 
-			class="content" 
-			[innerHTML]="article.content">
+@if (isArticleTypeOfArray) {
+	@for (
+		content of article?.content; 
+		track content; 
+		let i = $index
+	) {
+		<div
+			class="wrap"
+			[style.backgroundColor]="i % 2 === 0 ? '#f4f4f4' : '#fff'">
+			<div>
+				<div 
+					class="content" 
+					[innerHTML]="content">
+				</div>
+			</div>
 		</div>
-
-				
-		@if (article.id === 'about-us') {
-			<button class="btn-green"
-				(click)="articleService.openFlowDialog()">
-				Get Started
-			</button>
-		}
-
+	}
+} @else {
+	<div class="wrap" *ngIf="article">
+		<div>
+			<div 
+				class="content" 
+				[innerHTML]="article.content">
+			</div>
+	
+					
+			@if (article.id === 'about-us') {
+				<button class="btn-green"
+					(click)="articleService.openFlowDialog()">
+					Get Started
+				</button>
+			}
+		</div>
 	</div>
-
-
-</div>
+}

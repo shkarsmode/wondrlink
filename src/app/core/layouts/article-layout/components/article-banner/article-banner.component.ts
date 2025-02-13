@@ -1,13 +1,13 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, DoCheck, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { IInfo } from 'src/app/shared/interfaces/IInfo';
-import { FlowComponentConfig, TFormFlow } from 'src/app/shared/interfaces/TFormFlow';
+import { FlowComponentConfig } from 'src/app/shared/interfaces/TFormFlow';
 import { ArticleService } from 'src/app/shared/services/article-service.service';
 @Component({
     selector: 'app-article-banner',
     templateUrl: './article-banner.component.html',
     styleUrls: ['./article-banner.component.scss'],
 })
-export class ArticleBannerComponent {
+export class ArticleBannerComponent implements AfterViewInit, DoCheck, OnDestroy {
     @ViewChild('wrap', { static: true }) wrap: ElementRef<HTMLDivElement>;
     @Input() article: IInfo;
     @Input() flowConfig: FlowComponentConfig = {
@@ -32,11 +32,21 @@ export class ArticleBannerComponent {
         this.setBackgroundImage();
     }
 
+    public ngAfterViewInit(): void {
+        document.querySelectorAll('.action-button').forEach(button => button.addEventListener('click', this.handleClickBounded))
+    }
+
     private setBackgroundImage(): void {
         this.wrap.nativeElement.style.backgroundImage = `url('/assets/img/${this.articleId}.webp')`;
         
         this.wrap.nativeElement.classList.add(this.articleId);
     }
 
+    private handleClickBounded = (() => this.articleService.openFlowDialog(this.flowConfig)).bind(this);
+    
 
+
+    public ngOnDestroy(): void {
+        document.querySelectorAll('.action-button').forEach((button) => button.removeEventListener('click', this.handleClickBounded));
+    }
 }
