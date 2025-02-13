@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, DoCheck, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
+import { Component, DoCheck, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { IInfo } from 'src/app/shared/interfaces/IInfo';
 import { FlowComponentConfig } from 'src/app/shared/interfaces/TFormFlow';
 import { ArticleService } from 'src/app/shared/services/article-service.service';
@@ -7,7 +7,7 @@ import { ArticleService } from 'src/app/shared/services/article-service.service'
     templateUrl: './article-banner.component.html',
     styleUrls: ['./article-banner.component.scss'],
 })
-export class ArticleBannerComponent implements AfterViewInit, DoCheck, OnDestroy {
+export class ArticleBannerComponent implements DoCheck, OnDestroy {
     @ViewChild('wrap', { static: true }) wrap: ElementRef<HTMLDivElement>;
     @Input() article: IInfo;
     @Input() flowConfig: FlowComponentConfig = {
@@ -30,10 +30,9 @@ export class ArticleBannerComponent implements AfterViewInit, DoCheck, OnDestroy
         this.articleId = this.article?.id;
 
         this.setBackgroundImage();
-    }
-
-    public ngAfterViewInit(): void {
-        document.querySelectorAll('.action-button').forEach(button => button.addEventListener('click', this.handleClickBounded))
+        setTimeout(() => {
+            document.querySelectorAll('.action-button').forEach(button => button.addEventListener('click', this.handleClickBounded));
+        });
     }
 
     private setBackgroundImage(): void {
