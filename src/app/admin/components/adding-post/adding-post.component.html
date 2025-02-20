@@ -100,7 +100,10 @@
 	<div class="card">
 		<div class="title">Content</div>
 		<div class="content">
-			<app-editor formControlName="content"></app-editor>
+			<app-editor
+				(onGetTextForSubHeader)="onGetTextForSubHeader($event)"
+				formControlName="content">
+			</app-editor>
 		</div>
 	</div>
 

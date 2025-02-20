@@ -185,6 +185,22 @@ h2 {
             margin-bottom: 5px;
         }
 
+        ul {
+            list-style-type: disc;
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        ol {
+            list-style-type: decimal;
+            margin-left: 25px;
+            margin-bottom: 20px;
+
+            li {
+                padding-left: 5px;
+            }
+        }
+
         blockquote {
             border: none;
             position: relative;
@@ -193,6 +209,8 @@ h2 {
             padding-left: 30px;
 
             font-size: 22px;
+
+            margin-bottom: 10px;
 
             &+* {
                 margin-top: 25px !important;

@@ -150,16 +150,6 @@ export class AddingPostComponent implements OnInit {
     }
 
 
-    private removeQuillEditorTags(): string {
-
-        // if(this.editor && this.editor.quillEditor) {
-        //     let editorIns = this.editor.quillEditor;
-        //     return editorIns.getText();
-        // }
-
-        return "";
-    }
-
     public onAutogenerationChange(): void {
         this.isAuto = !this.isAuto;
 
@@ -168,16 +158,17 @@ export class AddingPostComponent implements OnInit {
         
         this.subHeader.updateValueAndValidity();
     }
+
+    public autoSubHeader: string = '';
+    public onGetTextForSubHeader(text: string): void {
+        this.autoSubHeader = this.generateSubHeader(text);
+    }
     
-    public generateSubHeader(): string {
-        let text = this.removeQuillEditorTags();
+    public generateSubHeader(text: string): string {
+        text = text.replaceAll('&nbsp;', '').trim();
         if(text.length >= 160 ) return text.slice(0, 160) + "...";
         return text;
     }   
-
-    public get autoSubHeader(): string {
-        return this.generateSubHeader();
-    }
 
     // Convenience getters for easy access to form controls
     public get header() { return this.form.get('header') as FormControl; }

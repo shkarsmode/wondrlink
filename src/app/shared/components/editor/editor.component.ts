@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import EditorJS, { OutputData } from '@editorjs/editorjs';
 import Header from '@editorjs/header';
@@ -34,6 +34,7 @@ export class EditorComponent implements ControlValueAccessor {
     private initialData = {
         blocks: [],
     };
+    @Output() public onGetTextForSubHeader: EventEmitter<string> = new EventEmitter();
 
     private initEditorJs(): void {
         this.editor = new EditorJS({
@@ -61,6 +62,7 @@ export class EditorComponent implements ControlValueAccessor {
             },
             onChange: () => {
                 this.editor.save().then((data) => {
+                    this.onGetTextForSubHeader.emit(data.blocks[0].data.text);
                     const pureHtmlString =
                         this.getPureHtmlStringBasedOnEditorJsData(data);
                     this.onChange(pureHtmlString);
