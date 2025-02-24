@@ -34,7 +34,6 @@ import { UsersComponent } from './components/users/users.component';
         FormsModule,
         MaterialModule,
         ReactiveFormsModule,
-        MaterialModule,
         EditorComponent,
     ],
 })

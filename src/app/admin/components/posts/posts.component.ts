@@ -42,7 +42,7 @@ export class PostsComponent implements OnInit {
     private getPosts(isAddToExciting: boolean = false): void {
         this.isLoading = !this.isLoadingMore ? true : false;
 
-        this.postsService.getPosts(this.limit, this.page)
+        this.postsService.getPosts(this.limit, this.page, true)
             .subscribe(response => {
                 if (isAddToExciting) {
                     response.posts.forEach(post => this.posts.push(post));

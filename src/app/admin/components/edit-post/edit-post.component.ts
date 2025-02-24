@@ -80,7 +80,8 @@ export class EditPostComponent implements OnInit {
             header: [this.post.header, Validators.required],
             subHeader: [this.post.subHeader, [Validators.required]],
             picture: [this.post.mainPicture, [Validators.required]],
-            content: [this.post.htmlContent, Validators.required]
+            content: [this.post.htmlContent, Validators.required],
+            createdAt: [this.post.createdAt, [Validators.required]],
         });
     }
 
@@ -138,7 +139,7 @@ export class EditPostComponent implements OnInit {
 
     private updatePostWithImage(url: string): void {
         const mainPicture = url;
-        const createdAt = new Date().toISOString();
+        const createdAt = new Date(this.form.get('createdAt')?.value).toISOString();
         const body = {
             id: this.post.id,
             createdAt,

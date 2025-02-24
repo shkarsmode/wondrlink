@@ -49,7 +49,8 @@ export class AddingPostComponent implements OnInit {
             header: ['', Validators.required],
             subHeader: ['', []],
             picture: ['', [Validators.required]],
-            content: ['', Validators.required]
+            content: ['', Validators.required],
+            createdAt: [new Date(), [Validators.required]],
         });
     }
 
@@ -86,7 +87,7 @@ export class AddingPostComponent implements OnInit {
         if (response) mainPicture = response.imageUrl.url;
         else mainPicture = this.picture.value;
 
-        const createdAt = new Date().toISOString();
+        const createdAt = new Date(this.form.get('createdAt')?.value).toISOString();
         const body = {
             createdAt,
             mainPicture,

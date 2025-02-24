@@ -17,9 +17,13 @@ export class PostsService {
         @Inject(BASE_PATH_API) private basePathApi: string
     ) { }
 
-    public getPosts(limit: number, page: number): Observable<AllPostsResponseDto> {
+    public getPosts(
+        limit: number, 
+        page: number, 
+        postponed: boolean = false
+    ): Observable<AllPostsResponseDto> {
         return this.http.get<AllPostsResponseDto>(
-            `${this.basePathApi}/${this.postsPath}/all?limit=${limit}&page=${page}` 
+            `${this.basePathApi}/${this.postsPath}/all?limit=${limit}&page=${page}&postponed=${postponed}` 
         );
     }
 

@@ -21,7 +21,8 @@ h1 {
 }
 
 .content {
-    padding: 15px 20px
+    position: relative;
+    padding: 15px 20px;
 }
 
 .d-flex {
@@ -217,6 +218,16 @@ button {
         &:before {
             transform: scale(1, 1);
             text-indent: 0;
+        }
+    }
+}
+
+:host {
+    ::ng-deep {
+        mat-datepicker-toggle {
+            position: absolute;
+            right: 20px;
+            top: 30px;
         }
     }
 }

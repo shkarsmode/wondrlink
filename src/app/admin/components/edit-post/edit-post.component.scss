@@ -26,7 +26,18 @@ h2 {
 	font-weight: 500;
 }
 
+:host {
+	::ng-deep {
+		mat-datepicker-toggle {
+			position: absolute;
+			right: 20px;
+			top: 30px;
+		}
+	}
+}
+
 .content {
+	position: relative;
 	padding: 15px 20px
 }
 

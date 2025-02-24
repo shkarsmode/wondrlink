@@ -22,6 +22,22 @@
 	</div>
 
 	<div class="card">
+		<div class="title">Starts at</div>
+
+		<div class="content">
+			<mat-label>Choose a date</mat-label>
+			<input
+				[matDatepicker]="picker"
+				formControlName="createdAt"
+				matInput
+				readonly
+				(click)="picker.open()">
+			<mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+			<mat-datepicker #picker></mat-datepicker>
+		</div>
+	</div>
+
+	<div class="card">
 		<div class="title">Main picture</div>
 		<div class="content">
 			<mat-chip-listbox aria-label="Upload image" >
