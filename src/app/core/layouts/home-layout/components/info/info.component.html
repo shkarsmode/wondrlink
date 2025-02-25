@@ -1,11 +1,11 @@
 <div class="wrap">
 	<div class="content">
-		<h2>Latest Insights</h2>
+		<h2>Latest Blogs</h2>
 
         <div class="insights">
             @for (post of posts; track post.id) {
                 <a
-                    [routerLink]="'insights/' + post.id"
+                    [routerLink]="'blogs/' + post.id"
                     class="insights__item">
                     <div class="insights__item-title">
                         {{ post.header }}
@@ -21,6 +21,6 @@
             }
         </div>
 
-        <button class="btn-green" routerLink="insights">More</button>
+        <button class="btn-green" routerLink="blogs">More</button>
 	</div>
 </div>

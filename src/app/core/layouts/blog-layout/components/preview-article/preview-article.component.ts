@@ -13,5 +13,5 @@ export class PreviewArticleComponent {
     constructor(private router: Router) {}
 
     @HostListener('click')
-    public onPostClick = () => this.router.navigate(['insights', this.post.id]);
+    public onPostClick = () => this.router.navigate(['blogs', this.post.id]);
 }

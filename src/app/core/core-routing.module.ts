@@ -4,11 +4,11 @@ import { CoreComponent } from './core.component';
 import { ApprovePageComponent } from './layouts/approve-page/approve-page.component';
 import { ArticleLayoutComponent } from './layouts/article-layout/article-layout.component';
 import { BlogLayoutComponent } from './layouts/blog-layout/blog-layout.component';
+import { ErrorPageComponent } from './layouts/error-page/error-page.component';
 import { PostComponent } from './layouts/home-layout/components/post/post.component';
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { PrivacyPageComponent } from './layouts/privacy-page/privacy-page.component';
 import { TermsPageComponent } from './layouts/terms-page/terms-page.component';
-import { ErrorPageComponent } from './layouts/error-page/error-page.component';
 
     const routes: Routes = [
         {
@@ -16,8 +16,8 @@ import { ErrorPageComponent } from './layouts/error-page/error-page.component';
             component: CoreComponent,
             children: [
                 { path: '', component: HomeLayoutComponent },
-                { path: 'insights', component: BlogLayoutComponent },
-                { path: 'insights/:id', component: PostComponent },
+                { path: 'blogs', component: BlogLayoutComponent },
+                { path: 'blogs/:id', component: PostComponent },
                 { path: 'not-found', component: ErrorPageComponent },
                 { path: 'approve', component: ApprovePageComponent },
                 { path: 'privacy', component: PrivacyPageComponent },
