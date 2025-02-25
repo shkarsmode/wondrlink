@@ -16,7 +16,7 @@ export class CloudinaryService {
         @Inject(BASE_PATH_API) private basePathApi: string
     ) { }
 
-    public uplodaImageAndGetUrl(image: any): Observable<ImageUrlResponseDto> {
+    public uploadImageAndGetUrl(image: any): Observable<ImageUrlResponseDto> {
         const formData = new FormData();
         formData.append('image', image);
 

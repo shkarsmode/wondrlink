@@ -130,7 +130,7 @@ export class EditPostComponent implements OnInit {
             return;
         }
 
-        this.cloudinaryService.uplodaImageAndGetUrl(this.picture.value)
+        this.cloudinaryService.uploadImageAndGetUrl(this.picture.value)
             .subscribe({
                 next: response => this.updatePostWithImage(response.imageUrl.url),
                 error: error => console.log(error)

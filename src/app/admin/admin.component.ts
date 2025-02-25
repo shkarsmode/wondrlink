@@ -53,7 +53,7 @@ export class AdminComponent implements OnInit {
     public toggleBurgerMenu = () => this.isOpened = !this.isOpened;
 
     public uploadAndUpdateUserAvatar(): void {
-        this.cloudinaryService.uplodaImageAndGetUrl(this.avatarFile)
+        this.cloudinaryService.uploadImageAndGetUrl(this.avatarFile)
             .subscribe(this.updateUserAvatar.bind(this));
     }
 

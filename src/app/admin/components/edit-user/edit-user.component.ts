@@ -202,7 +202,7 @@ export class EditUserComponent implements OnInit {
         }
 
         this.cloudinaryService
-            .uplodaImageAndGetUrl(this.picture.value)
+            .uploadImageAndGetUrl(this.picture.value)
             .subscribe({
                 next: (response) =>
                     this.updateUserWithImage(response.imageUrl.url),

@@ -1,3 +1,11 @@
 ::ng-deep .ct .ct__content div {
     color: white !important;
 }
+
+::ng-deep {
+    .ce-popover-item[data-item-name='withBorder'],
+    .ce-popover-item[data-item-name='withBackground'],
+    .ce-popover-item[data-item-name='stretched'] {
+        display: none;
+    }
+}

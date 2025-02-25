@@ -74,7 +74,7 @@ export class AddingPostComponent implements OnInit {
     }
 
     private uploadAngGetPictureUrl(): void {
-        this.cloudinaryService.uplodaImageAndGetUrl(this.picture.value)
+        this.cloudinaryService.uploadImageAndGetUrl(this.picture.value)
             .subscribe({
                 next: response => this.uploadPostWithImage(response),
                 error: error => console.log(error)

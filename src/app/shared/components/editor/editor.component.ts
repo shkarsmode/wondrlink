@@ -2,11 +2,13 @@ import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRe
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import EditorJS, { OutputData } from '@editorjs/editorjs';
 import Header from '@editorjs/header';
+import ImageTool from '@editorjs/image';
 import List from '@editorjs/list';
 import Paragraph from '@editorjs/paragraph';
 import Quote from '@editorjs/quote';
 import Underline from '@editorjs/underline';
 import edjsHTML from 'editorjs-html';
+import { CloudinaryService } from '../../services/cloudinary.service';
 
 
 @Component({
@@ -36,6 +38,10 @@ export class EditorComponent implements ControlValueAccessor {
     };
     @Output() public onGetTextForSubHeader: EventEmitter<string> = new EventEmitter();
 
+    constructor (private readonly cloudinaryService: CloudinaryService) {
+        
+    }
+
     private initEditorJs(): void {
         this.editor = new EditorJS({
             holder: this.editorElement.nativeElement,
@@ -46,6 +52,14 @@ export class EditorComponent implements ControlValueAccessor {
                     // @ts-ignore
                     class: Header,
                     inlineToolbar: true,
+                },
+                image: {
+                    class: ImageTool,
+                    config: {
+                        uploader: {
+                            uploadByFile: (file: File) => this.uploadImage(file),
+                        }
+                    }
                 },
                 paragraph: {
                     // @ts-ignore
@@ -70,6 +84,20 @@ export class EditorComponent implements ControlValueAccessor {
             },
         });
     }
+
+    private uploadImage(file: File): Promise<any> {
+            return new Promise((resolve, reject) => {
+                this.cloudinaryService.uploadImageAndGetUrl(file).subscribe({
+                    next: (response) => {
+                        resolve({
+                            success: 1,
+                            file: { url: response.imageUrl.url }
+                        });
+                    },
+                    error: (err) => reject(err)
+                });
+            });
+        }
 
     public writeValue(value: any): void {
         this.initialData = this.convertHtmlToEditorJsData(value);
@@ -133,6 +161,14 @@ export class EditorComponent implements ControlValueAccessor {
                     blockData.type = 'text';
                     blockData.data.text = el.innerHTML;
                     blockData.data.italic = true;
+                    break;
+                case 'img':
+                    blockData.type = 'image';
+                    blockData.data.file = { url: el.getAttribute('src') };
+                    // blockData.data.caption = el.getAttribute('alt') || '';
+                    blockData.data.stretched = false;
+                    blockData.data.withBorder = false;
+                    blockData.data.withBackground = false;
                     break;
                 default:
                     blockData.type = 'paragraph';
