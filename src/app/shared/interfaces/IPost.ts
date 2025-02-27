@@ -10,4 +10,5 @@ export interface IPost {
 	readonly subHeader: string;
 	readonly htmlContent: string;
 	readonly user?: IUser;
+	readonly hidden: boolean;
 }

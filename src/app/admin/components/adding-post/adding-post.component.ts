@@ -51,6 +51,7 @@ export class AddingPostComponent implements OnInit {
             picture: ['', [Validators.required]],
             content: ['', Validators.required],
             createdAt: [new Date(), [Validators.required]],
+            hidden: [false, Validators.required]
         });
     }
 
@@ -97,7 +98,8 @@ export class AddingPostComponent implements OnInit {
             "socialLinks": {
                 "instagram": "https://www.instagram.com/shkarsmode/"
             },
-            "userId": this.userId
+            "userId": this.userId,
+            "hidden": this.form.get('hidden')?.value
         };
 
         this.postsService.uploadPost(body)

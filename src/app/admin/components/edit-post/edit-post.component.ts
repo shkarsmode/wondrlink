@@ -82,6 +82,7 @@ export class EditPostComponent implements OnInit {
             picture: [this.post.mainPicture, [Validators.required]],
             content: [this.post.htmlContent, Validators.required],
             createdAt: [this.post.createdAt, [Validators.required]],
+            hidden: [this.post.hidden, [Validators.required]],
         });
     }
 
@@ -149,7 +150,8 @@ export class EditPostComponent implements OnInit {
             "htmlContent": this.content.value,
             "socialLinks": {
                 "instagram": "https://www.instagram.com/shkarsmode/"
-            }
+            },
+            "hidden": this.form.get('hidden')?.value
         };
 
         console.log(body);

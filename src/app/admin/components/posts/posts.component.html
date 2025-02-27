@@ -9,6 +9,7 @@
 				<th>Post name</th>
 				<th>Creation date</th>
 				<th>User name</th>
+                <th>Visibility</th>
 				<th>Actions</th>
 			</tr>
 
@@ -28,6 +29,15 @@
                         </td>
                         <td>
                             {{ post.user?.firstName }} {{ post.user?.lastName }}
+                        </td>
+                        <td>
+                            <mat-icon
+                                [style.marginLeft]="'20px'"
+                                [matTooltip]="post.hidden ? 'hidden' : 'visible'"
+                                aria-hidden="false"
+                                aria-label="Visibility"
+                                [fontIcon]="post.hidden ? 'visibility_off' : 'visibility'">
+                            </mat-icon>
                         </td>
                         <td class="wrap-buttons">
                             <button 
