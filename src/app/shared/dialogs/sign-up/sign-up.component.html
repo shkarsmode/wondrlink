@@ -15,7 +15,7 @@
 		<div class="step1" [ngClass]="{'skipped': !isFirstStep}">
 			<h2>Get Started</h2>
 			<div class="description">
-				Tell us who you are
+				Tell us who you are so we can match you with the right treatment or opportunity
 			</div>
 
 			<ol class="wrap-options">
@@ -25,7 +25,9 @@
 					</div>
 					<div class="right">
 						<h4>Patient/Caregiver</h4>
-						<div class="sub-title">Looking for novel therapies</div>
+						<div class="sub-title">
+							Get Matched to Clinical Trials & Investigational Therapies
+						</div>
 					</div>
 				</li>
 				<li (click)="nextStep('Industry')">
@@ -34,7 +36,9 @@
 					</div>
 					<div class="right">
 						<h4>Drug Developers</h4>
-						<div class="sub-title">Working on novel therapies</div>
+						<div class="sub-title">
+							Enroll Your Therapy & Connect with Eligible Patients
+						</div>
 					</div>
 				</li>
         <li (click)="nextStep('Physician')">
