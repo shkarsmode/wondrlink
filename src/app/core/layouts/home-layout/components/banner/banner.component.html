@@ -12,30 +12,9 @@
 	</div>
 
 	<div class="statistics">
-		<div class="statistics__block">
-			<div class="statistics__block-title">20M+</div>
-			<div class="statistics__block-description">Diagnosed (2024)</div>
-		</div>
-
-		<div class="statistics__block">
-			<div class="statistics__block-title">10M+</div>
-			<div class="statistics__block-description">Deaths (2024)</div>
-		</div>
-
-		<div class="statistics__block">
-			<div class="statistics__block-title">1 in 2</div>
-			<div class="statistics__block-description">
-				Males get diagnosed <br />
-				in their lifetime
-			</div>
-		</div>
-
-		<div class="statistics__block">
-			<div class="statistics__block-title">1 in 3</div>
-			<div class="statistics__block-description">
-				Females get diagnosed <br /> 
-				in their lifetime
-			</div>
+		<div class="statistics__block" *ngFor="let stat of animatedStats">
+			<div class="statistics__block-title">{{ stat.displayValue }}</div>
+			<div class="statistics__block-description" [innerHTML]="stat.description"></div>
 		</div>
 	</div>
 
