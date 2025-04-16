@@ -2,6 +2,21 @@
     overflow-x: auto;
     // padding: 24px;
     // background: white;
+
+    &::-webkit-scrollbar {
+        width: 2px;
+        height: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        width: 2px;
+        height: 4px;
+        background: #f5f1ec;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #262626;
+    }
 }
 
 table {
@@ -12,6 +27,10 @@ table {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     color: #2d2a26;
+
+    @media screen and (max-width: 650px) {
+        min-width: 550px;
+    }
 }
 
 
@@ -94,11 +113,11 @@ th:nth-child(7) {
     background-color: #F4F3F1 !important;
     max-width: 200px;
     width: 200px;
-}
 
-.service-col {
-    max-width: 200px;
-    width: 200px;
+    @media screen and (max-width: 650px) {
+        max-width: 140px;
+        width: 140px;
+    }
 }
 
 @media (max-width: 768px) {

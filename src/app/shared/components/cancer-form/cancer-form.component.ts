@@ -26,7 +26,7 @@ import { Component } from '@angular/core';
                         <td class="service-name">{{ service.name }}</td>
                         <td *ngFor="let stage of stages" class="check-cell">
                             @if (service.availableIn.includes(stage.key)) {
-                                <span> ✔️ </span>
+                                <span> ✔ </span>
                             }
                         </td>
                     </tr>
