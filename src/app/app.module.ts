@@ -9,17 +9,18 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ErrorInterceptor } from 'src/app/shared/helpers/error.interceptor';
 import { JwtInterceptor } from 'src/app/shared/helpers/jwt.interceptor';
 import { AUTH_PATH_API, BASE_PATH_API, GEO_API_KEY, GEO_PATH_API } from 'src/app/shared/services/variables';
+import { affiliationData } from 'src/assets/data/flow-data/affiliation.data';
+import { specialityData } from 'src/assets/data/flow-data/specialization.data';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CancerFormComponent } from './shared/components/cancer-form/cancer-form.component';
 import { CheckEmailComponent } from './shared/dialogs/check-email/check-email.component';
 import { SignUpComponent } from './shared/dialogs/sign-up/sign-up.component';
 import { ThankYouComponent } from './shared/dialogs/thank-you/thank-you.component';
 import { MaterialModule } from './shared/materials/material.module';
 import { AFFILIATION_DATA } from './shared/tokens/affiliation-data.token';
 import { SPECIALITY_DATA } from './shared/tokens/speciality-data.token';
-import { specialityData } from 'src/assets/data/flow-data/specialization.data';
-import { affiliationData } from 'src/assets/data/flow-data/affiliation.data';
 
 @NgModule({
     declarations: [
@@ -27,6 +28,7 @@ import { affiliationData } from 'src/assets/data/flow-data/affiliation.data';
         CheckEmailComponent,
         SignUpComponent,
         ThankYouComponent,
+        CancerFormComponent
     ],
     imports: [
         BrowserModule,

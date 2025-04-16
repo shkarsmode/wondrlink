@@ -1,0 +1,138 @@
+.table-wrapper {
+    overflow-x: auto;
+    // padding: 24px;
+    // background: white;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 3px;
+    width: 100%;
+    min-width: 850px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #2d2a26;
+}
+
+
+th,
+td {
+    padding: 15px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #f9f5f0;
+}
+
+th:first-child,
+td:first-child {
+    text-align: left;
+    font-weight: 600;
+    // background-color: white;
+}
+
+thead th {
+    font-weight: 500;
+    max-width: 100px;
+}
+
+th:not(.service-col) {
+    width: 55px;
+    max-width: 55px !important;
+}
+
+.stage-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+/* Чередование цветов по столбцам */
+td:nth-child(2),
+th:nth-child(2) {
+    background-color: #f5f1ec;
+}
+
+td:nth-child(3),
+th:nth-child(3) {
+    background-color: #efebe5;
+}
+
+td:nth-child(4),
+th:nth-child(4) {
+    background-color: #ede7e1;
+}
+
+td:nth-child(5),
+th:nth-child(5) {
+    background-color: #eae2db;
+}
+
+td:nth-child(6),
+th:nth-child(6) {
+    background-color: #e6ded6;
+}
+
+td:nth-child(7),
+th:nth-child(7) {
+    background-color: #e3d9d0;
+}
+
+.check-cell {
+    font-size: 20px;
+}
+
+
+.service-name,
+.service-col {
+    background-color: #F4F3F1 !important;
+    max-width: 200px;
+    width: 200px;
+}
+
+.service-col {
+    max-width: 200px;
+    width: 200px;
+}
+
+@media (max-width: 768px) {
+    table {
+        font-size: 12px;
+    }
+
+    th,
+    td {
+        padding: 12px 8px;
+    }
+
+    .icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.check-cell {
+    font-size: 20px;
+}
+
+@media (max-width: 768px) {
+    table {
+        font-size: 12px;
+    }
+
+    th,
+    td {
+        padding: 12px 8px;
+    }
+
+    .icon {
+        width: 20px;
+        height: 20px;
+    }
+}

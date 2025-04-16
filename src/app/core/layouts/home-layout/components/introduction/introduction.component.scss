@@ -1,3 +1,8 @@
+:host {
+    display: flex;
+    justify-content: center;
+}
+
 p {
     margin: 0;
     padding: 0;
@@ -11,11 +16,21 @@ p {
     letter-spacing: normal;
     max-width: 1046px;
     width: 100%;
+    margin-bottom: 40px;
+}
+
+span {
+    max-width: 900px;
+    font-size: 20px;
+
 }
 
 .introduction-wrap {
     display: flex;
     place-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     padding: 0 15px;
     padding: 180px 0;
     background-color: white;

@@ -162,7 +162,7 @@ h1 {
     h1 {
         // font-size: 32px;
         // line-height: 36px;
-            // margin-bottom: 25px;
+        // margin-bottom: 25px;
         padding: 0 27px;
         max-width: 100%;
         font-size: 42px;
@@ -194,21 +194,24 @@ h1 {
 .wave {
     opacity: 0;
     animation: arrow 2s infinite;
-  }
+}
 
 .wave1 {
-    animation-delay:-1s;
-    -webkit-animation-delay:-1s; /* Safari 和 Chrome */
+    animation-delay: -1s;
+    -webkit-animation-delay: -1s;
+    /* Safari 和 Chrome */
 }
 
 .wave2 {
-    animation-delay:-0.5s;
-    -webkit-animation-delay:-0.5s; /* Safari 和 Chrome */
+    animation-delay: -0.5s;
+    -webkit-animation-delay: -0.5s;
+    /* Safari 和 Chrome */
 }
 
-.wave3 {	
-    animation-delay:0s;
-    -webkit-animation-delay:0s; /* Safari 和 Chrome */
+.wave3 {
+    animation-delay: 0s;
+    -webkit-animation-delay: 0s;
+    /* Safari 和 Chrome */
 }
 
 .arrows {
@@ -220,30 +223,53 @@ h1 {
 }
 
 
-@keyframes arrow
-{
-0% {opacity:0}
-40% {opacity:1}
-80% {opacity:0}
-100% {opacity:0}
+@keyframes arrow {
+    0% {
+        opacity: 0
+    }
+
+    40% {
+        opacity: 1
+    }
+
+    80% {
+        opacity: 0
+    }
+
+    100% {
+        opacity: 0
+    }
 }
 
-@-webkit-keyframes arrow /*Safari and Chrome*/
-{
-0% {opacity:0}
-40% {opacity:1}
-80% {opacity:0}
-100% {opacity:0}
+@-webkit-keyframes arrow
+
+/*Safari and Chrome*/
+    {
+    0% {
+        opacity: 0
+    }
+
+    40% {
+        opacity: 1
+    }
+
+    80% {
+        opacity: 0
+    }
+
+    100% {
+        opacity: 0
+    }
 }
 
 
-@media screen and (max-height: 600px) and (max-width: 1000px) { 
+@media screen and (max-height: 600px) and (max-width: 1000px) {
     .arrows {
         display: none;
     }
 }
 
-@media screen and (max-height: 500px) and (max-width: 1000px) { 
+@media screen and (max-height: 500px) and (max-width: 1000px) {
     h1 {
         margin-bottom: 30px;
     }
@@ -251,3 +277,35 @@ h1 {
 
 
 
+.statistics {
+    position: absolute;
+    left: 50%;
+    bottom: 0px;
+    transform: translate(-50%, 50%);
+
+    display: flex;
+    justify-content: center;
+    column-gap: 30px;
+    flex-wrap: wrap;
+    padding: 30px 40px;
+
+    background: white;
+    box-shadow: 0px 4px 30px 0px rgba(51, 51, 96, 0.1019607843);
+
+    &__block {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        border: 1px solid #262626;
+        padding: 20px;
+
+        &-title {
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        &-description {}
+    }
+}
