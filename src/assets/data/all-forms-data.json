@@ -57,7 +57,7 @@
                     "step": 2,
                     "type": "select",
                     "header": "How would you describe your situation?",
-                    "subheader": "I'm currently in need of:",
+                    "subheader": "",
                     "fields": [
                         {
                             "type": "text",
@@ -69,33 +69,52 @@
                     ],
                     "options": [
                         {
-                            "label": "Research/Investigation",
-                            "description": "You have a condition that wasn't easily diagnosed and needs to be investigated further.",
+                            "label": "Proactive Cancer Risk Assessment",
+                            "description": "Stay one step ahead with personalized prevention",
                             "name": "situation",
-                            "icon": "dnk.svg"
+                            "icon": "risk-assessment.svg"
                         },
                         {
-                            "label": "Compassionate Use/Expanded Access",
-                            "description": "You need access to a novel therapy not publicly available.",
+                            "label": "Newly Diagnosed Patient",
+                            "description": "Get guided support from day one",
                             "name": "situation",
-                            "icon": "bulb.svg"
+                            "icon": "new-diagnosis.svg"
                         },
                         {
-                            "label": "Clinical Trial",
-                            "description": "You need access to a clinical study for a novel therapy that is not yet approved.",
+                            "label": "Undergoing Standard Treatment",
+                            "description": "Enhance your current care with advanced options",
                             "name": "situation",
-                            "icon": "lab.svg"
+                            "icon": "standard-treatment.svg"
                         },
                         {
-                            "label": "Access to Approved Therapy",
-                            "description": "You need access to an approved therapy that's currently unavailable to you.",
+                            "label": "Detailed Case Review & Second Opinion",
+                            "description": "Gain expert insights and reassurance for the best path forward",
                             "name": "situation",
-                            "icon": "key.svg"
+                            "icon": "second-opinion.svg"
                         },
                         {
-                            "label": "Something Else",
+                            "label": "Tumor Biomarker Testing",
+                            "description": "Unlock precision medicines with personalized treatments",
                             "name": "situation",
-                            "icon": "ambulance.svg"
+                            "icon": "biomarker.svg"
+                        },
+                        {
+                            "label": "Clinical Trial Assessment",
+                            "description": "Discover trials tailored for your unique diagnosis",
+                            "name": "situation",
+                            "icon": "clinical-trial.svg"
+                        },
+                        {
+                            "label": "Exploring Novel Therapies",
+                            "description": "Access cutting-edge treatments beyond standard care",
+                            "name": "situation",
+                            "icon": "novel-therapies.svg"
+                        },
+                        {
+                            "label": "Navigating End-of-Life Care",
+                            "description": "Receive compassionate guidance for advanced stages",
+                            "name": "situation",
+                            "icon": "end-of-life.svg"
                         }
                     ]
                 },
