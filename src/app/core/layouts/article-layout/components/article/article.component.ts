@@ -1,4 +1,4 @@
-import { AfterViewInit, ApplicationRef, Component, ComponentFactoryResolver, ComponentRef, Injector, Input } from '@angular/core';
+import { ApplicationRef, Component, ComponentFactoryResolver, ComponentRef, DoCheck, Injector, Input } from '@angular/core';
 import { CancerFormComponent } from 'src/app/shared/components/cancer-form/cancer-form.component';
 import { IInfo } from 'src/app/shared/interfaces/IInfo';
 import { ArticleService } from 'src/app/shared/services/article-service.service';
@@ -8,18 +8,18 @@ import { ArticleService } from 'src/app/shared/services/article-service.service'
     templateUrl: './article.component.html',
     styleUrls: ['./article.component.scss'],
 })
-export class ArticleComponent implements AfterViewInit {
+export class ArticleComponent implements DoCheck {
     @Input() article: IInfo;
     private formComponentRef?: ComponentRef<CancerFormComponent>;
 
     constructor(
-        public articleService: ArticleService,
-        private injector: Injector,
-        private appRef: ApplicationRef,
-        private resolver: ComponentFactoryResolver
+        public readonly articleService: ArticleService,
+        private readonly injector: Injector,
+        private readonly appRef: ApplicationRef,
+        private readonly resolver: ComponentFactoryResolver
     ) {}
 
-    public ngAfterViewInit(): void {
+    public ngDoCheck(): void {
         this.addCancerFormIfItHasId();
     }
 
@@ -27,9 +27,13 @@ export class ArticleComponent implements AfterViewInit {
         return typeof this.article?.content === 'object';
     }
 
+
     private addCancerFormIfItHasId(): void {
+        if (location.pathname !== '/patients') return;
+
         const cancerForm = document.querySelector('.cancer-form');
-        if (cancerForm) {
+        const formExist = document.querySelector('app-cancer-care-table');
+        if (cancerForm && !formExist) {
             const factory =
                 this.resolver.resolveComponentFactory(CancerFormComponent);
             this.formComponentRef = factory.create(this.injector);
