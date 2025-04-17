@@ -27,6 +27,7 @@ h2 {
     padding: 0px 25px 180px;
     transition: all .3s;
     background-color: #F4F4F4;
+    padding-top: 180px;
 }
 
 .card {
@@ -123,13 +124,13 @@ button {
         flex-wrap: wrap;
     }
 
-    
+
 }
 
 @media (max-width: 500px) {
 
     .wrap {
-        padding: 0px 25px 100px;
+        padding: 100px 25px;
     }
 
 }
