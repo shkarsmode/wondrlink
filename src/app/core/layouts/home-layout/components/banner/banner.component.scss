@@ -291,12 +291,12 @@ h1 {
     padding: 30px 40px;
 
     width: 90%;
-    max-width: 930px;
+    max-width: 1200px;
 
     // margin: 0 15px;
 
     background: white;
-    box-shadow: 0px 4px 30px 0px rgba(51, 51, 96, 0.1019607843);
+    box-shadow: 0px 4px 30px 0px #3333601A;
 
     opacity: 0;
     animation: anim-statistics .7s 2s ease forwards;
@@ -316,16 +316,25 @@ h1 {
         justify-content: center;
         flex-direction: column;
         text-align: center;
-        border: 1px solid #262626;
+        // border: 1px solid #262626;
         padding: 20px;
 
-        @media screen and (max-width: 900px) {
-            padding: 10px;
+        border-right: 1px solid #DBDBDB;
+        padding-right: 50px;
+
+        &:last-child {
+            border: none;
+            padding-right: 0;
+        }
+
+        @media screen and (max-width: 1200px) {
+            padding: 10px !important;
+            border-right: none;
         }
 
         &-title {
-            font-weight: 600;
-            font-size: 20px;
+            font-weight: 900;
+            font-size: 40px;
 
             @media screen and (max-width: 600px) {
                 font-size: 16px;
@@ -333,6 +342,8 @@ h1 {
         }
 
         &-description {
+            font-size: 18px;
+
             @media screen and (max-width: 600px) {
                 font-size: 12px;
             }

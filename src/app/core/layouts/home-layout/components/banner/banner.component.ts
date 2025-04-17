@@ -82,7 +82,7 @@ export class BannerComponent implements OnInit {
 
 
     animateNumber(target: number, suffix: string, description: string) {
-        const baseDuration = 2500; // общая длительность (будет адаптироваться)
+        const baseDuration = 2500;
         const frameRate = 20;
         const steps = baseDuration / (1000 / frameRate);
         let current = 0;
@@ -91,9 +91,9 @@ export class BannerComponent implements OnInit {
         this.animatedStats.push(stat);
 
         const interval = setInterval(() => {
-            let dynamicIncrement: number;
+            let dynamicIncrement: number = 0;
 
-            if (target >= 1_000_000) {
+            if (target >= 1_000_000 && current <= 10_000_000) {
                 if (current < 1000) {
                     dynamicIncrement = 500;
                 } else if (current < 10000) {
@@ -105,9 +105,13 @@ export class BannerComponent implements OnInit {
                 } else if (current < 1000000) {
                     dynamicIncrement = 200000;
                 } else if (current > 10000000) {
-                    dynamicIncrement = 700000;
+                    dynamicIncrement = 10000000;
                 } else {
                     dynamicIncrement = 500000;
+                }
+            } else if (target > 10_000_000) {
+                if (current >= 10_000_000) {
+                    dynamicIncrement = 10_000_000;
                 }
             } else {
                 if (current < 1000) {
@@ -116,6 +120,8 @@ export class BannerComponent implements OnInit {
                     dynamicIncrement = 200;
                 } else if (current < 100000) {
                     dynamicIncrement = 1000;
+                } else if (current > 10000000) {
+                    dynamicIncrement = 10000000;
                 } else {
                     dynamicIncrement = 5000;
                 }

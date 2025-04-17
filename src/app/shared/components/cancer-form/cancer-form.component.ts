@@ -26,7 +26,9 @@ import { Component } from '@angular/core';
                         <td class="service-name">{{ service.name }}</td>
                         <td *ngFor="let stage of stages" class="check-cell">
                             @if (service.availableIn.includes(stage.key)) {
-                            <span> ✔ </span>
+                                <span>
+                                    <img src="assets/svg/check-mark.svg" alt="Checkmark" />
+                                </span>
                             }
                         </td>
                     </tr>
@@ -41,17 +43,17 @@ export class CancerFormComponent {
         {
             key: 'proactive',
             label: 'Proactive Cancer Risk Reduction',
-            icon: 'assets/svg/chemistry.svg',
+            icon: 'assets/svg/reduction.svg',
         },
         {
             key: 'diagnosed',
             label: 'Newly Diagnosed',
-            icon: 'assets/svg/stethoscope.svg',
+            icon: 'assets/svg/diagnosed.svg',
         },
         {
             key: 'treatment',
             label: 'Undergoing Standard Treatment',
-            icon: 'assets/svg/dnk.svg',
+            icon: 'assets/svg/treatment.svg',
         },
         {
             key: 'trial',
@@ -61,7 +63,7 @@ export class CancerFormComponent {
         {
             key: 'novel',
             label: 'Exploring Novel Therapies',
-            icon: 'assets/svg/key.svg',
+            icon: 'assets/svg/dnk.svg',
         },
         {
             key: 'eol',
