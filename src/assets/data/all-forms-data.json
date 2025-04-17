@@ -115,6 +115,11 @@
                             "description": "Receive compassionate guidance for advanced stages",
                             "name": "situation",
                             "icon": "end-of-life.svg"
+                        },
+                        {
+                            "label": "Something Else",
+                            "name": "situation",
+                            "icon": "ambulance.svg"
                         }
                     ]
                 },
