@@ -63,7 +63,6 @@ export class EditUserComponent implements OnInit {
         this.setCancerTypeEnumAndDiseaseCategories();
     }
 
-
     private blockPageForModerators(): void {
         if (this.userService.isModerator) {
             this.router.navigateByUrl('/admin');

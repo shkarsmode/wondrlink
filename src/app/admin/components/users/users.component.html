@@ -72,13 +72,22 @@
                             {{ user.updatedAt | date: 'MMM d, y h:mm a' }}
                         </td>
                         <td class="wrap-buttons">
-                            <button mat-stroked-button matTooltip="Show more / Edit" matTooltipShowDelay="300"
-                                routerLink="/admin/edit-user/{{ user.id }}">
+                            <button
+                                routerLink="/admin/edit-user/{{ user.id }}"
+                                mat-stroked-button
+                                matTooltip="Show more / Edit"
+                                matTooltipShowDelay="300">
                                 Show more
                             </button>
-                            <button (mousedown)="startDeleteTimeout(user.id!)" (mouseup)="clearDeleteTimeout()"
-                                (mouseout)="clearDeleteTimeout()" [ngClass]="{'deleting': isDeleting && activeDeletingIndex === user.id!}"
-                                mat-fab color="warn" matTooltip="Press to delete" matTooltipShowDelay="300">
+                            <button
+                                (mousedown)="startDeleteTimeout(user.id!)"
+                                [ngClass]="{'deleting': isDeleting && activeDeletingIndex === user.id!}"
+                                (mouseout)="clearDeleteTimeout()"
+                                (mouseup)="clearDeleteTimeout()"
+                                color="warn"
+                                mat-fab
+                                matTooltip="Press to delete"
+                                matTooltipShowDelay="300">
                                 <span class="material-symbols-outlined">
                                     delete
                                 </span>
