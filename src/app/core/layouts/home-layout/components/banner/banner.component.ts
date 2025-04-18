@@ -13,22 +13,24 @@ export class BannerComponent implements OnInit {
         {
             value: 20000000,
             suffix: '+',
-            description: 'Cancer Diagnosed (2024)',
+            description: 'Cancer Diagnoses (2024)',
         },
         { value: 10000000, suffix: '+', description: 'Cancer Deaths (2024)' },
         {
             text: '1 in 2',
-            description: 'Males get diagnosed with <br /> cancer in their lifetime',
+            description:
+                'Males get diagnosed with <br /> cancer in their lifetime',
         },
         {
             text: '1 in 3',
-            description: 'Females get diagnosed with <br /> cancer in their lifetime',
+            description:
+                'Females get diagnosed with <br /> cancer in their lifetime',
         },
     ];
     animatedStats: any[] = [
         {
             displayValue: '0',
-            description: 'Cancer Diagnosed (2024)',
+            description: 'Cancer Diagnoses (2024)',
         },
         {
             displayValue: '0',
@@ -36,11 +38,13 @@ export class BannerComponent implements OnInit {
         },
         {
             displayValue: '1 in 0',
-            description: 'Males get diagnosed with <br /> cancer in their lifetime',
+            description:
+                'Males get diagnosed with <br /> cancer in their lifetime',
         },
         {
             displayValue: '1 in 0',
-            description: 'Females get diagnosed with <br /> cancer in their lifetime',
+            description:
+                'Females get diagnosed with <br /> cancer in their lifetime',
         },
     ];
 
