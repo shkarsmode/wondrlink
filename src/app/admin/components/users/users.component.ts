@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { IUser } from 'src/app/shared/interfaces/IUser';
 import { UserTypeEnum } from 'src/app/shared/interfaces/UserTypeEnum';
@@ -7,10 +8,9 @@ import { UserService } from '../../../shared/services/user.service';
 @Component({
     selector: 'app-users',
     templateUrl: './users.component.html',
-    styleUrls: ['./users.component.scss']
+    styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent {
-
     public users: IUser[];
     public allUsersCount: number;
     public isLoading: boolean = true;
@@ -20,19 +20,24 @@ export class UsersComponent {
     public userTypeEnum: typeof UserTypeEnum = UserTypeEnum;
 
     private limit: number = 10; // Number of items per page
-    public page: number = 0; // Current page number    
+    public page: number = 0; // Current page number
     private deleteTimeout: any;
     private type: UserTypeEnum | null = null;
     public isDeleting: boolean = false;
     public activeDeletingIndex: number = -1;
 
-    constructor(
-        private userService: UserService
-    ) {}
+    constructor(public userService: UserService, public router: Router) {}
 
     public ngOnInit(): void {
+        this.blockPageForModerators();
         this.getLocalStorageSortBy();
         this.getUsers();
+    }
+
+    private blockPageForModerators(): void {
+        if (this.userService.isModerator) {
+            this.router.navigateByUrl('/admin');
+        }
     }
 
     private getLocalStorageSortBy(): void {
@@ -46,8 +51,10 @@ export class UsersComponent {
 
     public getUsers(isAddToExciting: boolean = false): void {
         this.isLoading = !this.isLoadingMore ? true : false;
-        const sortBy = (this.sortBy === 'all' ? null : this.sortBy) as UserTypeEnum;
-        
+        const sortBy = (
+            this.sortBy === 'all' ? null : this.sortBy
+        ) as UserTypeEnum;
+
         this.userService
             .getUserWithPagination(this.limit, this.page, sortBy)
             .subscribe({
@@ -64,11 +71,11 @@ export class UsersComponent {
                     this.isLoading = false;
                     this.isLoadingMore = false;
                 },
-                error: _ => {
+                error: (_) => {
                     this.users = [];
                     this.isLoading = false;
                     this.isLoadingMore = false;
-                }
+                },
             });
     }
 
@@ -89,15 +96,15 @@ export class UsersComponent {
     }
 
     private deleteUserByID(id: number): void {
-        
-        const userToDelete = this.users.filter(user => user.id === id)[0];
+        const userToDelete = this.users.filter((user) => user.id === id)[0];
         const indexUserToDelete = this.users.indexOf(userToDelete);
-        this.users = this.users.filter(user => user.id !== id);
+        this.users = this.users.filter((user) => user.id !== id);
 
-        this.userService.deleteUserById(id)
+        this.userService
+            .deleteUserById(id)
             .pipe(take(1))
             .subscribe({
-                next: _ => {
+                next: (_) => {
                     const tempLimit = this.limit;
                     const tempPage = this.page;
 
@@ -113,12 +120,15 @@ export class UsersComponent {
                     if (userToDelete.status === 'approved') {
                         this.userService.approvedUsersUpdated$.next(true);
                     }
-
                 },
-                error: _ => {
+                error: (_) => {
                     this.users.splice(indexUserToDelete, 0, userToDelete);
-                    alert(`Something went wrong. Can't delete this user ${indexUserToDelete + 1}`);
-                }
+                    alert(
+                        `Something went wrong. Can't delete this user ${
+                            indexUserToDelete + 1
+                        }`
+                    );
+                },
             });
     }
 
@@ -127,7 +137,7 @@ export class UsersComponent {
         this.activeDeletingIndex = index;
         this.deleteTimeout = setTimeout(() => {
             this.deleteItem(index);
-        }, 1000); 
+        }, 1000);
     }
 
     public clearDeleteTimeout(): void {
@@ -142,5 +152,4 @@ export class UsersComponent {
 
         this.deleteUserByID(id);
     }
-
 }

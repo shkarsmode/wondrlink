@@ -39,8 +39,8 @@ export class EditUserComponent implements OnInit {
     public readonly companyTypeEnum: typeof CompanyTypeEnum = CompanyTypeEnum;
     public readonly patientSituationTypeEnum: typeof PatientSituationTypeEnum =
         PatientSituationTypeEnum;
-    public readonly patientPositionEnum: typeof PatientPositionRoleEnum = PatientPositionRoleEnum;
-
+    public readonly patientPositionEnum: typeof PatientPositionRoleEnum =
+        PatientPositionRoleEnum;
 
     private deleteTimeout: any;
     public userId: number | null;
@@ -58,8 +58,16 @@ export class EditUserComponent implements OnInit {
     ) {}
 
     public ngOnInit(): void {
+        this.blockPageForModerators();
         this.getInfoOfRoute();
         this.setCancerTypeEnumAndDiseaseCategories();
+    }
+
+
+    private blockPageForModerators(): void {
+        if (this.userService.isModerator) {
+            this.router.navigateByUrl('/admin');
+        }
     }
 
     private setCancerTypeEnumAndDiseaseCategories(): void {
@@ -91,7 +99,9 @@ export class EditUserComponent implements OnInit {
             .subscribe({
                 next: (user) => {
                     this.user = user;
-                    this.userAddInfoFieldKeys = Object.keys(this.user.additionalInfo);
+                    this.userAddInfoFieldKeys = Object.keys(
+                        this.user.additionalInfo
+                    );
                     this.user.type = user.type ? user.type : UserTypeEnum.None;
                     this.isUserInited = true;
                     this.initReactiveForm();
@@ -124,12 +134,9 @@ export class EditUserComponent implements OnInit {
             companyType: [this.user.companyType], // Subgroup
             isMySelf: [this.patientPositionEnum[this.user.isMySelf]],
             position: [this.user.position],
-            function: [this.user.function]
-        }); 
-        
+            function: [this.user.function],
+        });
     }
-
-    
 
     public toggleUploadImageType(): void {
         if (this.isUpdatedPicture) {
@@ -313,9 +320,11 @@ export class EditUserComponent implements OnInit {
         this.deleteUserByID(id);
     }
 
-    public get functionEnum(): Array<string> {        
-        if(!this.isUserInited) return []; 
-        return this.flowDataService.getSubgroupFunctionByTitle(this.subgroup.value);
+    public get functionEnum(): Array<string> {
+        if (!this.isUserInited) return [];
+        return this.flowDataService.getSubgroupFunctionByTitle(
+            this.subgroup.value
+        );
     }
 
     // Convenience getters for easy access to form controls
@@ -361,8 +370,9 @@ export class EditUserComponent implements OnInit {
     public get cancerType(): FormControl {
         return this.form.get('cancerType') as FormControl;
     }
-    public get subgroup(): FormControl { // subgroup flowSelect 
-        return this.form.get('companyType') as FormControl; //companyType needs to be replaced with subgroup 
+    public get subgroup(): FormControl {
+        // subgroup flowSelect
+        return this.form.get('companyType') as FormControl; //companyType needs to be replaced with subgroup
     }
     public get isMySelf(): FormControl {
         return this.form.get('isMySelf') as FormControl;

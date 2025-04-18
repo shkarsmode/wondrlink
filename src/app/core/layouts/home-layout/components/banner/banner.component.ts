@@ -10,33 +10,37 @@ import { FlowDialogComponent } from 'src/app/flow/components/flow-dialog/flow-di
 export class BannerComponent implements OnInit {
     private dialogConfig: MatDialogConfig = new MatDialogConfig();
     public stats = [
-        { value: 20000000, suffix: '+', description: 'Diagnosed (2024)' },
-        { value: 10000000, suffix: '+', description: 'Deaths (2024)' },
+        {
+            value: 20000000,
+            suffix: '+',
+            description: 'Cancer Diagnosed (2024)',
+        },
+        { value: 10000000, suffix: '+', description: 'Cancer Deaths (2024)' },
         {
             text: '1 in 2',
-            description: 'Males get diagnosed <br /> in their lifetime',
+            description: 'Males get diagnosed with <br /> cancer in their lifetime',
         },
         {
             text: '1 in 3',
-            description: 'Females get diagnosed <br /> in their lifetime',
+            description: 'Females get diagnosed with <br /> cancer in their lifetime',
         },
     ];
     animatedStats: any[] = [
         {
             displayValue: '0',
-            description: 'Diagnosed (2024)',
+            description: 'Cancer Diagnosed (2024)',
         },
         {
             displayValue: '0',
-            description: 'Deaths (2024)',
+            description: 'Cancer Deaths (2024)',
         },
         {
             displayValue: '1 in 0',
-            description: 'Males get diagnosed <br /> in their lifetime',
+            description: 'Males get diagnosed with <br /> cancer in their lifetime',
         },
         {
             displayValue: '1 in 0',
-            description: 'Females get diagnosed <br /> in their lifetime',
+            description: 'Females get diagnosed with <br /> cancer in their lifetime',
         },
     ];
 
@@ -79,7 +83,6 @@ export class BannerComponent implements OnInit {
             behavior: 'smooth', // Smooth scrolling,
         });
     }
-
 
     animateNumber(target: number, suffix: string, description: string) {
         const baseDuration = 2500;

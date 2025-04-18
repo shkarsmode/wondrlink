@@ -107,40 +107,44 @@
                                 </div>
                             </div>
                         </li>
-                        <li 
-                            class="c-menu__item" 
-                            routerLink="/admin/users" 
-                            routerLinkActive="is-active"
-                            data-toggle="tooltip" 
-                            matTooltip="Users database" 
-                            matTooltipShowDelay="400"
-                            matTooltipPosition="right">
-                            <div class="c-menu__item__inner">
-                                <span class="material-symbols-outlined">
-                                    group
-                                </span>
-                                <div class="c-menu-item__title">
-                                    <span>Users</span>
+                        @if (!userService.isModerator) {
+                            <li 
+                                class="c-menu__item" 
+                                routerLink="/admin/users" 
+                                routerLinkActive="is-active"
+                                data-toggle="tooltip" 
+                                matTooltip="Users database" 
+                                matTooltipShowDelay="400"
+                                matTooltipPosition="right">
+                                <div class="c-menu__item__inner">
+                                    <span class="material-symbols-outlined">
+                                        group
+                                    </span>
+                                    <div class="c-menu-item__title">
+                                        <span>Users</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li 
-                            class="c-menu__item has-submenu"
-                            routerLink="/admin/settings" 
-                            routerLinkActive="is-active" 
-                            data-toggle="tooltip" 
-                            matTooltip="Settings" 
-                            matTooltipShowDelay="400"
-                            matTooltipPosition="right">
-                            <div class="c-menu__item__inner">
-                                <span class="material-symbols-outlined">
-                                    settings
-                                </span>
-                                <div class="c-menu-item__title">
-                                    <span>Settings</span>
+                            </li>
+                        }
+                        @if (!userService.isModerator) {
+                            <li 
+                                class="c-menu__item has-submenu"
+                                routerLink="/admin/settings" 
+                                routerLinkActive="is-active" 
+                                data-toggle="tooltip" 
+                                matTooltip="Settings" 
+                                matTooltipShowDelay="400"
+                                matTooltipPosition="right">
+                                <div class="c-menu__item__inner">
+                                    <span class="material-symbols-outlined">
+                                        settings
+                                    </span>
+                                    <div class="c-menu-item__title">
+                                        <span>Settings</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
+                        }
                     </ul>
                 </nav>
             </div>

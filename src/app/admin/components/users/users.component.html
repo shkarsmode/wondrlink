@@ -59,7 +59,11 @@
                             {{ user.type ? user.type : 'Common' }}
                         </td>
                         <td class="role">
-                            {{ user.role }}
+                            @if (userService.moderators.includes(user.email)) {
+                                MODERATOR
+                            } @else {
+                                {{ user.role }}
+                            }
                         </td>
                         <td>
                             {{ user.status }}

@@ -24,7 +24,7 @@ export class AdminComponent implements OnInit {
 
     constructor(
         public authService: AuthService,
-        private userService: UserService,
+        public userService: UserService,
         private postsService: PostsService,
         private cloudinaryService: CloudinaryService,
         private router: Router
