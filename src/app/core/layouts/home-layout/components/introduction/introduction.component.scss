@@ -62,6 +62,12 @@ span {
     }
 }
 
+@media screen and (max-width: 585px) {
+    .introduction-wrap {
+        padding-top: 320px !important;
+    }
+}
+
 
 @media (max-width: 500px) {
     .introduction-wrap {

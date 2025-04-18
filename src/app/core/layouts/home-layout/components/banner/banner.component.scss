@@ -291,7 +291,7 @@ h1 {
     padding: 30px 40px;
 
     width: 90%;
-    max-width: 1226px;
+    max-width: 1320px;
 
     // margin: 0 15px;
 
@@ -308,6 +308,11 @@ h1 {
     @media screen and (max-width: 600px) {
         transform: translate(-50%, 40%);
         padding: 10px;
+    }
+
+    @media screen and (max-width: 585px) {
+        flex-direction: column;
+        transform: translate(-50%, 68%);
     }
 
     &__block {
@@ -330,6 +335,13 @@ h1 {
         @media screen and (max-width: 1200px) {
             padding: 10px !important;
             border-right: none;
+        }
+
+        @media screen and (max-width: 585px) {
+            border-bottom: 1px solid #DBDBDB;
+            padding-bottom: 29px !important;
+            width: 65%;
+            margin: 0 auto;
         }
 
         &-title {
