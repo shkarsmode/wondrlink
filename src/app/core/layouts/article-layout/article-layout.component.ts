@@ -37,13 +37,14 @@ export class ArticleLayoutComponent implements OnInit {
 
     private getArticleByIdFromRouteParams(): void {
         this.articleId = this.route.snapshot.paramMap.get('articleId') || 'patients';
+        console.log('articleid', this.articleId);
         this.getCurrentArticle();
         this.setupFlowConfig()
     }
 
     private getCurrentArticle(): void {
         this.currentInfo = this.articleService.getCurrentArticle(this.articleId);
-
+        console.log('current info', this.currentInfo);
         if (!this.currentInfo) {
             this.router.navigateByUrl('/');
         } else {
@@ -52,6 +53,7 @@ export class ArticleLayoutComponent implements OnInit {
     }
 
     private updateMetaTags(info: IInfo): void {
+        console.log(info);
         // this.title.setTitle(post.header);
         this.meta.updateTag({ name: 'description', content: info.intro });
         this.meta.updateTag({ property: 'og:title', content: info.header });

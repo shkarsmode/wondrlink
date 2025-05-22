@@ -29,6 +29,8 @@ export class ArticleComponent implements DoCheck {
 
 
     private addCancerFormIfItHasId(): void {
+        if (typeof window === 'undefined') return;
+
         if (location.pathname !== '/patients') return;
 
         const cancerForm = document.querySelector('.cancer-form');

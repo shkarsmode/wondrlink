@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject } from 'rxjs';
 import { FlowDialogComponent } from 'src/app/flow/components/flow-dialog/flow-dialog.component';
 import { FlowComponentConfig, TFormFlow } from 'src/app/shared/interfaces/TFormFlow';
+import { info } from 'src/assets/data/info';
 import { IInfo } from '../interfaces/IInfo';
 
 export type TArticleFormState = 'active' | 'hidden';
@@ -39,11 +40,7 @@ export class ArticleService {
     }
 
     public setAllArticles(): void {
-        this.http
-            .get('assets/data/info.json')
-            .subscribe((info: any) => {
-                this.info = info.data;
-            });
+        this.info = info.data as any;
     }
 
     public getCurrentArticle(id: string): IInfo {

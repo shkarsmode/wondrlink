@@ -30,6 +30,7 @@ export class ArticleBannerComponent implements DoCheck, OnDestroy {
         this.articleId = this.article?.id;
 
         this.setBackgroundImage();
+        if (typeof window === 'undefined') return;
         setTimeout(() => {
             document.querySelectorAll('.action-button').forEach(button => button.addEventListener('click', this.handleClickBounded));
         });
@@ -46,6 +47,8 @@ export class ArticleBannerComponent implements DoCheck, OnDestroy {
 
 
     public ngOnDestroy(): void {
+        if (typeof window === 'undefined') return;
+
         document.querySelectorAll('.action-button').forEach((button) => button.removeEventListener('click', this.handleClickBounded));
     }
 }
