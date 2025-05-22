@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -22,24 +22,19 @@ import { MaterialModule } from './shared/materials/material.module';
 import { AFFILIATION_DATA } from './shared/tokens/affiliation-data.token';
 import { SPECIALITY_DATA } from './shared/tokens/speciality-data.token';
 
-@NgModule({
-    declarations: [
+@NgModule({ declarations: [
         AppComponent,
         CheckEmailComponent,
         SignUpComponent,
         ThankYouComponent,
         CancerFormComponent
     ],
-    imports: [
-        BrowserModule,
+    bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
-        HttpClientModule,
         BrowserAnimationsModule,
         MaterialModule,
         FormsModule,
-        AngularSvgIconModule.forRoot(),
-    ],
-    providers: [
+        AngularSvgIconModule.forRoot()], providers: [
         JwtHelperService,
         HttpClient,
         {
@@ -59,7 +54,6 @@ import { SPECIALITY_DATA } from './shared/tokens/speciality-data.token';
         { provide: GEO_PATH_API, useValue: environment.geoPathAPI },
         { provide: AFFILIATION_DATA, useValue: affiliationData },
         { provide: SPECIALITY_DATA, useValue: specialityData },
-    ],
-    bootstrap: [AppComponent],
-})
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule {}
