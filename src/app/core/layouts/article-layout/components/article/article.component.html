@@ -1,19 +1,21 @@
 @if (isArticleTypeOfArray) {
-	@for (
-		content of article?.content; 
-		track content; 
-		let i = $index
-	) {
-		<div
-			class="wrap"
-			[style.backgroundColor]="i % 2 === 0 ? '#f4f4f4' : '#fff'">
-			<div>
-				<div 
-					class="content" 
-					[innerHTML]="content">
+	@if (article && article.content) {
+		@for (
+			content of article.content; 
+			track content; 
+			let i = $index
+		) {
+			<div
+				class="wrap"
+				[style.backgroundColor]="i % 2 === 0 ? '#f4f4f4' : '#fff'">
+				<div>
+					<div 
+						class="content" 
+						[innerHTML]="content">
+					</div>
 				</div>
 			</div>
-		</div>
+		}
 	}
 } @else {
 	<div class="wrap" *ngIf="article">

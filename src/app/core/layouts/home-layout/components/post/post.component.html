@@ -27,7 +27,9 @@
                             <div class="owner-info">
                                 <div class="name">
                                     {{ post.user.firstName }}
-                                    {{ post.user?.lastName }}
+                                    @if (post.user) {
+                                        {{ post.user.lastName }}
+                                    }
                                 </div>
                                 <!-- <div class="sign">
                                     Associate writer for Well at The Times

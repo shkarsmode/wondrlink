@@ -27,9 +27,11 @@
                         <td class="creation-date">
                             {{ post.createdAt | date:'MMM dd, yyyy HH:mm' }}
                         </td>
-                        <td>
-                            {{ post.user?.firstName }} {{ post.user?.lastName }}
-                        </td>
+                        @if (post.user) {
+                            <td>
+                                {{ post.user.firstName }} {{ post.user.lastName }}
+                            </td>
+                        }
                         <td>
                             <mat-icon
                                 [style.marginLeft]="'20px'"
