@@ -28,16 +28,14 @@ export class ArticleLayoutComponent implements OnInit {
         private title: Title
     ) {}
 
-     public ngOnInit(): void {
+    public ngOnInit(): void {
         this.getArticleByIdFromRouteParams();
     }
 
     private getArticleByIdFromRouteParams(): void {
-        this.route.paramMap.subscribe((params) => {
-            this.articleId = params.get('articleId') || 'patients';
-            this.getCurrentArticle();
-            this.setupFlowConfig()
-        });
+        this.articleId = this.route.snapshot.paramMap.get('articleId') || 'patients'
+        this.getCurrentArticle();
+        this.setupFlowConfig()
     }
 
     private getCurrentArticle(): void {
