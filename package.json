@@ -6,13 +6,14 @@
     "start": "npm run sharp && ng serve",
     "start:prod": "ng serve --configuration=production --open",
     "build:prod": "ng build --configuration=production",
-    "build": "npm run sharp && ng build",
+    "build-dev": "npm run sharp && ng build",
     "watch": "ng build --watch --configuration development",
     "sharp": "node src/scripts/sharp.js",
     "dev:ssr": "ng run wondrlink:serve-ssr",
     "serve:ssr": "node dist/wondrlink/server/main.js",
     "build:ssr": "ng build && ng run wondrlink:server",
-    "prerender": "ng run wondrlink:prerender"
+    "prerender": "ng run wondrlink:prerender",
+    "vercel-build": "ng build && node dist/wondrlink/server/server.mjs"
   },
   "private": true,
   "dependencies": {

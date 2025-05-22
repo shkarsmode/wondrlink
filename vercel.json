@@ -1,14 +1,16 @@
 {
-    "builds": [
+    "version": 2,
+    "public": true,
+    "name": "wondrlink",
+    "rewrites": [
         {
-            "src": "dist/wondrlink/server/main.js",
-            "use": "@vercel/node"
+            "source": "/(.*)",
+            "destination": "/api"
         }
     ],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "dist/wondrlink/server/main.js"
+    "functions": {
+        "api/index.js": {
+            "includeFiles": "dist/wondrlink/**"
         }
-    ]
+    }
 }
