@@ -46,15 +46,15 @@ export function app(): express.Express {
   return server;
 }
 
-function run(): void {
-  const port = process.env['PORT'] || 4000;
+// function run(): void {
+//   const port = process.env['PORT'] || 4000;
 
-  // Start up the Node server
-  const server = app();
-  server.listen(port, () => {
-    console.log(`Node Express server listening on http://localhost:${port}`);
-  });
-}
+//   // Start up the Node server
+//   const server = app();
+//   server.listen(port, () => {
+//     console.log(`Node Express server listening on http://localhost:${port}`);
+//   });
+// }
 
 // Webpack will replace 'require' with '__webpack_require__'
 // '__non_webpack_require__' is a proxy to Node 'require'
