@@ -92,9 +92,9 @@ export class PostComponent implements OnInit {
             .subscribe({
                 next: (post) => {
                     this.post = post;
+                    this.updateMetaTags(post);
                     this.initShareLinksForSocials(id);
                     this.setBackgroundImage();
-                    this.updateMetaTags(post);
                 },
                 error: (_) => this.router.navigate(['/not-found']),
             });
@@ -113,6 +113,7 @@ export class PostComponent implements OnInit {
         this.meta.updateTag({ property: 'twitter:title', content: post.header });
         this.meta.updateTag({ property: 'twitter:description', content: post.subHeader });
         this.meta.updateTag({ property: 'twitter:image', content: post.mainPicture });
+        this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
     }
 
 

@@ -4,5 +4,17 @@
             "source": "/api/:match*",
             "destination": "https://wondrlink-back.vercel.app/api/:match*"
         }
+    ],
+    "builds": [
+        {
+            "src": "dist/wondrlink/server/main.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "dist/wondrlink/server/main.js"
+        }
     ]
 }

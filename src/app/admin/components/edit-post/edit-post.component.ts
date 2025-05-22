@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
@@ -7,6 +7,7 @@ import { IPost } from 'src/app/shared/interfaces/IPost';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CloudinaryService } from 'src/app/shared/services/cloudinary.service';
 import { PostsService } from 'src/app/shared/services/posts.service';
+import { StorageService } from 'src/app/shared/services/storage-service.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
@@ -31,6 +32,8 @@ export class EditPostComponent implements OnInit {
     private userId: number;
     private postId: number | null;
     @ViewChild('preview') preview: ElementRef;
+
+    private storageService: StorageService = inject(StorageService);
 
     constructor(
         private route: ActivatedRoute,
@@ -194,7 +197,7 @@ export class EditPostComponent implements OnInit {
                 next: _ => {
                     console.log('Post was deleted')
 
-                    const token = localStorage.getItem('token') as string;
+                    const token = this.storageService.get('token') as string;
                     const myId = this.authService.getUserIdFromToken(token);
                     if (myId === this.post.user?.id) {
                         this.userService.profileUpdated$.next(true);

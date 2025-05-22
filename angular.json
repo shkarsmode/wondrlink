@@ -17,7 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/wondrlink",
+                        "outputPath": "dist/wondrlink/browser",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "allowedCommonJsDependencies": [
@@ -110,6 +110,68 @@
                         ],
                         "scripts": []
                     }
+                },
+                "server": {
+                  "builder": "@angular-devkit/build-angular:server",
+                  "options": {
+                    "outputPath": "dist/wondrlink/server",
+                    "main": "server.ts",
+                    "tsConfig": "tsconfig.server.json",
+                    "inlineStyleLanguage": "scss"
+                  },
+                  "configurations": {
+                    "production": {
+                      "outputHashing": "media",
+                      "sourceMap": true
+                    },
+                    "development": {
+                      "buildOptimizer": false,
+                      "fileReplacements": [
+                        {
+                          "replace": "src/environments/environment.ts",
+                          "with": "src/environments/environment.development.ts"
+                        }
+                      ],
+                      "optimization": false,
+                      "sourceMap": true,
+                      "extractLicenses": false,
+                      "vendorChunk": true
+                    }
+                  },
+                  "defaultConfiguration": "production"
+                },
+                "serve-ssr": {
+                  "builder": "@angular-devkit/build-angular:ssr-dev-server",
+                  "configurations": {
+                    "development": {
+                      "browserTarget": "wondrlink:build:development",
+                      "serverTarget": "wondrlink:server:development"
+                    },
+                    "production": {
+                      "browserTarget": "wondrlink:build:production",
+                      "serverTarget": "wondrlink:server:production"
+                    }
+                  },
+                  "defaultConfiguration": "development"
+                },
+                "prerender": {
+                  "builder": "@angular-devkit/build-angular:prerender",
+                  "options": {
+                    "routes": [
+                      "/"
+                    ]
+                  },
+                  "configurations": {
+                    "production": {
+                      "browserTarget": "wondrlink:build:production",
+                      "serverTarget": "wondrlink:server:production"
+                    },
+                    "development": {
+                      "browserTarget": "wondrlink:build:development",
+                      "serverTarget": "wondrlink:server:development"
+                    }
+                  },
+                  "defaultConfiguration": "production"
                 }
             }
         }

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 
 import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
@@ -55,5 +55,6 @@ import { SPECIALITY_DATA } from './shared/tokens/speciality-data.token';
         { provide: AFFILIATION_DATA, useValue: affiliationData },
         { provide: SPECIALITY_DATA, useValue: specialityData },
         provideHttpClient(withInterceptorsFromDi()),
+        provideClientHydration(),
     ] })
 export class AppModule {}

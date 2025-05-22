@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { IUser } from 'src/app/shared/interfaces/IUser';
 import { UserTypeEnum } from 'src/app/shared/interfaces/UserTypeEnum';
+import { StorageService } from 'src/app/shared/services/storage-service.service';
 import { UserService } from '../../../shared/services/user.service';
 
 @Component({
@@ -26,6 +27,8 @@ export class UsersComponent {
     public isDeleting: boolean = false;
     public activeDeletingIndex: number = -1;
 
+    private storageService: StorageService = inject(StorageService);
+
     constructor(public userService: UserService, public router: Router) {}
 
     public ngOnInit(): void {
@@ -41,7 +44,7 @@ export class UsersComponent {
     }
 
     private getLocalStorageSortBy(): void {
-        const sortBy = localStorage.getItem('users-sort');
+        const sortBy = this.storageService.get('users-sort');
         this.sortBy = sortBy ? sortBy : 'all';
     }
 
@@ -81,7 +84,7 @@ export class UsersComponent {
 
     public onSelectionChange(): void {
         this.onPageChange(0);
-        localStorage.setItem('users-sort', this.sortBy);
+        this.storageService.set('users-sort', this.sortBy);
     }
 
     public onPageChange(pageNumber: number) {

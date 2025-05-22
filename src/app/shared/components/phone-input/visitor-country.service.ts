@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { StorageService } from '../../services/storage-service.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,9 @@ export class VisitorCountryService {
     this.clearVisitorCountry();
   }
 
+  private storageService: StorageService = inject(StorageService);
+
   clearVisitorCountry() {
-    localStorage.removeItem('visitorCountry');
+    this.storageService.remove('visitorCountry');
   }
 }

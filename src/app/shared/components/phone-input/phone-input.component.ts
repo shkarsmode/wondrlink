@@ -4,6 +4,7 @@ import {
     EventEmitter,
     forwardRef,
     HostListener,
+    inject,
     Inject,
     Output,
     ViewChild,
@@ -34,6 +35,7 @@ import {
     ICountryPhone,
     ICountryPhones,
 } from '../../interfaces/country-phone.interface';
+import { StorageService } from '../../services/storage-service.service';
 import { COUNTRY_PHONE_DATA } from '../../tokens/country-phone-data.token';
 import { CountryPickerComponent } from '../country-picker/country-picker.component';
 
@@ -73,6 +75,8 @@ export class PhoneInputComponent implements ControlValueAccessor {
 
     @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+    private storageService: StorageService = inject(StorageService);
+
     private onChange: any = () => {};
     private onTouched: any = () => {};
 
@@ -110,14 +114,14 @@ export class PhoneInputComponent implements ControlValueAccessor {
     }
 
     public initCountry(): void {
-        let code = localStorage.getItem('visitorCountry');
+        let code = this.storageService.get('visitorCountry');
 
         if (code) {
             this.currentCountry = this.getCountryPhoneInfo(code);
         } else {
             this.getVisitorCountry().subscribe((res) => {
                 this.currentCountry = this.getCountryPhoneInfo(res.country);
-                localStorage.setItem('visitorCountry', res.country);
+                this.storageService.set('visitorCountry', res.country);
             });
         }
     }

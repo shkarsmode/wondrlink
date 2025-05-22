@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { inject, Inject, Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { ErrorLoginResponseDto } from 'src/app/shared/interfaces/ErrorLoginResponse.dto';
 import { UserRoleEnum } from 'src/app/shared/interfaces/UserRoleEnum';
+import { StorageService } from './storage-service.service';
 import { AUTH_PATH_API } from './variables';
 // import { ErrorNotificationService } from '../../shared/error-notification.service';
 // import { AUTH_PATH_API } from '../../variables';
@@ -18,6 +19,8 @@ export class AuthService {
 
     public isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
     public userId: number | null;
+
+    private storageService: StorageService = inject(StorageService);
     
     constructor(
         private jwtHelper: JwtHelperService,
@@ -84,11 +87,11 @@ export class AuthService {
     }
 
     public login(token: string): void {
-        localStorage.setItem('token', token);
+        this.storageService.set('token', token);
         const role = this.getUserRoleFromToken(token);
         const id = this.getUserIdFromToken(token);
 
-        if (role) localStorage.setItem('role', role);
+        if (role) this.storageService.set('role', role);
         if (id) this.userId = id;
         
         this.isAuthenticatedSubject.next(true);
@@ -128,14 +131,14 @@ export class AuthService {
     }
 
     public logout(): void {
-        localStorage.removeItem('token');
-        localStorage.removeItem('role');
+        this.storageService.remove('token');
+        this.storageService.remove('role');
         this.userId = null;
         this.isAuthenticatedSubject.next(false);
     }
 
     private checkTokenExpiration(): void {
-        const token = localStorage.getItem('token') as string;
+        const token = this.storageService.get('token') as string;
         let isTokenExpired;
 
         try {
@@ -153,18 +156,18 @@ export class AuthService {
     }
 
     private initializeAuth(): void {
-        const token = localStorage.getItem('token');
+        const token = this.storageService.get('token');
         const isAuthenticated = !!token && !this.jwtHelper.isTokenExpired(token);
         this.isAuthenticatedSubject.next(isAuthenticated);
     }
 
     public get token(): string | null {
-        const token = localStorage.getItem('token');
+        const token = this.storageService.get('token');
         return token;
     }
 
     public get isAdmin(): boolean {
-        const role = localStorage.getItem('role') as UserRoleEnum;
+        const role = this.storageService.get('role') as UserRoleEnum;
         return role === UserRoleEnum.ADMIN;
     }
 }

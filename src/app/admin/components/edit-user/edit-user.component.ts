@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
@@ -10,6 +10,7 @@ import { UserTypeEnum } from 'src/app/shared/interfaces/UserTypeEnum';
 import { CompanyTypeEnum } from 'src/app/shared/interfaces/company-type.enum';
 import { PatientSituationTypeEnum } from 'src/app/shared/interfaces/patient-situation-type.enum';
 import { CloudinaryService } from 'src/app/shared/services/cloudinary.service';
+import { StorageService } from 'src/app/shared/services/storage-service.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AuthService } from '../../../shared/services/auth.service';
 import { FlowDataService } from '../../../shared/services/flow-data.service';
@@ -45,6 +46,8 @@ export class EditUserComponent implements OnInit {
     private deleteTimeout: any;
     public userId: number | null;
     @ViewChild('preview') preview: ElementRef;
+
+    private storageService: StorageService = inject(StorageService);
 
     constructor(
         private route: ActivatedRoute,
@@ -249,7 +252,7 @@ export class EditUserComponent implements OnInit {
                 this.isLoading = false;
                 this.isUpdatedPicture = false;
 
-                const token = localStorage.getItem('token') as string;
+                const token = this.storageService.get('token') as string;
                 const myId = this.authService.getUserIdFromToken(token);
                 if (myId === id) {
                     this.userService.profileUpdated$.next(true);

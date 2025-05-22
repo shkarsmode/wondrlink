@@ -1,14 +1,13 @@
-import { countryPhonesData } from './../assets/data/country-phones.data';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { VisitorCountryService } from './shared/components/phone-input/visitor-country.service';
 import { ArticleService } from './shared/services/article-service.service';
 import { CountryCodesService } from './shared/services/country-codes.service';
 import { FlowDataService } from './shared/services/flow-data.service';
 import { ImageProloaderService } from './shared/services/image-proloader.service';
 import { LoadingService } from './shared/services/loading-service.service';
 import { ScrollToService } from './shared/utils/scroll-to.service';
-import { VisitorCountryService } from './shared/components/phone-input/visitor-country.service';
 
 @Component({
     selector: 'app-root',
@@ -43,7 +42,6 @@ export class AppComponent implements OnInit {
         this.router.events.subscribe(async event => {
             if (event instanceof NavigationEnd) {
                 await new Promise(resolve => setTimeout(resolve, 50));
-              
                 this.updateHeaderNavByPage(event);
                 this.scrollToService.scrollToTop();
             }
@@ -78,6 +76,9 @@ export class AppComponent implements OnInit {
 
     private updateHeaderNavByPage(event: NavigationEnd): void {
         let params = event.url.split('/');
+        if (typeof window === 'undefined') {
+            return;
+        }
         Array.from(document.querySelectorAll('li')).forEach(
             li => {
                 // current page = one of the navigation list

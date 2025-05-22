@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { take } from 'rxjs';
 import { IPost } from 'src/app/shared/interfaces/IPost';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { PostsService } from 'src/app/shared/services/posts.service';
+import { StorageService } from 'src/app/shared/services/storage-service.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
@@ -23,6 +24,8 @@ export class PostsComponent implements OnInit {
     private deleteTimeout: any;
     public isDeleting: boolean = false;
     public activeDeletingIndex: number = -1;
+
+    private storageService: StorageService = inject(StorageService);
 
     constructor(
         private postsService: PostsService,
@@ -106,7 +109,7 @@ export class PostsComponent implements OnInit {
                     this.limit = tempLimit;
                     this.page = tempPage;
 
-                    const token = localStorage.getItem('token') as string;
+                    const token = this.storageService.get('token') as string;
                     const myId = this.authService.getUserIdFromToken(token);
                     if (myId === postToDelete.user?.id) {
                         this.userService.profileUpdated$.next(true);

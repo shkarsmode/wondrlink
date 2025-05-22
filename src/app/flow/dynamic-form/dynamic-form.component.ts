@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import {
     AbstractControl,
     FormBuilder,
@@ -8,6 +8,7 @@ import {
     ValidatorFn,
     Validators,
 } from '@angular/forms';
+import { StorageService } from 'src/app/shared/services/storage-service.service';
 
 @Component({
     selector: 'app-dynamic-form',
@@ -22,6 +23,8 @@ export class DynamicFormComponent {
     public form: FormGroup;
     public currentStep: number = 0;
     public currentVisibleFields: Array<string> = [];
+
+    private storageService: StorageService = inject(StorageService);
 
     constructor(private fb: FormBuilder) {
         this.form = this.fb.group({});
@@ -204,7 +207,7 @@ export class DynamicFormComponent {
         this.currentVisibleFields = currentVisibleFields;
     }
 
-    public isNotToValidFields: boolean = !!localStorage.getItem('validity');
+    public isNotToValidFields: boolean = !!this.storageService.get('validity');
 
     public get isButtonAvailableOnCurrentStep(): boolean {
         return (
