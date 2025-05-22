@@ -46,7 +46,7 @@ export class ArticleLayoutComponent implements OnInit {
         if (!this.currentInfo) {
             this.router.navigateByUrl('/');
         } else {
-
+            this.updateMetaTags(this.currentInfo);
         }
     }
 
