@@ -13,7 +13,7 @@
     "serve:ssr": "node dist/wondrlink/server/main.js",
     "build:ssr": "ng build && ng run wondrlink:server",
     "prerender": "ng run wondrlink:prerender",
-    "vercel-build": "ng build && node dist/wondrlink/server/server.mjs"
+    "vercel-build": "npm run build:ssr"
   },
   "private": true,
   "dependencies": {
