@@ -52,15 +52,15 @@ export class ArticleLayoutComponent implements OnInit {
 
     private updateMetaTags(info: IInfo): void {
         // this.title.setTitle(post.header);
-        this.meta.updateTag({ name: 'description', content: info.subHeader });
+        this.meta.updateTag({ name: 'description', content: info.intro });
         this.meta.updateTag({ property: 'og:title', content: info.header });
-        this.meta.updateTag({ property: 'og:description', content: info.subHeader });
+        this.meta.updateTag({ property: 'og:description', content: info.intro });
         this.meta.updateTag({ property: 'og:image', content: `https://www.wondrlink.com/assets/img/${this.articleId}.webp` });
         this.meta.updateTag({ property: 'og:image:alt', content: this.articleId });
         this.meta.updateTag({
             property: 'og:url', content: `https://www.wondrlink.com/${this.articleId}` });
         this.meta.updateTag({ property: 'twitter:title', content: info.header });
-        this.meta.updateTag({ property: 'twitter:description', content: info.subHeader });
+        this.meta.updateTag({ property: 'twitter:description', content: info.intro });
         this.meta.updateTag({ property: 'twitter:image', content: `https://www.wondrlink.com/assets/img/${this.articleId}.webp` });
         this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
     }
