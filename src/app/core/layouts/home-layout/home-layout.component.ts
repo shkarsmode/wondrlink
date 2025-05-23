@@ -1,5 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Meta, Title } from '@angular/platform-browser';
 import { ThankYouComponent } from 'src/app/shared/dialogs/thank-you/thank-you.component';
 import { ApprovalService } from 'src/app/shared/services/approval.service';
 
@@ -13,10 +14,17 @@ export class HomeLayoutComponent implements AfterViewInit {
 
     constructor(
         private readonly dialog: MatDialog,
-        private readonly approvalService: ApprovalService
+        private readonly approvalService: ApprovalService,
+        private readonly title: Title,
+        private readonly meta: Meta,
     ) {}
 
     public ngAfterViewInit(): void {
+        this.title.setTitle('Wondrlink | Connecting Patients to Life-Saving Treatments');
+        this.meta.updateTag({
+            name: 'description',
+            content: 'Wondrlink enables patients with life-threatening illnesses access cutting-edge treatments. We connect patients with the therapies of the future through clinical trials, compassionate use and expanded access programs'
+        });
         this.listenIsApproved();
     }
 

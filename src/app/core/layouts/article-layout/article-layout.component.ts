@@ -55,6 +55,7 @@ export class ArticleLayoutComponent implements OnInit {
     private updateMetaTags(info: IInfo): void {
         console.log(info);
         // this.title.setTitle(post.header);
+        this.title.setTitle(`${info.header} | Wondrlink`);
         this.meta.updateTag({ name: 'description', content: info.intro });
         this.meta.updateTag({ property: 'og:title', content: info.header });
         this.meta.updateTag({ property: 'og:description', content: info.intro });
