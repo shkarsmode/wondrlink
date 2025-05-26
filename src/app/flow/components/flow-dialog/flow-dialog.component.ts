@@ -4,37 +4,40 @@ import { FlowComponentConfig, TFormFlow } from 'src/app/shared/interfaces/TFormF
 
 
 @Component({
-  selector: 'app-flow-dialog',
-  templateUrl: './flow-dialog.component.html',
-  styleUrls: ['./flow-dialog.component.scss']
+    selector: 'app-flow-dialog',
+    templateUrl: './flow-dialog.component.html',
+    styleUrls: ['./flow-dialog.component.scss']
 })
 
 export class FlowDialogComponent {
 
-  // flow component config
-  public flow: TFormFlow = 'patients';
-  public step: number = 1; 
-  public isInit: boolean = false;
+    // flow component config
+    public flow: TFormFlow = 'patients';
+    public step: number = 1;
+    public isInit: boolean = false;
 
-  constructor (
-    private dialogRef: MatDialogRef<FlowDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: FlowComponentConfig
-  ) {
+    constructor(
+        private dialogRef: MatDialogRef<FlowDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: FlowComponentConfig
+    ) {
 
-  }
-
-  ngOnInit(): void {
-    
-    if(this.data) {
-      this.flow = this.data.flow;
-      this.step = this.data.step;
-      this.isInit = this.data.isSkipFirstStep;
     }
 
-  }
+    ngOnInit(): void {
+        if (this.data) {
+            this.flow = this.data.flow;
+            this.step = this.data.step;
+            this.isInit = this.data.isSkipFirstStep;
+            if (this.isInit) {
+                history.pushState(null, '', `${this.flow}?form=true`);
+            }
+        }
 
-  public close() {
-    this.dialogRef.close();
-  }
+    }
+
+    public close() {
+        this.dialogRef.close();
+        history.pushState(null, '', `${this.flow}`);
+    }
 
 }

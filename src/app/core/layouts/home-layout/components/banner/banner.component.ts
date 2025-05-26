@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { first } from 'rxjs';
 import { FlowDialogComponent } from 'src/app/flow/components/flow-dialog/flow-dialog.component';
 
 @Component({
@@ -77,7 +78,9 @@ export class BannerComponent implements OnInit {
         const dialogRef = this.dialog.open(
             FlowDialogComponent,
             this.dialogConfig
-        );
+        ).afterClosed().pipe(first()).subscribe(() => {
+            history.pushState(null, '', `/`);
+        });
     }
 
     public scrollDown(): void {
