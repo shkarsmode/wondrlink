@@ -16,7 +16,8 @@ export class FlowInitComponent {
         this.flow.emit(newFlow);
         const userType = matchFlowUserType(newFlow);
         this.next.emit({ type: userType });
-        history.pushState(null, '', `${newFlow}?form=true`);
+        if (typeof window !== 'undefined')
+            history.pushState(null, '', `${newFlow}?form=true`);
     }
 
 }

@@ -60,7 +60,8 @@ export class ArticleLayoutComponent implements OnInit {
                 FlowDialogComponent,
                 this.dialogConfig
             ).afterClosed().pipe(first()).subscribe(() => {
-                history.pushState(null, '', `${this.config.flow}`);
+                if (typeof window !== 'undefined')
+                    history.pushState(null, '', `${this.config.flow}`);
             })
 
         }

@@ -79,7 +79,8 @@ export class BannerComponent implements OnInit {
             FlowDialogComponent,
             this.dialogConfig
         ).afterClosed().pipe(first()).subscribe(() => {
-            history.pushState(null, '', `/`);
+            if (typeof window !== 'undefined')
+                history.pushState(null, '', `/`);
         });
     }
 

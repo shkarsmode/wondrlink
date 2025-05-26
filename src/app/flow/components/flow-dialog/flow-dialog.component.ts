@@ -29,7 +29,8 @@ export class FlowDialogComponent {
             this.step = this.data.step;
             this.isInit = this.data.isSkipFirstStep;
             if (this.isInit) {
-                history.pushState(null, '', `${this.flow}?form=true`);
+                if (typeof window !== 'undefined')
+                    history.pushState(null, '', `${this.flow}?form=true`);
             }
         }
 
@@ -37,7 +38,8 @@ export class FlowDialogComponent {
 
     public close() {
         this.dialogRef.close();
-        history.pushState(null, '', `${this.flow}`);
+        if (typeof window !== 'undefined')
+            history.pushState(null, '', `${this.flow}`);
     }
 
 }
