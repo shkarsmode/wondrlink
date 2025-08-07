@@ -20,10 +20,11 @@ export class PostsService {
     public getPosts(
         limit: number, 
         page: number, 
-        postponed: boolean = false
+        postponed: boolean = false,
+        isOnlyForWondrlink: boolean = false
     ): Observable<AllPostsResponseDto> {
         return this.http.get<AllPostsResponseDto>(
-            `${this.basePathApi}/${this.postsPath}/all?limit=${limit}&page=${page}&postponed=${postponed}` 
+            `${this.basePathApi}/${this.postsPath}/all?limit=${limit}&page=${page}&postponed=${postponed}${isOnlyForWondrlink ? '&withTag=false' : ''}` 
         );
     }
 

@@ -39,7 +39,7 @@ export class BlogComponent implements OnInit {
 
     private getPosts(isAddToExciting: boolean = false): void {
         this.isLoading = true;
-        this.postsService.getPosts(this.limit, this.page)
+        this.postsService.getPosts(this.limit, this.page, true, true)
             .pipe(take(1))
             .subscribe(response => {
                 this.posts = isAddToExciting ? [...this.posts, ...response.posts] : response.posts;

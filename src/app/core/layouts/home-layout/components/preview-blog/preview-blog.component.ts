@@ -21,7 +21,7 @@ export class PreviewBlogComponent implements OnInit {
     }
 
     private getPosts(): void {
-        this.postsService.getPosts(this.limit, this.page)
+        this.postsService.getPosts(this.limit, this.page, false, true)
             .pipe(take(1))
             .subscribe(response => this.posts = response.posts);
     }
