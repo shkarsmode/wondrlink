@@ -82,6 +82,7 @@ export class EditPostComponent implements OnInit {
         this.form = this.fb.group({
             header: [this.post.header, Validators.required],
             subHeader: [this.post.subHeader, [Validators.required]],
+            tag: [this.post.tag, [Validators.maxLength(15)]],
             picture: [this.post.mainPicture, [Validators.required]],
             content: [this.post.htmlContent, Validators.required],
             createdAt: [this.post.createdAt, [Validators.required]],

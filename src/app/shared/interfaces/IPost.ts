@@ -3,6 +3,7 @@ import { IUser } from "./IUser";
 
 export interface IPost {
 	readonly id?: number;
+	readonly tag?: string;
 	readonly createdAt: string;
 	readonly mainPicture: string;
 	readonly socialLinks: ISocialLinks | {};

@@ -47,6 +47,7 @@ export class AppComponent implements OnInit {
             }
         });
     }
+    
 
     private initAllArticles(): void {
         this.articleService.setAllArticles();

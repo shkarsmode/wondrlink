@@ -48,6 +48,7 @@ export class AddingPostComponent implements OnInit {
         this.form = this.fb.group({
             header: ['', Validators.required],
             subHeader: ['', []],
+            tag: ['', [Validators.maxLength(15)]],
             picture: ['', [Validators.required]],
             content: ['', Validators.required],
             createdAt: [new Date(), [Validators.required]],
@@ -93,6 +94,7 @@ export class AddingPostComponent implements OnInit {
             createdAt,
             mainPicture,
             "header": this.header.value,
+            "tag": this.tag.value,
             "subHeader": this.isAuto ? this.autoSubHeader : this.subHeader.value,
             "htmlContent": this.content.value,
             "socialLinks": {
@@ -178,4 +180,5 @@ export class AddingPostComponent implements OnInit {
     public get subHeader() { return this.form.get('subHeader') as FormControl; }
     public get picture() { return this.form.get('picture') as FormControl; }
     public get content() { return this.form.get('content') as FormControl; }
+    public get tag() { return this.form.get('tag') as FormControl; }
 }
