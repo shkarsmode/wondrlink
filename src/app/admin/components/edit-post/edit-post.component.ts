@@ -149,6 +149,7 @@ export class EditPostComponent implements OnInit {
             id: this.post.id,
             createdAt,
             mainPicture,
+            "tag": this.tag.value,
             "header": this.header.value,
             "subHeader": this.subHeader.value,
             "htmlContent": this.content.value,
@@ -234,6 +235,7 @@ export class EditPostComponent implements OnInit {
 
     // Convenience getters for easy access to form controls
     public get header() { return this.form.get('header') as FormControl; }
+    public get tag() { return this.form.get('tag') as FormControl; }
     public get subHeader() { return this.form.get('subHeader') as FormControl; }
     public get picture() { return this.form.get('picture') as FormControl; }
     public get content() { return this.form.get('content') as FormControl; }
