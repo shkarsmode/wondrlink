@@ -22,7 +22,7 @@ export class InfoComponent implements OnInit {
 
     private getLatestPosts(): void {
         this.postsService
-            .getPosts(this.limit, this.page)
+            .getPosts(this.limit, this.page, false, true)
             .pipe(first())
             .subscribe(({ posts }) => this.posts = posts );
     }
