@@ -1,10 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { take } from 'rxjs';
 import { IPost } from 'src/app/shared/interfaces/IPost';
+import { ProjectTypeEnum } from 'src/app/shared/interfaces/project-type.enum';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { PostsService } from 'src/app/shared/services/posts.service';
 import { StorageService } from 'src/app/shared/services/storage-service.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
     selector: 'app-posts',
@@ -26,6 +28,8 @@ export class PostsComponent implements OnInit {
     public activeDeletingIndex: number = -1;
 
     private storageService: StorageService = inject(StorageService);
+    public projectService: ProjectService = inject(ProjectService);
+    public ProjectTypeEnum: typeof ProjectTypeEnum = ProjectTypeEnum;
 
     constructor(
         private postsService: PostsService,
@@ -45,7 +49,7 @@ export class PostsComponent implements OnInit {
     private getPosts(isAddToExciting: boolean = false): void {
         this.isLoading = !this.isLoadingMore ? true : false;
 
-        this.postsService.getPosts(this.limit, this.page, true)
+        this.postsService.getPosts(this.limit, this.page, true, this.projectService.current)
             .subscribe(response => {
                 if (isAddToExciting) {
                     response.posts.forEach(post => this.posts.push(post));

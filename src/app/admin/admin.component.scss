@@ -425,6 +425,10 @@ h3 {
 			position: relative;
 			pointer-events: none;
 
+			&.wondrvocies, &.wondrvocies span {
+				color: #eb5527 !important
+			}
+
 			span {
 				position: absolute;
 				opacity: 0;

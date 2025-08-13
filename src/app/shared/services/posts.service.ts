@@ -3,6 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AllPostsResponseDto } from 'src/app/shared/interfaces/AllPostsResponse.dto';
 import { IPost } from '../interfaces/IPost';
+import { ProjectTypeEnum } from '../interfaces/project-type.enum';
 import { BASE_PATH_API } from './variables';
 
 @Injectable({
@@ -21,10 +22,21 @@ export class PostsService {
         limit: number, 
         page: number, 
         postponed: boolean = false,
-        isOnlyForWondrlink: boolean = false
+        project: ProjectTypeEnum = ProjectTypeEnum.All
     ): Observable<AllPostsResponseDto> {
+        let url = `${this.basePathApi}/${this.postsPath}/all?limit=${limit}&page=${page}&postponed=${postponed}`;
+
+        switch (project) {
+            case ProjectTypeEnum.Wondrlink:
+                url += '&withTag=false';
+                break;
+            case ProjectTypeEnum.Wondrvoices:
+                url += '&withTag=true';
+                break;
+        }
+
         return this.http.get<AllPostsResponseDto>(
-            `${this.basePathApi}/${this.postsPath}/all?limit=${limit}&page=${page}&postponed=${postponed}${isOnlyForWondrlink ? '&withTag=false' : ''}` 
+            url
         );
     }
 

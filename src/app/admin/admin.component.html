@@ -66,8 +66,10 @@
                 matTooltipPosition="right" 
                 matTooltip="Move to the main page"
                 matTooltipShowDelay="500">
-                <div class="logo__txt">
-                    W <span>ondrlink</span>
+                <div
+                    class="logo__txt"
+                    [class.wondrvocies]="projectService.current === ProjectTypeEnum.Wondrvoices">
+                    W <span>{{ projectService.current.slice(1) }}</span>
                 </div>
             </div>
             <div class="l-sidebar__content">

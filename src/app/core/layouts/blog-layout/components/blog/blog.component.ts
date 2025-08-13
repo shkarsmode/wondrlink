@@ -2,6 +2,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
 import { IPost } from 'src/app/shared/interfaces/IPost';
+import { ProjectTypeEnum } from 'src/app/shared/interfaces/project-type.enum';
 import { PostsService } from 'src/app/shared/services/posts.service';
 
 @Component({
@@ -39,7 +40,7 @@ export class BlogComponent implements OnInit {
 
     private getPosts(isAddToExciting: boolean = false): void {
         this.isLoading = true;
-        this.postsService.getPosts(this.limit, this.page, true, true)
+        this.postsService.getPosts(this.limit, this.page, true, ProjectTypeEnum.Wondrlink)
             .pipe(take(1))
             .subscribe(response => {
                 this.posts = isAddToExciting ? [...this.posts, ...response.posts] : response.posts;

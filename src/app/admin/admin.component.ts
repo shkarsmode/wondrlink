@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { IUser } from 'src/app/shared/interfaces/IUser';
 import { ImageUrlResponseDto } from 'src/app/shared/interfaces/imageUrlResponse.dto';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { ProjectTypeEnum } from '../shared/interfaces/project-type.enum';
 import { CloudinaryService } from '../shared/services/cloudinary.service';
 import { PostsService } from '../shared/services/posts.service';
+import { ProjectService } from './services/project.service';
 
 @Component({
     selector: 'app-admin',
@@ -21,6 +23,9 @@ export class AdminComponent implements OnInit {
     public isOpened: boolean = false;
     public countOfPosts: number = 0;
     public isLoadingUser: boolean = false;
+
+    public projectService: ProjectService = inject(ProjectService);
+    public ProjectTypeEnum: typeof ProjectTypeEnum = ProjectTypeEnum;
 
     constructor(
         public authService: AuthService,

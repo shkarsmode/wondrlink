@@ -4,11 +4,13 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
 import { IPost } from 'src/app/shared/interfaces/IPost';
+import { ProjectTypeEnum } from 'src/app/shared/interfaces/project-type.enum';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CloudinaryService } from 'src/app/shared/services/cloudinary.service';
 import { PostsService } from 'src/app/shared/services/posts.service';
 import { StorageService } from 'src/app/shared/services/storage-service.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
     selector: 'app-edit-post',
@@ -34,6 +36,8 @@ export class EditPostComponent implements OnInit {
     @ViewChild('preview') preview: ElementRef;
 
     private storageService: StorageService = inject(StorageService);
+    public projectService: ProjectService = inject(ProjectService);
+    public ProjectTypeEnum: typeof ProjectTypeEnum = ProjectTypeEnum;
 
     constructor(
         private route: ActivatedRoute,

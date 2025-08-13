@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { first } from 'rxjs';
 import { removeHtmlTags } from 'src/app/shared/features/removeHtmlTags.helper';
 import { IPost } from 'src/app/shared/interfaces/IPost';
+import { ProjectTypeEnum } from 'src/app/shared/interfaces/project-type.enum';
 import { PostsService } from 'src/app/shared/services/posts.service';
 
 @Component({
@@ -22,7 +23,7 @@ export class InfoComponent implements OnInit {
 
     private getLatestPosts(): void {
         this.postsService
-            .getPosts(this.limit, this.page, false, true)
+            .getPosts(this.limit, this.page, false, ProjectTypeEnum.Wondrlink)
             .pipe(first())
             .subscribe(({ posts }) => this.posts = posts );
     }

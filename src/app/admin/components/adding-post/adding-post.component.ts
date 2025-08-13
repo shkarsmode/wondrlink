@@ -1,11 +1,13 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ImageUrlResponseDto } from 'src/app/shared/interfaces/imageUrlResponse.dto';
+import { ProjectTypeEnum } from 'src/app/shared/interfaces/project-type.enum';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { PostsService } from 'src/app/shared/services/posts.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { CloudinaryService } from '../../../shared/services/cloudinary.service';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
     selector: 'app-adding-post',
@@ -22,6 +24,9 @@ export class AddingPostComponent implements OnInit {
     private userId: number;
     @ViewChild('preview') preview: ElementRef;
     @ViewChild('subheader') subheader: ElementRef;
+
+    public projectService: ProjectService = inject(ProjectService);
+    public ProjectTypeEnum: typeof ProjectTypeEnum = ProjectTypeEnum;
 
     constructor(
         private fb: FormBuilder,

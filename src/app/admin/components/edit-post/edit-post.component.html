@@ -20,13 +20,15 @@
 			</div>
 		</div>
 
-		<div class="card">
-			<div class="title">Tag</div>
-			<div class="content">
-				<input type="text" formControlName="tag">
-				<span *ngIf="tag.value">Post will be displayed in wondrvoices</span>
+		@if (ProjectTypeEnum.Wondrvoices === projectService.current) {
+			<div class="card" style="margin-left: 20px">
+				<div class="title">Tag</div>
+				<div class="content">
+					<input type="text" formControlName="tag">
+					<span *ngIf="tag.value">Post will be displayed in wondrvoices</span>
+				</div>
 			</div>
-		</div>
+		}
 	</div>
 
 	<div class="card">
