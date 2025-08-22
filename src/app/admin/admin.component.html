@@ -128,6 +128,22 @@
                                 </div>
                             </li>
                         }
+                        @if (
+                            !userService.isModerator && 
+                            projectService.current === ProjectTypeEnum.Wondrvoices
+                        ) {
+                            <li class="c-menu__item" routerLink="/admin/submissions" routerLinkActive="is-active" data-toggle="tooltip"
+                                matTooltip="Users database" matTooltipShowDelay="400" matTooltipPosition="right">
+                                <div class="c-menu__item__inner">
+                                    <span class="material-symbols-outlined">
+                                        clinical_notes
+                                    </span>
+                                    <div class="c-menu-item__title">
+                                        <span>Submissions</span>
+                                    </div>
+                                </div>
+                            </li>
+                        }
                         <!-- @if (!userService.isModerator) { -->
                             <li 
                                 class="c-menu__item has-submenu"

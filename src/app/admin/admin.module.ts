@@ -12,6 +12,8 @@ import { EditUserCardComponent } from './components/edit-user/components/edit-us
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { SubmissionJsonDialogComponent } from './components/submissions/submission-json-dialog/submission-json-dialog.component';
+import { SubmissionsComponent } from './components/submissions/submissions.component';
 import { UsersComponent } from './components/users/users.component';
 
 
@@ -27,6 +29,8 @@ import { UsersComponent } from './components/users/users.component';
         EditUserComponent,
         EditUserCardComponent,
         EditUserCardSelectComponent,
+        SubmissionsComponent,
+        SubmissionJsonDialogComponent
     ],
     imports: [
         CommonModule,
