@@ -9,6 +9,7 @@ import { PostsComponent } from './components/posts/posts.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SubmissionsComponent } from './components/submissions/submissions.component';
 import { UsersComponent } from './components/users/users.component';
+import { VoicesComponent } from './components/voices/voices.component';
 
 enum AdminRoutes {
     Home = '',
@@ -20,6 +21,7 @@ enum AdminRoutes {
     Submissions = 'submissions',
     Settings = 'settings',
     ParamId = ':id',
+    Voices = 'voices',
 }
 
 const routes: Routes = [
@@ -55,6 +57,10 @@ const routes: Routes = [
             {
                 path: AdminRoutes.Submissions,
                 component: SubmissionsComponent,
+            },
+            {
+                path: AdminRoutes.Voices,
+                component: VoicesComponent,
             },
             {
                 path: AdminRoutes.Settings,

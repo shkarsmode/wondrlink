@@ -132,14 +132,42 @@
                             !userService.isModerator && 
                             projectService.current === ProjectTypeEnum.Wondrvoices
                         ) {
-                            <li class="c-menu__item" routerLink="/admin/submissions" routerLinkActive="is-active" data-toggle="tooltip"
-                                matTooltip="Submissions" matTooltipShowDelay="400" matTooltipPosition="right">
+                            <li
+                                class="c-menu__item"
+                                data-toggle="tooltip"
+                                matTooltip="Submissions"
+                                matTooltipPosition="right"
+                                matTooltipShowDelay="400"
+                                routerLink="/admin/submissions"
+                                routerLinkActive="is-active">
                                 <div class="c-menu__item__inner">
                                     <span class="material-symbols-outlined">
                                         clinical_notes
                                     </span>
                                     <div class="c-menu-item__title">
                                         <span>Submissions</span>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                        @if (
+                            !userService.isModerator && 
+                            projectService.current === ProjectTypeEnum.Wondrvoices
+                        ) {
+                            <li
+                                class="c-menu__item"
+                                data-toggle="tooltip"
+                                matTooltip="Submissions"
+                                matTooltipPosition="right"
+                                matTooltipShowDelay="400"
+                                routerLink="/admin/voices"
+                                routerLinkActive="is-active">
+                                <div class="c-menu__item__inner">
+                                    <span class="material-symbols-outlined">
+                                        folder_shared
+                                    </span>
+                                    <div class="c-menu-item__title">
+                                        <span>Voices</span>
                                     </div>
                                 </div>
                             </li>
