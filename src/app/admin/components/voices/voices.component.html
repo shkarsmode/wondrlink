@@ -109,7 +109,15 @@
                                     {{ a.label }}
                                 </button>
                             }
-                            <button class="btn sm ghost" (click)="onDelete(v)" [disabled]="loading()" type="button">Delete</button>
+                            @if (!userService.isModerator) {                           
+                                <button
+                                    class="btn sm ghost"
+                                    [disabled]="loading()"
+                                    (click)="onDelete(v)"
+                                    type="button">
+                                    Delete
+                                </button>
+                            }
                         </td>
                     </tr>
                 }

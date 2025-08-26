@@ -10,6 +10,7 @@ import {
     signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UserService } from "src/app/shared/services/user.service";
 import { IVoice, VoiceStatus, VoicesListResponse } from '../../../shared/interfaces/voices';
 import { VoicesService } from '../../services/voices.service';
 
@@ -26,6 +27,8 @@ type StatusFilter = 'all' | VoiceStatus;
 export class VoicesComponent {
     private readonly svc = inject(VoicesService);
     private readonly destroyRef = inject(DestroyRef);
+
+    public userService = inject(UserService);
 
     // --- UI state
     public statusFilter = signal<StatusFilter>(VoiceStatus.Pending); // стартуем с "pending"
