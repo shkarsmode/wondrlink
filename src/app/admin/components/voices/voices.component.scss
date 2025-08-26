@@ -1,8 +1,8 @@
 :host {
     display: block;
     color: #333;
-    --bg: #f8f8f8;
-    --card: #fff;
+    --bg: #fff;
+    --card: #f8f8f8;
     --muted: #666;
     --line: #ddd;
     --blue: #337ab7;
@@ -44,12 +44,13 @@
             border-radius: 8px;
             border: 1px solid transparent;
             background: transparent;
-            color: #dfe6ef;
+            color: #333;
             cursor: pointer;
 
             &.active {
-                background: #1f2532;
+                background: #337ab7;
                 border-color: var(--line);
+                color: #fff;
             }
         }
     }
@@ -65,7 +66,7 @@
             border-radius: 10px;
             border: 1px solid var(--line);
             background: var(--card);
-            color: #eaeef6;
+            color: #333;
             outline: none;
         }
 
@@ -78,7 +79,7 @@
 
             select {
                 background: var(--card);
-                color: #eaeef6;
+                color: #333;
                 border: 1px solid var(--line);
                 border-radius: 8px;
                 padding: 6px 8px;
@@ -108,8 +109,8 @@
         position: sticky;
         top: 0;
         z-index: 1;
-        background: #1a1f2b;
-        color: #b9c2d5;
+        background: #fff;
+        color: #333;
         text-align: left;
         font-weight: 600;
         font-size: 12px;
@@ -163,24 +164,24 @@
     border-radius: 999px;
     font-size: 12px;
     border: 1px solid var(--line);
-    background: #1c2230;
+    background: #fff;
 
     &.blue {
         background: rgba(90, 169, 255, .12);
         border-color: rgba(90, 169, 255, .3);
-        color: #b7d9ff;
+        color: #337ab7;
     }
 
     &.green {
         background: rgba(73, 214, 159, .12);
         border-color: rgba(73, 214, 159, .3);
-        color: #c6f2e3;
+        color: #5cb85c;
     }
 }
 
 .note {
     margin-top: 6px;
-    color: #d4d9e6;
+    color: #333;
     font-size: 12px;
     max-width: 420px;
     display: -webkit-box;
@@ -205,7 +206,7 @@
 
 .link {
     font-size: 12px;
-    color: var(--blue);
+    color: #337ab7;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -221,25 +222,25 @@
     &.pending {
         background: rgba(255, 204, 102, .12);
         border-color: rgba(255, 204, 102, .3);
-        color: #ffe2a6;
+        color: #e09700;
     }
 
     &.approved {
         background: rgba(73, 214, 159, .12);
         border-color: rgba(73, 214, 159, .3);
-        color: #b0f0dc;
+        color: #00d28f;
     }
 
     &.rejected {
         background: rgba(255, 107, 107, .12);
         border-color: rgba(255, 107, 107, .3);
-        color: #ffb9b9;
+        color: #ed2b2b;
     }
 }
 
 .btn {
-    background: #202638;
-    color: #e8ecf6;
+    background: #337ab7;
+    color: #fff;
     border: 1px solid var(--line);
     border-radius: 10px;
     padding: 8px 12px;
@@ -251,21 +252,25 @@
 
     &.ghost {
         background: transparent;
+        color: #333;
     }
 
     &.approve {
         background: rgba(73, 214, 159, .15);
         border-color: rgba(73, 214, 159, .35);
+        color: #00d28f;
     }
 
     &.reject {
         background: rgba(255, 107, 107, .15);
         border-color: rgba(255, 107, 107, .35);
+        color: #ed2b2b;
     }
 
     &.pending {
         background: rgba(255, 204, 102, .15);
         border-color: rgba(255, 204, 102, .35);
+        color: #e09700;
     }
 
     &:disabled {
@@ -288,6 +293,6 @@
     display: grid;
     place-items: center;
     font-weight: 600;
-    color: #cfd7e6;
+    color: #333;
     background: rgba(0, 0, 0, .12);
 }

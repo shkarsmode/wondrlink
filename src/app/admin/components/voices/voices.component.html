@@ -16,7 +16,8 @@
             class="search"
             type="search"
             placeholder="Search name, email, tags, note"
-            /> <!-- (input)="search.set($event.target.value)"  -->
+            (input)="onInput($event)"
+            />
 
         <label class="limit">
             <span>Per page</span>
