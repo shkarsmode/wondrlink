@@ -296,3 +296,140 @@
     color: #333;
     background: rgba(0, 0, 0, .12);
 }
+
+.thumb-wrap {
+    display: inline-grid;
+    justify-items: center;
+    gap: 6px;
+}
+
+.thumb {
+    width: 100px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    display: block;
+    transition: transform .15s ease, box-shadow .15s ease;
+    cursor: zoom-in;
+
+    &:hover {
+        transform: scale(1.04);
+        box-shadow: 0 6px 24px rgba(0, 0, 0, .12);
+    }
+}
+
+.preview-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .42);
+    backdrop-filter: blur(2px);
+    display: grid;
+    place-items: center;
+    z-index: 9999;
+    outline: none; // для фокуса
+    animation: fadeIn .12s ease-out both;
+}
+
+.preview-content {
+    position: relative;
+    max-width: min(92vw, 1200px);
+    max-height: 90vh;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
+    padding: 18px 54px;
+    /* место под стрелки */
+    display: grid;
+    gap: 10px;
+    animation: scaleIn .12s ease-out both;
+
+    min-width: 400px;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.preview-img {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.preview-meta {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.preview-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    border: 1px solid var(--line);
+    background: #fff;
+    border-radius: 10px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 14px;
+
+    &:hover {
+        background: #f7f7f7;
+    }
+}
+
+.nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: rgba(255, 255, 255, .9);
+    border: 1px solid var(--line);
+    width: 40px;
+    height: 48px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 28px;
+    line-height: 1;
+    display: grid;
+    place-items: center;
+    user-select: none;
+
+    &.left {
+        left: 10px;
+    }
+
+    &.right {
+        right: 10px;
+    }
+
+    &:hover {
+        background: #fff;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: translateY(4px) scale(.98);
+        opacity: .98
+    }
+
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1
+    }
+}

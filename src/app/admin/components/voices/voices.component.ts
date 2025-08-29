@@ -41,6 +41,9 @@ export class VoicesComponent {
     public items = signal<IVoice[]>([]);
     public total = signal(0);
 
+    private lastFocusedEl: HTMLElement | null = null;
+    public previewIndex = signal<number | null>(null);
+
     public readonly statusTabs: { label: string; value: StatusFilter }[] = [
         { label: 'All', value: 'all' },
         { label: 'Pending', value: VoiceStatus.Pending },
@@ -54,7 +57,6 @@ export class VoicesComponent {
         { label: 'Set Pending', value: VoiceStatus.Pending, class: 'pending' },
     ];
 
-    // client-side search по полям
     public filtered = computed(() => {
         const q = this.search().trim().toLowerCase();
         const base = this.items();
@@ -161,5 +163,80 @@ export class VoicesComponent {
 
     public copyImg(url: string) {
         navigator.clipboard?.writeText(url);
+    }
+
+    public previewOpen = computed(() => this.previewIndex() !== null);
+    public currentPreview = computed(() => {
+        const idx = this.previewIndex();
+        const list = this.filtered();
+        if (idx === null || idx < 0 || idx >= list.length) return null;
+        return list[idx];
+    });
+
+    public currentPreviewImg = () => this.currentPreview()?.img ?? '';
+    public currentPreviewAlt = () => `image #${this.currentPreview()?.id ?? ''}`;
+
+    public openPreview(index: number) {
+        this.lastFocusedEl = document.activeElement as HTMLElement;
+        this.previewIndex.set(index);
+        document.body.style.overflow = 'hidden';
+
+        queueMicrotask(() => {
+            const overlay = document.querySelector('.preview-overlay') as HTMLElement | null;
+            overlay?.focus();
+        });
+
+        this.preloadAround(index);
+    }
+
+    public closePreview() {
+        this.previewIndex.set(null);
+        document.body.style.overflow = '';
+        this.lastFocusedEl?.focus?.();
+    }
+
+    public nextPreview() {
+        const list = this.filtered();
+        if (!list.length) return;
+        const idx = (this.previewIndex() ?? 0) + 1;
+        this.previewIndex.set(idx >= list.length ? 0 : idx);
+        this.preloadAround(this.previewIndex()!);
+    }
+
+    public prevPreview() {
+        const list = this.filtered();
+        if (!list.length) return;
+        const idx = (this.previewIndex() ?? 0) - 1;
+        this.previewIndex.set(idx < 0 ? list.length - 1 : idx);
+        this.preloadAround(this.previewIndex()!);
+    }
+
+    public onOverlayBackdrop(ev: MouseEvent) {
+        this.closePreview();
+    }
+
+    public onOverlayKeydown(ev: KeyboardEvent) {
+        if (ev.key === 'Escape') {
+            ev.preventDefault();
+            this.closePreview();
+        } else if (ev.key === 'ArrowRight') {
+            ev.preventDefault();
+            this.nextPreview();
+        } else if (ev.key === 'ArrowLeft') {
+            ev.preventDefault();
+            this.prevPreview();
+        }
+    }
+
+    private preloadAround(index: number) {
+        const list = this.filtered();
+        const neighbors = [index - 1, index + 1]
+            .map(i => (i < 0 ? list.length - 1 : i >= list.length ? 0 : i));
+        for (const i of neighbors) {
+            const url = list[i]?.img;
+            if (!url) continue;
+            const img = new Image();
+            img.src = url;
+        }
     }
 }

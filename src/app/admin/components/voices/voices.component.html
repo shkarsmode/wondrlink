@@ -50,7 +50,7 @@
                     <td colspan="8" class="empty">No items</td>
                 </tr>
             } @else {
-                @for (v of filtered(); track v.id) {
+                @for (v of filtered(); track v.id; let i = $index) {
                     <tr>
                         <td>#{{ v.id }}</td>
                         <td>
@@ -83,12 +83,17 @@
 
                         <td class="img-col">
                             @if (v.img) {
-                                <img class="thumb" [src]="v.img" alt="img" />
+                              <div class="thumb-wrap">
+                                <img
+                                  class="thumb"
+                                  [src]="v.img"
+                                  alt="image #{{ v.id }}"
+                                  (click)="openPreview(i)"
+                                />
                                 <button class="link" (click)="copyImg(v.img)" title="Copy URL" type="button">Copy</button>
-                            } @else {
-                                —
-                            }
-                        </td>
+                              </div>
+                            } @else { — }
+                          </td>
 
                         <td>
                             <span class="status" [class.pending]="v.status==='pending'"
@@ -131,7 +136,69 @@
 </div>
 
 <div class="pager">
-    <button class="btn" (click)="prevPage()" [disabled]="page()<=1 || loading()" type="button">Prev</button>
+    <button
+        class="btn"
+        [disabled]="page()<=1 || loading()"
+        (click)="prevPage()"
+        type="button">
+        Prev
+    </button>
     <span class="mono">Page {{ page() }} / {{ totalPages() }}</span>
-    <button class="btn" (click)="nextPage()" [disabled]="page()>=totalPages() || loading()" type="button">Next</button>
+    <button
+        class="btn"
+        [disabled]="page()>=totalPages() || loading()"
+        (click)="nextPage()"
+        type="button">
+        Next
+    </button>
 </div>
+
+
+@if (previewOpen()) {
+    <div
+      class="preview-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Image preview"
+      (click)="onOverlayBackdrop($event)"
+      (keydown)="onOverlayKeydown($event)"
+      tabindex="0">
+      <div class="preview-content" (click)="$event.stopPropagation()">
+        <button
+            class="preview-close"
+            (click)="closePreview()"
+            aria-label="Close"
+            type="button">
+            ✕
+        </button>
+  
+        <button
+            class="nav left"
+            (click)="prevPreview()"
+            aria-label="Previous"
+            type="button">‹</button>
+        <img
+          class="preview-img"
+          [src]="currentPreviewImg()"
+          [alt]="currentPreviewAlt()"/>
+        <button
+            class="nav right"
+            (click)="nextPreview()"
+            aria-label="Next"
+            type="button">›</button>
+  
+        <span
+            class="status"
+            [class.approved]="currentPreview()?.status === 'approved'"
+            [class.pending]="currentPreview()?.status === 'pending'"
+            [class.rejected]="currentPreview()?.status === 'rejected'">
+            {{ currentPreview()?.status }}
+        </span>
+        <div class="preview-meta mono">
+            #{{ currentPreview()?.id }} • {{ currentPreview()?.createdAt | date:'yyyy-MM-dd HH:mm' }} <br />
+            {{ currentPreview()?.email }}
+        </div>
+      </div>
+    </div>
+  }
+  
