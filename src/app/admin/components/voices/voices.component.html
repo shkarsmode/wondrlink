@@ -177,10 +177,23 @@
             (click)="prevPreview()"
             aria-label="Previous"
             type="button">‹</button>
-        <img
-          class="preview-img"
-          [src]="currentPreviewImg()"
-          [alt]="currentPreviewAlt()"/>
+            <div class="preview-tools">
+                <button class="tool" type="button" (click)="rotateLeft()"  aria-label="Rotate left">⟲</button>
+                <button class="tool" type="button" (click)="rotateRight()" aria-label="Rotate right">⟳</button>
+                <span class="div"></span>
+                <button class="tool" type="button" (click)="toggleFlipH()" [attr.aria-pressed]="flipH() ? 'true' : 'false'" aria-label="Flip horizontal">⇋</button>
+                <button class="tool" type="button" (click)="toggleFlipV()" [attr.aria-pressed]="flipV() ? 'true' : 'false'" aria-label="Flip vertical">⇵</button>
+                <span class="div"></span>
+                <button class="tool ghost" type="button" (click)="resetTransform()" aria-label="Reset">Reset</button>
+                <button class="tool primary" type="button" [disabled]="loading()" (click)="savePreviewTransform()" aria-label="Save">Save</button>
+              </div>
+              
+              <img
+                class="preview-img"
+                [src]="currentPreviewImg()"
+                [alt]="currentPreviewAlt()"
+                [style.transform]="previewTransform()"
+              />
         <button
             class="nav right"
             (click)="nextPreview()"

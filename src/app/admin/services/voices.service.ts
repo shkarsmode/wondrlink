@@ -78,4 +78,8 @@ export class VoicesService {
             `${this.basePathApi}/${this.path}/${id}`
         );
     }
+
+    public updateVoiceImage(id: number, imgUrl: string) {
+        return this.http.patch<{ affected: number }>(`${this.basePathApi}/voices/${id}/image`, { img: imgUrl });
+      }
 }

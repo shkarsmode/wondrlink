@@ -10,6 +10,7 @@ import {
     signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CloudinaryService } from "src/app/shared/services/cloudinary.service";
 import { UserService } from "src/app/shared/services/user.service";
 import { IVoice, VoiceStatus, VoicesListResponse } from '../../../shared/interfaces/voices';
 import { VoicesService } from '../../services/voices.service';
@@ -176,18 +177,18 @@ export class VoicesComponent {
     public currentPreviewImg = () => this.currentPreview()?.img ?? '';
     public currentPreviewAlt = () => `image #${this.currentPreview()?.id ?? ''}`;
 
-    public openPreview(index: number) {
-        this.lastFocusedEl = document.activeElement as HTMLElement;
-        this.previewIndex.set(index);
-        document.body.style.overflow = 'hidden';
+    // public openPreview(index: number) {
+    //     this.lastFocusedEl = document.activeElement as HTMLElement;
+    //     this.previewIndex.set(index);
+    //     document.body.style.overflow = 'hidden';
 
-        queueMicrotask(() => {
-            const overlay = document.querySelector('.preview-overlay') as HTMLElement | null;
-            overlay?.focus();
-        });
+    //     queueMicrotask(() => {
+    //         const overlay = document.querySelector('.preview-overlay') as HTMLElement | null;
+    //         overlay?.focus();
+    //     });
 
-        this.preloadAround(index);
-    }
+    //     this.preloadAround(index);
+    // }
 
     public closePreview() {
         this.previewIndex.set(null);
@@ -238,5 +239,128 @@ export class VoicesComponent {
             const img = new Image();
             img.src = url;
         }
+    }
+
+    private readonly cloud = inject(CloudinaryService);
+
+    public rot = signal<0 | 90 | 180 | 270>(0);
+    public flipH = signal(false);
+    public flipV = signal(false);
+
+    public previewTransform = computed(() => {
+        const r = this.rot();
+        const sx = this.flipH() ? -1 : 1;
+        const sy = this.flipV() ? -1 : 1;
+        return `scale(${sx}, ${sy}) rotate(${r}deg)`;
+    });
+
+    public rotateLeft() { this.rot.set(this.nextAngle(this.rot(), -90)); }
+    public rotateRight() { this.rot.set(this.nextAngle(this.rot(), 90)); }
+    public toggleFlipH() { this.flipH.update(v => !v); }
+    public toggleFlipV() { this.flipV.update(v => !v); }
+    public resetTransform() { this.rot.set(0); this.flipH.set(false); this.flipV.set(false); }
+
+    private nextAngle(a: 0 | 90 | 180 | 270, delta: -90 | 90): 0 | 90 | 180 | 270 {
+        const vals: (0 | 90 | 180 | 270)[] = [0, 90, 180, 270];
+        const idx = vals.indexOf(a);
+        const next = (idx + (delta === 90 ? 1 : -1) + vals.length) % vals.length;
+        return vals[next];
+    }
+
+    private isCloudinaryUrl(url: string) {
+        try {
+            const u = new URL(url);
+            return /(^|\.)cloudinary\.com$/.test(u.hostname);
+        } catch { return false; }
+    }
+
+    private buildCloudinaryUrl(url: string, angle: 0 | 90 | 180 | 270, flipH: boolean, flipV: boolean) {
+        const anglePart = angle ? `a_${angle}` : '';
+        const flips = [
+            flipH ? 'a_hflip' : '',
+            flipV ? 'a_vflip' : '',
+        ].filter(Boolean);
+        const parts = [...flips, anglePart].filter(Boolean);
+        if (!parts.length) return url;
+
+        return url.replace('/upload/', `/upload/${parts.join(',')}/`);
+    }
+
+    private async transformViaCanvas(
+        srcUrl: string, angle: 0 | 90 | 180 | 270, flipH: boolean, flipV: boolean
+    ): Promise<Blob> {
+        const img = await new Promise<HTMLImageElement>((res, rej) => {
+            const i = new Image();
+            i.crossOrigin = 'anonymous';
+            i.onload = () => res(i);
+            i.onerror = rej;
+            i.src = srcUrl;
+        });
+
+        const radians = (angle * Math.PI) / 180;
+        const swapWH = angle === 90 || angle === 270;
+        const w = img.width;
+        const h = img.height;
+        const cw = swapWH ? h : w;
+        const ch = swapWH ? w : h;
+
+        const canvas = document.createElement('canvas');
+        canvas.width = cw; canvas.height = ch;
+        const ctx = canvas.getContext('2d')!;
+        ctx.save();
+
+        ctx.translate(cw / 2, ch / 2);
+        ctx.rotate(radians);
+        ctx.scale(flipH ? -1 : 1, flipV ? -1 : 1);
+
+        const dx = -(w / 2);
+        const dy = -(h / 2);
+        ctx.drawImage(img, dx, dy, w, h);
+        ctx.restore();
+
+        return await new Promise<Blob>((res) => canvas.toBlob(b => res(b!), 'image/jpeg', 0.92));
+    }
+
+    public async savePreviewTransform() {
+        const cur = this.currentPreview();
+        if (!cur) return;
+        const { id, img } = cur;
+        const angle = this.rot();
+        const flH = this.flipH(); const flV = this.flipV();
+        if (!angle && !flH && !flV) return;
+
+        try {
+            this.loading.set(true);
+
+            let finalUrl = img;
+
+            // if (this.isCloudinaryUrl(img)) {
+            //     finalUrl = this.buildCloudinaryUrl(img, angle, flH, flV);
+            // } else {
+                const blob = await this.transformViaCanvas(img, angle, flH, flV);
+                const file = new File([blob], `voice-${id}.jpg`, { type: 'image/jpeg' });
+                const uploaded = await this.cloud.uploadImageAndGetUrl(file).toPromise();
+
+                finalUrl = uploaded?.imageUrl.url ?? img;
+            // }
+            await this.svc.updateVoiceImage(id, finalUrl).toPromise();
+            const updated = this.items().map(it => it.id === id ? { ...it, img: finalUrl } : it);
+            this.items.set(updated);
+            this.resetTransform();
+        } finally {
+            this.loading.set(false);
+        }
+    }
+
+    public openPreview(index: number) {
+        this.resetTransform();
+        this.lastFocusedEl = document.activeElement as HTMLElement;
+        this.previewIndex.set(index);
+        document.body.style.overflow = 'hidden';
+        queueMicrotask(() => {
+            const overlay = document.querySelector('.preview-overlay') as HTMLElement | null;
+            overlay?.focus();
+        });
+        this.preloadAround(index);
     }
 }
