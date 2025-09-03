@@ -267,25 +267,6 @@ export class VoicesComponent {
         return vals[next];
     }
 
-    private isCloudinaryUrl(url: string) {
-        try {
-            const u = new URL(url);
-            return /(^|\.)cloudinary\.com$/.test(u.hostname);
-        } catch { return false; }
-    }
-
-    private buildCloudinaryUrl(url: string, angle: 0 | 90 | 180 | 270, flipH: boolean, flipV: boolean) {
-        const anglePart = angle ? `a_${angle}` : '';
-        const flips = [
-            flipH ? 'a_hflip' : '',
-            flipV ? 'a_vflip' : '',
-        ].filter(Boolean);
-        const parts = [...flips, anglePart].filter(Boolean);
-        if (!parts.length) return url;
-
-        return url.replace('/upload/', `/upload/${parts.join(',')}/`);
-    }
-
     private async transformViaCanvas(
         srcUrl: string, angle: 0 | 90 | 180 | 270, flipH: boolean, flipV: boolean
     ): Promise<Blob> {

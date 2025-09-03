@@ -188,12 +188,14 @@
                 <button class="tool primary" type="button" [disabled]="loading()" (click)="savePreviewTransform()" aria-label="Save">Save</button>
               </div>
               
-              <img
-                class="preview-img"
-                [src]="currentPreviewImg()"
-                [alt]="currentPreviewAlt()"
-                [style.transform]="previewTransform()"
-              />
+              <div style="overflow-y: hidden;">
+                  <img
+                    class="preview-img"
+                    [src]="currentPreviewImg()"
+                    [alt]="currentPreviewAlt()"
+                    [style.transform]="previewTransform()"
+                  />
+              </div>
         <button
             class="nav right"
             (click)="nextPreview()"
