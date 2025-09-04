@@ -189,12 +189,13 @@
               </div>
               
               <div style="overflow-y: hidden;">
-                  <img
-                    class="preview-img"
-                    [src]="currentPreviewImg()"
-                    [alt]="currentPreviewAlt()"
-                    [style.transform]="previewTransform()"
-                  />
+                    <img
+                        class="preview-img"
+                        [src]="currentPreviewImg()"
+                        [alt]="currentPreviewAlt()"
+                        (load)="loadEnd()"
+                        [style.transform]="previewTransform()"
+                    />
               </div>
         <button
             class="nav right"

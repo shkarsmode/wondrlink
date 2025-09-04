@@ -327,10 +327,13 @@ export class VoicesComponent {
             await this.svc.updateVoiceImage(id, finalUrl).toPromise();
             const updated = this.items().map(it => it.id === id ? { ...it, img: finalUrl } : it);
             this.items.set(updated);
-            this.resetTransform();
         } finally {
             this.loading.set(false);
         }
+    }
+
+    loadEnd() {
+        this.resetTransform();
     }
 
     public openPreview(index: number) {

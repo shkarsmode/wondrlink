@@ -439,20 +439,36 @@
     align-items: center;
     gap: 8px;
     margin-bottom: 6px;
-    .div { width: 1px; height: 18px; background: var(--line); }
-  
-    .tool {
-      border: 1px solid var(--line);
-      background: #fff;
-      border-radius: 10px;
-      padding: 6px 10px;
-      cursor: pointer;
-      font-size: 14px;
-      &.primary { background: #337ab7; color: #fff; }
-      &.ghost { background: transparent; }
+
+    .div {
+        width: 1px;
+        height: 18px;
+        background: var(--line);
     }
-  }
-  .preview-img {
-    /* уже есть; важно, что мы теперь используем transform */
-    transition: transform .12s ease;
-  }
+
+    .tool {
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 10px;
+        padding: 6px 10px;
+        cursor: pointer;
+        font-size: 14px;
+
+        &.primary {
+            background: #337ab7;
+            color: #fff;
+        }
+
+        &.ghost {
+            background: transparent;
+        }
+    }
+}
+
+.preview-img {
+    // transition: transform .12s ease;
+}
+
+button:disabled {
+    opacity: 0.3;
+}
