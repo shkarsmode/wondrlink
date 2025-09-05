@@ -238,7 +238,7 @@
         @if (editing()?.status === VoiceStatus.Approved) {
             <button class="btn sm ghost pending" (click)="quickStatus(VoiceStatus.Pending)">Pending</button>
             <button class="btn sm ghost reject" (click)="quickStatus(VoiceStatus.Rejected)">Reject</button>
-        } @if (editing()?.status === VoiceStatus.Pending) {
+        } @else if (editing()?.status === VoiceStatus.Pending) {
             <button class="btn sm ghost approve" (click)="quickStatus(VoiceStatus.Approved)">Approve</button>
             <button class="btn sm ghost reject" (click)="quickStatus(VoiceStatus.Rejected)">Reject</button>
         } @else {

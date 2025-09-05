@@ -621,6 +621,7 @@ textarea {
 
 input[type="file"] {
     opacity: 0.4;
+    pointer-events: none;
 }
 
 .hints {
