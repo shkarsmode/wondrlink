@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ChipInputComponent } from "src/app/shared/components/chip-input/chip-input.component";
 import { CloudinaryService } from "src/app/shared/services/cloudinary.service";
@@ -23,7 +24,7 @@ type StatusFilter = 'all' | VoiceStatus;
 @Component({
     selector: 'admin-voices-table',
     standalone: true,
-    imports: [CommonModule, A11yModule, ChipInputComponent, ReactiveFormsModule],
+    imports: [CommonModule, A11yModule, ChipInputComponent, ReactiveFormsModule, MatProgressSpinner],
     templateUrl: './voices.component.html',
     styleUrl: './voices.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -491,6 +492,10 @@ export class VoicesComponent {
         } else if (ev.key === 'ArrowLeft') {
             ev.preventDefault(); this.prevFromFiltered();
         }
+    }
+
+    public visibleActions(v: IVoice) {
+        return this.statusActions.filter(a => a.value !== v.status);
     }
 
     public async onPickImg(e: Event) {

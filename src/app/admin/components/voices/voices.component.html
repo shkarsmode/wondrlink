@@ -6,12 +6,18 @@
                 [class.active]="statusFilter() === t.value"
                 (click)="setFilter(t.value)"
                 type="button">
-                {{ t.label }}
+                {{ t.label }} 
+                @if (statusFilter() === t.value && !loading()) {
+                    <span class="c-badge">{{ total() }}</span>
+                }
             </button>
         }
     </div>
 
     <div class="tools">
+        @if (loading()) {
+            <mat-spinner></mat-spinner>
+        }
         <input
             class="search"
             type="search"
@@ -104,27 +110,29 @@
                         </td>
 
                         <td class="actions">
-                            <button class="btn sm ghost" (click)="openEditor(v)" type="button">Edit</button>
-                            @for (a of statusActions; track a.value) {
-                                <button
-                                    class="btn sm"
-                                    [class]="a.class"
-                                    [disabled]="loading() || v.status===a.value"
+                            <div class="action-stack">
+                              <div class="primary-actions">
+                                @for (a of visibleActions(v); track a.value) {
+                                  <button
+                                    class="btn sm {{ a.class }}"
+                                    [disabled]="loading()"
                                     (click)="onStatusAction(v, a.value)"
                                     type="button">
                                     {{ a.label }}
-                                </button>
-                            }
-                            @if (!userService.isModerator) {                           
-                                <button
-                                    class="btn sm ghost"
-                                    [disabled]="loading()"
-                                    (click)="onDelete(v)"
-                                    type="button">
+                                  </button>
+                                }
+                              </div>
+                          
+                              <div class="secondary-actions">
+                                <button class="btn sm ghost" (click)="openEditor(v)" type="button">Edit</button>
+                                @if (!userService.isModerator) {
+                                  <button class="btn sm ghost danger" [disabled]="loading()" (click)="onDelete(v)" type="button">
                                     Delete
-                                </button>
-                            }
-                        </td>
+                                  </button>
+                                }
+                              </div>
+                            </div>
+                          </td>
                     </tr>
                 }
             }
