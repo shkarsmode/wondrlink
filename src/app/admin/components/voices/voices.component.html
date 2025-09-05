@@ -104,6 +104,7 @@
                         </td>
 
                         <td class="actions">
+                            <button class="btn sm ghost" (click)="openEditor(v)" type="button">Edit</button>
                             @for (a of statusActions; track a.value) {
                                 <button
                                     class="btn sm"
@@ -156,64 +157,164 @@
 
 @if (previewOpen()) {
     <div
-      class="preview-overlay"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Image preview"
-      (click)="onOverlayBackdrop($event)"
-      (keydown)="onOverlayKeydown($event)"
-      tabindex="0">
-      <div class="preview-content" (click)="$event.stopPropagation()">
-        <button
-            class="preview-close"
-            (click)="closePreview()"
-            aria-label="Close"
-            type="button">
-            ✕
-        </button>
-  
-        <button
-            class="nav left"
-            (click)="prevPreview()"
-            aria-label="Previous"
-            type="button">‹</button>
-            <div class="preview-tools">
-                <button class="tool" type="button" (click)="rotateLeft()"  aria-label="Rotate left">⟲</button>
-                <button class="tool" type="button" (click)="rotateRight()" aria-label="Rotate right">⟳</button>
-                <span class="div"></span>
-                <button class="tool" type="button" (click)="toggleFlipH()" [attr.aria-pressed]="flipH() ? 'true' : 'false'" aria-label="Flip horizontal">⇋</button>
-                <button class="tool" type="button" (click)="toggleFlipV()" [attr.aria-pressed]="flipV() ? 'true' : 'false'" aria-label="Flip vertical">⇵</button>
-                <span class="div"></span>
-                <button class="tool ghost" type="button" (click)="resetTransform()" aria-label="Reset">Reset</button>
-                <button class="tool primary" type="button" [disabled]="loading()" (click)="savePreviewTransform()" aria-label="Save">Save</button>
-              </div>
-              
-              <div style="overflow-y: hidden;">
-                    <img
-                        class="preview-img"
-                        [src]="currentPreviewImg()"
-                        [alt]="currentPreviewAlt()"
-                        (load)="loadEnd()"
-                        [style.transform]="previewTransform()"
-                    />
-              </div>
-        <button
-            class="nav right"
-            (click)="nextPreview()"
-            aria-label="Next"
-            type="button">›</button>
-  
-        <span
-            class="status"
-            [class.approved]="currentPreview()?.status === 'approved'"
-            [class.pending]="currentPreview()?.status === 'pending'"
-            [class.rejected]="currentPreview()?.status === 'rejected'">
-            {{ currentPreview()?.status }}
-        </span>
-        <div class="preview-meta mono">
-            #{{ currentPreview()?.id }} • {{ currentPreview()?.createdAt | date:'yyyy-MM-dd HH:mm' }} <br />
-            {{ currentPreview()?.email }}
+        class="preview-overlay"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Image preview"
+        (click)="onOverlayBackdrop($event)"
+        (keydown)="onOverlayKeydown($event)"
+        tabindex="0">
+        <div class="preview-content" (click)="$event.stopPropagation()">
+            <button
+                class="preview-close"
+                (click)="closePreview()"
+                aria-label="Close"
+                type="button">
+                ✕
+            </button>
+    
+            <button
+                class="nav left"
+                (click)="prevPreview()"
+                aria-label="Previous"
+                type="button">‹</button>
+                <div class="preview-tools">
+                    <button class="tool" type="button" (click)="rotateLeft()"  aria-label="Rotate left">⟲</button>
+                    <button class="tool" type="button" (click)="rotateRight()" aria-label="Rotate right">⟳</button>
+                    <span class="div"></span>
+                    <button class="tool" type="button" (click)="toggleFlipH()" [attr.aria-pressed]="flipH() ? 'true' : 'false'" aria-label="Flip horizontal">⇋</button>
+                    <button class="tool" type="button" (click)="toggleFlipV()" [attr.aria-pressed]="flipV() ? 'true' : 'false'" aria-label="Flip vertical">⇵</button>
+                    <span class="div"></span>
+                    <button class="tool ghost" type="button" (click)="resetTransform()" aria-label="Reset">Reset</button>
+                    <button class="tool primary" type="button" [disabled]="loading()" (click)="savePreviewTransform()" aria-label="Save">Save</button>
+                </div>
+                
+                <div style="overflow-y: hidden;">
+                        <img
+                            class="preview-img"
+                            [src]="currentPreviewImg()"
+                            [alt]="currentPreviewAlt()"
+                            (load)="loadEnd()"
+                            [style.transform]="previewTransform()"
+                        />
+                </div>
+            <button
+                class="nav right"
+                (click)="nextPreview()"
+                aria-label="Next"
+                type="button">›</button>
+    
+            <span
+                class="status"
+                [class.approved]="currentPreview()?.status === 'approved'"
+                [class.pending]="currentPreview()?.status === 'pending'"
+                [class.rejected]="currentPreview()?.status === 'rejected'">
+                {{ currentPreview()?.status }}
+            </span>
+            <div class="preview-meta mono">
+                #{{ currentPreview()?.id }} • {{ currentPreview()?.createdAt | date:'yyyy-MM-dd HH:mm' }} <br />
+                {{ currentPreview()?.email }}
+            </div>
         </div>
+    </div>
+}
+
+@if (editorOpen()) {
+    <div class="sheet" role="dialog" aria-modal="true" (keydown)="onSheetKey($event)" tabindex="0">
+      <div class="sheet-header">
+        <div class="title">Edit #{{ editing()?.id }}</div>
+        <div class="status-dot" [class.saving]="saving()" [class.saved]="saved()"> 
+          {{ saving() ? 'Saving…' : saved() ? 'Saved' : '' }}
+        </div>
+        <div class="spacer"></div>
+        @if (editing()?.status === VoiceStatus.Approved) {
+            <button class="btn sm ghost pending" (click)="quickStatus(VoiceStatus.Pending)">Pending</button>
+            <button class="btn sm ghost reject" (click)="quickStatus(VoiceStatus.Rejected)">Reject</button>
+        } @if (editing()?.status === VoiceStatus.Pending) {
+            <button class="btn sm ghost approve" (click)="quickStatus(VoiceStatus.Approved)">Approve</button>
+            <button class="btn sm ghost reject" (click)="quickStatus(VoiceStatus.Rejected)">Reject</button>
+        } @else {
+            <button class="btn sm ghost approve" (click)="quickStatus(VoiceStatus.Approved)">Approve</button>
+            <button class="btn sm ghost pending" (click)="quickStatus(VoiceStatus.Pending)">Pending</button>
+        }
+        <button class="btn sm ghost" (click)="closeEditor()" aria-label="Close">✕</button>
+      </div>
+  
+      <form class="sheet-body" [formGroup]="form" (submit)="forceSave()">
+        <div class="grid">
+          <label>
+            <span>First name</span>
+            <input type="text" formControlName="firstName" />
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" formControlName="email" />
+          </label>
+          <label>
+            <span>Location</span>
+            <input type="text" formControlName="location" />
+          </label>
+          <label>
+            <span>Credit to</span>
+            <input type="text" formControlName="creditTo" />
+          </label>
+        </div>
+  
+        <label class="block">
+          <span>Note</span>
+          <textarea rows="3" formControlName="note"></textarea>
+        </label>
+  
+        <div class="grid">  
+            <app-chip-input
+                formControlName="what"
+                label="What (tags)"
+                [options]="form.controls['what'].value ?? []" 
+                variant="blue"
+                [delimiters]="[',',';','\n']"
+                [allowDuplicates]="false"
+                [maxTagLength]="32"/>
+
+            <app-chip-input
+                formControlName="express"
+                label="Express (tags)"
+                [options]="form.controls['express'].value ?? []"
+                variant="green"/>
+        </div>
+  
+        <div class="img-row">
+          <img
+              class="thumb-lg"
+              [style.transform]="previewTransform()"
+              [src]="form.value.img || ''"
+              alt="" />
+          <div class="img-tools">
+            <input type="file" (change)="onPickImg($event)" accept="image/*" />
+            <div class="btn-row">
+              <button class="btn sm" type="button" (click)="rotateRight()">⟳</button>
+              <button class="btn sm" type="button" (click)="rotateLeft()">⟲</button>
+              <button class="btn sm" type="button" (click)="toggleFlipH()">⇋</button>
+              <button class="btn sm" type="button" (click)="toggleFlipV()">⇵</button>
+              <button class="btn sm primary" type="button" (click)="applyImgTransform()">Apply</button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div class="hints" aria-label="Hotkeys">
+        <ul class="hint-list">
+          <li><kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>S</kbd><span>— save</span></li>
+          <li><kbd>←</kbd> / <kbd>→</kbd><span>— previous/next entry</span></li>
+          <li><kbd>Esc</kbd><span>— close editor</span></li>
+        </ul>
+      </div>
+  
+      <div class="sheet-footer">
+        <div class="mono">Created: {{ editing()?.createdAt | date:'yyyy-MM-dd HH:mm' }}</div>
+        <div class="spacer"></div>
+        <button class="btn sm" (click)="prevFromFiltered()">‹ Prev</button>
+        <button class="btn sm" (click)="nextFromFiltered()">Next ›</button>
+        <button class="btn sm primary" [disabled]="!form.dirty || saving()" (click)="forceSave()">Save</button>
       </div>
     </div>
   }

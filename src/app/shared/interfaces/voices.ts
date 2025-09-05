@@ -49,4 +49,4 @@ export type UpdateVoiceRequest = Partial<Omit<CreateVoiceRequest, 'consent' | 'i
     /** Optionally allow changing img if needed */
     img?: string;
     consent?: boolean;
-};
+} | any

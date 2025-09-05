@@ -211,3 +211,8 @@ body:has(app-flow-dialog) {
 // }
 
 // </adaptation and setting for FLOW dialog
+
+.mat-mdc-snack-bar-label.mdc-snackbar__label, simple-snack-bar .mdc-button__label {
+    color: white;
+}
+

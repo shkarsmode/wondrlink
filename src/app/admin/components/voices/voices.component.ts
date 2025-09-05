@@ -10,6 +10,9 @@ import {
     signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { ChipInputComponent } from "src/app/shared/components/chip-input/chip-input.component";
 import { CloudinaryService } from "src/app/shared/services/cloudinary.service";
 import { UserService } from "src/app/shared/services/user.service";
 import { IVoice, VoiceStatus, VoicesListResponse } from '../../../shared/interfaces/voices';
@@ -20,7 +23,7 @@ type StatusFilter = 'all' | VoiceStatus;
 @Component({
     selector: 'admin-voices-table',
     standalone: true,
-    imports: [CommonModule, A11yModule],
+    imports: [CommonModule, A11yModule, ChipInputComponent, ReactiveFormsModule],
     templateUrl: './voices.component.html',
     styleUrl: './voices.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,8 +32,11 @@ export class VoicesComponent {
     private readonly svc = inject(VoicesService);
     private readonly destroyRef = inject(DestroyRef);
 
+    private snackBar: MatSnackBar = inject(MatSnackBar);
+
     public userService = inject(UserService);
 
+    public VoiceStatus: typeof VoiceStatus = VoiceStatus;
     // --- UI state
     public statusFilter = signal<StatusFilter>(VoiceStatus.Pending); // стартуем с "pending"
     public page = signal(1);
@@ -318,11 +324,11 @@ export class VoicesComponent {
             // if (this.isCloudinaryUrl(img)) {
             //     finalUrl = this.buildCloudinaryUrl(img, angle, flH, flV);
             // } else {
-                const blob = await this.transformViaCanvas(img, angle, flH, flV);
-                const file = new File([blob], `voice-${id}.jpg`, { type: 'image/jpeg' });
-                const uploaded = await this.cloud.uploadImageAndGetUrl(file).toPromise();
+            const blob = await this.transformViaCanvas(img, angle, flH, flV);
+            const file = new File([blob], `voice-${id}.jpg`, { type: 'image/jpeg' });
+            const uploaded = await this.cloud.uploadImageAndGetUrl(file).toPromise();
 
-                finalUrl = uploaded?.imageUrl.url ?? img;
+            finalUrl = uploaded?.imageUrl.url ?? img;
             // }
             await this.svc.updateVoiceImage(id, finalUrl).toPromise();
             const updated = this.items().map(it => it.id === id ? { ...it, img: finalUrl } : it);
@@ -346,5 +352,184 @@ export class VoicesComponent {
             overlay?.focus();
         });
         this.preloadAround(index);
+    }
+
+    public editing = signal<IVoice | null>(null);
+    public editorOpen = computed(() => !!this.editing());
+
+    public openEditor(v: IVoice) {
+        const fresh = this.items().find(x => x.id === v.id) ?? v;
+        this.editing.set({ ...fresh });
+        document.body.style.overflow = 'hidden';
+    }
+    public closeEditor() {
+        this.editing.set(null);
+        document.body.style.overflow = '';
+    }
+
+    public saving = signal(false);
+    public saved = signal(false);
+
+    private fb = inject(FormBuilder);
+    public form = this.fb.group({
+        firstName: [''],
+        email: ['', []], // при желании Validators.email
+        location: [''],
+        creditTo: [''],
+        note: [''],
+        what: this.fb.control<string[]>([]),
+        express: this.fb.control<string[]>([]),
+        img: [''],
+    });
+
+    private formSub = effect(() => {
+        const v = this.editing();
+        if (!v) return;
+
+        this.form.reset({
+            firstName: v.firstName ?? '',
+            email: v.email ?? '',
+            location: v.location ?? '',
+            creditTo: v.creditTo ?? '',
+            note: v.note ?? '',
+            what: v.what ?? [],
+            express: v.express ?? [],
+            img: v.img ?? '',
+        }, { emitEvent: false });
+
+        // const sub = this.form.valueChanges
+        //     .pipe(debounceTime(600), distinctUntilChanged())
+        //     .subscribe(() => this.autoSave());
+        // this.destroyRef.onDestroy(() => sub.unsubscribe());
+    });
+
+    private lastPatch: any = null;
+
+    private async autoSave() {
+        if (!this.editing() || !this.form.dirty) return;
+        // await this.savePatch();
+    }
+
+    public async forceSave() {
+        await this.savePatch(true);
+    }
+
+    private async savePatch(force = false) {
+        const e = this.editing(); if (!e) return;
+        // const patch = this.diffPatch(e, this.form.getRawValue());
+        // if (!force && (!patch || Object.keys(patch).length === 0)) return;
+        this.saving.set(true); this.saved.set(false);
+        try {
+            await this.svc.updateVoiceById(e.id, this.form.value).toPromise();
+            const updatedVoice = this.form.value as IVoice;
+            const updated = this.items().map(it => it.id === e.id ? { ...it, ...updatedVoice } : it);
+
+            this.items.set(updated);
+
+            this.editing.set(updated.find(x => x.id === e.id)!);
+            this.form.markAsPristine();
+            this.saved.set(true);
+            setTimeout(() => this.saved.set(false), 1200);
+        } catch (e) {
+            this.snackBar.open(JSON.stringify(e), 'Close', {
+                duration: 7000,
+                verticalPosition: 'top',
+            });
+            console.error(e);
+        } finally {
+            this.saving.set(false);
+        }
+    }
+
+    private diffPatch(orig: IVoice, now: any) {
+        const out: Record<string, any> = {};
+        (['firstName', 'email', 'location', 'creditTo', 'note', 'img'] as const).forEach(k => {
+            if ((orig as any)[k] ?? '' !== (now as any)[k] ?? '') out[k] = now[k];
+        });
+        (['what', 'express'] as const).forEach(k => {
+            const a = JSON.stringify((orig as any)[k] ?? []);
+            const b = JSON.stringify((now as any)[k] ?? []);
+            if (a !== b) out[k] = now[k];
+        });
+        return out;
+    }
+
+    public async quickStatus(status: VoiceStatus) {
+        const e = this.editing(); if (!e || e.status === status) return;
+        this.saving.set(true); this.saved.set(false);
+        try {
+            await this.svc.setVoiceStatus(e.id, status).toPromise();
+            const updated = this.items().map(it => it.id === e.id ? { ...it, status } : it);
+            this.items.set(updated);
+            this.editing.set({ ...e, status });
+            this.saved.set(true);
+            setTimeout(() => this.saved.set(false), 1000);
+        } finally {
+            this.saving.set(false);
+        }
+    }
+
+    public nextFromFiltered() {
+        const list = this.filtered(); if (!list.length || !this.editing()) return;
+        const idx = list.findIndex(x => x.id === this.editing()!.id);
+        const next = list[(idx + 1) % list.length];
+        this.openEditor(next);
+    }
+    public prevFromFiltered() {
+        const list = this.filtered(); if (!list.length || !this.editing()) return;
+        const idx = list.findIndex(x => x.id === this.editing()!.id);
+        const prev = list[(idx - 1 + list.length) % list.length];
+        this.openEditor(prev);
+    }
+    public onSheetKey(ev: KeyboardEvent) {
+        if ((ev.metaKey || ev.ctrlKey) && ev.key.toLowerCase() === 's') {
+            ev.preventDefault(); this.forceSave();
+        } else if (ev.key === 'Escape') {
+            ev.preventDefault(); this.closeEditor();
+        } else if (ev.key === 'ArrowRight') {
+            ev.preventDefault(); this.nextFromFiltered();
+        } else if (ev.key === 'ArrowLeft') {
+            ev.preventDefault(); this.prevFromFiltered();
+        }
+    }
+
+    public async onPickImg(e: Event) {
+        const file = (e.target as HTMLInputElement).files?.[0]; if (!file) return;
+        const uploaded = await this.cloud.uploadImageAndGetUrl(file).toPromise();
+        const url = uploaded?.imageUrl.url;
+        if (url) this.form.patchValue({ img: url });
+    }
+
+    public async applyImgTransform() {
+        const e = this.editing(); if (!e) return;
+        const { id, img } = e;
+        const angle = this.rot();
+        const flH = this.flipH(); const flV = this.flipV();
+        if (!angle && !flH && !flV) return;
+
+        this.saving.set(true); 
+        this.saved.set(false);
+
+        try {
+            this.loading.set(true);
+
+            let finalUrl = img;
+
+            const blob = await this.transformViaCanvas(img, angle, flH, flV);
+            const file = new File([blob], `voice-${id}.jpg`, { type: 'image/jpeg' });
+            const uploaded = await this.cloud.uploadImageAndGetUrl(file).toPromise();
+
+            finalUrl = uploaded?.imageUrl.url ?? img;
+
+            await this.svc.updateVoiceImage(id, finalUrl).toPromise();
+            const updated = this.items().map(it => it.id === id ? { ...it, img: finalUrl } : it);
+            this.items.set(updated);
+
+        } finally {
+            this.loading.set(false);
+            this.saving.set(false); 
+            this.saved.set(true);
+            setTimeout(() => this.saved.set(false), 1200);
+        }
     }
 }
