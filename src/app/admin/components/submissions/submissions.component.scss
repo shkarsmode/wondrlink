@@ -8,3 +8,78 @@
 .mat-mdc-cell {
     padding: 10px;
 }
+
+.submissions-table {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+
+    th.mat-header-cell,
+    td.mat-cell {
+        vertical-align: middle;
+    }
+
+    .img-col {
+        width: 92px;
+        text-align: center;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .logo-thumb {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 56px;
+        height: 56px;
+        border: 1px solid #e5e5e9;
+        border-radius: 8px;
+        background:
+            linear-gradient(45deg, rgba(0,0,0,0.03) 25%, transparent 25%) 0 0/10px 10px,
+            linear-gradient(-45deg, rgba(0,0,0,0.03) 25%, transparent 25%) 0 0/10px 10px,
+            linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.03) 75%) 0 0/10px 10px,
+            linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.03) 75%) 0 0/10px 10px;
+        transition: transform 0.08s ease, box-shadow 0.15s ease;
+
+        &:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        img {
+            max-width: 50px;
+            max-height: 50px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 6px;
+            display: block;
+        }
+    }
+
+    .data-preview {
+        // display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 6px 16px;
+        align-items: center;
+
+        > div {
+            min-width: 0;
+        }
+
+        button {
+            justify-self: end;
+            white-space: nowrap;
+        }
+    }
+}
+
+@media (max-width: 680px) {
+    .submissions-table .data-preview {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        button {
+            justify-self: start;
+        }
+    }
+}
