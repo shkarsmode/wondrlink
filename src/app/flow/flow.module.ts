@@ -7,6 +7,7 @@ import { FlowComponent } from './flow.component';
 // components
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CountryCodesComponent } from '../shared/components/country-codes/country-codes.component';
 import { InputLocationAutocompleteComponent } from '../shared/components/input-location-autocomplete/input-location-autocomplete.component';
 import { PhoneInputComponent } from '../shared/components/phone-input/phone-input.component';
@@ -37,6 +38,7 @@ import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
         PhoneInputComponent,
         FormsTooltipDirective,
         MatTooltipModule,
+        AngularSvgIconModule
     ],
     exports: [
         FlowComponent,

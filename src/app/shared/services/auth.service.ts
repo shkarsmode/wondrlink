@@ -170,4 +170,15 @@ export class AuthService {
         const role = this.storageService.get('role') as UserRoleEnum;
         return role === UserRoleEnum.ADMIN;
     }
+
+    public sendVerificationCode(phone: number): Observable<any> {
+        return this.http.post(`${this.authPathApi}/phone/send`, { phone });
+    }
+
+    public verifyPhoneCode(phone: number, code: string): Observable<{ success: boolean }> {
+        return this.http.post<{ success: boolean }>(
+            `${this.authPathApi}/phone/verify`, 
+            { phone, code }
+        );
+    }
 }

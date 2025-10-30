@@ -529,3 +529,38 @@ textarea {
     }
 
 }
+
+.vefiry-btn {
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
+    max-width: 106px;
+    height: 40px;
+    outline: none;
+    font-weight: 400;
+    font-size: 15px;
+    text-align: center;
+    background: #262626;
+    border: none;
+    color: white;
+
+    cursor: pointer;
+
+    &:hover {
+        background-color: #323232;
+    }
+}
+
+.verified {
+    position: absolute;
+    right: 18px;
+    bottom: 0px;
+
+    height: 45px;
+    display: flex;
+    align-items: center;
+
+    ::ng-deep path {
+        fill: rgb(0, 106, 0);
+    }
+}

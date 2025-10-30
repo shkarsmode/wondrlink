@@ -30,7 +30,7 @@
                             "label": "Age",
                             "name": "age",
                             "required": true,
-                            "placeholder": ""
+                            "placeholder": "Enter your age"
                         },
                         {
                             "type": "phone",

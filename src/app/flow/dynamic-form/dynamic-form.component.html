@@ -27,6 +27,32 @@
                                             formControlName="phone"
                                             (valid)="onPhoneValidityChange($event, field.name)">
                                         </app-phone-input>
+                                        
+                                        @switch (verificationState()) {
+                                            @case ('pending') {
+                                                <button 
+                                                    class="vefiry-btn"
+                                                    [disabled]="form.get('phone')?.invalid"
+                                                    (click)="sendVerificationCode()">
+                                                    Verify*
+                                                </button>
+                                            }
+                                            @case ('sent') {
+                                                <button 
+                                                    class="vefiry-btn"
+                                                    [disabled]="form.get('phone')?.invalid"
+                                                    (click)="sendVerificationCode()">
+                                                    Resend Code
+                                                </button>
+                                            }
+                                            @case ('verified') {
+                                                <span class="verified">
+                                                    <svg-icon src="assets/svg/check-mark.svg" alt="Checkmark" />
+                                                </span>
+                                            }
+                                        }
+                                        
+                                        
                                     }
                                     @case ('dropdown') {
                                         <div 
@@ -176,7 +202,10 @@
                 <div class="wrap-btn">
                     <button
                         class="btn-green"
-                        [disabled]="!isButtonAvailableOnCurrentStep"
+                        [disabled]="
+                            !isButtonAvailableOnCurrentStep ||
+                            (form.get('phone')?.value && verificationState() !== 'verified')
+                        "
                         (click)="(isCurrentButtonNext ? nextStep : submit).call(this)"
                         [type]="isCurrentButtonNext ? 'button' : 'submit'">
                         {{ isCurrentButtonNext ? 'Next' : 'Submit' }}

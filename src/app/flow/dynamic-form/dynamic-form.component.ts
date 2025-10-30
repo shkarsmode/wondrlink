@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, signal, WritableSignal } from '@angular/core';
 import {
     AbstractControl,
     FormBuilder,
@@ -8,7 +8,9 @@ import {
     ValidatorFn,
     Validators,
 } from '@angular/forms';
+import { first } from 'rxjs';
 import { StorageService } from 'src/app/shared/services/storage-service.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
     selector: 'app-dynamic-form',
@@ -25,6 +27,8 @@ export class DynamicFormComponent {
     public currentVisibleFields: Array<string> = [];
 
     private storageService: StorageService = inject(StorageService);
+
+    private authService = inject(AuthService);
 
     constructor(private fb: FormBuilder) {
         this.form = this.fb.group({});
@@ -45,6 +49,34 @@ export class DynamicFormComponent {
 
         const valueForCurrentStep = this.form.get(nameOfHiddenInput)?.value;
         return step.specificForms[valueForCurrentStep];
+    }
+
+    public verificationState: WritableSignal<'pending' | 'sent' | 'verified'> = signal('verified');
+    public phoneToVerify: string = '';
+    public sendVerificationCode(): void {
+        if (this.form.get('phone')?.invalid) return;
+        this.phoneToVerify = this.form.get('phone')?.value;
+
+
+        const phone = this.form.get('phone')?.value;
+        this.authService.sendVerificationCode(phone)
+            .pipe(first())
+            .subscribe(() => {
+                this.verificationState.set('sent');
+                setTimeout(() => {
+                    const code = prompt('Enter your verification code');
+                    if (code) this.verifyPhoneCode(code);
+                    else this.verificationState.set('pending');
+                }, 200);
+            });
+    }
+
+    public verifyPhoneCode(code: string): void {
+        this.authService.verifyPhoneCode(this.form.get('phone')?.value, code)
+            .subscribe(success => {
+                if (success.success) this.verificationState.set('verified');
+                else this.verificationState.set('pending');
+            });
     }
 
     public goToNextStep(event: string): void {
@@ -227,6 +259,10 @@ export class DynamicFormComponent {
             this.form
                 .get(fieldName)
                 ?.setErrors(isValid ? null : { invalidPhone: true });
+
+            if (this.phoneToVerify !== this.form.get(fieldName)?.value) {
+                this.verificationState.set('pending');
+            }
         });
     }
 
