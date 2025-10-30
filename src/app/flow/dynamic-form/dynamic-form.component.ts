@@ -8,6 +8,7 @@ import {
     ValidatorFn,
     Validators,
 } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { first } from 'rxjs';
 import { StorageService } from 'src/app/shared/services/storage-service.service';
 import { AuthService } from '../../shared/services/auth.service';
@@ -25,10 +26,14 @@ export class DynamicFormComponent {
     public form: FormGroup;
     public currentStep: number = 0;
     public currentVisibleFields: Array<string> = [];
-
+    public phoneToVerify: string = '';
+    
+    public verificationState: WritableSignal<'pending' | 'sent' | 'verified'> = signal('pending');
+    
     private storageService: StorageService = inject(StorageService);
 
     private authService = inject(AuthService);
+    private snackBar = inject(MatSnackBar);
 
     constructor(private fb: FormBuilder) {
         this.form = this.fb.group({});
@@ -38,6 +43,7 @@ export class DynamicFormComponent {
         this.initializeForm();
         this.updateCurrentFieldsToCheck();
     }
+    
 
     public getCurrentInfoBasedOnStep(step: any): any {
         const { dependedStepOn } = this.getDependenciesOfStep();
@@ -51,12 +57,19 @@ export class DynamicFormComponent {
         return step.specificForms[valueForCurrentStep];
     }
 
-    public verificationState: WritableSignal<'pending' | 'sent' | 'verified'> = signal('verified');
-    public phoneToVerify: string = '';
     public sendVerificationCode(): void {
-        if (this.form.get('phone')?.invalid) return;
+        if (this.form.get('phone')?.invalid || !this.form.get('phone')?.value) {
+            this.snackBar.open(
+                'Please enter a valid phone number', 
+                'Close', {
+                    duration: 7000,
+                    verticalPosition: 'bottom',
+                    horizontalPosition: 'center',
+                }
+            );
+            return;
+        }
         this.phoneToVerify = this.form.get('phone')?.value;
-
 
         const phone = this.form.get('phone')?.value;
         this.authService.sendVerificationCode(phone)
@@ -66,16 +79,33 @@ export class DynamicFormComponent {
                 setTimeout(() => {
                     const code = prompt('Enter your verification code');
                     if (code) this.verifyPhoneCode(code);
-                    else this.verificationState.set('pending');
+                    else {
+                        this.snackBar.open('Verification code was not entered', 'Close', {
+                            duration: 7000,
+                            verticalPosition: 'bottom',
+                            horizontalPosition: 'center',
+                        });
+                        this.verificationState.set('pending');
+                    }
                 }, 200);
             });
     }
 
     public verifyPhoneCode(code: string): void {
         this.authService.verifyPhoneCode(this.form.get('phone')?.value, code)
-            .subscribe(success => {
-                if (success.success) this.verificationState.set('verified');
+            .subscribe(({ success }) => {
+                if (success) this.verificationState.set('verified');
                 else this.verificationState.set('pending');
+
+                this.snackBar.open(
+                    success ? 
+                        'Verification successful' : 'Wrong verification code', 
+                    'Close', {
+                        duration: 7000,
+                        verticalPosition: 'bottom',
+                        horizontalPosition: 'center',
+                    }
+                );
             });
     }
 
