@@ -142,6 +142,10 @@ export class DynamicFormComponent {
             validators.push(customUrlValidator());
         }
 
+        if (field.name === 'age') {
+            validators.push(Validators.min(0), Validators.max(120), Validators.pattern('^[0-9]*$'));
+        }
+
         return validators;
     }
 

@@ -26,6 +26,13 @@
                             "placeholder": "Alex Johnson"
                         },
                         {
+                            "type": "text",
+                            "label": "Age",
+                            "name": "age",
+                            "required": true,
+                            "placeholder": ""
+                        },
+                        {
                             "type": "phone",
                             "label": "Phone",
                             "name": "phone",
