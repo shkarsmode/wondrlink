@@ -29,7 +29,8 @@ export class DynamicFormComponent {
     public phoneToVerify: string = '';
     
     public verificationState: WritableSignal<'pending' | 'sent' | 'verified'> = signal('pending');
-    
+    public isLoading = signal(false);
+
     private storageService: StorageService = inject(StorageService);
 
     private authService = inject(AuthService);
@@ -74,20 +75,31 @@ export class DynamicFormComponent {
         const phone = this.form.get('phone')?.value;
         this.authService.sendVerificationCode(phone)
             .pipe(first())
-            .subscribe(() => {
-                this.verificationState.set('sent');
-                setTimeout(() => {
-                    const code = prompt('Enter your verification code');
-                    if (code) this.verifyPhoneCode(code);
-                    else {
-                        this.snackBar.open('Verification code was not entered', 'Close', {
-                            duration: 7000,
-                            verticalPosition: 'bottom',
-                            horizontalPosition: 'center',
-                        });
-                        this.verificationState.set('pending');
-                    }
-                }, 200);
+            .subscribe({
+                next: () => {
+                    this.verificationState.set('sent');
+                    setTimeout(() => {
+                        const code = prompt('Enter your verification code');
+                        if (code) this.verifyPhoneCode(code);
+                        else {
+                            this.snackBar.open('Verification code was not entered', 'Close', {
+                                duration: 7000,
+                                verticalPosition: 'bottom',
+                                horizontalPosition: 'center',
+                            });
+                            this.verificationState.set('pending');
+                        }
+                        this.isLoading.set(false);
+                    }, 200);
+                },
+                error: (error) => {
+                    this.snackBar.open('Too many requests', 'Close', {
+                        duration: 7000,
+                        verticalPosition: 'bottom',
+                        horizontalPosition: 'center',
+                    });
+                    this.isLoading.set(false);
+                }
             });
     }
 
@@ -106,6 +118,8 @@ export class DynamicFormComponent {
                         horizontalPosition: 'center',
                     }
                 );
+
+                if (success) this.onSubmit.emit(this.result);
             });
     }
 
@@ -320,7 +334,9 @@ export class DynamicFormComponent {
         document.querySelector('app-flow-dialog .wrap')?.scroll(0, 0)
     }
 
+    public result: { [key: string]: { value: string; label: string } } = {};
     public submit(): void {
+        this.isLoading.set(true);
         const result: { [key: string]: { value: string; label: string } } = {};
 
         Object.keys(this.form.value).forEach((key: string) =>
@@ -332,7 +348,13 @@ export class DynamicFormComponent {
                 }) : null
         );
 
+        this.result = result;
         console.log('Form Data:', result);
+
+        if (result['phone']?.value) {
+            this.sendVerificationCode();
+            return;
+        }
         this.onSubmit.emit(result);
     }
 

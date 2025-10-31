@@ -28,7 +28,7 @@
                                             (valid)="onPhoneValidityChange($event, field.name)">
                                         </app-phone-input>
                                         
-                                        @switch (verificationState()) {
+                                        <!-- @switch (verificationState()) {
                                             @case ('pending') {
                                                 <button 
                                                     class="vefiry-btn"
@@ -50,7 +50,7 @@
                                                     <svg-icon src="assets/svg/check-mark.svg" alt="Checkmark" />
                                                 </span>
                                             }
-                                        }
+                                        } -->
                                         
                                         
                                     }
@@ -203,12 +203,14 @@
                     <button
                         class="btn-green"
                         [disabled]="
-                            !isButtonAvailableOnCurrentStep ||
-                            (form.get('phone')?.value && verificationState() !== 'verified')
+                            !isButtonAvailableOnCurrentStep || isLoading()
                         "
                         (click)="(isCurrentButtonNext ? nextStep : submit).call(this)"
                         [type]="isCurrentButtonNext ? 'button' : 'submit'">
                         {{ isCurrentButtonNext ? 'Next' : 'Submit' }}
+                        @if (isLoading()) {
+                            <mat-spinner></mat-spinner>
+                        }
                     </button>
                 </div>
             }
