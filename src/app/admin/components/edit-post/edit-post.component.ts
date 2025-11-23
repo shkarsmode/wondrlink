@@ -153,7 +153,7 @@ export class EditPostComponent implements OnInit {
             id: this.post.id,
             createdAt,
             mainPicture,
-            "tag": this.tag.value,
+            "tag": this.tag.value ? 'true' : '',
             "header": this.header.value,
             "subHeader": this.subHeader.value,
             "htmlContent": this.content.value,

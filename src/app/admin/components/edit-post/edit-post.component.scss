@@ -38,7 +38,11 @@ h2 {
 
 .content {
 	position: relative;
-	padding: 15px 20px
+	padding: 15px 20px;
+
+	label {
+		cursor: pointer;
+	}
 }
 
 .d-flex {
@@ -251,6 +255,11 @@ input.ng-dirty.ng-invalid {
 		position: absolute;
 		font-size: 14px;
 	}
+}
+
+.card > .title > span {
+	color: #b3b3b3;
+	font-size: 14px;
 }
 
 .links .title {

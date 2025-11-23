@@ -20,15 +20,24 @@
 			</div>
 		</div>
 
-		@if (ProjectTypeEnum.Wondrvoices === projectService.current) {
+		<!-- @if (ProjectTypeEnum.Wondrvoices === projectService.current) { -->
 			<div class="card" style="margin-left: 20px">
-				<div class="title">Tag</div>
+				<div class="title">
+					Project
+					<span>
+						Save changes to see the effect
+					</span>
+				</div>
 				<div class="content">
-					<input type="text" formControlName="tag">
-					<span *ngIf="tag.value">Post will be displayed in wondrvoices</span>
+					<mat-checkbox type="text" formControlName="tag" #checkBox id="tag" />
+					<label for="tag" (click)="form.get('tag')?.setValue(!form.get('tag')?.value)">
+						Post will be displayed in
+						@if (form.get('tag')?.value) { wondrvoices } @else { wondrlink }
+					</label>
+
 				</div>
 			</div>
-		}
+		<!-- } -->
 	</div>
 
 	<div class="card">
