@@ -28,10 +28,10 @@ export class PostsService {
 
         switch (project) {
             case ProjectTypeEnum.Wondrlink:
-                url += '&withTag=false';
+                url += '';
                 break;
             case ProjectTypeEnum.Wondrvoices:
-                url += '&withTag=true';
+                url += '&isWondrvoices=true';
                 break;
         }
 

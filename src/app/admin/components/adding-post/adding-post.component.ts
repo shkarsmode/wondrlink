@@ -57,7 +57,8 @@ export class AddingPostComponent implements OnInit {
             picture: ['', [Validators.required]],
             content: ['', Validators.required],
             createdAt: [new Date(), [Validators.required]],
-            hidden: [false, Validators.required]
+            hidden: [false, Validators.required],
+            isWondrvoices: [ProjectTypeEnum.Wondrvoices === this.projectService.current]
         });
     }
 
@@ -102,6 +103,7 @@ export class AddingPostComponent implements OnInit {
             "tag": this.tag.value,
             "subHeader": this.isAuto ? this.autoSubHeader : this.subHeader.value,
             "htmlContent": this.content.value,
+            "isWondrvoices": this.form.get('isWondrvoices')?.value,
             "socialLinks": {
                 "instagram": "https://www.instagram.com/shkarsmode/"
             },

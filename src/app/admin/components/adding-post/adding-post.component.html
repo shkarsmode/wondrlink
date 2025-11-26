@@ -45,15 +45,38 @@
 			</div>
 		</div>
 
-		@if (projectService.current === ProjectTypeEnum.Wondrvoices) {
-			<div class="card" style="margin-left: 20px">
-			   <div class="title">Tag</div>
-			   <div class="content">
-				   <input type="text" formControlName="tag" placeholder="Art by kids">
-			   </div>
-		   </div>
-		}
+		<div class="card" style="margin-left: 20px">
+			<div class="title">
+				Project
+				<span>
+					Save changes to see the effect
+				</span>
+			</div>
+			<div class="content">
+				<mat-checkbox
+					id="tag"
+					#checkBox
+					formControlName="isWondrvoices"
+					type="text" />
+				<label
+					(click)="form.get('isWondrvoices')?.setValue(!form.get('isWondrvoices')?.value)"
+					for="tag">
+					Post will be displayed in
+					@if (form.get('isWondrvoices')?.value) { wondrvoices } @else { wondrlink }
+				</label>
+
+			</div>
+		</div>
 	</div>
+
+	@if (ProjectTypeEnum.Wondrvoices === projectService.current) {
+		<div class="card">
+			<div class="title">Tag</div>
+			<div class="content">
+				<input type="text" formControlName="tag">
+			</div>
+		</div>
+	}
 
 	<div class="card">
 		<div class="title">Starts at</div>

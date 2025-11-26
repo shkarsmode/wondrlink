@@ -29,16 +29,31 @@
 					</span>
 				</div>
 				<div class="content">
-					<mat-checkbox type="text" formControlName="tag" #checkBox id="tag" />
-					<label for="tag" (click)="form.get('tag')?.setValue(!form.get('tag')?.value)">
+					<mat-checkbox
+						id="isWondrvoices"
+						#checkBox
+						formControlName="isWondrvoices"
+						type="text" />
+					<label
+						(click)="form.get('isWondrvoices')?.setValue(!form.get('isWondrvoices')?.value)"
+						for="isWondrvoices">
 						Post will be displayed in
-						@if (form.get('tag')?.value) { wondrvoices } @else { wondrlink }
+						@if (form.get('isWondrvoices')?.value) { wondrvoices } @else { wondrlink }
 					</label>
 
 				</div>
 			</div>
 		<!-- } -->
 	</div>
+
+	@if (ProjectTypeEnum.Wondrvoices === projectService.current) {
+		<div class="card">
+			<div class="title">Tag</div>
+			<div class="content">
+				<input type="text" formControlName="tag">
+			</div>
+		</div>
+	}
 
 	<div class="card">
 		<div class="title">Starts at</div>

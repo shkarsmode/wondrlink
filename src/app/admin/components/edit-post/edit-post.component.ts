@@ -91,6 +91,7 @@ export class EditPostComponent implements OnInit {
             content: [this.post.htmlContent, Validators.required],
             createdAt: [this.post.createdAt, [Validators.required]],
             hidden: [this.post.hidden, [Validators.required]],
+            isWondrvoices: [this.post.isWondrvoices]
         });
     }
 
@@ -153,7 +154,8 @@ export class EditPostComponent implements OnInit {
             id: this.post.id,
             createdAt,
             mainPicture,
-            "tag": this.tag.value ? 'true' : '',
+            "tag": this.tag.value,
+            "isWondrvoices": this.form.get('isWondrvoices')?.value,
             "header": this.header.value,
             "subHeader": this.subHeader.value,
             "htmlContent": this.content.value,

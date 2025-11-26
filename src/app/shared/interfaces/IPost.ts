@@ -12,4 +12,5 @@ export interface IPost {
 	readonly htmlContent: string;
 	readonly user?: IUser;
 	readonly hidden: boolean;
+	readonly isWondrvoices: boolean;
 }
