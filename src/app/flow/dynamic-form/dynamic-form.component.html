@@ -207,7 +207,11 @@
                         "
                         (click)="(isCurrentButtonNext ? nextStep : submit).call(this)"
                         [type]="isCurrentButtonNext ? 'button' : 'submit'">
-                        {{ isCurrentButtonNext ? 'Next' : 'Submit' }}
+                        {{ 
+                            isCurrentButtonNext ? 'Next' : 
+                                form.get('phone')?.value ? 
+                                    'Verify and Submit' : 'Submit' 
+                        }}
                         @if (isLoading()) {
                             <mat-spinner></mat-spinner>
                         }

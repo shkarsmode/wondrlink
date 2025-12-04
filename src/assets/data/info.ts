@@ -12,7 +12,7 @@ export const info = {
                 "<h2>Cancer is personal Your Care should be Exceptional</h2><p>Wondrlink delivers proactive, personalized, and exclusive cancer care, ensuring no option is ever out of reach</p><br /><p><b class='action-button'>Fill Out the Patient Form →</b></p>"
             ],
             "form-title": "You Are Not Alone, Take the Next Step",
-            "buttonName": "Start your Fight"
+            "buttonName": "Get Started"
         },
         {
             "id": "ecosystem",

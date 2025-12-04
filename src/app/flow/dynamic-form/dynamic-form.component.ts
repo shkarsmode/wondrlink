@@ -8,8 +8,10 @@ import {
     ValidatorFn,
     Validators,
 } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { first } from 'rxjs';
+import { ConfirmPhoneNumberFormComponent } from 'src/app/shared/dialogs/confirm-phone-number-form/confirm-phone-number-form.component';
 import { StorageService } from 'src/app/shared/services/storage-service.service';
 import { AuthService } from '../../shared/services/auth.service';
 
@@ -35,6 +37,17 @@ export class DynamicFormComponent {
 
     private authService = inject(AuthService);
     private snackBar = inject(MatSnackBar);
+    private dialog = inject(MatDialog)
+    private dialogConfig: MatDialogConfig = { 
+        disableClose: true, 
+        width: '400%', 
+        height: '400%',
+        maxHeight: '400px', 
+        maxWidth: '650px',
+        data: {
+            phone: ''
+        }
+    };
 
     constructor(private fb: FormBuilder) {
         this.form = this.fb.group({});
@@ -79,17 +92,22 @@ export class DynamicFormComponent {
                 next: () => {
                     this.verificationState.set('sent');
                     setTimeout(() => {
-                        const code = prompt('Enter your verification code');
-                        if (code) this.verifyPhoneCode(code);
-                        else {
-                            this.snackBar.open('Verification code was not entered', 'Close', {
-                                duration: 7000,
-                                verticalPosition: 'bottom',
-                                horizontalPosition: 'center',
+                        this.dialogConfig.data.phone = phone;
+                        this.dialog.open(ConfirmPhoneNumberFormComponent, this.dialogConfig)
+                            .afterClosed()
+                            .pipe(first())
+                            .subscribe((code) => {
+                                if (code) this.verifyPhoneCode(code);
+                                else {
+                                    this.snackBar.open('Verification code was not entered', 'Close', {
+                                        duration: 7000,
+                                        verticalPosition: 'bottom',
+                                        horizontalPosition: 'center',
+                                    });
+                                    this.verificationState.set('pending');
+                                }
+                                this.isLoading.set(false);
                             });
-                            this.verificationState.set('pending');
-                        }
-                        this.isLoading.set(false);
                     }, 200);
                 },
                 error: (error) => {
@@ -349,7 +367,6 @@ export class DynamicFormComponent {
         );
 
         this.result = result;
-        console.log('Form Data:', result);
 
         if (result['phone']?.value) {
             this.sendVerificationCode();

@@ -1,0 +1,24 @@
+<div class="wrap">
+    <img
+        class="close"
+        (click)="close()"
+        src="assets/img/close.svg"
+        alt="close">
+
+    <h1>Phone code confirmation</h1>
+    <span>To prevent spam we need to verify your phone number</span>
+    
+    <ng-otp-input
+        [formControl]="code"
+        [config]="config" />
+    <span>Enter the code we sent to {{ data.phone }}</span>
+
+    <div class="wrap-btn">
+        <button
+            class="btn-green"
+            [disabled]="code.invalid"
+            (click)="close(code.value)">
+            Confirm
+        </button>
+    </div>
+</div>
