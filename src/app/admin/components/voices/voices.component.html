@@ -251,22 +251,52 @@
       <form class="sheet-body" [formGroup]="form" (submit)="forceSave()">
         <div class="grid">
           <label>
-            <span>First name</span>
-            <input type="text" formControlName="firstName" />
+              <span>First name</span>
+              <input
+                  type="text"
+                  formControlName="firstName" />
           </label>
+      
           <label>
-            <span>Email</span>
-            <input type="email" formControlName="email" />
+              <span>Email</span>
+              <input
+                  type="email"
+                  formControlName="email" />
           </label>
+      
           <label>
-            <span>Location</span>
-            <input type="text" formControlName="location" />
+              <span>Location</span>
+              <input
+                  #locationInput
+                  type="text"
+                  formControlName="location" />
           </label>
+      
           <label>
-            <span>Credit to</span>
-            <input type="text" formControlName="creditTo" />
+              <span>Credit to</span>
+              <input
+                  type="text"
+                  formControlName="creditTo" />
           </label>
-        </div>
+      </div>
+      
+      <div class="grid">
+          <label>
+              <span>Latitude</span>
+              <input
+                  type="number"
+                  step="0.000001"
+                  formControlName="lat" />
+          </label>
+      
+          <label>
+              <span>Longitude</span>
+              <input
+                  type="number"
+                  step="0.000001"
+                  formControlName="lng" />
+          </label>
+      </div>
   
         <label class="block">
           <span>Note</span>

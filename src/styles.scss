@@ -216,3 +216,7 @@ body:has(app-flow-dialog) {
     color: white;
 }
 
+
+.pac-container.pac-logo {
+    z-index: 99999;
+}
