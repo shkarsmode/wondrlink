@@ -55,21 +55,24 @@
                     <td>{{ msg.location }}</td>
                     <td><span class="badge badge-info">{{ msg.type }}</span></td>
                     <td class="message-cell" [title]="msg.message">{{ truncateMessage(msg.message) }}</td>
-                    <td><span [class]="'badge ' + getStatusBadgeClass(msg.status)">{{ msg.status }}</span></td>
+                    <td>
+                        <select 
+                            [(ngModel)]="msg.status" 
+                            (change)="changeMessageStatus(msg.id, msg.status)"
+                            class="form-control form-control-sm status-select"
+                            [class.status-approved]="msg.status === 'approved'"
+                            [class.status-pending]="msg.status === 'pending_approval'"
+                            [class.status-rejected]="msg.status === 'rejected'">
+                            <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
+                        </select>
+                    </td>
                     <td>{{ msg.likes }}</td>
                     <td>{{ msg.createdAt | date: 'short' }}</td>
                     <td class="actions">
                         <button 
-                            *ngIf="msg.status === 'pending_approval'" 
-                            (click)="approveMessage(msg.id)"
-                            class="btn btn-sm btn-success">
-                            Approve
-                        </button>
-                        <button 
-                            *ngIf="msg.status === 'pending_approval'" 
-                            (click)="rejectMessage(msg.id)"
+                            (click)="deleteMessage(msg.id)"
                             class="btn btn-sm btn-danger">
-                            Reject
+                            Delete
                         </button>
                     </td>
                 </tr>

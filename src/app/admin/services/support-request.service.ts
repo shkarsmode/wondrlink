@@ -58,4 +58,20 @@ export class AdminSupportRequestService {
     public rejectMessage(messageId: number): Observable<{ success: boolean }> {
         return this.http.patch<{ success: boolean }>(`${this.apiUrl}/admin/messages/${messageId}/reject`, {});
     }
+
+    public changeRequestStatus(requestId: number, status: SupportRequestStatus): Observable<{ success: boolean }> {
+        return this.http.patch<{ success: boolean }>(`${this.apiUrl}/admin/requests/${requestId}/status`, { status });
+    }
+
+    public changeMessageStatus(messageId: number, status: SupportMessageStatus): Observable<{ success: boolean }> {
+        return this.http.patch<{ success: boolean }>(`${this.apiUrl}/admin/messages/${messageId}/status`, { status });
+    }
+
+    public deleteRequest(requestId: number): Observable<{ success: boolean }> {
+        return this.http.delete<{ success: boolean }>(`${this.apiUrl}/admin/requests/${requestId}`);
+    }
+
+    public deleteMessage(messageId: number): Observable<{ success: boolean }> {
+        return this.http.delete<{ success: boolean }>(`${this.apiUrl}/admin/messages/${messageId}`);
+    }
 }

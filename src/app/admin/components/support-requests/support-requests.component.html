@@ -54,22 +54,25 @@
                     <td>{{ req.email }}</td>
                     <td>{{ req.location }}</td>
                     <td>{{ req.age }}</td>
-                    <td><span [class]="'badge ' + getStatusBadgeClass(req.status)">{{ req.status }}</span></td>
+                    <td>
+                        <select 
+                            [(ngModel)]="req.status" 
+                            (change)="changeRequestStatus(req.id, req.status)"
+                            class="form-control form-control-sm status-select"
+                            [class.status-verified]="req.status === 'verified'"
+                            [class.status-pending]="req.status === 'pending_approval' || req.status === 'pending'"
+                            [class.status-rejected]="req.status === 'rejected'">
+                            <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
+                        </select>
+                    </td>
                     <td>{{ req.hearts }}</td>
                     <td>{{ req.comments }}</td>
                     <td>{{ req.createdAt | date: 'short' }}</td>
                     <td class="actions">
                         <button 
-                            *ngIf="req.status === 'pending_approval'" 
-                            (click)="approveRequest(req.id)"
-                            class="btn btn-sm btn-success">
-                            Approve
-                        </button>
-                        <button 
-                            *ngIf="req.status === 'pending_approval'" 
-                            (click)="rejectRequest(req.id)"
+                            (click)="deleteRequest(req.id)"
                             class="btn btn-sm btn-danger">
-                            Reject
+                            Delete
                         </button>
                     </td>
                 </tr>

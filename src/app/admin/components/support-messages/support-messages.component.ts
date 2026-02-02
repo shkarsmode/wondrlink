@@ -92,6 +92,26 @@ export class AdminSupportMessagesComponent implements OnInit {
         }
     }
 
+    changeMessageStatus(messageId: number, newStatus: SupportMessageStatus): void {
+        this.adminSupportService.changeMessageStatus(messageId, newStatus).subscribe({
+            next: () => {
+                this.loadMessages();
+            },
+            error: (err) => console.error('Error changing message status:', err)
+        });
+    }
+
+    deleteMessage(messageId: number): void {
+        if (confirm('Delete this support message? This action cannot be undone.')) {
+            this.adminSupportService.deleteMessage(messageId).subscribe({
+                next: () => {
+                    this.loadMessages();
+                },
+                error: (err) => console.error('Error deleting message:', err)
+            });
+        }
+    }
+
     getStatusBadgeClass(status: SupportMessageStatus): string {
         switch (status) {
             case SupportMessageStatus.APPROVED:

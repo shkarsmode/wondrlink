@@ -92,6 +92,26 @@ export class AdminSupportRequestsComponent implements OnInit {
         }
     }
 
+    changeRequestStatus(requestId: number, newStatus: SupportRequestStatus): void {
+        this.adminSupportService.changeRequestStatus(requestId, newStatus).subscribe({
+            next: () => {
+                this.loadRequests();
+            },
+            error: (err) => console.error('Error changing request status:', err)
+        });
+    }
+
+    deleteRequest(requestId: number): void {
+        if (confirm('Delete this support request? This action cannot be undone.')) {
+            this.adminSupportService.deleteRequest(requestId).subscribe({
+                next: () => {
+                    this.loadRequests();
+                },
+                error: (err) => console.error('Error deleting request:', err)
+            });
+        }
+    }
+
     getStatusBadgeClass(status: SupportRequestStatus): string {
         switch (status) {
             case SupportRequestStatus.VERIFIED:
