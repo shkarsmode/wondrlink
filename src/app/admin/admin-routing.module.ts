@@ -8,6 +8,8 @@ import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SubmissionsComponent } from './components/submissions/submissions.component';
+import { AdminSupportMessagesComponent } from './components/support-messages/support-messages.component';
+import { AdminSupportRequestsComponent } from './components/support-requests/support-requests.component';
 import { UsersComponent } from './components/users/users.component';
 import { VoicesComponent } from './components/voices/voices.component';
 
@@ -22,6 +24,8 @@ enum AdminRoutes {
     Settings = 'settings',
     ParamId = ':id',
     Voices = 'voices',
+    SupportRequests = 'support-requests',
+    SupportMessages = 'support-messages',
 }
 
 const routes: Routes = [
@@ -61,6 +65,14 @@ const routes: Routes = [
             {
                 path: AdminRoutes.Voices,
                 component: VoicesComponent,
+            },
+            {
+                path: AdminRoutes.SupportRequests,
+                component: AdminSupportRequestsComponent,
+            },
+            {
+                path: AdminRoutes.SupportMessages,
+                component: AdminSupportMessagesComponent,
             },
             {
                 path: AdminRoutes.Settings,

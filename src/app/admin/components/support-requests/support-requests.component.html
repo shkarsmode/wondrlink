@@ -1,0 +1,89 @@
+<div class="support-requests-container">
+    <div class="header">
+        <h1>Support Requests</h1>
+    </div>
+
+    <div class="filters">
+        <div class="filter-group">
+            <label for="status">Status:</label>
+            <select id="status" [(ngModel)]="status" (change)="onStatusChange()" class="form-control">
+                <option [value]="undefined">All</option>
+                <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="sortBy">Sort By:</label>
+            <select id="sortBy" [(ngModel)]="sortBy" (change)="onSortChange()" class="form-control">
+                <option value="createdAt">Created</option>
+                <option value="hearts">Hearts</option>
+                <option value="comments">Comments</option>
+                <option value="age">Age</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="sortOrder">Order:</label>
+            <select id="sortOrder" [(ngModel)]="sortOrder" (change)="onSortChange()" class="form-control">
+                <option value="DESC">Descending</option>
+                <option value="ASC">Ascending</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="table-wrapper" *ngIf="!loading">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Location</th>
+                    <th>Age</th>
+                    <th>Status</th>
+                    <th>Hearts</th>
+                    <th>Comments</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let req of requests">
+                    <td>{{ req.id }}</td>
+                    <td>{{ req.firstName || 'Anonymous' }}</td>
+                    <td>{{ req.email }}</td>
+                    <td>{{ req.location }}</td>
+                    <td>{{ req.age }}</td>
+                    <td><span [class]="'badge ' + getStatusBadgeClass(req.status)">{{ req.status }}</span></td>
+                    <td>{{ req.hearts }}</td>
+                    <td>{{ req.comments }}</td>
+                    <td>{{ req.createdAt | date: 'short' }}</td>
+                    <td class="actions">
+                        <button 
+                            *ngIf="req.status === 'pending_approval'" 
+                            (click)="approveRequest(req.id)"
+                            class="btn btn-sm btn-success">
+                            Approve
+                        </button>
+                        <button 
+                            *ngIf="req.status === 'pending_approval'" 
+                            (click)="rejectRequest(req.id)"
+                            class="btn btn-sm btn-danger">
+                            Reject
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="loading" *ngIf="loading">
+        <p>Loading...</p>
+    </div>
+
+    <div class="pagination">
+        <button (click)="onPrevPage()" [disabled]="page === 1" class="btn">Previous</button>
+        <span>Page {{ page }} of {{ totalPages }} (Total: {{ total }})</span>
+        <button (click)="onNextPage()" [disabled]="page * limit >= total" class="btn">Next</button>
+    </div>
+</div>
