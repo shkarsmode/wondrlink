@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Inject, Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, switchMap, tap, throwError } from 'rxjs';
 import { ErrorLoginResponseDto } from 'src/app/shared/interfaces/ErrorLoginResponse.dto';
 import { UserRoleEnum } from 'src/app/shared/interfaces/UserRoleEnum';
 import { StorageService } from './storage-service.service';
@@ -16,6 +16,7 @@ export class AuthService {
 
     private authPathApi: string;
     private isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private isRefreshing = false;
 
     public isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
     public userId: number | null;
@@ -81,13 +82,16 @@ export class AuthService {
                 password, 
             }).pipe(
                 tap((response: any) => {
-                    this.login(response.token);
+                    this.login(response.token, response.refreshToken);
                     return response;
                 }));
     }
 
-    public login(token: string): void {
+    public login(token: string, refreshToken?: string): void {
         this.storageService.set('token', token);
+        if (refreshToken) {
+            this.storageService.set('refreshToken', refreshToken);
+        }
         const role = this.getUserRoleFromToken(token);
         const id = this.getUserIdFromToken(token);
 
@@ -96,6 +100,47 @@ export class AuthService {
         
         this.isAuthenticatedSubject.next(true);
         this.checkTokenExpiration();
+    }
+
+    public refreshToken(): Observable<any> {
+        const refreshToken = this.storageService.get('refreshToken');
+        if (!refreshToken) {
+            return throwError(() => new Error('No refresh token'));
+        }
+
+        if (this.isRefreshing) {
+            return throwError(() => new Error('Already refreshing'));
+        }
+
+        this.isRefreshing = true;
+        return this.http.post<any>(`${this.authPathApi}/refresh`, { refreshToken }).pipe(
+            tap((response: any) => {
+                this.isRefreshing = false;
+                this.login(response.token, response.refreshToken);
+            }),
+            catchError((error) => {
+                this.isRefreshing = false;
+                this.logout();
+                return throwError(() => error);
+            })
+        );
+    }
+
+    public tryRefreshToken(): Observable<boolean> {
+        return this.refreshToken().pipe(
+            switchMap(() => {
+                return new Observable<boolean>(observer => {
+                    observer.next(true);
+                    observer.complete();
+                });
+            }),
+            catchError(() => {
+                return new Observable<boolean>(observer => {
+                    observer.next(false);
+                    observer.complete();
+                });
+            })
+        );
     }
 
     public registration(body: any): Observable<any> {
@@ -132,6 +177,7 @@ export class AuthService {
 
     public logout(): void {
         this.storageService.remove('token');
+        this.storageService.remove('refreshToken');
         this.storageService.remove('role');
         this.userId = null;
         this.isAuthenticatedSubject.next(false);
@@ -139,6 +185,7 @@ export class AuthService {
 
     private checkTokenExpiration(): void {
         const token = this.storageService.get('token') as string;
+        const refreshToken = this.storageService.get('refreshToken') as string;
         let isTokenExpired;
 
         try {
@@ -151,7 +198,14 @@ export class AuthService {
         }
         
         if (isTokenExpired) {
-            this.logout();
+            // Try to refresh if we have a refresh token
+            if (refreshToken) {
+                this.refreshToken().subscribe({
+                    error: () => this.logout()
+                });
+            } else {
+                this.logout();
+            }
         }
     }
 
