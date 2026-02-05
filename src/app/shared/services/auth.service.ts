@@ -109,7 +109,27 @@ export class AuthService {
         }
 
         if (this.isRefreshing) {
-            return throwError(() => new Error('Already refreshing'));
+            // Wait for the current refresh to complete instead of erroring
+            return new Observable(observer => {
+                const checkInterval = setInterval(() => {
+                    if (!this.isRefreshing) {
+                        clearInterval(checkInterval);
+                        const token = this.storageService.get('token');
+                        if (token) {
+                            observer.next({ token });
+                            observer.complete();
+                        } else {
+                            observer.error(new Error('Refresh failed'));
+                        }
+                    }
+                }, 100);
+                
+                // Timeout after 10 seconds
+                setTimeout(() => {
+                    clearInterval(checkInterval);
+                    observer.error(new Error('Refresh timeout'));
+                }, 10000);
+            });
         }
 
         this.isRefreshing = true;
@@ -186,10 +206,14 @@ export class AuthService {
     private checkTokenExpiration(): void {
         const token = this.storageService.get('token') as string;
         const refreshToken = this.storageService.get('refreshToken') as string;
-        let isTokenExpired;
+        
+        if (!token) {
+            return; // No token, nothing to check
+        }
 
+        let isTokenExpired;
         try {
-            isTokenExpired = !!token ? this.jwtHelper.isTokenExpired(token) : true;
+            isTokenExpired = this.jwtHelper.isTokenExpired(token);
         }
         catch (err) {
             // this.errorNotificationService.show('Forged token');
@@ -200,6 +224,17 @@ export class AuthService {
         if (isTokenExpired) {
             // Try to refresh if we have a refresh token
             if (refreshToken) {
+                try {
+                    const isRefreshExpired = this.jwtHelper.isTokenExpired(refreshToken);
+                    if (isRefreshExpired) {
+                        this.logout();
+                        return;
+                    }
+                } catch {
+                    this.logout();
+                    return;
+                }
+                
                 this.refreshToken().subscribe({
                     error: () => this.logout()
                 });
