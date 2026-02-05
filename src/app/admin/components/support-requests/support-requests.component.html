@@ -48,13 +48,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let req of requests">
+                <tr *ngFor="let req of requests" class="clickable-row" (click)="openModal(req, 'view')">
                     <td>{{ req.id }}</td>
                     <td>{{ req.firstName || 'Anonymous' }}</td>
                     <td>{{ req.email }}</td>
                     <td>{{ req.location }}</td>
                     <td>{{ req.age }}</td>
-                    <td>
+                    <td (click)="$event.stopPropagation()">
                         <select 
                             [(ngModel)]="req.status" 
                             (change)="changeRequestStatus(req.id, req.status)"
@@ -68,7 +68,12 @@
                     <td>{{ req.hearts }}</td>
                     <td>{{ req.comments }}</td>
                     <td>{{ req.createdAt | date: 'short' }}</td>
-                    <td class="actions">
+                    <td class="actions" (click)="$event.stopPropagation()">
+                        <button 
+                            (click)="openModal(req, 'edit')"
+                            class="btn btn-sm btn-primary">
+                            Edit
+                        </button>
                         <button 
                             (click)="deleteRequest(req.id)"
                             class="btn btn-sm btn-danger">
@@ -88,5 +93,252 @@
         <button (click)="onPrevPage()" [disabled]="page === 1" class="btn">Previous</button>
         <span>Page {{ page }} of {{ totalPages }} (Total: {{ total }})</span>
         <button (click)="onNextPage()" [disabled]="page * limit >= total" class="btn">Next</button>
+    </div>
+</div>
+
+<!-- Preview/Edit Modal -->
+<div class="modal-backdrop" *ngIf="modalOpen" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2>{{ modalMode === 'view' ? 'Request Details' : 'Edit Request' }}</h2>
+            <button class="close-btn" (click)="closeModal()">&times;</button>
+        </div>
+        
+        <div class="modal-body" *ngIf="selectedRequest">
+            <!-- View Mode -->
+            <div *ngIf="modalMode === 'view'" class="detail-view">
+                <div class="detail-section">
+                    <h3>Basic Info</h3>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <label>Request ID</label>
+                            <span>{{ selectedRequest.requestId }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Status</label>
+                            <span class="badge" [ngClass]="getStatusBadgeClass(selectedRequest.status)">{{ selectedRequest.status }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Name</label>
+                            <span>{{ selectedRequest.firstName || 'Anonymous' }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Email</label>
+                            <span>{{ selectedRequest.email }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Age</label>
+                            <span>{{ selectedRequest.age }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Gender</label>
+                            <span>{{ selectedRequest.gender || '-' }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Anonymous</label>
+                            <span>{{ selectedRequest.isAnonymous ? 'Yes' : 'No' }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Location</h3>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <label>Location</label>
+                            <span>{{ selectedRequest.location }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>City</label>
+                            <span>{{ selectedRequest.city || '-' }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>State</label>
+                            <span>{{ selectedRequest.state || '-' }}</span>
+                        </div>
+                        <div class="detail-item" *ngIf="selectedRequest.lat && selectedRequest.lng">
+                            <label>Coordinates</label>
+                            <span>{{ selectedRequest.lat }}, {{ selectedRequest.lng }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Medical Info</h3>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <label>Diagnosis</label>
+                            <span>{{ selectedRequest.diagnosis || '-' }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Situation</label>
+                            <span>{{ selectedRequest.situation || '-' }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Journey Stage</label>
+                            <span>{{ selectedRequest.journeyStage }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Hospital</label>
+                            <span>{{ selectedRequest.hospital || '-' }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Who Needs Support</label>
+                            <span>{{ selectedRequest.whoNeedsSupport || '-' }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Caregiver Relationship</label>
+                            <span>{{ selectedRequest.caregiverRelationship || '-' }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Preferences</h3>
+                    <div class="detail-grid">
+                        <div class="detail-item full-width">
+                            <label>Comfort Zones</label>
+                            <span>{{ getComfortZonesDisplay(selectedRequest.comfortZones) }}</span>
+                        </div>
+                        <div class="detail-item full-width">
+                            <label>Additional Note</label>
+                            <p class="note-text">{{ selectedRequest.additionalNote || '-' }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Stats</h3>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <label>Hearts</label>
+                            <span>{{ selectedRequest.hearts }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Comments</label>
+                            <span>{{ selectedRequest.comments }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Shares</label>
+                            <span>{{ selectedRequest.shares }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Created</label>
+                            <span>{{ selectedRequest.createdAt | date: 'medium' }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Mode -->
+            <div *ngIf="modalMode === 'edit'" class="edit-form">
+                <div class="form-section">
+                    <h3>Basic Info</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" [(ngModel)]="editForm.firstName" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Age</label>
+                            <input type="number" [(ngModel)]="editForm.age" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select [(ngModel)]="editForm.gender" class="form-control">
+                                <option [value]="undefined">Not specified</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="prefer-not-to-say">Prefer not to say</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Anonymous</label>
+                            <select [(ngModel)]="editForm.isAnonymous" class="form-control">
+                                <option [ngValue]="true">Yes</option>
+                                <option [ngValue]="false">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select [(ngModel)]="editForm.status" class="form-control">
+                                <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Location</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" [(ngModel)]="editForm.location" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" [(ngModel)]="editForm.city" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>State</label>
+                            <input type="text" [(ngModel)]="editForm.state" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Medical Info</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Diagnosis</label>
+                            <input type="text" [(ngModel)]="editForm.diagnosis" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Situation</label>
+                            <input type="text" [(ngModel)]="editForm.situation" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Journey Stage</label>
+                            <input type="text" [(ngModel)]="editForm.journeyStage" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Hospital</label>
+                            <input type="text" [(ngModel)]="editForm.hospital" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Who Needs Support</label>
+                            <input type="text" [(ngModel)]="editForm.whoNeedsSupport" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Caregiver Relationship</label>
+                            <input type="text" [(ngModel)]="editForm.caregiverRelationship" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Additional</h3>
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label>Additional Note</label>
+                            <textarea [(ngModel)]="editForm.additionalNote" class="form-control" rows="4"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <div *ngIf="modalMode === 'view'">
+                <button class="btn btn-primary" (click)="switchToEdit()">Edit</button>
+                <button class="btn btn-secondary" (click)="closeModal()">Close</button>
+            </div>
+            <div *ngIf="modalMode === 'edit'">
+                <button class="btn btn-success" (click)="saveChanges()" [disabled]="saving">
+                    {{ saving ? 'Saving...' : 'Save Changes' }}
+                </button>
+                <button class="btn btn-secondary" (click)="closeModal()" [disabled]="saving">Cancel</button>
+            </div>
+        </div>
     </div>
 </div>

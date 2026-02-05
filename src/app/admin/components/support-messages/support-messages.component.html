@@ -47,7 +47,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let msg of messages">
+                <tr *ngFor="let msg of messages" class="clickable-row" (click)="openModal(msg, 'view')">
                     <td>{{ msg.id }}</td>
                     <td>{{ msg.requestId }}</td>
                     <td>{{ msg.fromName }}</td>
@@ -55,7 +55,7 @@
                     <td>{{ msg.location }}</td>
                     <td><span class="badge badge-info">{{ msg.type }}</span></td>
                     <td class="message-cell" [title]="msg.message">{{ truncateMessage(msg.message) }}</td>
-                    <td>
+                    <td (click)="$event.stopPropagation()">
                         <select 
                             [(ngModel)]="msg.status" 
                             (change)="changeMessageStatus(msg.id, msg.status)"
@@ -68,7 +68,12 @@
                     </td>
                     <td>{{ msg.likes }}</td>
                     <td>{{ msg.createdAt | date: 'short' }}</td>
-                    <td class="actions">
+                    <td class="actions" (click)="$event.stopPropagation()">
+                        <button 
+                            (click)="openModal(msg, 'edit')"
+                            class="btn btn-sm btn-primary">
+                            Edit
+                        </button>
                         <button 
                             (click)="deleteMessage(msg.id)"
                             class="btn btn-sm btn-danger">
@@ -88,5 +93,166 @@
         <button (click)="onPrevPage()" [disabled]="page === 1" class="btn">Previous</button>
         <span>Page {{ page }} of {{ totalPages }} (Total: {{ total }})</span>
         <button (click)="onNextPage()" [disabled]="page * limit >= total" class="btn">Next</button>
+    </div>
+</div>
+
+<!-- Preview/Edit Modal -->
+<div class="modal-backdrop" *ngIf="modalOpen" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2>{{ modalMode === 'view' ? 'Message Details' : 'Edit Message' }}</h2>
+            <button class="close-btn" (click)="closeModal()">&times;</button>
+        </div>
+        
+        <div class="modal-body" *ngIf="selectedMessage">
+            <!-- View Mode -->
+            <div *ngIf="modalMode === 'view'" class="detail-view">
+                <div class="detail-section">
+                    <h3>Sender Info</h3>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <label>Message ID</label>
+                            <span>{{ selectedMessage.id }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Request ID</label>
+                            <span>{{ selectedMessage.requestId }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>From Name</label>
+                            <span>{{ selectedMessage.fromName || '-' }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Email</label>
+                            <span>{{ selectedMessage.email || '-' }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Location</label>
+                            <span>{{ selectedMessage.location || '-' }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>City</label>
+                            <span>{{ selectedMessage.city || '-' }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Organization</label>
+                            <span>{{ selectedMessage.organization || '-' }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Anonymous</label>
+                            <span>{{ selectedMessage.anonymous ? 'Yes' : 'No' }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Message Content</h3>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <label>Type</label>
+                            <span class="badge badge-info">{{ selectedMessage.type }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Status</label>
+                            <span class="badge" [ngClass]="getStatusBadgeClass(selectedMessage.status)">{{ selectedMessage.status }}</span>
+                        </div>
+                        <div class="detail-item full-width" *ngIf="selectedMessage.message">
+                            <label>Message Text</label>
+                            <p class="message-text">{{ selectedMessage.message }}</p>
+                        </div>
+                        <div class="detail-item full-width" *ngIf="selectedMessage.mediaUrl">
+                            <label>Media</label>
+                            <div class="media-preview">
+                                <img *ngIf="selectedMessage.type === 'image'" [src]="selectedMessage.mediaUrl" alt="Message media">
+                                <video *ngIf="selectedMessage.type === 'video'" [src]="selectedMessage.mediaUrl" controls></video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Stats</h3>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <label>Likes</label>
+                            <span>{{ selectedMessage.likes }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Created</label>
+                            <span>{{ selectedMessage.createdAt | date: 'medium' }}</span>
+                        </div>
+                        <div class="detail-item" *ngIf="selectedMessage.lat && selectedMessage.lng">
+                            <label>Coordinates</label>
+                            <span>{{ selectedMessage.lat }}, {{ selectedMessage.lng }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Mode -->
+            <div *ngIf="modalMode === 'edit'" class="edit-form">
+                <div class="form-section">
+                    <h3>Sender Info</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>From Name</label>
+                            <input type="text" [(ngModel)]="editForm.fromName" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" [(ngModel)]="editForm.email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" [(ngModel)]="editForm.location" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" [(ngModel)]="editForm.city" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Organization</label>
+                            <input type="text" [(ngModel)]="editForm.organization" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Anonymous</label>
+                            <select [(ngModel)]="editForm.anonymous" class="form-control">
+                                <option [ngValue]="true">Yes</option>
+                                <option [ngValue]="false">No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Message</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select [(ngModel)]="editForm.status" class="form-control">
+                                <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Message Text</label>
+                            <textarea [(ngModel)]="editForm.message" class="form-control" rows="5"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <div *ngIf="modalMode === 'view'">
+                <button class="btn btn-primary" (click)="switchToEdit()">Edit</button>
+                <button class="btn btn-secondary" (click)="closeModal()">Close</button>
+            </div>
+            <div *ngIf="modalMode === 'edit'">
+                <button class="btn btn-success" (click)="saveChanges()" [disabled]="saving">
+                    {{ saving ? 'Saving...' : 'Save Changes' }}
+                </button>
+                <button class="btn btn-secondary" (click)="closeModal()" [disabled]="saving">Cancel</button>
+            </div>
+        </div>
     </div>
 </div>

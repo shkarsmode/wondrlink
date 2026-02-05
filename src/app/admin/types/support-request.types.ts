@@ -25,14 +25,27 @@ export interface AdminSupportRequest {
     firstName?: string;
     email: string;
     age: number;
+    gender?: string;
     location: string;
+    city?: string;
+    state?: string;
     diagnosis?: string;
+    situation?: string;
+    whoNeedsSupport?: string;
+    caregiverRelationship?: string;
     journeyStage: string;
+    contextTags?: string[];
+    hospital?: string;
+    isAnonymous: boolean;
+    comfortZones?: string[];
+    additionalNote?: string;
+    hearts: number;
+    shares: number;
+    comments: number;
+    lat?: number;
+    lng?: number;
     createdAt: Date;
     verifiedAt?: Date;
-    hearts: number;
-    comments: number;
-    shares: number;
 }
 
 export interface AdminSupportMessage {
@@ -42,11 +55,17 @@ export interface AdminSupportMessage {
     fromName: string;
     email: string;
     location: string;
+    city?: string;
+    organization?: string;
     type: SupportMessageType;
     message?: string;
     mediaUrl?: string;
+    thumbnailUrl?: string;
+    anonymous: boolean;
     createdAt: Date;
     likes: number;
+    lat?: number;
+    lng?: number;
 }
 
 export interface AdminListResponse<T> {
@@ -54,4 +73,35 @@ export interface AdminListResponse<T> {
     total: number;
     page: number;
     limit: number;
+}
+
+export interface UpdateSupportRequestDto {
+    firstName?: string;
+    age?: number;
+    gender?: string;
+    location?: string;
+    city?: string;
+    state?: string;
+    diagnosis?: string;
+    situation?: string;
+    whoNeedsSupport?: string;
+    caregiverRelationship?: string;
+    journeyStage?: string;
+    contextTags?: string[];
+    hospital?: string;
+    isAnonymous?: boolean;
+    comfortZones?: string[];
+    additionalNote?: string;
+    status?: SupportRequestStatus;
+}
+
+export interface UpdateSupportMessageDto {
+    fromName?: string;
+    email?: string;
+    location?: string;
+    city?: string;
+    organization?: string;
+    message?: string;
+    anonymous?: boolean;
+    status?: SupportMessageStatus;
 }

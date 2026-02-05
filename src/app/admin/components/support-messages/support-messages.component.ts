@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AdminSupportRequestService } from '../../services/support-request.service';
-import { AdminListResponse, AdminSupportMessage, SupportMessageStatus } from '../../types/support-request.types';
+import { AdminListResponse, AdminSupportMessage, SupportMessageStatus, UpdateSupportMessageDto } from '../../types/support-request.types';
 
 @Component({
     selector: 'app-admin-support-messages',
@@ -25,6 +25,13 @@ export class AdminSupportMessagesComponent implements OnInit {
 
     SupportMessageStatus = SupportMessageStatus;
     statusOptions = Object.values(SupportMessageStatus);
+
+    // Modal state
+    modalOpen = false;
+    modalMode: 'view' | 'edit' = 'view';
+    selectedMessage: AdminSupportMessage | null = null;
+    editForm: UpdateSupportMessageDto = {};
+    saving = false;
 
     ngOnInit(): void {
         this.loadMessages();
@@ -68,6 +75,57 @@ export class AdminSupportMessagesComponent implements OnInit {
             this.page++;
             this.loadMessages();
         }
+    }
+
+    openModal(message: AdminSupportMessage, mode: 'view' | 'edit' = 'view'): void {
+        this.selectedMessage = message;
+        this.modalMode = mode;
+        this.modalOpen = true;
+        if (mode === 'edit') {
+            this.editForm = {
+                fromName: message.fromName,
+                email: message.email,
+                location: message.location,
+                city: message.city,
+                organization: message.organization,
+                message: message.message,
+                anonymous: message.anonymous,
+                status: message.status,
+            };
+        }
+    }
+
+    closeModal(): void {
+        this.modalOpen = false;
+        this.selectedMessage = null;
+        this.editForm = {};
+    }
+
+    switchToEdit(): void {
+        if (this.selectedMessage) {
+            this.openModal(this.selectedMessage, 'edit');
+        }
+    }
+
+    saveChanges(): void {
+        if (!this.selectedMessage) return;
+        
+        this.saving = true;
+        this.adminSupportService.updateMessage(this.selectedMessage.id, this.editForm).subscribe({
+            next: (updated) => {
+                const index = this.messages.findIndex(m => m.id === updated.id);
+                if (index !== -1) {
+                    this.messages[index] = updated;
+                }
+                this.saving = false;
+                this.closeModal();
+            },
+            error: (err) => {
+                console.error('Error updating message:', err);
+                this.saving = false;
+                alert('Failed to save changes');
+            }
+        });
     }
 
     approveMessage(messageId: number): void {

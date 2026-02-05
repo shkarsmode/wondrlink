@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BASE_PATH_API } from '../../shared/services/variables';
-import { AdminListResponse, AdminSupportMessage, AdminSupportRequest, SupportMessageStatus, SupportRequestStatus } from '../types/support-request.types';
+import { AdminListResponse, AdminSupportMessage, AdminSupportRequest, SupportMessageStatus, SupportRequestStatus, UpdateSupportMessageDto, UpdateSupportRequestDto } from '../types/support-request.types';
 
 @Injectable({
     providedIn: 'root'
@@ -38,6 +38,10 @@ export class AdminSupportRequestService {
         return this.http.patch<{ success: boolean }>(`${this.apiUrl}/admin/requests/${requestId}/reject`, {});
     }
 
+    public updateRequest(requestId: number, data: UpdateSupportRequestDto): Observable<AdminSupportRequest> {
+        return this.http.patch<AdminSupportRequest>(`${this.apiUrl}/admin/requests/${requestId}`, data);
+    }
+
     // Support Messages
     public listMessages(
         page: number = 1,
@@ -51,12 +55,20 @@ export class AdminSupportRequestService {
         return this.http.get<AdminListResponse<AdminSupportMessage>>(`${this.apiUrl}/admin/messages/list`, { params });
     }
 
+    public getMessage(messageId: number): Observable<AdminSupportMessage> {
+        return this.http.get<AdminSupportMessage>(`${this.apiUrl}/admin/messages/${messageId}`);
+    }
+
     public approveMessage(messageId: number): Observable<{ success: boolean }> {
         return this.http.patch<{ success: boolean }>(`${this.apiUrl}/admin/messages/${messageId}/approve`, {});
     }
 
     public rejectMessage(messageId: number): Observable<{ success: boolean }> {
         return this.http.patch<{ success: boolean }>(`${this.apiUrl}/admin/messages/${messageId}/reject`, {});
+    }
+
+    public updateMessage(messageId: number, data: UpdateSupportMessageDto): Observable<AdminSupportMessage> {
+        return this.http.patch<AdminSupportMessage>(`${this.apiUrl}/admin/messages/${messageId}`, data);
     }
 
     public changeRequestStatus(requestId: number, status: SupportRequestStatus): Observable<{ success: boolean }> {

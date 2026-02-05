@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AdminSupportRequestService } from '../../services/support-request.service';
-import { AdminListResponse, AdminSupportRequest, SupportRequestStatus } from '../../types/support-request.types';
+import { AdminListResponse, AdminSupportRequest, SupportRequestStatus, UpdateSupportRequestDto } from '../../types/support-request.types';
 
 @Component({
     selector: 'app-admin-support-requests',
@@ -25,6 +25,13 @@ export class AdminSupportRequestsComponent implements OnInit {
 
     SupportRequestStatus = SupportRequestStatus;
     statusOptions = Object.values(SupportRequestStatus);
+
+    // Modal state
+    modalOpen = false;
+    modalMode: 'view' | 'edit' = 'view';
+    selectedRequest: AdminSupportRequest | null = null;
+    editForm: UpdateSupportRequestDto = {};
+    saving = false;
 
     ngOnInit(): void {
         this.loadRequests();
@@ -68,6 +75,65 @@ export class AdminSupportRequestsComponent implements OnInit {
             this.page++;
             this.loadRequests();
         }
+    }
+
+    openModal(request: AdminSupportRequest, mode: 'view' | 'edit' = 'view'): void {
+        this.selectedRequest = request;
+        this.modalMode = mode;
+        this.modalOpen = true;
+        if (mode === 'edit') {
+            this.editForm = {
+                firstName: request.firstName,
+                age: request.age,
+                gender: request.gender,
+                location: request.location,
+                city: request.city,
+                state: request.state,
+                diagnosis: request.diagnosis,
+                situation: request.situation,
+                whoNeedsSupport: request.whoNeedsSupport,
+                caregiverRelationship: request.caregiverRelationship,
+                journeyStage: request.journeyStage,
+                hospital: request.hospital,
+                isAnonymous: request.isAnonymous,
+                comfortZones: request.comfortZones ? [...request.comfortZones] : [],
+                additionalNote: request.additionalNote,
+                status: request.status,
+            };
+        }
+    }
+
+    closeModal(): void {
+        this.modalOpen = false;
+        this.selectedRequest = null;
+        this.editForm = {};
+    }
+
+    switchToEdit(): void {
+        if (this.selectedRequest) {
+            this.openModal(this.selectedRequest, 'edit');
+        }
+    }
+
+    saveChanges(): void {
+        if (!this.selectedRequest) return;
+        
+        this.saving = true;
+        this.adminSupportService.updateRequest(this.selectedRequest.id, this.editForm).subscribe({
+            next: (updated) => {
+                const index = this.requests.findIndex(r => r.id === updated.id);
+                if (index !== -1) {
+                    this.requests[index] = updated;
+                }
+                this.saving = false;
+                this.closeModal();
+            },
+            error: (err) => {
+                console.error('Error updating request:', err);
+                this.saving = false;
+                alert('Failed to save changes');
+            }
+        });
     }
 
     approveRequest(requestId: number): void {
@@ -128,5 +194,9 @@ export class AdminSupportRequestsComponent implements OnInit {
 
     get totalPages(): number {
         return Math.ceil(this.total / this.limit);
+    }
+
+    getComfortZonesDisplay(zones?: string[]): string {
+        return zones?.join(', ') || '-';
     }
 }
