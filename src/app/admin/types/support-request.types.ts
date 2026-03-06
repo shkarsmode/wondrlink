@@ -62,6 +62,7 @@ export interface AdminSupportMessage {
     mediaUrl?: string;
     thumbnailUrl?: string;
     anonymous: boolean;
+    tags?: string[];
     createdAt: Date;
     likes: number;
     lat?: number;
@@ -104,4 +105,6 @@ export interface UpdateSupportMessageDto {
     message?: string;
     anonymous?: boolean;
     status?: SupportMessageStatus;
+    mediaUrl?: string;
+    tags?: string[];
 }

@@ -1,18 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ChipInputComponent } from '../../../shared/components/chip-input/chip-input.component';
+import { CloudinaryService } from '../../../shared/services/cloudinary.service';
 import { AdminSupportRequestService } from '../../services/support-request.service';
 import { AdminListResponse, AdminSupportMessage, SupportMessageStatus, UpdateSupportMessageDto } from '../../types/support-request.types';
 
 @Component({
     selector: 'app-admin-support-messages',
     standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, ChipInputComponent],
     templateUrl: './support-messages.component.html',
     styleUrls: ['./support-messages.component.scss']
 })
 export class AdminSupportMessagesComponent implements OnInit {
     private adminSupportService = inject(AdminSupportRequestService);
+    private cloudinaryService = inject(CloudinaryService);
+    private cdr = inject(ChangeDetectorRef);
 
     messages: AdminSupportMessage[] = [];
     loading = false;
@@ -31,7 +35,14 @@ export class AdminSupportMessagesComponent implements OnInit {
     modalMode: 'view' | 'edit' = 'view';
     selectedMessage: AdminSupportMessage | null = null;
     editForm: UpdateSupportMessageDto = {};
+    editTags: string[] = [];
     saving = false;
+
+    // Image rotation state
+    imageRotation = 0; // degrees: 0, 90, 180, 270
+    imageFlipH = false;
+    imageFlipV = false;
+    rotatedImageSaving = false;
 
     ngOnInit(): void {
         this.loadMessages();
@@ -81,6 +92,7 @@ export class AdminSupportMessagesComponent implements OnInit {
         this.selectedMessage = message;
         this.modalMode = mode;
         this.modalOpen = true;
+        this.resetImageTransform();
         if (mode === 'edit') {
             this.editForm = {
                 fromName: message.fromName,
@@ -92,12 +104,14 @@ export class AdminSupportMessagesComponent implements OnInit {
                 anonymous: message.anonymous,
                 status: message.status,
             };
+            this.editTags = message.tags ? [...message.tags] : [];
         }
     }
 
     closeModal(): void {
         this.modalOpen = false;
         this.selectedMessage = null;
+        this.resetImageTransform();
         this.editForm = {};
     }
 
@@ -110,12 +124,25 @@ export class AdminSupportMessagesComponent implements OnInit {
     saveChanges(): void {
         if (!this.selectedMessage) return;
         
+        this.editForm.tags = this.editTags;
         this.saving = true;
         this.adminSupportService.updateMessage(this.selectedMessage.id, this.editForm).subscribe({
             next: (updated) => {
-                const index = this.messages.findIndex(m => m.id === updated.id);
-                if (index !== -1) {
-                    this.messages[index] = updated;
+                if (updated?.id) {
+                    const index = this.messages.findIndex(m => m.id === updated.id);
+                    if (index !== -1) {
+                        this.messages[index] = updated;
+                    }
+                } else if (this.selectedMessage) {
+                    const messageId = this.selectedMessage.id;
+                    const index = this.messages.findIndex(m => m.id === messageId);
+                    if (index !== -1) {
+                        this.messages[index] = {
+                            ...this.messages[index],
+                            ...this.editForm,
+                            tags: this.editTags,
+                        };
+                    }
                 }
                 this.saving = false;
                 this.closeModal();
@@ -181,6 +208,122 @@ export class AdminSupportMessagesComponent implements OnInit {
             default:
                 return 'badge-secondary';
         }
+    }
+
+    // ---- Image rotation/transform ----
+    get imageTransformStyle(): string {
+        const scaleX = this.imageFlipH ? -1 : 1;
+        const scaleY = this.imageFlipV ? -1 : 1;
+        return `scale(${scaleX}, ${scaleY}) rotate(${this.imageRotation}deg)`;
+    }
+
+    rotateLeft(): void {
+        this.imageRotation = (this.imageRotation - 90 + 360) % 360;
+    }
+
+    rotateRight(): void {
+        this.imageRotation = (this.imageRotation + 90) % 360;
+    }
+
+    flipHorizontal(): void {
+        this.imageFlipH = !this.imageFlipH;
+    }
+
+    flipVertical(): void {
+        this.imageFlipV = !this.imageFlipV;
+    }
+
+    resetImageTransform(): void {
+        this.imageRotation = 0;
+        this.imageFlipH = false;
+        this.imageFlipV = false;
+    }
+
+    get hasImageTransform(): boolean {
+        return this.imageRotation !== 0 || this.imageFlipH || this.imageFlipV;
+    }
+
+    saveImageTransform(): void {
+        if (!this.selectedMessage?.mediaUrl || !this.hasImageTransform) return;
+
+        const messageId = this.selectedMessage.id;
+        const sourceMediaUrl = this.selectedMessage.mediaUrl;
+        this.rotatedImageSaving = true;
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d')!;
+            const isRotated90 = this.imageRotation === 90 || this.imageRotation === 270;
+
+            canvas.width = isRotated90 ? img.height : img.width;
+            canvas.height = isRotated90 ? img.width : img.height;
+
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.rotate((this.imageRotation * Math.PI) / 180);
+            ctx.scale(this.imageFlipH ? -1 : 1, this.imageFlipV ? -1 : 1);
+            ctx.drawImage(img, -img.width / 2, -img.height / 2);
+
+            canvas.toBlob((blob) => {
+                if (!blob) {
+                    this.rotatedImageSaving = false;
+                    alert('Failed to transform image');
+                    return;
+                }
+                const file = new File([blob], 'rotated.jpg', { type: 'image/jpeg' });
+                this.cloudinaryService.uploadImageAndGetUrl(file).subscribe({
+                    next: (res: any) => {
+                        const url = res?.imageUrl?.secure_url || res?.imageUrl?.url || res?.imageUrl;
+                        if (!url) {
+                            this.rotatedImageSaving = false;
+                            alert('Upload failed');
+                            return;
+                        }
+                        this.adminSupportService.updateMessage(messageId, { mediaUrl: url }).subscribe({
+                            next: (updated) => {
+                                if (updated?.id) {
+                                    const idx = this.messages.findIndex(m => m.id === updated.id);
+                                    if (idx !== -1) this.messages[idx] = updated;
+                                } else {
+                                    const idx = this.messages.findIndex(m => m.id === messageId);
+                                    if (idx !== -1) {
+                                        this.messages[idx] = {
+                                            ...this.messages[idx],
+                                            mediaUrl: url,
+                                        };
+                                    }
+                                }
+                                if (this.selectedMessage?.id === messageId) {
+                                    this.selectedMessage.mediaUrl = url;
+                                    this.cdr.markForCheck();
+                                }
+                                this.resetImageTransform();
+                                this.rotatedImageSaving = false;
+                                this.cdr.markForCheck();
+                            },
+                            error: () => {
+                                this.rotatedImageSaving = false;
+                                alert('Failed to save rotated image');
+                            }
+                        });
+                    },
+                    error: () => {
+                        this.rotatedImageSaving = false;
+                        alert('Failed to upload rotated image');
+                    }
+                });
+            }, 'image/jpeg', 0.92);
+        };
+        img.onerror = () => {
+            this.rotatedImageSaving = false;
+            alert('Failed to load image for transformation');
+        };
+        img.src = sourceMediaUrl;
+    }
+
+    // ---- Tags ----
+    onTagsChange(tags: string[]): void {
+        this.editTags = tags;
     }
 
     truncateMessage(message: string | undefined, length: number = 50): string {

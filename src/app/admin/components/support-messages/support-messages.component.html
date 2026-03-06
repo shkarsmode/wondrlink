@@ -163,8 +163,16 @@
                         <div class="detail-item full-width" *ngIf="selectedMessage.mediaUrl">
                             <label>Media</label>
                             <div class="media-preview">
-                                <img *ngIf="selectedMessage.type === 'image'" [src]="selectedMessage.mediaUrl" alt="Message media">
+                                <img *ngIf="selectedMessage.type === 'image'" 
+                                     [src]="selectedMessage.mediaUrl" 
+                                     alt="Message media">
                                 <video *ngIf="selectedMessage.type === 'video'" [src]="selectedMessage.mediaUrl" controls></video>
+                            </div>
+                        </div>
+                        <div class="detail-item full-width" *ngIf="selectedMessage.tags && selectedMessage.tags.length">
+                            <label>Tags</label>
+                            <div class="tags-display">
+                                <span class="tag-chip" *ngFor="let tag of selectedMessage.tags">{{ tag }}</span>
                             </div>
                         </div>
                     </div>
@@ -236,6 +244,54 @@
                         <div class="form-group full-width">
                             <label>Message Text</label>
                             <textarea [(ngModel)]="editForm.message" class="form-control" rows="5"></textarea>
+                        </div>
+                        <div class="form-group full-width" *ngIf="selectedMessage.mediaUrl">
+                            <label>Media Preview</label>
+                            <div class="media-preview edit-media-preview">
+                                <img *ngIf="selectedMessage.type === 'image'" 
+                                     [src]="selectedMessage.mediaUrl" 
+                                     alt="Message media"
+                                     [style.transform]="imageTransformStyle">
+                                <video *ngIf="selectedMessage.type === 'video'" [src]="selectedMessage.mediaUrl" controls></video>
+                            </div>
+                            <div class="image-toolbar edit-image-toolbar" *ngIf="selectedMessage.type === 'image'">
+                                <button class="toolbar-btn" (click)="rotateLeft()" title="Rotate Left">
+                                    <span class="material-symbols-outlined">rotate_left</span>
+                                </button>
+                                <button class="toolbar-btn" (click)="rotateRight()" title="Rotate Right">
+                                    <span class="material-symbols-outlined">rotate_right</span>
+                                </button>
+                                <button class="toolbar-btn" (click)="flipHorizontal()" title="Flip Horizontal" [class.active]="imageFlipH">
+                                    <span class="material-symbols-outlined">flip</span>
+                                </button>
+                                <button class="toolbar-btn" (click)="flipVertical()" title="Flip Vertical" [class.active]="imageFlipV">
+                                    <span class="material-symbols-outlined" style="transform: rotate(90deg)">flip</span>
+                                </button>
+                                <button class="toolbar-btn" (click)="resetImageTransform()" title="Reset" [disabled]="!hasImageTransform">
+                                    <span class="material-symbols-outlined">restart_alt</span>
+                                </button>
+                                <button class="toolbar-btn save-transform" 
+                                        (click)="saveImageTransform()" 
+                                        title="Save Rotation"
+                                        [disabled]="!hasImageTransform || rotatedImageSaving">
+                                    <span class="material-symbols-outlined">save</span>
+                                    {{ rotatedImageSaving ? 'Saving...' : 'Save' }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Tags</h3>
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <app-chip-input
+                                label="Tags"
+                                placeholder="Add a tag…"
+                                variant="blue"
+                                [(ngModel)]="editTags">
+                            </app-chip-input>
                         </div>
                     </div>
                 </div>
