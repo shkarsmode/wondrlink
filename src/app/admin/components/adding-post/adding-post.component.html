@@ -53,17 +53,13 @@
 				</span>
 			</div>
 			<div class="content">
-				<mat-checkbox
-					id="tag"
-					#checkBox
-					formControlName="isWondrvoices"
-					type="text" />
-				<label
-					(click)="form.get('isWondrvoices')?.setValue(!form.get('isWondrvoices')?.value)"
-					for="tag">
+				<mat-checkbox formControlName="isWondrvoices">
+					Publish to wondrvoices
+				</mat-checkbox>
+				<div>
 					Post will be displayed in
 					@if (form.get('isWondrvoices')?.value) { wondrvoices } @else { wondrlink }
-				</label>
+				</div>
 
 			</div>
 		</div>

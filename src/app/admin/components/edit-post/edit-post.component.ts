@@ -33,6 +33,7 @@ export class EditPostComponent implements OnInit {
     private deleteTimeout: any;
     private userId: number;
     private postId: number | null;
+    private initialIsWondrvoices: boolean = false;
     @ViewChild('preview') preview: ElementRef;
 
     private storageService: StorageService = inject(StorageService);
@@ -93,6 +94,7 @@ export class EditPostComponent implements OnInit {
             hidden: [this.post.hidden, [Validators.required]],
             isWondrvoices: [this.post.isWondrvoices]
         });
+        this.initialIsWondrvoices = !!this.post.isWondrvoices;
     }
 
     public toggleUploadImageType(): void {
@@ -119,9 +121,30 @@ export class EditPostComponent implements OnInit {
 
     public uploadPost(): void {
         if (this.form.invalid) return;
+        if (!this.confirmProjectSelection()) return;
 
         this.isLoading = true;
         this.uploadAngGetPictureUrl();
+    }
+
+    private confirmProjectSelection(): boolean {
+        const selectedIsWondrvoices = !!this.form.get('isWondrvoices')?.value;
+        const contextIsWondrvoices = this.projectService.current === ProjectTypeEnum.Wondrvoices;
+
+        if (selectedIsWondrvoices !== this.initialIsWondrvoices) {
+            const fromProject = this.initialIsWondrvoices ? ProjectTypeEnum.Wondrvoices : ProjectTypeEnum.Wondrlink;
+            const toProject = selectedIsWondrvoices ? ProjectTypeEnum.Wondrvoices : ProjectTypeEnum.Wondrlink;
+            return confirm(`Move "${this.post.header}" from ${fromProject} to ${toProject}?`);
+        }
+
+        if (selectedIsWondrvoices === contextIsWondrvoices) {
+            return true;
+        }
+
+        const selectedLabel = selectedIsWondrvoices ? ProjectTypeEnum.Wondrvoices : ProjectTypeEnum.Wondrlink;
+        const contextLabel = contextIsWondrvoices ? ProjectTypeEnum.Wondrvoices : ProjectTypeEnum.Wondrlink;
+
+        return confirm(`You are in the ${contextLabel} admin context, but this post is set to ${selectedLabel}. Continue?`);
     }
 
     public onFileSelected(event: Event): void {

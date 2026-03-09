@@ -193,18 +193,24 @@
                     <button class="tool" type="button" (click)="toggleFlipH()" [attr.aria-pressed]="flipH() ? 'true' : 'false'" aria-label="Flip horizontal">⇋</button>
                     <button class="tool" type="button" (click)="toggleFlipV()" [attr.aria-pressed]="flipV() ? 'true' : 'false'" aria-label="Flip vertical">⇵</button>
                     <span class="div"></span>
+                    <button class="tool" type="button" [disabled]="zoom() <= minZoom" (click)="zoomOut()" aria-label="Zoom out">-</button>
+                    <span class="zoom-readout mono">{{ zoomLabel() }}</span>
+                    <button class="tool" type="button" [disabled]="zoom() >= maxZoom" (click)="zoomIn()" aria-label="Zoom in">+</button>
+                    <span class="div"></span>
                     <button class="tool ghost" type="button" (click)="resetTransform()" aria-label="Reset">Reset</button>
+                    <button class="tool ghost" type="button" (click)="openCurrentImage()" aria-label="Open original image">Open original</button>
                     <button class="tool primary" type="button" [disabled]="loading()" (click)="savePreviewTransform()" aria-label="Save">Save</button>
                 </div>
                 
-                <div style="overflow-y: hidden;">
-                        <img
-                            class="preview-img"
-                            [src]="currentPreviewImg()"
-                            [alt]="currentPreviewAlt()"
-                            (load)="loadEnd()"
-                            [style.transform]="previewTransform()"
-                        />
+                <div class="preview-stage" (wheel)="onPreviewWheel($event)">
+                    <img
+                        class="preview-img"
+                        [src]="currentPreviewImg()"
+                        [alt]="currentPreviewAlt()"
+                        (load)="loadEnd()"
+                        [style.transform]="previewTransform()"
+                        [style.width]="previewWidth()"
+                    />
                 </div>
             <button
                 class="nav right"

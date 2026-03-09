@@ -64,12 +64,27 @@ export class AddingPostComponent implements OnInit {
 
     public uploadPost(): void {
         if (this.form.invalid) return;
+        if (!this.confirmProjectSelection()) return;
 
         this.isLoading = true;
         (this.isUploadImageSelected ? 
             this.uploadAngGetPictureUrl : 
             this.uploadPostWithImage
         ).call(this);
+    }
+
+    private confirmProjectSelection(): boolean {
+        const selectedIsWondrvoices = !!this.form.get('isWondrvoices')?.value;
+        const contextIsWondrvoices = this.projectService.current === ProjectTypeEnum.Wondrvoices;
+
+        if (selectedIsWondrvoices === contextIsWondrvoices) {
+            return true;
+        }
+
+        const selectedLabel = selectedIsWondrvoices ? ProjectTypeEnum.Wondrvoices : ProjectTypeEnum.Wondrlink;
+        const contextLabel = contextIsWondrvoices ? ProjectTypeEnum.Wondrvoices : ProjectTypeEnum.Wondrlink;
+
+        return confirm(`You are in the ${contextLabel} admin context, but this post is set to ${selectedLabel}. Continue?`);
     }
 
     public onFileSelected(event: Event): void {

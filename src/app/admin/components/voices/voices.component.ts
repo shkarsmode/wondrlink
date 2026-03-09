@@ -266,12 +266,41 @@ export class VoicesComponent {
         const sy = this.flipV() ? -1 : 1;
         return `scale(${sx}, ${sy}) rotate(${r}deg)`;
     });
+    public zoom = signal(1);
+    public readonly minZoom = 1;
+    public readonly maxZoom = 4;
+    public previewWidth = computed(() => `${Math.round(this.zoom() * 100)}%`);
+    public zoomLabel = computed(() => `${Math.round(this.zoom() * 100)}%`);
 
     public rotateLeft() { this.rot.set(this.nextAngle(this.rot(), -90)); }
     public rotateRight() { this.rot.set(this.nextAngle(this.rot(), 90)); }
     public toggleFlipH() { this.flipH.update(v => !v); }
     public toggleFlipV() { this.flipV.update(v => !v); }
-    public resetTransform() { this.rot.set(0); this.flipH.set(false); this.flipV.set(false); }
+    public zoomIn(step: number = 0.25) {
+        this.zoom.update((value) => Math.min(this.maxZoom, +(value + step).toFixed(2)));
+    }
+    public zoomOut(step: number = 0.25) {
+        this.zoom.update((value) => Math.max(this.minZoom, +(value - step).toFixed(2)));
+    }
+    public resetTransform() {
+        this.rot.set(0);
+        this.flipH.set(false);
+        this.flipV.set(false);
+        this.zoom.set(1);
+    }
+    public openCurrentImage() {
+        const url = this.currentPreviewImg();
+        if (!url) return;
+        window.open(url, '_blank', 'noopener,noreferrer');
+    }
+    public onPreviewWheel(event: WheelEvent) {
+        event.preventDefault();
+        if (event.deltaY < 0) {
+            this.zoomIn(0.2);
+            return;
+        }
+        this.zoomOut(0.2);
+    }
 
     private nextAngle(a: 0 | 90 | 180 | 270, delta: -90 | 90): 0 | 90 | 180 | 270 {
         const vals: (0 | 90 | 180 | 270)[] = [0, 90, 180, 270];
