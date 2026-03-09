@@ -158,15 +158,31 @@
                         </div>
                         <div class="detail-item full-width" *ngIf="selectedMessage.message">
                             <label>Message Text</label>
-                            <p class="message-text">{{ selectedMessage.message }}</p>
+                            <div class="message-text-card">
+                                <p class="message-text">{{ selectedMessage.message }}</p>
+                                <button
+                                    type="button"
+                                    class="expand-btn"
+                                    (click)="openTextPreview(selectedMessage.message, 'Support Message')">
+                                    Expand to read
+                                </button>
+                            </div>
                         </div>
                         <div class="detail-item full-width" *ngIf="selectedMessage.mediaUrl">
                             <label>Media</label>
-                            <div class="media-preview">
+                            <div
+                                class="media-preview media-preview-expandable"
+                                (click)="openMediaPreview(selectedMessage.mediaUrl, selectedMessage.type, selectedMessage.type === 'video' ? 'Submitted Video' : 'Submitted Photo')">
                                 <img *ngIf="selectedMessage.type === 'image'" 
                                      [src]="selectedMessage.mediaUrl" 
                                      alt="Message media">
                                 <video *ngIf="selectedMessage.type === 'video'" [src]="selectedMessage.mediaUrl" controls></video>
+                                <button
+                                    type="button"
+                                    class="expand-media-btn"
+                                    (click)="openMediaPreview(selectedMessage.mediaUrl, selectedMessage.type, selectedMessage.type === 'video' ? 'Submitted Video' : 'Submitted Photo'); $event.stopPropagation()">
+                                    {{ selectedMessage.type === 'video' ? 'Expand video' : 'Expand photo' }}
+                                </button>
                             </div>
                         </div>
                         <div class="detail-item full-width" *ngIf="selectedMessage.tags && selectedMessage.tags.length">
@@ -244,15 +260,30 @@
                         <div class="form-group full-width">
                             <label>Message Text</label>
                             <textarea [(ngModel)]="editForm.message" class="form-control" rows="5"></textarea>
+                            <button
+                                *ngIf="editForm.message || selectedMessage.message"
+                                type="button"
+                                class="expand-btn inline-expand-btn"
+                                (click)="openTextPreview(editForm.message || selectedMessage.message, 'Support Message')">
+                                Expand to read
+                            </button>
                         </div>
                         <div class="form-group full-width" *ngIf="selectedMessage.mediaUrl">
                             <label>Media Preview</label>
-                            <div class="media-preview edit-media-preview">
+                            <div
+                                class="media-preview edit-media-preview media-preview-expandable"
+                                (click)="openMediaPreview(selectedMessage.mediaUrl, selectedMessage.type, selectedMessage.type === 'video' ? 'Submitted Video' : 'Submitted Photo', imageTransformStyle)">
                                 <img *ngIf="selectedMessage.type === 'image'" 
                                      [src]="selectedMessage.mediaUrl" 
                                      alt="Message media"
                                      [style.transform]="imageTransformStyle">
                                 <video *ngIf="selectedMessage.type === 'video'" [src]="selectedMessage.mediaUrl" controls></video>
+                                <button
+                                    type="button"
+                                    class="expand-media-btn"
+                                    (click)="openMediaPreview(selectedMessage.mediaUrl, selectedMessage.type, selectedMessage.type === 'video' ? 'Submitted Video' : 'Submitted Photo', imageTransformStyle); $event.stopPropagation()">
+                                    {{ selectedMessage.type === 'video' ? 'Expand video' : 'Expand photo' }}
+                                </button>
                             </div>
                             <div class="image-toolbar edit-image-toolbar" *ngIf="selectedMessage.type === 'image'">
                                 <button class="toolbar-btn" (click)="rotateLeft()" title="Rotate Left">
@@ -309,6 +340,28 @@
                 </button>
                 <button class="btn btn-secondary" (click)="closeModal()" [disabled]="saving">Cancel</button>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Expanded Preview -->
+<div class="expanded-preview-backdrop" *ngIf="expandedPreviewOpen" (click)="closeExpandedPreview()">
+    <div class="expanded-preview" [ngClass]="expandedPreviewKind" (click)="$event.stopPropagation()">
+        <div class="expanded-preview-header">
+            <h3>{{ expandedPreviewTitle }}</h3>
+            <button type="button" class="close-btn" (click)="closeExpandedPreview()">&times;</button>
+        </div>
+
+        <div class="expanded-preview-body text-body" *ngIf="expandedPreviewKind === 'text'">
+            <div class="expanded-text">{{ expandedPreviewText }}</div>
+        </div>
+
+        <div class="expanded-preview-body media-body" *ngIf="expandedPreviewKind === 'image'">
+            <img [src]="expandedPreviewUrl" alt="Expanded message media" [style.transform]="expandedPreviewTransform">
+        </div>
+
+        <div class="expanded-preview-body media-body" *ngIf="expandedPreviewKind === 'video'">
+            <video [src]="expandedPreviewUrl" controls autoplay></video>
         </div>
     </div>
 </div>

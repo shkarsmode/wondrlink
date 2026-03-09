@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ChipInputComponent } from '../../../shared/components/chip-input/chip-input.component';
 import { CloudinaryService } from '../../../shared/services/cloudinary.service';
 import { AdminSupportRequestService } from '../../services/support-request.service';
-import { AdminListResponse, AdminSupportMessage, SupportMessageStatus, UpdateSupportMessageDto } from '../../types/support-request.types';
+import { AdminListResponse, AdminSupportMessage, SupportMessageStatus, SupportMessageType, UpdateSupportMessageDto } from '../../types/support-request.types';
 
 @Component({
     selector: 'app-admin-support-messages',
@@ -37,6 +37,14 @@ export class AdminSupportMessagesComponent implements OnInit {
     editForm: UpdateSupportMessageDto = {};
     editTags: string[] = [];
     saving = false;
+
+    // Expanded preview state
+    expandedPreviewOpen = false;
+    expandedPreviewKind: 'text' | 'image' | 'video' | null = null;
+    expandedPreviewTitle = '';
+    expandedPreviewText = '';
+    expandedPreviewUrl = '';
+    expandedPreviewTransform = 'none';
 
     // Image rotation state
     imageRotation = 0; // degrees: 0, 90, 180, 270
@@ -111,6 +119,7 @@ export class AdminSupportMessagesComponent implements OnInit {
     closeModal(): void {
         this.modalOpen = false;
         this.selectedMessage = null;
+        this.closeExpandedPreview();
         this.resetImageTransform();
         this.editForm = {};
     }
@@ -324,6 +333,55 @@ export class AdminSupportMessagesComponent implements OnInit {
     // ---- Tags ----
     onTagsChange(tags: string[]): void {
         this.editTags = tags;
+    }
+
+    openTextPreview(text: string | undefined, title: string = 'Message Text'): void {
+        const previewText = text?.trim();
+        if (!previewText) return;
+
+        this.expandedPreviewKind = 'text';
+        this.expandedPreviewTitle = title;
+        this.expandedPreviewText = previewText;
+        this.expandedPreviewUrl = '';
+        this.expandedPreviewTransform = 'none';
+        this.expandedPreviewOpen = true;
+    }
+
+    openMediaPreview(
+        mediaUrl: string | undefined,
+        type: SupportMessageType | undefined,
+        title: string = 'Submitted Media',
+        transformStyle: string = 'none',
+    ): void {
+        if (!mediaUrl || !type) return;
+
+        this.expandedPreviewKind = type === SupportMessageType.VIDEO ? 'video' : 'image';
+        this.expandedPreviewTitle = title;
+        this.expandedPreviewText = '';
+        this.expandedPreviewUrl = mediaUrl;
+        this.expandedPreviewTransform = transformStyle;
+        this.expandedPreviewOpen = true;
+    }
+
+    closeExpandedPreview(): void {
+        this.expandedPreviewOpen = false;
+        this.expandedPreviewKind = null;
+        this.expandedPreviewTitle = '';
+        this.expandedPreviewText = '';
+        this.expandedPreviewUrl = '';
+        this.expandedPreviewTransform = 'none';
+    }
+
+    @HostListener('document:keydown.escape')
+    handleEscapeKey(): void {
+        if (this.expandedPreviewOpen) {
+            this.closeExpandedPreview();
+            return;
+        }
+
+        if (this.modalOpen) {
+            this.closeModal();
+        }
     }
 
     truncateMessage(message: string | undefined, length: number = 50): string {
