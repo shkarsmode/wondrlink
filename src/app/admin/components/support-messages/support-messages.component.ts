@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component, HostListener, inject, OnInit } from '@ang
 import { FormsModule } from '@angular/forms';
 import { ChipInputComponent } from '../../../shared/components/chip-input/chip-input.component';
 import { CloudinaryService } from '../../../shared/services/cloudinary.service';
+import { AdminDialogService } from '../../services/admin-dialog.service';
 import { AdminSupportRequestService } from '../../services/support-request.service';
 import { AdminListResponse, AdminSupportMessage, SupportMessageStatus, SupportMessageType, UpdateSupportMessageDto } from '../../types/support-request.types';
 
@@ -17,6 +18,7 @@ export class AdminSupportMessagesComponent implements OnInit {
     private adminSupportService = inject(AdminSupportRequestService);
     private cloudinaryService = inject(CloudinaryService);
     private cdr = inject(ChangeDetectorRef);
+    private adminDialog = inject(AdminDialogService);
     readonly genericGalleryPath = '/api/voices/approved';
 
     messages: AdminSupportMessage[] = [];
@@ -158,34 +160,79 @@ export class AdminSupportMessagesComponent implements OnInit {
                 this.saving = false;
                 this.closeModal();
             },
-            error: (err) => {
+            error: async (err) => {
                 console.error('Error updating message:', err);
                 this.saving = false;
-                alert('Failed to save changes');
+                await this.adminDialog.notice({
+                    tone: 'danger',
+                    icon: 'error',
+                    title: 'Could not save support message',
+                    message: 'The changes were not saved.',
+                    description: 'Please review the fields and try again.',
+                    confirmText: 'Close',
+                });
             }
         });
     }
 
-    approveMessage(messageId: number): void {
-        if (confirm('Approve this support message?')) {
-            this.adminSupportService.approveMessage(messageId).subscribe({
-                next: () => {
-                    this.loadMessages();
-                },
-                error: (err) => console.error('Error approving message:', err)
-            });
-        }
+    async approveMessage(messageId: number): Promise<void> {
+        const confirmed = await this.adminDialog.confirm({
+            tone: 'success',
+            icon: 'verified',
+            title: 'Approve support message?',
+            message: 'This will mark the message as approved.',
+            description: 'If this message is marked as Generic, its linked gallery item will stay in sync with this approval status.',
+            confirmText: 'Approve',
+            cancelText: 'Cancel',
+        });
+
+        if (!confirmed) return;
+
+        this.adminSupportService.approveMessage(messageId).subscribe({
+            next: () => {
+                this.loadMessages();
+            },
+            error: async (err) => {
+                console.error('Error approving message:', err);
+                await this.adminDialog.notice({
+                    tone: 'danger',
+                    icon: 'error',
+                    title: 'Approve failed',
+                    message: 'The support message could not be approved.',
+                    confirmText: 'Close',
+                });
+            }
+        });
     }
 
-    rejectMessage(messageId: number): void {
-        if (confirm('Reject this support message?')) {
-            this.adminSupportService.rejectMessage(messageId).subscribe({
-                next: () => {
-                    this.loadMessages();
-                },
-                error: (err) => console.error('Error rejecting message:', err)
-            });
-        }
+    async rejectMessage(messageId: number): Promise<void> {
+        const confirmed = await this.adminDialog.confirm({
+            tone: 'warning',
+            icon: 'block',
+            title: 'Reject support message?',
+            message: 'This will mark the message as rejected.',
+            description: 'Linked Generic gallery content will also follow this rejected status.',
+            confirmText: 'Reject',
+            cancelText: 'Keep message',
+        });
+
+        if (!confirmed) return;
+
+        this.adminSupportService.rejectMessage(messageId).subscribe({
+            next: () => {
+                this.loadMessages();
+            },
+            error: async (err) => {
+                console.error('Error rejecting message:', err);
+                await this.adminDialog.notice({
+                    tone: 'danger',
+                    icon: 'error',
+                    title: 'Reject failed',
+                    message: 'The support message could not be rejected.',
+                    confirmText: 'Close',
+                });
+            }
+        });
     }
 
     changeMessageStatus(messageId: number, newStatus: SupportMessageStatus): void {
@@ -197,15 +244,38 @@ export class AdminSupportMessagesComponent implements OnInit {
         });
     }
 
-    deleteMessage(messageId: number): void {
-        if (confirm('Delete this support message? This action cannot be undone.')) {
-            this.adminSupportService.deleteMessage(messageId).subscribe({
-                next: () => {
-                    this.loadMessages();
-                },
-                error: (err) => console.error('Error deleting message:', err)
-            });
-        }
+    async deleteMessage(message: AdminSupportMessage): Promise<void> {
+        const description = message.isGeneric
+            ? 'This action cannot be undone. The linked Generic gallery item will also be removed from Wondrvoices.'
+            : 'This action cannot be undone.';
+
+        const confirmed = await this.adminDialog.confirm({
+            tone: 'danger',
+            icon: 'delete_forever',
+            title: 'Delete support message?',
+            message: `Support message #${message.id} will be permanently removed.`,
+            description,
+            confirmText: 'Delete',
+            cancelText: 'Cancel',
+        });
+
+        if (!confirmed) return;
+
+        this.adminSupportService.deleteMessage(message.id).subscribe({
+            next: () => {
+                this.loadMessages();
+            },
+            error: async (err) => {
+                console.error('Error deleting message:', err);
+                await this.adminDialog.notice({
+                    tone: 'danger',
+                    icon: 'error',
+                    title: 'Delete failed',
+                    message: 'The support message could not be deleted.',
+                    confirmText: 'Close',
+                });
+            }
+        });
     }
 
     getStatusBadgeClass(status: SupportMessageStatus): string {
@@ -278,7 +348,13 @@ export class AdminSupportMessagesComponent implements OnInit {
             canvas.toBlob((blob) => {
                 if (!blob) {
                     this.rotatedImageSaving = false;
-                    alert('Failed to transform image');
+                    void this.adminDialog.notice({
+                        tone: 'danger',
+                        icon: 'image_not_supported',
+                        title: 'Image transform failed',
+                        message: 'The rotated image could not be created.',
+                        confirmText: 'Close',
+                    });
                     return;
                 }
                 const file = new File([blob], 'rotated.jpg', { type: 'image/jpeg' });
@@ -287,7 +363,13 @@ export class AdminSupportMessagesComponent implements OnInit {
                         const url = res?.imageUrl?.secure_url || res?.imageUrl?.url || res?.imageUrl;
                         if (!url) {
                             this.rotatedImageSaving = false;
-                            alert('Upload failed');
+                            void this.adminDialog.notice({
+                                tone: 'danger',
+                                icon: 'cloud_off',
+                                title: 'Upload failed',
+                                message: 'The transformed image did not upload successfully.',
+                                confirmText: 'Close',
+                            });
                             return;
                         }
                         this.adminSupportService.updateMessage(messageId, { mediaUrl: url }).subscribe({
@@ -314,20 +396,38 @@ export class AdminSupportMessagesComponent implements OnInit {
                             },
                             error: () => {
                                 this.rotatedImageSaving = false;
-                                alert('Failed to save rotated image');
+                                void this.adminDialog.notice({
+                                    tone: 'danger',
+                                    icon: 'error',
+                                    title: 'Save failed',
+                                    message: 'The updated rotated image could not be saved.',
+                                    confirmText: 'Close',
+                                });
                             }
                         });
                     },
                     error: () => {
                         this.rotatedImageSaving = false;
-                        alert('Failed to upload rotated image');
+                        void this.adminDialog.notice({
+                            tone: 'danger',
+                            icon: 'cloud_upload',
+                            title: 'Upload failed',
+                            message: 'The rotated image could not be uploaded.',
+                            confirmText: 'Close',
+                        });
                     }
                 });
             }, 'image/jpeg', 0.92);
         };
         img.onerror = () => {
             this.rotatedImageSaving = false;
-            alert('Failed to load image for transformation');
+            void this.adminDialog.notice({
+                tone: 'danger',
+                icon: 'broken_image',
+                title: 'Image load failed',
+                message: 'The original image could not be loaded for editing.',
+                confirmText: 'Close',
+            });
         };
         img.src = sourceMediaUrl;
     }

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AdminDialogService } from '../../services/admin-dialog.service';
 import { AdminSupportRequestService } from '../../services/support-request.service';
 import { AdminListResponse, AdminSupportRequest, SupportRequestStatus, UpdateSupportRequestDto } from '../../types/support-request.types';
 
@@ -13,6 +14,7 @@ import { AdminListResponse, AdminSupportRequest, SupportRequestStatus, UpdateSup
 })
 export class AdminSupportRequestsComponent implements OnInit {
     private adminSupportService = inject(AdminSupportRequestService);
+    private adminDialog = inject(AdminDialogService);
 
     requests: AdminSupportRequest[] = [];
     loading = false;
@@ -128,34 +130,79 @@ export class AdminSupportRequestsComponent implements OnInit {
                 this.saving = false;
                 this.closeModal();
             },
-            error: (err) => {
+            error: async (err) => {
                 console.error('Error updating request:', err);
                 this.saving = false;
-                alert('Failed to save changes');
+                await this.adminDialog.notice({
+                    tone: 'danger',
+                    icon: 'error',
+                    title: 'Could not save support request',
+                    message: 'The changes were not saved.',
+                    description: 'Please review the request details and try again.',
+                    confirmText: 'Close',
+                });
             }
         });
     }
 
-    approveRequest(requestId: number): void {
-        if (confirm('Approve this support request?')) {
-            this.adminSupportService.approveRequest(requestId).subscribe({
-                next: () => {
-                    this.loadRequests();
-                },
-                error: (err) => console.error('Error approving request:', err)
-            });
-        }
+    async approveRequest(requestId: number): Promise<void> {
+        const confirmed = await this.adminDialog.confirm({
+            tone: 'success',
+            icon: 'verified',
+            title: 'Approve support request?',
+            message: 'This request will be marked as verified.',
+            description: 'Approved requests can receive community support messages.',
+            confirmText: 'Approve',
+            cancelText: 'Cancel',
+        });
+
+        if (!confirmed) return;
+
+        this.adminSupportService.approveRequest(requestId).subscribe({
+            next: () => {
+                this.loadRequests();
+            },
+            error: async (err) => {
+                console.error('Error approving request:', err);
+                await this.adminDialog.notice({
+                    tone: 'danger',
+                    icon: 'error',
+                    title: 'Approve failed',
+                    message: 'The support request could not be approved.',
+                    confirmText: 'Close',
+                });
+            }
+        });
     }
 
-    rejectRequest(requestId: number): void {
-        if (confirm('Reject this support request?')) {
-            this.adminSupportService.rejectRequest(requestId).subscribe({
-                next: () => {
-                    this.loadRequests();
-                },
-                error: (err) => console.error('Error rejecting request:', err)
-            });
-        }
+    async rejectRequest(requestId: number): Promise<void> {
+        const confirmed = await this.adminDialog.confirm({
+            tone: 'warning',
+            icon: 'block',
+            title: 'Reject support request?',
+            message: 'This request will be marked as rejected.',
+            description: 'Rejected requests will no longer be available on the public support experience.',
+            confirmText: 'Reject',
+            cancelText: 'Keep request',
+        });
+
+        if (!confirmed) return;
+
+        this.adminSupportService.rejectRequest(requestId).subscribe({
+            next: () => {
+                this.loadRequests();
+            },
+            error: async (err) => {
+                console.error('Error rejecting request:', err);
+                await this.adminDialog.notice({
+                    tone: 'danger',
+                    icon: 'error',
+                    title: 'Reject failed',
+                    message: 'The support request could not be rejected.',
+                    confirmText: 'Close',
+                });
+            }
+        });
     }
 
     changeRequestStatus(requestId: number, newStatus: SupportRequestStatus): void {
@@ -167,15 +214,34 @@ export class AdminSupportRequestsComponent implements OnInit {
         });
     }
 
-    deleteRequest(requestId: number): void {
-        if (confirm('Delete this support request? This action cannot be undone.')) {
-            this.adminSupportService.deleteRequest(requestId).subscribe({
-                next: () => {
-                    this.loadRequests();
-                },
-                error: (err) => console.error('Error deleting request:', err)
-            });
-        }
+    async deleteRequest(requestId: number): Promise<void> {
+        const confirmed = await this.adminDialog.confirm({
+            tone: 'danger',
+            icon: 'delete_forever',
+            title: 'Delete support request?',
+            message: `Support request #${requestId} will be permanently removed.`,
+            description: 'This action cannot be undone. All linked support messages will be removed as well.',
+            confirmText: 'Delete',
+            cancelText: 'Cancel',
+        });
+
+        if (!confirmed) return;
+
+        this.adminSupportService.deleteRequest(requestId).subscribe({
+            next: () => {
+                this.loadRequests();
+            },
+            error: async (err) => {
+                console.error('Error deleting request:', err);
+                await this.adminDialog.notice({
+                    tone: 'danger',
+                    icon: 'error',
+                    title: 'Delete failed',
+                    message: 'The support request could not be deleted.',
+                    confirmText: 'Close',
+                });
+            }
+        });
     }
 
     getStatusBadgeClass(status: SupportRequestStatus): string {

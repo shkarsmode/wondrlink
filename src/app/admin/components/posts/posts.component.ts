@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { PostsService } from 'src/app/shared/services/posts.service';
 import { StorageService } from 'src/app/shared/services/storage-service.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { AdminDialogService } from '../../services/admin-dialog.service';
 import { ProjectService } from '../../services/project.service';
 
 @Component({
@@ -30,6 +31,7 @@ export class PostsComponent implements OnInit {
     private storageService: StorageService = inject(StorageService);
     public projectService: ProjectService = inject(ProjectService);
     public ProjectTypeEnum: typeof ProjectTypeEnum = ProjectTypeEnum;
+    private adminDialog = inject(AdminDialogService);
 
     constructor(
         private postsService: PostsService,
@@ -121,9 +123,15 @@ export class PostsComponent implements OnInit {
 
                     console.log('Post was deleted')
                 },
-                error: _ => {
+                error: async _ => {
                     this.posts.splice(indexPostToDelete, 0, postToDelete);
-                    alert(`Something went wrong. Can't delete post number ${indexPostToDelete + 1}`);
+                    await this.adminDialog.notice({
+                        tone: 'danger',
+                        icon: 'error',
+                        title: 'Could not delete post',
+                        message: `Post #${indexPostToDelete + 1} could not be deleted.`,
+                        confirmText: 'Close',
+                    });
                 }
             });
     }

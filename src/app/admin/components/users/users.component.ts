@@ -5,6 +5,7 @@ import { IUser } from 'src/app/shared/interfaces/IUser';
 import { UserTypeEnum } from 'src/app/shared/interfaces/UserTypeEnum';
 import { StorageService } from 'src/app/shared/services/storage-service.service';
 import { UserService } from '../../../shared/services/user.service';
+import { AdminDialogService } from '../../services/admin-dialog.service';
 
 @Component({
     selector: 'app-users',
@@ -28,6 +29,7 @@ export class UsersComponent {
     public activeDeletingIndex: number = -1;
 
     private storageService: StorageService = inject(StorageService);
+    private adminDialog = inject(AdminDialogService);
 
     constructor(public userService: UserService, public router: Router) {}
 
@@ -124,13 +126,15 @@ export class UsersComponent {
                         this.userService.approvedUsersUpdated$.next(true);
                     }
                 },
-                error: (_) => {
+                error: async (_) => {
                     this.users.splice(indexUserToDelete, 0, userToDelete);
-                    alert(
-                        `Something went wrong. Can't delete this user ${
-                            indexUserToDelete + 1
-                        }`
-                    );
+                    await this.adminDialog.notice({
+                        tone: 'danger',
+                        icon: 'error',
+                        title: 'Could not delete user',
+                        message: `User #${indexUserToDelete + 1} could not be deleted.`,
+                        confirmText: 'Close',
+                    });
                 },
             });
     }

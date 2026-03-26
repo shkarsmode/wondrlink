@@ -1,0 +1,38 @@
+<div class="dialog-shell" [attr.data-tone]="data.tone || 'info'">
+    <button
+        type="button"
+        class="close-btn"
+        aria-label="Close dialog"
+        (click)="close(false)">
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+    </button>
+
+    <div class="icon-wrap">
+        <span class="material-symbols-outlined" aria-hidden="true">{{ resolvedIcon() }}</span>
+    </div>
+
+    <div class="content">
+        <p class="eyebrow">{{ isConfirm() ? 'Confirm action' : 'Notice' }}</p>
+        <h2>{{ data.title }}</h2>
+        <p class="message">{{ data.message }}</p>
+        <p class="description" *ngIf="data.description">{{ data.description }}</p>
+    </div>
+
+    <div class="actions">
+        <button
+            *ngIf="isConfirm()"
+            type="button"
+            class="btn secondary"
+            (click)="close(false)">
+            {{ data.cancelText || 'Cancel' }}
+        </button>
+
+        <button
+            type="button"
+            class="btn primary"
+            [attr.data-tone]="data.tone || 'info'"
+            (click)="close(true)">
+            {{ data.confirmText || (isConfirm() ? 'Continue' : 'OK') }}
+        </button>
+    </div>
+</div>

@@ -20,6 +20,7 @@ import { ParsedAdministrativeAddress, formatAdministrativeLine, parseAdministrat
 import { IVoice, VoiceSourceType, VoiceStatus, VoicesListResponse } from '../../../shared/interfaces/voices';
 import { CloudinaryService } from "src/app/shared/services/cloudinary.service";
 import { UserService } from "src/app/shared/services/user.service";
+import { AdminDialogService } from '../../services/admin-dialog.service';
 import { VoicesService } from '../../services/voices.service';
 
 type StatusFilter = 'all' | VoiceStatus;
@@ -38,6 +39,7 @@ const GOOGLE_AUTOCOMPLETE_ATTR = 'data-google-autocomplete';
 export class VoicesComponent {
     private readonly svc = inject(VoicesService);
     private readonly destroyRef = inject(DestroyRef);
+    private readonly adminDialog = inject(AdminDialogService);
 
     private snackBar: MatSnackBar = inject(MatSnackBar);
 
@@ -163,10 +165,19 @@ export class VoicesComponent {
     }
 
     public async onDelete(v: IVoice) {
-        const linkedSupportMessageNote = this.isSupportMessageVoice(v)
-            ? ' This will also clear the Generic flag on the original support message.'
-            : '';
-        if (!confirm(`Delete submission #${v.id}?${linkedSupportMessageNote}`)) return;
+        const description = this.isSupportMessageVoice(v)
+            ? 'This action cannot be undone. The linked support message will also lose its Generic gallery connection.'
+            : 'This action cannot be undone.';
+        const confirmed = await this.adminDialog.confirm({
+            tone: 'danger',
+            icon: 'delete_forever',
+            title: 'Delete voice submission?',
+            message: `Voice #${v.id} will be permanently removed.`,
+            description,
+            confirmText: 'Delete',
+            cancelText: 'Cancel',
+        });
+        if (!confirmed) return;
         try {
             this.loading.set(true);
             const res = await this.svc.deleteVoiceById(v.id).toPromise();

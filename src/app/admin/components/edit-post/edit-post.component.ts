@@ -10,6 +10,7 @@ import { CloudinaryService } from 'src/app/shared/services/cloudinary.service';
 import { PostsService } from 'src/app/shared/services/posts.service';
 import { StorageService } from 'src/app/shared/services/storage-service.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { AdminDialogService } from '../../services/admin-dialog.service';
 import { ProjectService } from '../../services/project.service';
 
 @Component({
@@ -39,6 +40,7 @@ export class EditPostComponent implements OnInit {
     private storageService: StorageService = inject(StorageService);
     public projectService: ProjectService = inject(ProjectService);
     public ProjectTypeEnum: typeof ProjectTypeEnum = ProjectTypeEnum;
+    private adminDialog = inject(AdminDialogService);
 
     constructor(
         private route: ActivatedRoute,
@@ -119,22 +121,30 @@ export class EditPostComponent implements OnInit {
         this.isUpdatedPicture = true;
     }
 
-    public uploadPost(): void {
+    public async uploadPost(): Promise<void> {
         if (this.form.invalid) return;
-        if (!this.confirmProjectSelection()) return;
+        if (!(await this.confirmProjectSelection())) return;
 
         this.isLoading = true;
         this.uploadAngGetPictureUrl();
     }
 
-    private confirmProjectSelection(): boolean {
+    private async confirmProjectSelection(): Promise<boolean> {
         const selectedIsWondrvoices = !!this.form.get('isWondrvoices')?.value;
         const contextIsWondrvoices = this.projectService.current === ProjectTypeEnum.Wondrvoices;
 
         if (selectedIsWondrvoices !== this.initialIsWondrvoices) {
             const fromProject = this.initialIsWondrvoices ? ProjectTypeEnum.Wondrvoices : ProjectTypeEnum.Wondrlink;
             const toProject = selectedIsWondrvoices ? ProjectTypeEnum.Wondrvoices : ProjectTypeEnum.Wondrlink;
-            return confirm(`Move "${this.post.header}" from ${fromProject} to ${toProject}?`);
+            return this.adminDialog.confirm({
+                tone: 'warning',
+                icon: 'swap_horiz',
+                title: 'Move post to another project?',
+                message: `"${this.post.header}" will move from ${fromProject} to ${toProject}.`,
+                description: 'Please confirm before saving this cross-project change.',
+                confirmText: 'Move post',
+                cancelText: 'Cancel',
+            });
         }
 
         if (selectedIsWondrvoices === contextIsWondrvoices) {
@@ -144,7 +154,15 @@ export class EditPostComponent implements OnInit {
         const selectedLabel = selectedIsWondrvoices ? ProjectTypeEnum.Wondrvoices : ProjectTypeEnum.Wondrlink;
         const contextLabel = contextIsWondrvoices ? ProjectTypeEnum.Wondrvoices : ProjectTypeEnum.Wondrlink;
 
-        return confirm(`You are in the ${contextLabel} admin context, but this post is set to ${selectedLabel}. Continue?`);
+        return this.adminDialog.confirm({
+            tone: 'warning',
+            icon: 'swap_horiz',
+            title: 'Cross-project publish warning',
+            message: `You are in ${contextLabel}, but this post is set to ${selectedLabel}.`,
+            description: 'Please confirm that you want to continue with this project selection.',
+            confirmText: 'Continue',
+            cancelText: 'Go back',
+        });
     }
 
     public onFileSelected(event: Event): void {
@@ -195,8 +213,14 @@ export class EditPostComponent implements OnInit {
                 next: res => {
                     this.isLoading = false;
                 },
-                error: error =>{
-                    alert('Something went wrong: ' + error.message);
+                error: async error =>{
+                    await this.adminDialog.notice({
+                        tone: 'danger',
+                        icon: 'error',
+                        title: 'Could not update post',
+                        message: error?.message || 'Something went wrong while saving the post.',
+                        confirmText: 'Close',
+                    });
                     this.isLoading = false;
                 }
             });
@@ -235,8 +259,14 @@ export class EditPostComponent implements OnInit {
                     }
                     this.location.back();
                 },
-                error: _ => {
-                    alert('Something went wrong. Can`t delete this post');
+                error: async _ => {
+                    await this.adminDialog.notice({
+                        tone: 'danger',
+                        icon: 'error',
+                        title: 'Could not delete post',
+                        message: 'Something went wrong while deleting this post.',
+                        confirmText: 'Close',
+                    });
                 }
             });
     }

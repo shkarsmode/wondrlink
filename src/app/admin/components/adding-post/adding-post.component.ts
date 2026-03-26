@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { PostsService } from 'src/app/shared/services/posts.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { CloudinaryService } from '../../../shared/services/cloudinary.service';
+import { AdminDialogService } from '../../services/admin-dialog.service';
 import { ProjectService } from '../../services/project.service';
 
 @Component({
@@ -27,6 +28,7 @@ export class AddingPostComponent implements OnInit {
 
     public projectService: ProjectService = inject(ProjectService);
     public ProjectTypeEnum: typeof ProjectTypeEnum = ProjectTypeEnum;
+    private adminDialog = inject(AdminDialogService);
 
     constructor(
         private fb: FormBuilder,
@@ -62,9 +64,9 @@ export class AddingPostComponent implements OnInit {
         });
     }
 
-    public uploadPost(): void {
+    public async uploadPost(): Promise<void> {
         if (this.form.invalid) return;
-        if (!this.confirmProjectSelection()) return;
+        if (!(await this.confirmProjectSelection())) return;
 
         this.isLoading = true;
         (this.isUploadImageSelected ? 
@@ -73,7 +75,7 @@ export class AddingPostComponent implements OnInit {
         ).call(this);
     }
 
-    private confirmProjectSelection(): boolean {
+    private async confirmProjectSelection(): Promise<boolean> {
         const selectedIsWondrvoices = !!this.form.get('isWondrvoices')?.value;
         const contextIsWondrvoices = this.projectService.current === ProjectTypeEnum.Wondrvoices;
 
@@ -84,7 +86,15 @@ export class AddingPostComponent implements OnInit {
         const selectedLabel = selectedIsWondrvoices ? ProjectTypeEnum.Wondrvoices : ProjectTypeEnum.Wondrlink;
         const contextLabel = contextIsWondrvoices ? ProjectTypeEnum.Wondrvoices : ProjectTypeEnum.Wondrlink;
 
-        return confirm(`You are in the ${contextLabel} admin context, but this post is set to ${selectedLabel}. Continue?`);
+        return this.adminDialog.confirm({
+            tone: 'warning',
+            icon: 'swap_horiz',
+            title: 'Cross-project publish warning',
+            message: `You are in ${contextLabel}, but this post is set to ${selectedLabel}.`,
+            description: 'Please confirm that you want to continue with this project selection.',
+            confirmText: 'Continue',
+            cancelText: 'Go back',
+        });
     }
 
     public onFileSelected(event: Event): void {

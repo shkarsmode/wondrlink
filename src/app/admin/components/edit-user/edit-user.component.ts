@@ -14,6 +14,7 @@ import { StorageService } from 'src/app/shared/services/storage-service.service'
 import { UserService } from 'src/app/shared/services/user.service';
 import { AuthService } from '../../../shared/services/auth.service';
 import { FlowDataService } from '../../../shared/services/flow-data.service';
+import { AdminDialogService } from '../../services/admin-dialog.service';
 
 @Component({
     selector: 'app-edit-user',
@@ -48,6 +49,7 @@ export class EditUserComponent implements OnInit {
     @ViewChild('preview') preview: ElementRef;
 
     private storageService: StorageService = inject(StorageService);
+    private adminDialog = inject(AdminDialogService);
 
     constructor(
         private route: ActivatedRoute,
@@ -258,8 +260,14 @@ export class EditUserComponent implements OnInit {
                     this.userService.profileUpdated$.next(true);
                 }
             },
-            error: (error) => {
-                alert('Something went wrong: ' + error.message);
+            error: async (error) => {
+                await this.adminDialog.notice({
+                    tone: 'danger',
+                    icon: 'error',
+                    title: 'Could not update user',
+                    message: error?.message || 'Something went wrong while saving this user.',
+                    confirmText: 'Close',
+                });
                 this.isLoading = false;
             },
         });
@@ -295,8 +303,14 @@ export class EditUserComponent implements OnInit {
                         this.userService.approvedUsersUpdated$.next(true);
                     }
                 },
-                error: (_) => {
-                    alert('Something went wrong. Can`t delete this post');
+                error: async (_) => {
+                    await this.adminDialog.notice({
+                        tone: 'danger',
+                        icon: 'error',
+                        title: 'Could not delete user',
+                        message: 'Something went wrong while deleting this user.',
+                        confirmText: 'Close',
+                    });
                 },
             });
     }

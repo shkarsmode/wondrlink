@@ -148,6 +148,29 @@ html {
     opacity: 0.7;
 }
 
+.admin-action-dialog-backdrop.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+    background: rgba(15, 23, 42, 0.42);
+    backdrop-filter: blur(6px);
+    opacity: 1;
+}
+
+.admin-action-dialog-panel {
+    margin: 12px;
+}
+
+.admin-action-dialog-panel .mat-mdc-dialog-container {
+    padding: 0;
+    --mdc-dialog-container-shape: 0px;
+}
+
+.admin-action-dialog-panel .mat-mdc-dialog-container .mdc-dialog__surface,
+.admin-action-dialog-panel .mat-mdc-dialog-surface {
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    overflow: visible;
+}
+
 .mdc-tooltip__surface {
     background-color: #102C58 !important;
     pointer-events: none;
@@ -194,6 +217,11 @@ body:has(app-flow-dialog) {
     ::ng-deep {
         .cdk-overlay-pane {
             min-width: 100vw !important;
+        }
+
+        .cdk-overlay-pane.admin-action-dialog-panel {
+            min-width: min(520px, calc(100vw - 24px)) !important;
+            max-width: min(520px, calc(100vw - 24px)) !important;
         }
      }
 }
