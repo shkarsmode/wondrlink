@@ -17,6 +17,7 @@ export class AdminSupportMessagesComponent implements OnInit {
     private adminSupportService = inject(AdminSupportRequestService);
     private cloudinaryService = inject(CloudinaryService);
     private cdr = inject(ChangeDetectorRef);
+    readonly genericGalleryPath = '/api/voices/approved';
 
     messages: AdminSupportMessage[] = [];
     loading = false;
@@ -111,6 +112,7 @@ export class AdminSupportMessagesComponent implements OnInit {
                 message: message.message,
                 anonymous: message.anonymous,
                 status: message.status,
+                isGeneric: message.isGeneric,
             };
             this.editTags = message.tags ? [...message.tags] : [];
         }
@@ -391,5 +393,36 @@ export class AdminSupportMessagesComponent implements OnInit {
 
     get totalPages(): number {
         return Math.ceil(this.total / this.limit);
+    }
+
+    canBeGeneric(message: AdminSupportMessage | null | undefined): boolean {
+        return !!message?.mediaUrl && message.type === SupportMessageType.IMAGE;
+    }
+
+    genericStatusLabel(message: AdminSupportMessage): string {
+        if (!message.isGeneric) {
+            return 'Not in gallery';
+        }
+
+        return message.genericVoiceId ? `Voice #${message.genericVoiceId}` : 'Linked';
+    }
+
+    genericHint(
+        message: AdminSupportMessage | null | undefined,
+        statusOverride?: SupportMessageStatus | undefined,
+    ): string {
+        if (!message) {
+            return '';
+        }
+
+        if (!this.canBeGeneric(message)) {
+            return `Only image support messages with media can be sent to ${this.genericGalleryPath}.`;
+        }
+
+        if ((statusOverride ?? message.status) === SupportMessageStatus.APPROVED) {
+            return `This will sync into ${this.genericGalleryPath}.`;
+        }
+
+        return `A linked voice will be created now and will become public in ${this.genericGalleryPath} once the message status is approved.`;
     }
 }

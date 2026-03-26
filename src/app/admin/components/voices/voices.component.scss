@@ -155,8 +155,13 @@
         width: 150px;
     }
 
-    th:nth-child(6),
-    td:nth-child(6) {
+    th:nth-child(4),
+    td:nth-child(4) {
+        width: 170px;
+    }
+
+    th:nth-child(7),
+    td:nth-child(7) {
         width: 120px;
     }
 
@@ -549,6 +554,17 @@ button:disabled {
     gap: 8px;
     padding: 10px 12px;
     border-bottom: 1px solid var(--line);
+}
+
+.source-banner {
+    margin: 12px 12px 0;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: rgba(51, 122, 183, 0.08);
+    border: 1px solid rgba(51, 122, 183, 0.18);
+    color: #245d9c;
+    font-size: 13px;
+    line-height: 1.5;
 }
 
 .sheet-footer {

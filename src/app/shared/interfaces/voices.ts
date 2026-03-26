@@ -4,6 +4,10 @@ export enum VoiceStatus {
     Rejected = 'rejected',
 }
 
+export enum VoiceSourceType {
+    SupportMessage = 'support_message',
+}
+
 export interface IVoice {
     id: number;
     createdAt: string | Date;
@@ -22,6 +26,9 @@ export interface IVoice {
     img: string;
 
     consent: boolean;
+
+    sourceType?: VoiceSourceType | null;
+    sourceSupportMessageId?: number | null;
 }
 
 export interface VoicesListResponse {

@@ -62,6 +62,8 @@ export interface AdminSupportMessage {
     mediaUrl?: string;
     thumbnailUrl?: string;
     anonymous: boolean;
+    isGeneric: boolean;
+    genericVoiceId?: number;
     tags?: string[];
     createdAt: Date;
     likes: number;
@@ -107,4 +109,5 @@ export interface UpdateSupportMessageDto {
     status?: SupportMessageStatus;
     mediaUrl?: string;
     tags?: string[];
+    isGeneric?: boolean;
 }

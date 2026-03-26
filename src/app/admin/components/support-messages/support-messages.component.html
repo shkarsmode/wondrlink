@@ -1,6 +1,10 @@
 <div class="support-messages-container">
     <div class="header">
         <h1>Support Messages</h1>
+        <p class="page-hint">
+            Mark an eligible image message as <strong>Generic</strong> to sync it into the Wondrvoices gallery feed at
+            <code>{{ genericGalleryPath }}</code>.
+        </p>
     </div>
 
     <div class="filters">
@@ -40,6 +44,7 @@
                     <th>Location</th>
                     <th>Type</th>
                     <th>Message</th>
+                    <th>Gallery</th>
                     <th>Status</th>
                     <th>Likes</th>
                     <th>Created</th>
@@ -55,6 +60,11 @@
                     <td>{{ msg.location }}</td>
                     <td><span class="badge badge-info">{{ msg.type }}</span></td>
                     <td class="message-cell" [title]="msg.message">{{ truncateMessage(msg.message) }}</td>
+                    <td>
+                        <span class="badge" [class.badge-success]="msg.isGeneric" [class.badge-secondary]="!msg.isGeneric">
+                            {{ genericStatusLabel(msg) }}
+                        </span>
+                    </td>
                     <td (click)="$event.stopPropagation()">
                         <select 
                             [(ngModel)]="msg.status" 
@@ -156,6 +166,16 @@
                             <label>Status</label>
                             <span class="badge" [ngClass]="getStatusBadgeClass(selectedMessage.status)">{{ selectedMessage.status }}</span>
                         </div>
+                        <div class="detail-item">
+                            <label>Gallery</label>
+                            <span class="badge" [class.badge-success]="selectedMessage.isGeneric" [class.badge-secondary]="!selectedMessage.isGeneric">
+                                {{ genericStatusLabel(selectedMessage) }}
+                            </span>
+                        </div>
+                        <div class="detail-item full-width">
+                            <label>Generic Destination</label>
+                            <span class="generic-note">{{ genericHint(selectedMessage) }}</span>
+                        </div>
                         <div class="detail-item full-width" *ngIf="selectedMessage.message">
                             <label>Message Text</label>
                             <div class="message-text-card">
@@ -256,6 +276,16 @@
                             <select [(ngModel)]="editForm.status" class="form-control">
                                 <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input
+                                    type="checkbox"
+                                    [(ngModel)]="editForm.isGeneric"
+                                    [disabled]="!canBeGeneric(selectedMessage) && !editForm.isGeneric">
+                                <span>Publish as generic gallery item</span>
+                            </label>
+                            <p class="field-hint">{{ genericHint(selectedMessage, editForm.status) }}</p>
                         </div>
                         <div class="form-group full-width">
                             <label>Message Text</label>

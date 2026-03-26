@@ -17,9 +17,9 @@ import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ChipInputComponent } from "src/app/shared/components/chip-input/chip-input.component";
 import { ParsedAdministrativeAddress, formatAdministrativeLine, parseAdministrativeAddress } from 'src/app/shared/helpers/google-parser.helper';
+import { IVoice, VoiceSourceType, VoiceStatus, VoicesListResponse } from '../../../shared/interfaces/voices';
 import { CloudinaryService } from "src/app/shared/services/cloudinary.service";
 import { UserService } from "src/app/shared/services/user.service";
-import { IVoice, VoiceStatus, VoicesListResponse } from '../../../shared/interfaces/voices';
 import { VoicesService } from '../../services/voices.service';
 
 type StatusFilter = 'all' | VoiceStatus;
@@ -44,6 +44,7 @@ export class VoicesComponent {
     public userService = inject(UserService);
 
     public VoiceStatus: typeof VoiceStatus = VoiceStatus;
+    public VoiceSourceType: typeof VoiceSourceType = VoiceSourceType;
     // --- UI state
     public statusFilter = signal<StatusFilter>(VoiceStatus.Pending); // стартуем с "pending"
     public page = signal(1);
@@ -85,6 +86,8 @@ export class VoicesComponent {
                 v.note ?? '',
                 ...(v.what ?? []),
                 ...(v.express ?? []),
+                v.sourceType ?? '',
+                String(v.sourceSupportMessageId ?? ''),
             ].join(' ').toLowerCase();
             return bag.includes(q);
         };
@@ -160,7 +163,10 @@ export class VoicesComponent {
     }
 
     public async onDelete(v: IVoice) {
-        if (!confirm(`Delete submission #${v.id}?`)) return;
+        const linkedSupportMessageNote = this.isSupportMessageVoice(v)
+            ? ' This will also clear the Generic flag on the original support message.'
+            : '';
+        if (!confirm(`Delete submission #${v.id}?${linkedSupportMessageNote}`)) return;
         try {
             this.loading.set(true);
             const res = await this.svc.deleteVoiceById(v.id).toPromise();
@@ -550,6 +556,18 @@ export class VoicesComponent {
 
     public visibleActions(v: IVoice) {
         return this.statusActions.filter(a => a.value !== v.status);
+    }
+
+    public isSupportMessageVoice(v: IVoice | null | undefined): boolean {
+        return v?.sourceType === VoiceSourceType.SupportMessage && !!v.sourceSupportMessageId;
+    }
+
+    public sourceLabel(v: IVoice): string {
+        if (this.isSupportMessageVoice(v)) {
+            return `Support message #${v.sourceSupportMessageId}`;
+        }
+
+        return 'Direct upload';
     }
 
     public async onPickImg(e: Event) {
