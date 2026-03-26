@@ -1,11 +1,54 @@
-<h4>Choose project</h4>
-<mat-form-field>
-    <mat-label>Project</mat-label>
-    <mat-select
-        [value]="projectService.current"
-        (selectionChange)="projectService.change($event.value)"
-        required>
-        <mat-option [value]="ProjectType.Wondrlink">{{ ProjectType.Wondrlink }}</mat-option>
-        <mat-option [value]="ProjectType.Wondrvoices">{{ ProjectType.Wondrvoices }}</mat-option>
-    </mat-select>
-</mat-form-field>
+<section class="settings-shell">
+    <div class="chooser-hero">
+        <p class="eyebrow">Project Chooser</p>
+        <h1>Choose the workspace you want to manage</h1>
+        <p class="hero-copy">
+            This selection is saved in admin and sets the current project context for posts and project-specific tools.
+        </p>
+        <div class="current-project">
+            <span class="current-label">Current project</span>
+            <span class="current-value">{{ projectService.current }}</span>
+        </div>
+    </div>
+
+    <div class="chooser-grid">
+        <button
+            *ngFor="let project of projectOptions"
+            type="button"
+            class="project-card"
+            [class.is-active]="isSelected(project.type)"
+            [attr.data-theme]="project.theme"
+            [attr.aria-pressed]="isSelected(project.type)"
+            (click)="selectProject(project.type)">
+            <span class="selected-badge" *ngIf="isSelected(project.type)">
+                <span class="material-symbols-outlined" aria-hidden="true">check_circle</span>
+                Active workspace
+            </span>
+
+            <div class="logo-stage" [attr.data-theme]="project.theme">
+                <img
+                    class="project-logo"
+                    [class.wondrvoices-logo]="project.type === ProjectType.Wondrvoices"
+                    [src]="project.logoSrc"
+                    [alt]="project.logoAlt">
+            </div>
+
+            <div class="project-copy">
+                <div class="title-row">
+                    <h2>{{ project.title }}</h2>
+                    <span class="project-tag">{{ project.subtitle }}</span>
+                </div>
+                <p class="project-description">{{ project.description }}</p>
+            </div>
+
+            <div class="card-footer">
+                <span class="action-text">
+                    {{ isSelected(project.type) ? 'Currently selected' : 'Switch to this workspace' }}
+                </span>
+                <span class="material-symbols-outlined" aria-hidden="true">
+                    {{ isSelected(project.type) ? 'task_alt' : 'arrow_forward' }}
+                </span>
+            </div>
+        </button>
+    </div>
+</section>

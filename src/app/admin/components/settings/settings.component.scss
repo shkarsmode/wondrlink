@@ -1,0 +1,298 @@
+:host {
+    display: block;
+}
+
+.settings-shell {
+    display: grid;
+    gap: 28px;
+    max-width: 1160px;
+    padding: 20px 8px 40px;
+}
+
+.chooser-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 36px 40px;
+    border-radius: 32px;
+    background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.98), rgba(245, 247, 250, 0.96)),
+        linear-gradient(135deg, rgba(63, 60, 152, 0.06), rgba(236, 94, 39, 0.08));
+    border: 1px solid rgba(38, 38, 38, 0.08);
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        border-radius: 999px;
+        pointer-events: none;
+    }
+
+    &::before {
+        top: -80px;
+        right: -30px;
+        width: 220px;
+        height: 220px;
+        background: radial-gradient(circle, rgba(236, 94, 39, 0.16), rgba(236, 94, 39, 0));
+    }
+
+    &::after {
+        bottom: -90px;
+        left: -10px;
+        width: 260px;
+        height: 260px;
+        background: radial-gradient(circle, rgba(63, 60, 152, 0.14), rgba(63, 60, 152, 0));
+    }
+}
+
+.eyebrow {
+    position: relative;
+    z-index: 1;
+    margin: 0 0 12px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.14em !important;
+    text-transform: uppercase;
+    color: #6b7280;
+}
+
+h1 {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    max-width: 720px;
+    font-family: 'Raleway', sans-serif;
+    font-size: clamp(32px, 4vw, 46px);
+    line-height: 1.05;
+    color: #161616;
+}
+
+.hero-copy {
+    position: relative;
+    z-index: 1;
+    margin: 14px 0 0;
+    max-width: 720px;
+    font-size: 18px;
+    line-height: 1.65;
+    color: #4b5563;
+}
+
+.current-project {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 24px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(38, 38, 38, 0.08);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.06);
+}
+
+.current-label {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase;
+    color: #6b7280;
+}
+
+.current-value {
+    font-size: 15px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.chooser-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.project-card {
+    width: 100%;
+    position: relative;
+    display: grid;
+    gap: 20px;
+    padding: 28px;
+    appearance: none;
+    border: 1px solid rgba(38, 38, 38, 0.08);
+    border-radius: 30px;
+    background: #ffffff;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 26px 50px rgba(15, 23, 42, 0.1);
+    }
+
+    &.is-active {
+        border-color: rgba(63, 60, 152, 0.24);
+        box-shadow: 0 28px 55px rgba(63, 60, 152, 0.12);
+    }
+
+    &:focus-visible {
+        outline: 3px solid rgba(63, 60, 152, 0.18);
+        outline-offset: 4px;
+    }
+}
+
+.selected-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    justify-self: start;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(63, 60, 152, 0.08);
+    color: #3f3c98;
+    font-size: 13px;
+    font-weight: 700;
+
+    .material-symbols-outlined {
+        font-size: 18px;
+        color: inherit;
+    }
+}
+
+.logo-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
+    padding: 28px;
+    border-radius: 26px;
+    background:
+        linear-gradient(180deg, rgba(249, 250, 251, 0.98), rgba(243, 244, 246, 0.94));
+    border: 1px solid rgba(38, 38, 38, 0.06);
+
+    &[data-theme='wondrlink'] {
+        background:
+            radial-gradient(circle at top left, rgba(63, 60, 152, 0.08), rgba(63, 60, 152, 0)),
+            linear-gradient(180deg, rgba(249, 250, 251, 0.98), rgba(241, 245, 249, 0.98));
+    }
+
+    &[data-theme='wondrvoices'] {
+        background:
+            radial-gradient(circle at top left, rgba(236, 94, 39, 0.12), rgba(236, 94, 39, 0)),
+            linear-gradient(180deg, rgba(255, 249, 245, 0.98), rgba(245, 247, 250, 0.98));
+    }
+}
+
+.project-logo {
+    display: block;
+    // width: min(100%, 280px);
+    // max-height: 110px;
+    object-fit: contain;
+
+    min-height: 150px;
+    max-height: 150px;
+}
+
+// .wondrvoices-logo {
+//     width: min(100%, 190px);
+//     max-height: 150px;
+// }
+
+.project-copy {
+    display: grid;
+    gap: 12px;
+}
+
+.title-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+
+    h2 {
+        margin: 0;
+        font-size: 30px;
+        line-height: 1.05;
+        color: #161616;
+    }
+}
+
+.project-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.06);
+    color: #475569;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.project-description {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #4b5563;
+}
+
+.card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid rgba(38, 38, 38, 0.08);
+
+    .material-symbols-outlined {
+        font-size: 22px;
+        color: #3f3c98;
+    }
+}
+
+.action-text {
+    font-size: 15px;
+    font-weight: 700;
+    color: #111827;
+}
+
+@media screen and (max-width: 960px) {
+    .chooser-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .logo-stage {
+        min-height: 190px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .settings-shell {
+        padding: 8px 0 28px;
+        gap: 20px;
+    }
+
+    .chooser-hero,
+    .project-card {
+        padding: 24px 20px;
+        border-radius: 24px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .hero-copy {
+        font-size: 16px;
+    }
+
+    .title-row h2 {
+        font-size: 26px;
+    }
+
+    .project-description {
+        font-size: 15px;
+    }
+}
