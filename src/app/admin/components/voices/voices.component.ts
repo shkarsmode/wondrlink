@@ -15,6 +15,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { Router } from '@angular/router';
 import { ChipInputComponent } from "src/app/shared/components/chip-input/chip-input.component";
 import { ParsedAdministrativeAddress, formatAdministrativeLine, parseAdministrativeAddress } from 'src/app/shared/helpers/google-parser.helper';
 import { IVoice, VoiceSourceType, VoiceStatus, VoicesListResponse } from '../../../shared/interfaces/voices';
@@ -40,6 +41,7 @@ export class VoicesComponent {
     private readonly svc = inject(VoicesService);
     private readonly destroyRef = inject(DestroyRef);
     private readonly adminDialog = inject(AdminDialogService);
+    private readonly router = inject(Router);
 
     private snackBar: MatSnackBar = inject(MatSnackBar);
 
@@ -90,6 +92,7 @@ export class VoicesComponent {
                 ...(v.express ?? []),
                 v.sourceType ?? '',
                 String(v.sourceSupportMessageId ?? ''),
+                v.sourceSupportRequestId ?? '',
             ].join(' ').toLowerCase();
             return bag.includes(q);
         };
@@ -166,7 +169,7 @@ export class VoicesComponent {
 
     public async onDelete(v: IVoice) {
         const description = this.isSupportMessageVoice(v)
-            ? 'This action cannot be undone. The linked support message will also lose its Generic gallery connection.'
+            ? 'This action cannot be undone. The linked support message will be detached from this gallery voice.'
             : 'This action cannot be undone.';
         const confirmed = await this.adminDialog.confirm({
             tone: 'danger',
@@ -573,12 +576,45 @@ export class VoicesComponent {
         return v?.sourceType === VoiceSourceType.SupportMessage && !!v.sourceSupportMessageId;
     }
 
+    public hasLinkedSupportRequest(v: IVoice | null | undefined): boolean {
+        return this.isSupportMessageVoice(v) && !!v?.sourceSupportRequestId;
+    }
+
     public sourceLabel(v: IVoice): string {
+        if (this.hasLinkedSupportRequest(v)) {
+            return 'Specific request';
+        }
+
         if (this.isSupportMessageVoice(v)) {
-            return `Support message #${v.sourceSupportMessageId}`;
+            return 'Linked support message';
         }
 
         return 'Direct upload';
+    }
+
+    public buildPublicRequestUrl(v: IVoice | null | undefined): string | null {
+        const requestId = v?.sourceSupportRequestId?.trim();
+        const messageId = v?.sourceSupportMessageId;
+
+        if (!requestId || !messageId) {
+            return null;
+        }
+
+        return `https://www.wondrvoices.com/request/${encodeURIComponent(requestId)}?messageId=${encodeURIComponent(String(messageId))}`;
+    }
+
+    public openLinkedSupportMessage(v: IVoice | null | undefined, event?: Event): void {
+        event?.preventDefault();
+        event?.stopPropagation();
+
+        const messageId = v?.sourceSupportMessageId;
+        if (!messageId) {
+            return;
+        }
+
+        void this.router.navigate(['/admin/support-messages'], {
+            queryParams: { messageId: String(messageId) },
+        });
     }
 
     public async onPickImg(e: Event) {

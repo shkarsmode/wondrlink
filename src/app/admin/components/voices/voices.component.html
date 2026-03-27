@@ -72,7 +72,25 @@
                         <td>
                             <div class="main">{{ sourceLabel(v) }}</div>
                             @if (isSupportMessageVoice(v)) {
-                                <div class="sub mono">Delete resets Generic</div>
+                                <div class="sub mono">Message #{{ v.sourceSupportMessageId }}</div>
+                            }
+                            @if (hasLinkedSupportRequest(v)) {
+                                <div class="source-links">
+                                    <a
+                                        class="source-link"
+                                        [href]="buildPublicRequestUrl(v) || undefined"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        (click)="$event.stopPropagation()">
+                                        {{ v.sourceSupportRequestId }}
+                                    </a>
+                                    <button
+                                        class="source-link link-button"
+                                        type="button"
+                                        (click)="openLinkedSupportMessage(v, $event)">
+                                        Open message
+                                    </button>
+                                </div>
                             }
                         </td>
 
@@ -265,8 +283,18 @@
 
         @if (editing() && isSupportMessageVoice(editing())) {
             <div class="source-banner">
-                Linked from support message #{{ editing()?.sourceSupportMessageId }}.
-                Deleting this voice will unmark that support message as Generic.
+                Linked to
+                @if (hasLinkedSupportRequest(editing())) {
+                    <a
+                        [href]="buildPublicRequestUrl(editing()) || undefined"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        request {{ editing()?.sourceSupportRequestId }}
+                    </a>
+                    via
+                }
+                support message #{{ editing()?.sourceSupportMessageId }}.
+                Deleting this voice will detach that support message from the gallery.
             </div>
         }
 

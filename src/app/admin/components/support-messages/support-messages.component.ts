@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, HostListener, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ChipInputComponent } from '../../../shared/components/chip-input/chip-input.component';
 import { CloudinaryService } from '../../../shared/services/cloudinary.service';
 import { AdminDialogService } from '../../services/admin-dialog.service';
@@ -19,7 +20,9 @@ export class AdminSupportMessagesComponent implements OnInit {
     private cloudinaryService = inject(CloudinaryService);
     private cdr = inject(ChangeDetectorRef);
     private adminDialog = inject(AdminDialogService);
+    private route = inject(ActivatedRoute);
     readonly genericGalleryPath = '/api/voices/approved';
+    private pendingMessageIdFromRoute: number | null = null;
 
     messages: AdminSupportMessage[] = [];
     loading = false;
@@ -56,6 +59,8 @@ export class AdminSupportMessagesComponent implements OnInit {
     rotatedImageSaving = false;
 
     ngOnInit(): void {
+        const messageId = Number(this.route.snapshot.queryParamMap.get('messageId'));
+        this.pendingMessageIdFromRoute = Number.isFinite(messageId) && messageId > 0 ? messageId : null;
         this.loadMessages();
     }
 
@@ -67,12 +72,39 @@ export class AdminSupportMessagesComponent implements OnInit {
                     this.messages = response.items;
                     this.total = response.total;
                     this.loading = false;
+                    this.openMessageFromRouteIfNeeded();
                 },
                 error: (err) => {
                     console.error('Error loading messages:', err);
                     this.loading = false;
                 }
             });
+    }
+
+    private openMessageFromRouteIfNeeded(): void {
+        if (!this.pendingMessageIdFromRoute) {
+            return;
+        }
+
+        const messageId = this.pendingMessageIdFromRoute;
+        const existing = this.messages.find((message) => message.id === messageId);
+
+        if (existing) {
+            this.pendingMessageIdFromRoute = null;
+            this.openModal(existing, 'view');
+            return;
+        }
+
+        this.adminSupportService.getMessage(messageId).subscribe({
+            next: (message) => {
+                this.pendingMessageIdFromRoute = null;
+                this.openModal(message, 'view');
+            },
+            error: (err) => {
+                console.error('Error loading message from route:', err);
+                this.pendingMessageIdFromRoute = null;
+            },
+        });
     }
 
     onStatusChange(): void {

@@ -25,6 +25,38 @@
     margin-top: 2px;
 }
 
+.source-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.source-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    padding: 0 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(51, 122, 183, 0.18);
+    background: rgba(51, 122, 183, 0.08);
+    color: #245d9c;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.source-link:hover {
+    background: rgba(51, 122, 183, 0.14);
+}
+
+.link-button {
+    appearance: none;
+    font-family: inherit;
+}
+
 .toolbar {
     display: flex;
     gap: 16px;
@@ -565,6 +597,11 @@ button:disabled {
     color: #245d9c;
     font-size: 13px;
     line-height: 1.5;
+
+    a {
+        color: inherit;
+        font-weight: 700;
+    }
 }
 
 .sheet-footer {

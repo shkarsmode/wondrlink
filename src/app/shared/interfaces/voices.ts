@@ -29,6 +29,7 @@ export interface IVoice {
 
     sourceType?: VoiceSourceType | null;
     sourceSupportMessageId?: number | null;
+    sourceSupportRequestId?: string | null;
 }
 
 export interface VoicesListResponse {
