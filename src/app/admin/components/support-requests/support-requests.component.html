@@ -1,33 +1,54 @@
 <div class="support-requests-container">
     <div class="header">
         <h1>Support Requests</h1>
+        <p class="page-hint">
+            Review incoming support requests, adjust moderation state, and open a full request profile without losing table context.
+        </p>
     </div>
 
     <div class="filters">
         <div class="filter-group">
-            <label for="status">Status:</label>
-            <select id="status" [(ngModel)]="status" (change)="onStatusChange()" class="form-control">
-                <option [value]="undefined">All</option>
-                <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
-            </select>
+            <label for="support-requests-status">Status</label>
+            <mat-form-field appearance="outline" class="admin-select-field">
+                <mat-select
+                    id="support-requests-status"
+                    [(ngModel)]="status"
+                    (selectionChange)="onStatusChange()"
+                    panelClass="admin-select-panel">
+                    <mat-option [value]="undefined">All</mat-option>
+                    <mat-option *ngFor="let s of statusOptions" [value]="s">{{ s }}</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
 
         <div class="filter-group">
-            <label for="sortBy">Sort By:</label>
-            <select id="sortBy" [(ngModel)]="sortBy" (change)="onSortChange()" class="form-control">
-                <option value="createdAt">Created</option>
-                <option value="hearts">Hearts</option>
-                <option value="comments">Comments</option>
-                <option value="age">Age</option>
-            </select>
+            <label for="support-requests-sort-by">Sort by</label>
+            <mat-form-field appearance="outline" class="admin-select-field">
+                <mat-select
+                    id="support-requests-sort-by"
+                    [(ngModel)]="sortBy"
+                    (selectionChange)="onSortChange()"
+                    panelClass="admin-select-panel">
+                    <mat-option value="createdAt">Created</mat-option>
+                    <mat-option value="hearts">Hearts</mat-option>
+                    <mat-option value="comments">Comments</mat-option>
+                    <mat-option value="age">Age</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
 
         <div class="filter-group">
-            <label for="sortOrder">Order:</label>
-            <select id="sortOrder" [(ngModel)]="sortOrder" (change)="onSortChange()" class="form-control">
-                <option value="DESC">Descending</option>
-                <option value="ASC">Ascending</option>
-            </select>
+            <label for="support-requests-sort-order">Order</label>
+            <mat-form-field appearance="outline" class="admin-select-field">
+                <mat-select
+                    id="support-requests-sort-order"
+                    [(ngModel)]="sortOrder"
+                    (selectionChange)="onSortChange()"
+                    panelClass="admin-select-panel">
+                    <mat-option value="DESC">Descending</mat-option>
+                    <mat-option value="ASC">Ascending</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
     </div>
 
@@ -49,34 +70,41 @@
             </thead>
             <tbody>
                 <tr *ngFor="let req of requests" class="clickable-row" (click)="openModal(req, 'view')">
-                    <td>{{ req.id }}</td>
-                    <td>{{ req.firstName || 'Anonymous' }}</td>
+                    <td class="mono">{{ req.id }}</td>
+                    <td>
+                        <div class="cell-main">{{ req.firstName || 'Anonymous' }}</div>
+                        <div class="cell-sub mono">{{ req.requestId }}</div>
+                    </td>
                     <td>{{ req.email }}</td>
                     <td>{{ req.location }}</td>
                     <td>{{ req.age }}</td>
                     <td (click)="$event.stopPropagation()">
-                        <select 
-                            [(ngModel)]="req.status" 
-                            (change)="changeRequestStatus(req.id, req.status)"
-                            class="form-control form-control-sm status-select"
-                            [class.status-verified]="req.status === 'verified'"
-                            [class.status-pending]="req.status === 'pending_approval' || req.status === 'pending'"
-                            [class.status-rejected]="req.status === 'rejected'">
-                            <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
-                        </select>
+                        <mat-form-field
+                            appearance="outline"
+                            class="admin-select-field admin-select-field--compact admin-status-field"
+                            [ngClass]="getStatusFieldClass(req.status)">
+                            <mat-select
+                                [ngModel]="req.status"
+                                (selectionChange)="changeRequestStatus(req.id, $event.value)"
+                                panelClass="admin-select-panel">
+                                <mat-option *ngFor="let s of statusOptions" [value]="s">{{ s }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </td>
                     <td>{{ req.hearts }}</td>
                     <td>{{ req.comments }}</td>
                     <td>{{ req.createdAt | date: 'short' }}</td>
                     <td class="actions" (click)="$event.stopPropagation()">
-                        <button 
+                        <button
+                            type="button"
                             (click)="openModal(req, 'edit')"
-                            class="btn btn-sm btn-primary">
+                            class="admin-btn admin-btn--sm admin-btn--primary">
                             Edit
                         </button>
-                        <button 
+                        <button
+                            type="button"
                             (click)="deleteRequest(req.id)"
-                            class="btn btn-sm btn-danger">
+                            class="admin-btn admin-btn--sm admin-btn--danger">
                             Delete
                         </button>
                     </td>
@@ -86,26 +114,24 @@
     </div>
 
     <div class="loading" *ngIf="loading">
-        <p>Loading...</p>
+        <p>Loading requests...</p>
     </div>
 
     <div class="pagination">
-        <button (click)="onPrevPage()" [disabled]="page === 1" class="btn">Previous</button>
+        <button type="button" (click)="onPrevPage()" [disabled]="page === 1" class="admin-btn admin-btn--muted">Previous</button>
         <span>Page {{ page }} of {{ totalPages }} (Total: {{ total }})</span>
-        <button (click)="onNextPage()" [disabled]="page * limit >= total" class="btn">Next</button>
+        <button type="button" (click)="onNextPage()" [disabled]="page * limit >= total" class="admin-btn admin-btn--muted">Next</button>
     </div>
 </div>
 
-<!-- Preview/Edit Modal -->
 <div class="modal-backdrop" *ngIf="modalOpen" (click)="closeModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
         <div class="modal-header">
             <h2>{{ modalMode === 'view' ? 'Request Details' : 'Edit Request' }}</h2>
             <button class="close-btn" (click)="closeModal()">&times;</button>
         </div>
-        
+
         <div class="modal-body" *ngIf="selectedRequest">
-            <!-- View Mode -->
             <div *ngIf="modalMode === 'view'" class="detail-view">
                 <div class="detail-section">
                     <h3>Basic Info</h3>
@@ -230,7 +256,6 @@
                 </div>
             </div>
 
-            <!-- Edit Mode -->
             <div *ngIf="modalMode === 'edit'" class="edit-form">
                 <div class="form-section">
                     <h3>Basic Info</h3>
@@ -245,25 +270,34 @@
                         </div>
                         <div class="form-group">
                             <label>Gender</label>
-                            <select [(ngModel)]="editForm.gender" class="form-control">
-                                <option [value]="undefined">Not specified</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="prefer-not-to-say">Prefer not to say</option>
-                            </select>
+                            <mat-form-field appearance="outline" class="admin-select-field">
+                                <mat-select [(ngModel)]="editForm.gender" panelClass="admin-select-panel">
+                                    <mat-option [value]="undefined">Not specified</mat-option>
+                                    <mat-option value="male">Male</mat-option>
+                                    <mat-option value="female">Female</mat-option>
+                                    <mat-option value="prefer-not-to-say">Prefer not to say</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </div>
                         <div class="form-group">
                             <label>Anonymous</label>
-                            <select [(ngModel)]="editForm.isAnonymous" class="form-control">
-                                <option [ngValue]="true">Yes</option>
-                                <option [ngValue]="false">No</option>
-                            </select>
+                            <mat-form-field appearance="outline" class="admin-select-field">
+                                <mat-select [(ngModel)]="editForm.isAnonymous" panelClass="admin-select-panel">
+                                    <mat-option [value]="true">Yes</mat-option>
+                                    <mat-option [value]="false">No</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </div>
                         <div class="form-group">
                             <label>Status</label>
-                            <select [(ngModel)]="editForm.status" class="form-control">
-                                <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
-                            </select>
+                            <mat-form-field
+                                appearance="outline"
+                                class="admin-select-field admin-status-field"
+                                [ngClass]="getStatusFieldClass(editForm.status)">
+                                <mat-select [(ngModel)]="editForm.status" panelClass="admin-select-panel">
+                                    <mat-option *ngFor="let s of statusOptions" [value]="s">{{ s }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </div>
                     </div>
                 </div>
@@ -330,14 +364,14 @@
 
         <div class="modal-footer">
             <div *ngIf="modalMode === 'view'">
-                <button class="btn btn-primary" (click)="switchToEdit()">Edit</button>
-                <button class="btn btn-secondary" (click)="closeModal()">Close</button>
+                <button type="button" class="admin-btn admin-btn--primary" (click)="switchToEdit()">Edit</button>
+                <button type="button" class="admin-btn admin-btn--muted" (click)="closeModal()">Close</button>
             </div>
             <div *ngIf="modalMode === 'edit'">
-                <button class="btn btn-success" (click)="saveChanges()" [disabled]="saving">
+                <button type="button" class="admin-btn admin-btn--success" (click)="saveChanges()" [disabled]="saving">
                     {{ saving ? 'Saving...' : 'Save Changes' }}
                 </button>
-                <button class="btn btn-secondary" (click)="closeModal()" [disabled]="saving">Cancel</button>
+                <button type="button" class="admin-btn admin-btn--muted" (click)="closeModal()" [disabled]="saving">Cancel</button>
             </div>
         </div>
     </div>

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MaterialModule } from '../../../shared/materials/material.module';
 import { AdminDialogService } from '../../services/admin-dialog.service';
 import { AdminSupportRequestService } from '../../services/support-request.service';
 import { AdminListResponse, AdminSupportRequest, SupportRequestStatus, UpdateSupportRequestDto } from '../../types/support-request.types';
@@ -8,7 +9,7 @@ import { AdminListResponse, AdminSupportRequest, SupportRequestStatus, UpdateSup
 @Component({
     selector: 'app-admin-support-requests',
     standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, MaterialModule],
     templateUrl: './support-requests.component.html',
     styleUrls: ['./support-requests.component.scss']
 })
@@ -264,5 +265,22 @@ export class AdminSupportRequestsComponent implements OnInit {
 
     getComfortZonesDisplay(zones?: string[]): string {
         return zones?.join(', ') || '-';
+    }
+
+    getStatusFieldClass(status: SupportRequestStatus | undefined | null): string {
+        switch (status) {
+            case SupportRequestStatus.VERIFIED:
+                return 'is-verified';
+            case SupportRequestStatus.PENDING:
+                return 'is-pending';
+            case SupportRequestStatus.PENDING_APPROVAL:
+                return 'is-pending-approval';
+            case SupportRequestStatus.REJECTED:
+                return 'is-rejected';
+            case SupportRequestStatus.CLOSED:
+                return 'is-closed';
+            default:
+                return '';
+        }
     }
 }

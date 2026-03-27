@@ -1,14 +1,15 @@
 :host {
     display: block;
-    color: #333;
+    color: var(--admin-text, #142338);
     --bg: #fff;
-    --card: #f8f8f8;
-    --muted: #666;
-    --line: #ddd;
-    --blue: #337ab7;
-    --green: #5cb85c;
-    --red: #d9534f;
-    --yellow: #f0ad4e;
+    --card: rgba(255, 255, 255, 0.94);
+    --muted: var(--admin-muted, #697b92);
+    --line: var(--admin-line, #d7dee8);
+    --line-strong: var(--admin-line-strong, #c2ccda);
+    --blue: var(--admin-accent, #1d4f91);
+    --green: var(--admin-success, #1d7a52);
+    --red: var(--admin-danger, #c84d47);
+    --yellow: var(--admin-warning, #996a19);
 }
 
 .mono {
@@ -68,9 +69,10 @@
     .tabs {
         display: inline-flex;
         gap: 6px;
-        background: var(--card);
         padding: 6px;
-        border-radius: 10px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--card);
         flex-wrap: wrap;
 
         .tab {
@@ -79,7 +81,8 @@
             border-radius: 8px;
             border: 1px solid transparent;
             background: transparent;
-            color: #333;
+            color: var(--admin-text, #142338);
+            font-weight: 600;
             cursor: pointer;
 
             .c-badge {
@@ -101,8 +104,8 @@
             }
 
             &.active {
-                background: #337ab7;
-                border-color: var(--line);
+                background: var(--blue);
+                border-color: rgba(29, 79, 145, 0.18);
                 color: #fff;
             }
         }
@@ -117,27 +120,25 @@
 
         .search {
             width: min(100%, 320px);
-            padding: 8px 10px;
-            border-radius: 8px;
-            border: 1px solid var(--line);
-            background: var(--card);
-            color: #333;
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--line-strong);
+            background: #fff;
+            color: var(--admin-text, #142338);
             outline: none;
         }
 
         .limit {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            display: inline-grid;
+            gap: 6px;
             color: var(--muted);
             font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
 
-            select {
-                background: var(--card);
-                color: #333;
-                border: 1px solid var(--line);
-                border-radius: 8px;
-                padding: 6px 8px;
+            .limit-select {
+                width: 82px;
             }
         }
     }
@@ -147,8 +148,9 @@
     position: relative;
     background: var(--card);
     border: 1px solid var(--line);
-    border-radius: 10px;
+    border-radius: 14px;
     overflow: auto;
+    box-shadow: 0 16px 34px rgba(15, 23, 42, 0.06);
 
     &.loading {
         opacity: .7;
@@ -167,11 +169,12 @@
         top: 0;
         z-index: 1;
         background: #fff;
-        color: #333;
+        color: var(--muted);
         text-align: left;
-        font-weight: 600;
+        font-weight: 700;
         font-size: 12px;
-        letter-spacing: .04em;
+        letter-spacing: .08em;
+        text-transform: uppercase;
         border-bottom: 1px solid var(--line);
         padding: 10px;
     }
@@ -243,7 +246,7 @@
 
 .note {
     margin-top: 6px;
-    color: #333;
+    color: var(--admin-text, #142338);
     font-size: 12px;
     max-width: 420px;
     display: -webkit-box;
@@ -275,10 +278,13 @@
 }
 
 .status {
+    display: inline-flex;
+    align-items: center;
     text-transform: capitalize;
-    padding: 4px 8px;
-    border-radius: 8px;
+    padding: 6px 10px;
+    border-radius: 999px;
     font-size: 12px;
+    font-weight: 700;
     border: 1px solid transparent;
 
     &.pending {
@@ -763,12 +769,12 @@ input[type="file"] {
   flex-wrap: wrap;
 }
 
-.primary-actions .btn {
+.primary-actions .admin-btn {
   font-weight: 600;
   min-width: 86px;
 }
 
-.secondary-actions .btn {
+.secondary-actions .admin-btn {
   min-width: 64px;
 }
 
@@ -783,7 +789,7 @@ input[type="file"] {
     // box-shadow: 0 2px 6px rgba(0,0,0,.12);
   }
 
-.btn:hover:not(:disabled) {
+.admin-btn:hover:not(:disabled) {
     filter: brightness(1.08);
     transform: translateY(-1px);
     // box-shadow: 0 2px 6px rgba(0,0,0,.12);
@@ -840,8 +846,8 @@ input[type="file"] {
   .primary-actions, .secondary-actions {
     justify-content: stretch;
   }
-  .primary-actions .btn,
-  .secondary-actions .btn {
+  .primary-actions .admin-btn,
+  .secondary-actions .admin-btn {
     flex: 1 1 auto;
   }
 }

@@ -16,6 +16,7 @@
             </div>
 
             <mat-form-field
+                class="admin-select-field"
                 matTooltip="Choice will be remembered"
                 matTooltipShowDelay="400"
                 matTooltipPosition="above">
@@ -23,7 +24,8 @@
                 <mat-select
                     [disabled]="isLoading"
                     (selectionChange)="onSelectionChange()"
-                    [(value)]="sortBy">
+                    [(value)]="sortBy"
+                    panelClass="admin-select-panel">
                     <mat-option value="all">All</mat-option>
                     <mat-option [value]="userTypeEnum.Patient">{{ userTypeEnum.Patient }}</mat-option>
                     <mat-option [value]="userTypeEnum.Industry">{{ userTypeEnum.Industry }}</mat-option>

@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component, HostListener, inject, OnInit } from '@ang
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ChipInputComponent } from '../../../shared/components/chip-input/chip-input.component';
+import { MaterialModule } from '../../../shared/materials/material.module';
 import { CloudinaryService } from '../../../shared/services/cloudinary.service';
 import { AdminDialogService } from '../../services/admin-dialog.service';
 import { AdminSupportRequestService } from '../../services/support-request.service';
@@ -11,7 +12,7 @@ import { AdminListResponse, AdminSupportMessage, SupportMessageStatus, SupportMe
 @Component({
     selector: 'app-admin-support-messages',
     standalone: true,
-    imports: [CommonModule, FormsModule, ChipInputComponent],
+    imports: [CommonModule, FormsModule, ChipInputComponent, MaterialModule],
     templateUrl: './support-messages.component.html',
     styleUrls: ['./support-messages.component.scss']
 })
@@ -556,5 +557,18 @@ export class AdminSupportMessagesComponent implements OnInit {
         }
 
         return `A linked voice will be created now and will become public in ${this.genericGalleryPath} once the message status is approved.`;
+    }
+
+    getStatusFieldClass(status: SupportMessageStatus | undefined | null): string {
+        switch (status) {
+            case SupportMessageStatus.APPROVED:
+                return 'is-approved';
+            case SupportMessageStatus.PENDING_APPROVAL:
+                return 'is-pending-approval';
+            case SupportMessageStatus.REJECTED:
+                return 'is-rejected';
+            default:
+                return '';
+        }
     }
 }

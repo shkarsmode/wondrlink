@@ -34,6 +34,7 @@
         gap: 14px;
         padding: 18px;
         border: 1px solid var(--admin-line, #d7dee8);
+        border-radius: 12px;
         background: rgba(255, 255, 255, 0.92);
         box-shadow: 0 14px 30px rgba(15, 23, 42, 0.05);
 
@@ -69,6 +70,7 @@
     .table-wrapper {
         overflow: auto;
         border: 1px solid var(--admin-line, #d7dee8);
+        border-radius: 12px;
         background: rgba(255, 255, 255, 0.92);
         box-shadow: 0 14px 30px rgba(15, 23, 42, 0.05);
 
@@ -115,6 +117,8 @@
                     &.actions {
                         display: flex;
                         gap: 8px;
+                        flex-wrap: wrap;
+                        align-items: flex-start;
                     }
 
                     .badge {
@@ -194,9 +198,14 @@
     }
 
     .loading {
-        text-align: center;
-        padding: 40px;
-        color: #666;
+        display: grid;
+        place-items: center;
+        min-height: 200px;
+        border: 1px solid var(--admin-line, #d7dee8);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.82);
+        color: var(--admin-muted, #697b92);
+        font-weight: 600;
     }
 
     .pagination {

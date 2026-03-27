@@ -25,14 +25,19 @@
             (input)="onInput($event)"
         />
 
-        <label class="limit">
+        <div class="limit">
             <span>Per page</span>
-            <select (change)="setLimit(+$any($event.target).value)">
-                <option [selected]="limit()===10" value="10">10</option>
-                <option [selected]="limit()===20" value="20">20</option>
-                <option [selected]="limit()===50" value="50">50</option>
-            </select>
-        </label>
+            <mat-form-field appearance="outline" class="admin-select-field admin-select-field--compact limit-select">
+                <mat-select
+                    [value]="limit()"
+                    (selectionChange)="setLimit($event.value)"
+                    panelClass="admin-select-panel">
+                    <mat-option [value]="10">10</mat-option>
+                    <mat-option [value]="20">20</mat-option>
+                    <mat-option [value]="50">50</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
     </div>
 </div>
 
@@ -142,7 +147,8 @@
                                 <div class="primary-actions">
                                     @for (a of visibleActions(v); track a.value) {
                                         <button
-                                            class="btn sm {{ a.class }}"
+                                            class="admin-btn admin-btn--sm"
+                                            [ngClass]="actionToneClass(a.class)"
                                             [disabled]="loading()"
                                             (click)="onStatusAction(v, a.value)"
                                             type="button">
@@ -152,9 +158,9 @@
                                 </div>
 
                                 <div class="secondary-actions">
-                                    <button class="btn sm ghost" (click)="openEditor(v)" type="button">Edit</button>
+                                    <button class="admin-btn admin-btn--sm admin-btn--ghost" (click)="openEditor(v)" type="button">Edit</button>
                                     @if (!userService.isModerator) {
-                                        <button class="btn sm ghost danger" [disabled]="loading()" (click)="onDelete(v)" type="button">
+                                        <button class="admin-btn admin-btn--sm admin-btn--danger" [disabled]="loading()" (click)="onDelete(v)" type="button">
                                             Delete
                                         </button>
                                     }
@@ -174,7 +180,7 @@
 
 <div class="pager">
     <button
-        class="btn"
+        class="admin-btn admin-btn--muted"
         [disabled]="page()<=1 || loading()"
         (click)="prevPage()"
         type="button">
@@ -182,7 +188,7 @@
     </button>
     <span class="mono">Page {{ page() }} / {{ totalPages() }}</span>
     <button
-        class="btn"
+        class="admin-btn admin-btn--muted"
         [disabled]="page()>=totalPages() || loading()"
         (click)="nextPage()"
         type="button">
@@ -269,16 +275,16 @@
             </div>
             <div class="spacer"></div>
             @if (editing()?.status === VoiceStatus.Approved) {
-                <button class="btn sm ghost pending" (click)="quickStatus(VoiceStatus.Pending)">Pending</button>
-                <button class="btn sm ghost reject" (click)="quickStatus(VoiceStatus.Rejected)">Reject</button>
+                <button class="admin-btn admin-btn--sm admin-btn--warning" (click)="quickStatus(VoiceStatus.Pending)">Pending</button>
+                <button class="admin-btn admin-btn--sm admin-btn--danger" (click)="quickStatus(VoiceStatus.Rejected)">Reject</button>
             } @else if (editing()?.status === VoiceStatus.Pending) {
-                <button class="btn sm ghost approve" (click)="quickStatus(VoiceStatus.Approved)">Approve</button>
-                <button class="btn sm ghost reject" (click)="quickStatus(VoiceStatus.Rejected)">Reject</button>
+                <button class="admin-btn admin-btn--sm admin-btn--success" (click)="quickStatus(VoiceStatus.Approved)">Approve</button>
+                <button class="admin-btn admin-btn--sm admin-btn--danger" (click)="quickStatus(VoiceStatus.Rejected)">Reject</button>
             } @else {
-                <button class="btn sm ghost approve" (click)="quickStatus(VoiceStatus.Approved)">Approve</button>
-                <button class="btn sm ghost pending" (click)="quickStatus(VoiceStatus.Pending)">Pending</button>
+                <button class="admin-btn admin-btn--sm admin-btn--success" (click)="quickStatus(VoiceStatus.Approved)">Approve</button>
+                <button class="admin-btn admin-btn--sm admin-btn--warning" (click)="quickStatus(VoiceStatus.Pending)">Pending</button>
             }
-            <button class="btn sm ghost" (click)="closeEditor()" aria-label="Close">x</button>
+            <button class="admin-btn admin-btn--sm admin-btn--ghost" (click)="closeEditor()" aria-label="Close">Close</button>
         </div>
 
         @if (editing() && isSupportMessageVoice(editing())) {
@@ -379,11 +385,11 @@
                 <div class="img-tools">
                     <input type="file" (change)="onPickImg($event)" accept="image/*" />
                     <div class="btn-row">
-                        <button class="btn sm" type="button" (click)="rotateRight()">Right</button>
-                        <button class="btn sm" type="button" (click)="rotateLeft()">Left</button>
-                        <button class="btn sm" type="button" (click)="toggleFlipH()">Flip H</button>
-                        <button class="btn sm" type="button" (click)="toggleFlipV()">Flip V</button>
-                        <button class="btn sm primary" type="button" (click)="applyImgTransform()">Apply</button>
+                        <button class="admin-btn admin-btn--sm admin-btn--ghost" type="button" (click)="rotateRight()">Right</button>
+                        <button class="admin-btn admin-btn--sm admin-btn--ghost" type="button" (click)="rotateLeft()">Left</button>
+                        <button class="admin-btn admin-btn--sm admin-btn--ghost" type="button" (click)="toggleFlipH()">Flip H</button>
+                        <button class="admin-btn admin-btn--sm admin-btn--ghost" type="button" (click)="toggleFlipV()">Flip V</button>
+                        <button class="admin-btn admin-btn--sm admin-btn--primary" type="button" (click)="applyImgTransform()">Apply</button>
                     </div>
                 </div>
             </div>
@@ -400,9 +406,9 @@
         <div class="sheet-footer">
             <div class="mono">Created: {{ editing()?.createdAt | date:'yyyy-MM-dd HH:mm' }}</div>
             <div class="spacer"></div>
-            <button class="btn sm" (click)="prevFromFiltered()">Prev</button>
-            <button class="btn sm" (click)="nextFromFiltered()">Next</button>
-            <button class="btn sm primary" [disabled]="!form.dirty || saving()" (click)="forceSave()">Save</button>
+            <button class="admin-btn admin-btn--sm admin-btn--muted" (click)="prevFromFiltered()">Prev</button>
+            <button class="admin-btn admin-btn--sm admin-btn--muted" (click)="nextFromFiltered()">Next</button>
+            <button class="admin-btn admin-btn--sm admin-btn--primary" [disabled]="!form.dirty || saving()" (click)="forceSave()">Save</button>
         </div>
     </div>
 }

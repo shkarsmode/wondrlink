@@ -9,27 +9,45 @@
 
     <div class="filters">
         <div class="filter-group">
-            <label for="status">Status:</label>
-            <select id="status" [(ngModel)]="status" (change)="onStatusChange()" class="form-control">
-                <option [value]="undefined">All</option>
-                <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
-            </select>
+            <label for="support-messages-status">Status</label>
+            <mat-form-field appearance="outline" class="admin-select-field">
+                <mat-select
+                    id="support-messages-status"
+                    [(ngModel)]="status"
+                    (selectionChange)="onStatusChange()"
+                    panelClass="admin-select-panel">
+                    <mat-option [value]="undefined">All</mat-option>
+                    <mat-option *ngFor="let s of statusOptions" [value]="s">{{ s }}</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
 
         <div class="filter-group">
-            <label for="sortBy">Sort By:</label>
-            <select id="sortBy" [(ngModel)]="sortBy" (change)="onSortChange()" class="form-control">
-                <option value="createdAt">Created</option>
-                <option value="likes">Likes</option>
-            </select>
+            <label for="support-messages-sort-by">Sort by</label>
+            <mat-form-field appearance="outline" class="admin-select-field">
+                <mat-select
+                    id="support-messages-sort-by"
+                    [(ngModel)]="sortBy"
+                    (selectionChange)="onSortChange()"
+                    panelClass="admin-select-panel">
+                    <mat-option value="createdAt">Created</mat-option>
+                    <mat-option value="likes">Likes</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
 
         <div class="filter-group">
-            <label for="sortOrder">Order:</label>
-            <select id="sortOrder" [(ngModel)]="sortOrder" (change)="onSortChange()" class="form-control">
-                <option value="DESC">Descending</option>
-                <option value="ASC">Ascending</option>
-            </select>
+            <label for="support-messages-sort-order">Order</label>
+            <mat-form-field appearance="outline" class="admin-select-field">
+                <mat-select
+                    id="support-messages-sort-order"
+                    [(ngModel)]="sortOrder"
+                    (selectionChange)="onSortChange()"
+                    panelClass="admin-select-panel">
+                    <mat-option value="DESC">Descending</mat-option>
+                    <mat-option value="ASC">Ascending</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
     </div>
 
@@ -66,27 +84,31 @@
                         </span>
                     </td>
                     <td (click)="$event.stopPropagation()">
-                        <select 
-                            [(ngModel)]="msg.status" 
-                            (change)="changeMessageStatus(msg.id, msg.status)"
-                            class="form-control form-control-sm status-select"
-                            [class.status-approved]="msg.status === 'approved'"
-                            [class.status-pending]="msg.status === 'pending_approval'"
-                            [class.status-rejected]="msg.status === 'rejected'">
-                            <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
-                        </select>
+                        <mat-form-field
+                            appearance="outline"
+                            class="admin-select-field admin-select-field--compact admin-status-field"
+                            [ngClass]="getStatusFieldClass(msg.status)">
+                            <mat-select
+                                [ngModel]="msg.status"
+                                (selectionChange)="changeMessageStatus(msg.id, $event.value)"
+                                panelClass="admin-select-panel">
+                                <mat-option *ngFor="let s of statusOptions" [value]="s">{{ s }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </td>
                     <td>{{ msg.likes }}</td>
                     <td>{{ msg.createdAt | date: 'short' }}</td>
                     <td class="actions" (click)="$event.stopPropagation()">
                         <button 
+                            type="button"
                             (click)="openModal(msg, 'edit')"
-                            class="btn btn-sm btn-primary">
+                            class="admin-btn admin-btn--sm admin-btn--primary">
                             Edit
                         </button>
                         <button 
+                            type="button"
                             (click)="deleteMessage(msg)"
-                            class="btn btn-sm btn-danger">
+                            class="admin-btn admin-btn--sm admin-btn--danger">
                             Delete
                         </button>
                     </td>
@@ -100,9 +122,9 @@
     </div>
 
     <div class="pagination">
-        <button (click)="onPrevPage()" [disabled]="page === 1" class="btn">Previous</button>
+        <button type="button" (click)="onPrevPage()" [disabled]="page === 1" class="admin-btn admin-btn--muted">Previous</button>
         <span>Page {{ page }} of {{ totalPages }} (Total: {{ total }})</span>
-        <button (click)="onNextPage()" [disabled]="page * limit >= total" class="btn">Next</button>
+        <button type="button" (click)="onNextPage()" [disabled]="page * limit >= total" class="admin-btn admin-btn--muted">Next</button>
     </div>
 </div>
 
@@ -260,10 +282,12 @@
                         </div>
                         <div class="form-group">
                             <label>Anonymous</label>
-                            <select [(ngModel)]="editForm.anonymous" class="form-control">
-                                <option [ngValue]="true">Yes</option>
-                                <option [ngValue]="false">No</option>
-                            </select>
+                            <mat-form-field appearance="outline" class="admin-select-field">
+                                <mat-select [(ngModel)]="editForm.anonymous" panelClass="admin-select-panel">
+                                    <mat-option [value]="true">Yes</mat-option>
+                                    <mat-option [value]="false">No</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </div>
                     </div>
                 </div>
@@ -273,9 +297,14 @@
                     <div class="form-grid">
                         <div class="form-group">
                             <label>Status</label>
-                            <select [(ngModel)]="editForm.status" class="form-control">
-                                <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
-                            </select>
+                            <mat-form-field
+                                appearance="outline"
+                                class="admin-select-field admin-status-field"
+                                [ngClass]="getStatusFieldClass(editForm.status)">
+                                <mat-select [(ngModel)]="editForm.status" panelClass="admin-select-panel">
+                                    <mat-option *ngFor="let s of statusOptions" [value]="s">{{ s }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </div>
                         <div class="form-group">
                             <label class="checkbox-label">
@@ -361,14 +390,14 @@
 
         <div class="modal-footer">
             <div *ngIf="modalMode === 'view'">
-                <button class="btn btn-primary" (click)="switchToEdit()">Edit</button>
-                <button class="btn btn-secondary" (click)="closeModal()">Close</button>
+                <button type="button" class="admin-btn admin-btn--primary" (click)="switchToEdit()">Edit</button>
+                <button type="button" class="admin-btn admin-btn--muted" (click)="closeModal()">Close</button>
             </div>
             <div *ngIf="modalMode === 'edit'">
-                <button class="btn btn-success" (click)="saveChanges()" [disabled]="saving">
+                <button type="button" class="admin-btn admin-btn--success" (click)="saveChanges()" [disabled]="saving">
                     {{ saving ? 'Saving...' : 'Save Changes' }}
                 </button>
-                <button class="btn btn-secondary" (click)="closeModal()" [disabled]="saving">Cancel</button>
+                <button type="button" class="admin-btn admin-btn--muted" (click)="closeModal()" [disabled]="saving">Cancel</button>
             </div>
         </div>
     </div>

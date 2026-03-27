@@ -18,6 +18,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from '@angular/router';
 import { ChipInputComponent } from "src/app/shared/components/chip-input/chip-input.component";
 import { ParsedAdministrativeAddress, formatAdministrativeLine, parseAdministrativeAddress } from 'src/app/shared/helpers/google-parser.helper';
+import { MaterialModule } from 'src/app/shared/materials/material.module';
 import { IVoice, VoiceSourceType, VoiceStatus, VoicesListResponse } from '../../../shared/interfaces/voices';
 import { CloudinaryService } from "src/app/shared/services/cloudinary.service";
 import { UserService } from "src/app/shared/services/user.service";
@@ -32,7 +33,7 @@ const GOOGLE_AUTOCOMPLETE_ATTR = 'data-google-autocomplete';
 @Component({
     selector: 'admin-voices-table',
     standalone: true,
-    imports: [CommonModule, A11yModule, ChipInputComponent, ReactiveFormsModule, MatProgressSpinner],
+    imports: [CommonModule, A11yModule, ChipInputComponent, ReactiveFormsModule, MatProgressSpinner, MaterialModule],
     templateUrl: './voices.component.html',
     styleUrl: './voices.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -570,6 +571,19 @@ export class VoicesComponent {
 
     public visibleActions(v: IVoice) {
         return this.statusActions.filter(a => a.value !== v.status);
+    }
+
+    public actionToneClass(kind: string): string {
+        switch (kind) {
+            case 'approve':
+                return 'admin-btn--success';
+            case 'reject':
+                return 'admin-btn--danger';
+            case 'pending':
+                return 'admin-btn--warning';
+            default:
+                return 'admin-btn--ghost';
+        }
     }
 
     public isSupportMessageVoice(v: IVoice | null | undefined): boolean {

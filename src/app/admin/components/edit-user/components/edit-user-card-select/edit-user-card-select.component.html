@@ -1,12 +1,13 @@
 <div class="card">
     <div class="title">{{ title }}</div>
     <div class="content">
-        <mat-form-field>
+        <mat-form-field class="admin-select-field">
             <mat-label>{{ title }}</mat-label>
             <mat-select  
                 [value]="value"
                 type="text"
-                (valueChange)="onSelectChange($event)">
+                (valueChange)="onSelectChange($event)"
+                panelClass="admin-select-panel">
                 <mat-option 
                     *ngFor="let item of optionList"
                     [value]="item">
