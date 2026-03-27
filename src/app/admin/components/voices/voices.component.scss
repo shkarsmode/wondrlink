@@ -12,6 +12,86 @@
     --yellow: var(--admin-warning, #996a19);
 }
 
+.page-shell {
+    display: grid;
+    gap: 18px;
+}
+
+.page-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+
+    .eyebrow {
+        display: inline-flex;
+        margin-bottom: 10px;
+        color: var(--blue);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+    }
+
+    h1 {
+        margin: 0;
+        font-size: clamp(30px, 3vw, 38px);
+        line-height: 1.06;
+        letter-spacing: -0.04em;
+    }
+
+    p {
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.6;
+    }
+}
+
+.page-stat {
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.82);
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.list-card {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.05);
+
+    &__header {
+        padding: 18px 20px;
+        border-bottom: 1px solid var(--line);
+
+        h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .muted {
+            display: block;
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+    }
+
+    &__toolbar {
+        padding: 18px 20px 0;
+    }
+
+    &__footer {
+        padding: 18px 20px;
+        border-top: 1px solid var(--line);
+    }
+}
+
 .mono {
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
@@ -63,7 +143,7 @@
     gap: 16px;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 12px;
+    margin-bottom: 0;
     flex-wrap: wrap;
 
     .tabs {
@@ -147,10 +227,8 @@
 .table-wrapper {
     position: relative;
     background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 14px;
+    border-top: 1px solid var(--line);
     overflow: auto;
-    box-shadow: 0 16px 34px rgba(15, 23, 42, 0.06);
 
     &.loading {
         opacity: .7;
@@ -352,7 +430,7 @@
     gap: 10px;
     align-items: center;
     justify-content: flex-end;
-    margin-top: 10px;
+    margin-top: 0;
 }
 
 .loader {
@@ -823,6 +901,11 @@ input[type="file"] {
 
 
 @media (max-width: 860px) {
+  .page-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .toolbar {
     align-items: stretch;
 
