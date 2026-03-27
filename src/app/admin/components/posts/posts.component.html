@@ -1,91 +1,104 @@
-<h1>Posts Database</h1>
+<div class="page-shell">
+    <div class="page-head">
+        <div>
+            <span class="eyebrow">Content Library</span>
+            <h1>Posts Database</h1>
+            <p>Review published stories, check visibility, and move quickly into editing.</p>
+        </div>
+        <div class="page-stat">{{ posts.length || 0 }} loaded</div>
+    </div>
 
-<div class="card">
-	<div class="title">Last posts</div>
-	<div class="content">
-		<table>
-			<tr>
-				<th>№</th>
-				<th>Post name</th>
-				<th>Creation date</th>
-				<th>User name</th>
-                <th>Visibility</th>
-				<th>Actions</th>
-			</tr>
+    <section class="list-card">
+        <div class="list-card__header">
+            <div>
+                <h2>Latest posts</h2>
+                <span class="muted">Newest content entries for the current project workspace.</span>
+            </div>
+        </div>
 
-			<ng-template [ngIf]="!isLoading">
-                @for (post of posts; let i = $index; track post.id) {
+        <div class="table-shell">
+            <table class="admin-table">
+                <thead>
                     <tr>
-                        <td>
-                            {{ i + 1 }}
-                        </td>
-                        <td 
-                            [matTooltip]="post.header"
-                            matTooltipShowDelay="300">
-                            {{ post.header }}
-                        </td>
-                        <td class="creation-date">
-                            {{ post.createdAt | date:'MMM dd, yyyy HH:mm' }}
-                        </td>
-                        @if (post.user) {
-                            <td>
-                                {{ post.user.firstName }} {{ post.user.lastName }}
-                            </td>
-                        }
-                        <td>
-                            <mat-icon
-                                [style.marginLeft]="'20px'"
-                                [matTooltip]="post.hidden ? 'hidden' : 'visible'"
-                                aria-hidden="false"
-                                aria-label="Visibility"
-                                [fontIcon]="post.hidden ? 'visibility_off' : 'visibility'">
-                            </mat-icon>
-                        </td>
-                        <td class="wrap-buttons">
-                            <button 
-                                mat-stroked-button 
-                                routerLink="/admin/edit-post/{{post.id}}">
-                                Edit
-                            </button>
-                            <button 
-                                (mousedown)="startDeleteTimeout(post.id!)"
-                                (mouseup)="clearDeleteTimeout()"
-                                (mouseout)="clearDeleteTimeout()"
-                                [class.deleting]="isDeleting && activeDeletingIndex === post.id!"
-                                mat-fab color="warn"
-                                matTooltip="Press to delete"
-                                matTooltipShowDelay="300">
-                                <span class="material-symbols-outlined">
-                                    delete
-                                </span>
-                            </button>
-                        </td>
+                        <th>No.</th>
+                        <th>Post name</th>
+                        <th>Created</th>
+                        <th>Author</th>
+                        <th>Visibility</th>
+                        <th>Actions</th>
                     </tr>
-                }
-				
-			</ng-template>
+                </thead>
 
-			<ng-template [ngIf]="isLoading || isLoadingMore">
-                @for (i of [1, 2, 3, 4, 5, 6, 7]; track i) {
-                    <tr class="loading">
-                        @for (
-                            tdClass of ['', '', 'creation-date', '', 'wrap-buttons']; 
-                            track tdClass
-                        ) {
-                            <td [class]="tdClass"></td>
+                <tbody>
+                    <ng-template [ngIf]="!isLoading">
+                        @for (post of posts; let i = $index; track post.id) {
+                            <tr>
+                                <td data-label="No.">{{ i + 1 }}</td>
+                                <td data-label="Post name" [matTooltip]="post.header" matTooltipShowDelay="300">
+                                    <div class="main-cell">{{ post.header }}</div>
+                                </td>
+                                <td data-label="Created" class="creation-date">
+                                    {{ post.createdAt | date:'MMM dd, yyyy HH:mm' }}
+                                </td>
+                                <td data-label="Author">
+                                    @if (post.user) {
+                                        {{ post.user.firstName }} {{ post.user.lastName }}
+                                    } @else {
+                                        —
+                                    }
+                                </td>
+                                <td data-label="Visibility">
+                                    <span class="visibility-badge" [class.hidden]="post.hidden">
+                                        <mat-icon
+                                            [fontIcon]="post.hidden ? 'visibility_off' : 'visibility'"
+                                            aria-hidden="false"
+                                            aria-label="Visibility">
+                                        </mat-icon>
+                                        {{ post.hidden ? 'Hidden' : 'Visible' }}
+                                    </span>
+                                </td>
+                                <td data-label="Actions" class="actions-cell">
+                                    <div class="action-row">
+                                        <button mat-stroked-button routerLink="/admin/edit-post/{{ post.id }}">
+                                            Edit
+                                        </button>
+                                        <button
+                                            (mousedown)="startDeleteTimeout(post.id!)"
+                                            (mouseup)="clearDeleteTimeout()"
+                                            (mouseout)="clearDeleteTimeout()"
+                                            [class.deleting]="isDeleting && activeDeletingIndex === post.id!"
+                                            mat-fab
+                                            color="warn"
+                                            matTooltip="Press to delete"
+                                            matTooltipShowDelay="300">
+                                            <span class="material-symbols-outlined">delete</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
                         }
-                    </tr>
-                }
-			</ng-template>
-		</table>
-	</div>
-</div>
+                    </ng-template>
 
-<div class="wrap-button-more">
-	<button 
-		mat-raised-button 
-		(click)="onButtonMoreClick()" 
-		*ngIf="pagesCount !== page + 1 && posts?.length">
-		Show more
-	</button>
+                    <ng-template [ngIf]="isLoading || isLoadingMore">
+                        @for (i of [1, 2, 3, 4, 5, 6, 7]; track i) {
+                            <tr class="loading">
+                                @for (tdClass of ['', '', 'creation-date', '', '', '']; track tdClass) {
+                                    <td [class]="tdClass"></td>
+                                }
+                            </tr>
+                        }
+                    </ng-template>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <div class="wrap-button-more">
+        <button
+            mat-raised-button
+            (click)="onButtonMoreClick()"
+            *ngIf="pagesCount !== page + 1 && posts?.length">
+            Show more
+        </button>
+    </div>
 </div>

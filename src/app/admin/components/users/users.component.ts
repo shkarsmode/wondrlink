@@ -13,7 +13,7 @@ import { AdminDialogService } from '../../services/admin-dialog.service';
     styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent {
-    public users: IUser[];
+    public users: IUser[] = [];
     public allUsersCount: number;
     public isLoading: boolean = true;
     public isLoadingMore: boolean = false;

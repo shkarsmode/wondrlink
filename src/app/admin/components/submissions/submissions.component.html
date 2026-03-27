@@ -1,48 +1,68 @@
-<table mat-table [dataSource]="dataSource" class="submissions-table mat-elevation-z2">
+<div class="page-shell">
+    <div class="page-head">
+        <div>
+            <span class="eyebrow">Inbound Forms</span>
+            <h1>Submissions</h1>
+            <p>Review captured form submissions with a cleaner preview of the most important fields.</p>
+        </div>
+    </div>
 
-    <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>ID</th>
-        <td mat-cell *matCellDef="let row">{{ row.id }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="formType">
-        <th mat-header-cell *matHeaderCellDef>Form Type</th>
-        <td mat-cell *matCellDef="let row">{{ row.formType }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="createdAt">
-        <th mat-header-cell *matHeaderCellDef>Created</th>
-        <td mat-cell *matCellDef="let row">{{ asDate(row.createdAt) }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="data">
-        <th mat-header-cell *matHeaderCellDef>Data</th>
-        <td mat-cell *matCellDef="let row">
-            <div class="data-preview">
-                <div><b>Email</b>: {{ row.data['email'] }}</div>
-                <div><b>Name</b>: {{ row.data['firstName'] ?? row.data['contactPerson'] }}</div>
-                <button mat-stroked-button color="primary" (click)="openJson(row)">More</button>
+    <section class="list-card">
+        <div class="list-card__header">
+            <div>
+                <h2>Latest submissions</h2>
+                <span class="muted">Includes the incoming metadata and any uploaded logo.</span>
             </div>
-        </td>
-    </ng-container>
+        </div>
 
-    <ng-container matColumnDef="img">
-        <th mat-header-cell *matHeaderCellDef class="img-col">Logo</th>
-        <td mat-cell *matCellDef="let row" class="img-col">
-            <ng-container *ngIf="row.data?.logoUrl as logo; else noLogo">
-                <a
-                    class="logo-thumb"
-                    [href]="logo"
-                    target="_blank"
-                    rel="noopener"
-                    [attr.aria-label]="'Open logo for ' + (row.data['organizationName'] || row.id)">
-                    <img [src]="logo" alt="" />
-                </a>
-            </ng-container>
-            <ng-template #noLogo>—</ng-template>
-        </td>
-    </ng-container>
+        <div class="table-shell">
+            <table mat-table [dataSource]="dataSource" class="submissions-table mat-elevation-z2">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef>ID</th>
+                    <td mat-cell *matCellDef="let row" [attr.data-label]="'ID'">{{ row.id }}</td>
+                </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="['id','formType','createdAt','data','img']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['id','formType','createdAt','data','img']"></tr>
-</table>
+                <ng-container matColumnDef="formType">
+                    <th mat-header-cell *matHeaderCellDef>Form Type</th>
+                    <td mat-cell *matCellDef="let row" [attr.data-label]="'Form Type'">{{ row.formType }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="createdAt">
+                    <th mat-header-cell *matHeaderCellDef>Created</th>
+                    <td mat-cell *matCellDef="let row" [attr.data-label]="'Created'">{{ asDate(row.createdAt) }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="data">
+                    <th mat-header-cell *matHeaderCellDef>Data</th>
+                    <td mat-cell *matCellDef="let row" [attr.data-label]="'Data'">
+                        <div class="data-preview">
+                            <div><b>Email</b>: {{ row.data['email'] }}</div>
+                            <div><b>Name</b>: {{ row.data['firstName'] ?? row.data['contactPerson'] }}</div>
+                            <button mat-stroked-button color="primary" (click)="openJson(row)">More</button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="img">
+                    <th mat-header-cell *matHeaderCellDef class="img-col">Logo</th>
+                    <td mat-cell *matCellDef="let row" class="img-col" [attr.data-label]="'Logo'">
+                        <ng-container *ngIf="row.data?.logoUrl as logo; else noLogo">
+                            <a
+                                class="logo-thumb"
+                                [href]="logo"
+                                target="_blank"
+                                rel="noopener"
+                                [attr.aria-label]="'Open logo for ' + (row.data['organizationName'] || row.id)">
+                                <img [src]="logo" alt="" />
+                            </a>
+                        </ng-container>
+                        <ng-template #noLogo>—</ng-template>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="['id','formType','createdAt','data','img']"></tr>
+                <tr mat-row *matRowDef="let row; columns: ['id','formType','createdAt','data','img']"></tr>
+            </table>
+        </div>
+    </section>
+</div>

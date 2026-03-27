@@ -1,256 +1,341 @@
-<h1>Create new post</h1>
+<div class="page-shell">
+    <div class="page-head">
+        <div class="page-head__copy">
+            <span class="eyebrow">Editorial Composer</span>
+            <h1>Create new post</h1>
+            <p>
+                Prepare a clean editorial entry with the right publishing target, preview image, and structured content.
+            </p>
+        </div>
 
-<form 
-	[formGroup]="form" 
-	(ngSubmit)="uploadPost()" 
-	[ngClass]="{'loading': isLoading}">
-	<div class="d-flex">
-		<div class="card">
-			<div class="title">Header</div>
-			<div class="content">
-				<input 
-					type="text" 
-					formControlName="header"
-					placeholder="Cancer rules rewritten by air-pollution discovery">
-			</div>
-		</div>
+        <div class="page-head__project">
+            <span class="label">Publishing target</span>
+            <strong>
+                @if (form.get('isWondrvoices')?.value) {
+                    Wondrvoices
+                } @else {
+                    Wondrlink
+                }
+            </strong>
+            <span class="hint">Save changes to review the final placement.</span>
+        </div>
+    </div>
 
-		<div class="card">
+    <form
+        class="post-form"
+        [formGroup]="form"
+        (ngSubmit)="uploadPost()"
+        [ngClass]="{ 'loading': isLoading }">
 
-			<div class="title">Subheader</div>
+        <div class="top-grid">
+            <section class="panel panel--wide">
+                <div class="panel__head">
+                    <div>
+                        <span class="section-kicker">Content Setup</span>
+                        <h2>Title and narrative</h2>
+                    </div>
+                </div>
 
-			<div class="content">
-				<input type="text" 
-					class="edit"
-					[value]="autoSubHeader"
-					*ngIf="isAuto"
-					readonly>
+                <div class="panel__body field-grid">
+                    <label class="field field--wide">
+                        <span class="field__label">Header</span>
+                        <input
+                            type="text"
+                            formControlName="header"
+                            placeholder="Cancer rules rewritten by air-pollution discovery">
+                        <small class="field__hint">Keep it concise, specific, and strong enough to work in list views.</small>
+                    </label>
 
-				<input 
-					[hidden]="isAuto"
-					type="text" 
-					formControlName="subHeader"
-					placeholder="Researchers say they have cracked how air pollution leads to cancer, in a discovery that completely...">
+                    <div class="field field--wide">
+                        <span class="field__label">Subheader</span>
 
-				<div class="group"
-					[style.opacity]="isAuto ? '1' : '.5' ">
-					<input type="checkbox" 
-						name="autoSubHeader"
-						id="autoSubHeader"
-						[checked]="isAuto"
-						(change)="onAutogenerationChange()">
-					<label for="autoSubHeader"> Auto-Fill from Content </label>
-				</div>
-				
-			</div>
-		</div>
+                        <input
+                            *ngIf="isAuto"
+                            type="text"
+                            class="readonly-input"
+                            [value]="autoSubHeader"
+                            readonly>
 
-		<div class="card" style="margin-left: 20px">
-			<div class="title">
-				Project
-				<span>
-					Save changes to see the effect
-				</span>
-			</div>
-			<div class="content">
-				<mat-checkbox formControlName="isWondrvoices">
-					Publish to wondrvoices
-				</mat-checkbox>
-				<div>
-					Post will be displayed in
-					@if (form.get('isWondrvoices')?.value) { wondrvoices } @else { wondrlink }
-				</div>
+                        <input
+                            *ngIf="!isAuto"
+                            #subheader
+                            type="text"
+                            formControlName="subHeader"
+                            placeholder="Researchers say they have cracked how air pollution leads to cancer...">
 
-			</div>
-		</div>
-	</div>
+                        <label class="toggle-row" [style.opacity]="isAuto ? '1' : '.72'">
+                            <input
+                                type="checkbox"
+                                name="autoSubHeader"
+                                id="autoSubHeader"
+                                [checked]="isAuto"
+                                (change)="onAutogenerationChange()">
+                            <span>Auto-fill from content</span>
+                        </label>
+                    </div>
+                </div>
+            </section>
 
-	@if (ProjectTypeEnum.Wondrvoices === projectService.current) {
-		<div class="card">
-			<div class="title">Tag</div>
-			<div class="content">
-				<input type="text" formControlName="tag">
-			</div>
-		</div>
-	}
+            <aside class="panel panel--side">
+                <div class="panel__head">
+                    <div>
+                        <span class="section-kicker">Publishing</span>
+                        <h2>Project and output</h2>
+                    </div>
+                </div>
 
-	<div class="card">
-		<div class="title">Starts at</div>
+                <div class="panel__body panel__body--stack">
+                    <mat-checkbox formControlName="isWondrvoices">
+                        Publish to wondrvoices
+                    </mat-checkbox>
 
-		<div class="content">
-			<mat-label>Choose a date</mat-label>
-			<input
-				[matDatepicker]="picker"
-				formControlName="createdAt"
-				matInput
-				readonly
-				(click)="picker.open()">
-			<mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-			<mat-datepicker #picker></mat-datepicker>
-		</div>
-	</div>
+                    <div class="project-note">
+                        Post will be displayed in
+                        <strong>
+                            @if (form.get('isWondrvoices')?.value) {
+                                wondrvoices
+                            } @else {
+                                wondrlink
+                            }
+                        </strong>
+                    </div>
 
-	<!-- TODO: do normal checkbox + no way to open like blogs/[id] (backend implementation)-->
-	<div class="card">
-		<div class="title">Visibility</div>
-	
-		<div class="content">
-			<mat-label>Hidden</mat-label>
-			<input type="checkbox" formControlName="hidden">
-		</div>
-	</div>
+                    <div class="summary-list">
+                        <div class="summary-item">
+                            <span>Status</span>
+                            <strong>
+                                @if (form.get('hidden')?.value) {
+                                    Hidden draft
+                                } @else {
+                                    Visible
+                                }
+                            </strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Image source</span>
+                            <strong>{{ isUploadImageSelected ? 'Upload' : 'URL' }}</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Subheader mode</span>
+                            <strong>{{ isAuto ? 'Auto' : 'Manual' }}</strong>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
 
-	<div class="card">
-		<div class="title">Main picture</div>
-		<div class="content">
-			<mat-chip-listbox aria-label="Upload image" >
-				<mat-chip-option 
-					(click)="toggleUploadImageType()"
-					[selected]="isUploadImageSelected">
-					Upload image
-				</mat-chip-option>
-				<mat-chip-option 
-					(click)="toggleUploadImageType()"
-					[selected]="!isUploadImageSelected">
-					Image by url
-				</mat-chip-option>
-			</mat-chip-listbox>
-			<div class="uploadOuter" *ngIf="isUploadImageSelected">
-				<label for="uploadFile">
-					Upload Image
-				</label>
-				<strong>OR</strong>
-				<span class="dragBox" [ngClass]="{'draging': isDrag}">
-					Drag and Drop image here
-					<input 
-						formControlName="picture"
-						type="file" 
-						(change)="dragNdrop($event)" 
-						(dragover)="drag()" 
-						(drop)="drop()"
-						accept="image/png, image/gif, image/jpeg" id="uploadFile" />
-				</span>
-			</div>
-			<div class="upload-by-url" *ngIf="!isUploadImageSelected">
-				<input 
-					type="text" 
-					formControlName="picture"
-					placeholder="https://picsum.photos/200/300.jpg">
-				<button 
-					type="button"
-					[disabled]="picture.invalid"
-					mat-stroked-button 
-					(click)="handleUrlImage()">
-					Preview Image
-					<span class="material-symbols-outlined">
-						preview
-					</span>
-				</button>
-			</div>
-			<div id="preview" #preview></div>
-		</div>
-	</div>
+        <div class="meta-grid">
+            @if (ProjectTypeEnum.Wondrvoices === projectService.current) {
+                <section class="panel">
+                    <div class="panel__head compact">
+                        <h2>Tag</h2>
+                    </div>
+                    <div class="panel__body">
+                        <label class="field">
+                            <span class="field__label">Primary tag</span>
+                            <input type="text" formControlName="tag" placeholder="Hope, Story, Research">
+                        </label>
+                    </div>
+                </section>
+            }
 
-	<div class="card">
-		<div class="title">Content</div>
-		<div class="content">
-			<app-editor
-				(onGetTextForSubHeader)="onGetTextForSubHeader($event)"
-				formControlName="content">
-			</app-editor>
-		</div>
-	</div>
+            <section class="panel">
+                <div class="panel__head compact">
+                    <h2>Starts at</h2>
+                </div>
+                <div class="panel__body">
+                    <label class="field field--date">
+                        <span class="field__label">Publish date</span>
+                        <input
+                            [matDatepicker]="picker"
+                            formControlName="createdAt"
+                            matInput
+                            readonly
+                            (click)="picker.open()">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </label>
+                </div>
+            </section>
 
-	<div class="card links">
-		<div class="title">Social links</div>
-		<div class="content">
-			<mat-accordion>
-				<mat-expansion-panel>
-					<mat-expansion-panel-header>
-						<mat-panel-title>
-							Instagram
-						</mat-panel-title>
-						<mat-panel-description>
-							<span class="material-symbols-outlined">
-								<ng-template [ngIf]="inst.value">
-									link
-								</ng-template>
-								<ng-template [ngIf]="!inst.value">
-									link_off
-								</ng-template>
-							</span>
-						</mat-panel-description>
-					</mat-expansion-panel-header>
-					<input type="text" placeholder="https://www.instagram.com/username/" #inst>
-				</mat-expansion-panel>
-				<mat-expansion-panel>
-					<mat-expansion-panel-header>
-						<mat-panel-title>
-							Twitter
-						</mat-panel-title>
-						<mat-panel-description>
-							<span class="material-symbols-outlined">
-								<ng-template [ngIf]="twitter.value">
-									link
-								</ng-template>
-								<ng-template [ngIf]="!twitter.value">
-									link_off
-								</ng-template>
-							</span>
-						</mat-panel-description>
-					</mat-expansion-panel-header>
-					<input type="text" placeholder="https://www.twitter.com/username/" #twitter>
-				</mat-expansion-panel>
-				<mat-expansion-panel>
-					<mat-expansion-panel-header>
-						<mat-panel-title>
-							LinkedIn
-						</mat-panel-title>
-						<mat-panel-description>
-							<span class="material-symbols-outlined">
-								<ng-template [ngIf]="lnkid.value">
-									link
-								</ng-template>
-								<ng-template [ngIf]="!lnkid.value">
-									link_off
-								</ng-template>
-							</span>
-						</mat-panel-description>
-					</mat-expansion-panel-header>
-					<input type="text" placeholder="https://www.linkedin.com/username/" #lnkid>
-				</mat-expansion-panel>
-				<mat-expansion-panel>
-					<mat-expansion-panel-header>
-						<mat-panel-title>
-							Facebook
-						</mat-panel-title>
-						<mat-panel-description>
-							<span class="material-symbols-outlined">
-								<ng-template [ngIf]="fb.value">
-									link
-								</ng-template>
-								<ng-template [ngIf]="!fb.value">
-									link_off
-								</ng-template>
-							</span>
-						</mat-panel-description>
-					</mat-expansion-panel-header>
-					<input type="text" placeholder="https://www.facebook.com/username/" #fb>
-				</mat-expansion-panel>
-			</mat-accordion>
-		</div>
-	</div>
+            <section class="panel">
+                <div class="panel__head compact">
+                    <h2>Visibility</h2>
+                </div>
+                <div class="panel__body">
+                    <label class="toggle-card">
+                        <input type="checkbox" formControlName="hidden">
+                        <div>
+                            <span class="field__label">Hidden</span>
+                            <small class="field__hint">Keep the post out of public lists until it is ready.</small>
+                        </div>
+                    </label>
+                </div>
+            </section>
+        </div>
 
-	<div class="flex-end">
-		<button 
-			[disabled]="form.invalid || isLoading"
-			type="submit" 
-			class="effect effect-1" 
-			matTooltip="Upload post"
-			matTooltipShowDelay="300">
-			Upload
-		</button>
-	</div>
+        <section class="panel">
+            <div class="panel__head">
+                <div>
+                    <span class="section-kicker">Media</span>
+                    <h2>Main picture</h2>
+                </div>
+            </div>
 
-	<mat-spinner *ngIf="isLoading"></mat-spinner>
-</form>
+            <div class="panel__body panel__body--stack">
+                <mat-chip-listbox aria-label="Upload image" class="media-switcher">
+                    <mat-chip-option
+                        (click)="toggleUploadImageType()"
+                        [selected]="isUploadImageSelected">
+                        Upload image
+                    </mat-chip-option>
+                    <mat-chip-option
+                        (click)="toggleUploadImageType()"
+                        [selected]="!isUploadImageSelected">
+                        Image by URL
+                    </mat-chip-option>
+                </mat-chip-listbox>
+
+                <div class="media-layout" [class.media-layout--url]="!isUploadImageSelected">
+                    <div class="media-input">
+                        <div class="uploadOuter" *ngIf="isUploadImageSelected">
+                            <label for="uploadFile" class="upload-button">Choose image</label>
+                            <strong>or</strong>
+                            <span class="dragBox" [ngClass]="{ 'draging': isDrag }">
+                                Drag and drop image here
+                                <input
+                                    formControlName="picture"
+                                    type="file"
+                                    (change)="dragNdrop($event)"
+                                    (dragover)="drag()"
+                                    (drop)="drop()"
+                                    accept="image/png, image/gif, image/jpeg"
+                                    id="uploadFile" />
+                            </span>
+                        </div>
+
+                        <div class="upload-by-url" *ngIf="!isUploadImageSelected">
+                            <label class="field">
+                                <span class="field__label">Image URL</span>
+                                <input
+                                    type="text"
+                                    formControlName="picture"
+                                    placeholder="https://picsum.photos/1200/800.jpg">
+                            </label>
+
+                            <button
+                                type="button"
+                                [disabled]="picture.invalid"
+                                mat-stroked-button
+                                (click)="handleUrlImage()">
+                                Preview image
+                                <span class="material-symbols-outlined">preview</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="preview-panel">
+                        <span class="field__label">Preview</span>
+                        <div id="preview" #preview class="preview-frame"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel panel--editor">
+            <div class="panel__head">
+                <div>
+                    <span class="section-kicker">Body</span>
+                    <h2>Content editor</h2>
+                </div>
+            </div>
+
+            <div class="panel__body panel__body--editor">
+                <app-editor
+                    (onGetTextForSubHeader)="onGetTextForSubHeader($event)"
+                    formControlName="content">
+                </app-editor>
+            </div>
+        </section>
+
+        <section class="panel panel--links">
+            <div class="panel__head compact">
+                <h2>Social links</h2>
+            </div>
+
+            <div class="panel__body">
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>Instagram</mat-panel-title>
+                            <mat-panel-description>
+                                <span class="material-symbols-outlined">
+                                    <ng-template [ngIf]="inst.value">link</ng-template>
+                                    <ng-template [ngIf]="!inst.value">link_off</ng-template>
+                                </span>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <input type="text" placeholder="https://www.instagram.com/username/" #inst>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>Twitter</mat-panel-title>
+                            <mat-panel-description>
+                                <span class="material-symbols-outlined">
+                                    <ng-template [ngIf]="twitter.value">link</ng-template>
+                                    <ng-template [ngIf]="!twitter.value">link_off</ng-template>
+                                </span>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <input type="text" placeholder="https://www.twitter.com/username/" #twitter>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>LinkedIn</mat-panel-title>
+                            <mat-panel-description>
+                                <span class="material-symbols-outlined">
+                                    <ng-template [ngIf]="lnkid.value">link</ng-template>
+                                    <ng-template [ngIf]="!lnkid.value">link_off</ng-template>
+                                </span>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <input type="text" placeholder="https://www.linkedin.com/username/" #lnkid>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>Facebook</mat-panel-title>
+                            <mat-panel-description>
+                                <span class="material-symbols-outlined">
+                                    <ng-template [ngIf]="fb.value">link</ng-template>
+                                    <ng-template [ngIf]="!fb.value">link_off</ng-template>
+                                </span>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <input type="text" placeholder="https://www.facebook.com/username/" #fb>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+        </section>
+
+        <div class="action-bar">
+            <div class="action-copy">
+                <strong>Ready to publish?</strong>
+                <span>Required fields stay highlighted until the form is complete.</span>
+            </div>
+
+            <button
+                [disabled]="form.invalid || isLoading"
+                type="submit"
+                class="submit-button"
+                matTooltip="Upload post"
+                matTooltipShowDelay="300">
+                Publish post
+            </button>
+        </div>
+
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+    </form>
+</div>

@@ -63,13 +63,15 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 12px;
+    flex-wrap: wrap;
 
     .tabs {
         display: inline-flex;
         gap: 6px;
         background: var(--card);
         padding: 6px;
-        border-radius: 12px;
+        border-radius: 10px;
+        flex-wrap: wrap;
 
         .tab {
             position: relative;
@@ -110,11 +112,13 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
 
         .search {
-            width: 280px;
+            width: min(100%, 320px);
             padding: 8px 10px;
-            border-radius: 10px;
+            border-radius: 8px;
             border: 1px solid var(--line);
             background: var(--card);
             color: #333;
@@ -143,8 +147,8 @@
     position: relative;
     background: var(--card);
     border: 1px solid var(--line);
-    border-radius: 14px;
-    overflow: hidden;
+    border-radius: 10px;
+    overflow: auto;
 
     &.loading {
         opacity: .7;
@@ -154,6 +158,7 @@
 
 .table {
     width: 100%;
+    min-width: 1120px;
     border-collapse: collapse;
     table-layout: fixed;
 
@@ -812,6 +817,19 @@ input[type="file"] {
 
 
 @media (max-width: 860px) {
+  .toolbar {
+    align-items: stretch;
+
+    .tabs,
+    .tools {
+      width: 100%;
+    }
+
+    .tools .search {
+      flex: 1 1 240px;
+    }
+  }
+
   .table td.actions { width: 1%; }
   .action-stack { min-width: 0; }
   .primary-actions, .secondary-actions { justify-content: flex-end; }

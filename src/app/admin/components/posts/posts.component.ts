@@ -16,7 +16,7 @@ import { ProjectService } from '../../services/project.service';
 })
 export class PostsComponent implements OnInit {
     
-    public posts: IPost[];
+    public posts: IPost[] = [];
     public allPostsCount: number;
     public isLoading: boolean = true;
     public pagesCount: number;
