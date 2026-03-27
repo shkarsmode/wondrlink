@@ -354,6 +354,28 @@
     }
 }
 
+.sidebar-is-reduced {
+    .c-menu {
+        .c-menu__item {
+            &__inner {
+                justify-content: center;
+                padding-inline: 0;
+            }
+
+            .material-symbols-outlined {
+                width: 100%;
+                min-width: 0;
+                margin: 0;
+                text-align: center;
+            }
+
+            .c-menu-item__title {
+                display: none;
+            }
+        }
+    }
+}
+
 main.l-main {
     width: 100%;
     min-height: 100vh;
@@ -390,6 +412,114 @@ mat-spinner {
 
 :host ::ng-deep .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
     stroke: var(--admin-accent);
+}
+
+:host ::ng-deep {
+    main.l-main input:not([type='checkbox']):not([type='radio']):not([type='file']),
+    main.l-main textarea,
+    main.l-main select {
+        border-radius: 8px;
+        border: 1px solid var(--admin-line-strong);
+        background: #fff;
+        color: var(--admin-text);
+        font: inherit;
+        transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+    }
+
+    main.l-main input:not([type='checkbox']):not([type='radio']):not([type='file']),
+    main.l-main select {
+        min-height: 42px;
+        padding: 0 12px;
+    }
+
+    main.l-main textarea {
+        min-height: 120px;
+        padding: 12px 14px;
+        resize: vertical;
+    }
+
+    main.l-main input:not([type='checkbox']):not([type='radio']):not([type='file'])::placeholder,
+    main.l-main textarea::placeholder {
+        color: #93a2b7;
+    }
+
+    main.l-main input:not([type='checkbox']):not([type='radio']):not([type='file']):focus,
+    main.l-main textarea:focus,
+    main.l-main select:focus {
+        outline: none;
+        border-color: var(--admin-accent);
+        box-shadow: 0 0 0 3px rgba(29, 79, 145, 0.08);
+    }
+
+    main.l-main input[readonly]:not([type='checkbox']):not([type='radio']) {
+        background: var(--admin-surface-muted);
+        color: var(--admin-accent);
+    }
+
+    main.l-main input[type='checkbox'],
+    main.l-main input[type='radio'] {
+        accent-color: var(--admin-accent);
+    }
+
+    main.l-main button[mat-stroked-button],
+    main.l-main a[mat-stroked-button] {
+        border-radius: 8px;
+        border-color: var(--admin-line-strong);
+        color: var(--admin-text);
+        font-weight: 600;
+        letter-spacing: 0.01em;
+    }
+
+    main.l-main button[mat-raised-button],
+    main.l-main a[mat-raised-button] {
+        border-radius: 8px;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        box-shadow: 0 10px 20px rgba(29, 79, 145, 0.16);
+    }
+
+    main.l-main .mat-mdc-form-field {
+        width: 100%;
+    }
+
+    main.l-main .mdc-text-field--filled:not(.mdc-text-field--disabled),
+    main.l-main .mdc-text-field--outlined:not(.mdc-text-field--disabled) {
+        background: #fff;
+        border-radius: 8px;
+    }
+
+    main.l-main .mat-mdc-form-field-focus-overlay {
+        background: transparent;
+    }
+
+    main.l-main .mdc-notched-outline__leading,
+    main.l-main .mdc-notched-outline__notch,
+    main.l-main .mdc-notched-outline__trailing {
+        border-color: var(--admin-line-strong) !important;
+    }
+
+    main.l-main .mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+    main.l-main .mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+    main.l-main .mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+        border-color: var(--admin-accent) !important;
+    }
+
+    main.l-main .mat-mdc-select-arrow svg,
+    main.l-main .mat-mdc-form-field-icon-suffix,
+    main.l-main .mat-datepicker-toggle {
+        color: var(--admin-accent);
+    }
+
+    main.l-main .mat-mdc-checkbox label,
+    main.l-main .mdc-label {
+        color: var(--admin-text);
+        font-size: 14px;
+    }
+
+    main.l-main .mat-mdc-checkbox-touch-target {
+        width: 40px;
+        height: 40px;
+    }
 }
 
 @media (max-width: 1080px) {
