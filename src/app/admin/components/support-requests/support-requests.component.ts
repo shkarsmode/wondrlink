@@ -1,10 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../../shared/materials/material.module';
+import { ParsedAdministrativeAddress, parseAdministrativeAddress } from '../../../shared/helpers/google-parser.helper';
 import { AdminDialogService } from '../../services/admin-dialog.service';
 import { AdminSupportRequestService } from '../../services/support-request.service';
 import { AdminListResponse, AdminSupportRequest, SupportRequestStatus, UpdateSupportRequestDto } from '../../types/support-request.types';
+
+declare const google: any;
+
+const GOOGLE_AUTOCOMPLETE_ATTR = 'data-google-autocomplete';
 
 @Component({
     selector: 'app-admin-support-requests',
@@ -13,9 +18,12 @@ import { AdminListResponse, AdminSupportRequest, SupportRequestStatus, UpdateSup
     templateUrl: './support-requests.component.html',
     styleUrls: ['./support-requests.component.scss']
 })
-export class AdminSupportRequestsComponent implements OnInit {
+export class AdminSupportRequestsComponent implements OnInit, OnDestroy {
     private adminSupportService = inject(AdminSupportRequestService);
     private adminDialog = inject(AdminDialogService);
+    private zone = inject(NgZone);
+
+    @ViewChild('locationInput') locationInputRef?: ElementRef<HTMLInputElement>;
 
     requests: AdminSupportRequest[] = [];
     loading = false;
@@ -35,9 +43,15 @@ export class AdminSupportRequestsComponent implements OnInit {
     selectedRequest: AdminSupportRequest | null = null;
     editForm: UpdateSupportRequestDto = {};
     saving = false;
+    private gmapsAutocomplete?: any;
+    private gmapsAcListener?: { remove?: () => void };
 
     ngOnInit(): void {
         this.loadRequests();
+    }
+
+    ngOnDestroy(): void {
+        this.removeGoogleAutocomplete();
     }
 
     loadRequests(): void {
@@ -81,6 +95,7 @@ export class AdminSupportRequestsComponent implements OnInit {
     }
 
     openModal(request: AdminSupportRequest, mode: 'view' | 'edit' = 'view'): void {
+        this.removeGoogleAutocomplete();
         this.selectedRequest = request;
         this.modalMode = mode;
         this.modalOpen = true;
@@ -92,6 +107,8 @@ export class AdminSupportRequestsComponent implements OnInit {
                 location: request.location,
                 city: request.city,
                 state: request.state,
+                lat: request.lat,
+                lng: request.lng,
                 diagnosis: request.diagnosis,
                 situation: request.situation,
                 whoNeedsSupport: request.whoNeedsSupport,
@@ -103,10 +120,13 @@ export class AdminSupportRequestsComponent implements OnInit {
                 additionalNote: request.additionalNote,
                 status: request.status,
             };
+
+            setTimeout(() => this.initGoogleAutocomplete());
         }
     }
 
     closeModal(): void {
+        this.removeGoogleAutocomplete();
         this.modalOpen = false;
         this.selectedRequest = null;
         this.editForm = {};
@@ -282,5 +302,86 @@ export class AdminSupportRequestsComponent implements OnInit {
             default:
                 return '';
         }
+    }
+
+    private initGoogleAutocomplete(): void {
+        const input = this.locationInputRef?.nativeElement ?? null;
+
+        if (!input) return;
+        if (!(window as any).google?.maps?.places?.Autocomplete) return;
+        if (input.getAttribute(GOOGLE_AUTOCOMPLETE_ATTR)) return;
+
+        this.gmapsAutocomplete = new google.maps.places.Autocomplete(input, {
+            types: ['(cities)'],
+            fields: ['place_id', 'name', 'formatted_address', 'geometry', 'address_components'],
+        });
+
+        input.setAttribute(GOOGLE_AUTOCOMPLETE_ATTR, 'true');
+
+        this.gmapsAcListener = this.gmapsAutocomplete.addListener('place_changed', () => {
+            const place = this.gmapsAutocomplete?.getPlace();
+
+            if (!place) return;
+
+            const lat: number | undefined = place.geometry?.location?.lat?.() ?? undefined;
+            const lng: number | undefined = place.geometry?.location?.lng?.() ?? undefined;
+            const components = (place.address_components || []) as any[];
+            const parsed: ParsedAdministrativeAddress = parseAdministrativeAddress(components);
+            const stateShort = this.getAddressComponentShortName(components, 'administrative_area_level_1');
+            const fallbackFormatted: string = place.formatted_address || place.name || '';
+
+            this.zone.run(() => {
+                this.editForm = {
+                    ...this.editForm,
+                    location: this.buildLocationLabel(parsed, stateShort, fallbackFormatted),
+                    city: parsed.city ?? this.editForm.city,
+                    state: stateShort || parsed.state || this.editForm.state,
+                    lat,
+                    lng,
+                };
+            });
+        });
+    }
+
+    private getAddressComponentShortName(components: any[], type: string): string | undefined {
+        const component = components.find((item) => Array.isArray(item?.types) && item.types.includes(type));
+        return component?.short_name ?? undefined;
+    }
+
+    private buildLocationLabel(
+        parsed: ParsedAdministrativeAddress,
+        stateShort: string | undefined,
+        fallbackFormatted: string,
+    ): string {
+        const city = parsed.city?.trim();
+        const state = stateShort?.trim() || parsed.state?.trim();
+
+        if (city && state) {
+            return `${city}, ${state}`;
+        }
+
+        if (city) {
+            return city;
+        }
+
+        return fallbackFormatted;
+    }
+
+    private removeGoogleAutocomplete(): void {
+        if (typeof window === 'undefined') return;
+
+        this.gmapsAcListener?.remove?.();
+        this.gmapsAcListener = undefined;
+
+        if (this.gmapsAutocomplete && 'event' in google.maps) {
+            google.maps.event.clearInstanceListeners(this.gmapsAutocomplete);
+        }
+
+        this.gmapsAutocomplete = undefined;
+
+        const input = this.locationInputRef?.nativeElement ?? null;
+        input?.removeAttribute(GOOGLE_AUTOCOMPLETE_ATTR);
+
+        document.querySelectorAll('.pac-container').forEach((element) => element.remove());
     }
 }

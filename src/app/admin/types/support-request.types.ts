@@ -86,6 +86,8 @@ export interface UpdateSupportRequestDto {
     location?: string;
     city?: string;
     state?: string;
+    lat?: number;
+    lng?: number;
     diagnosis?: string;
     situation?: string;
     whoNeedsSupport?: string;

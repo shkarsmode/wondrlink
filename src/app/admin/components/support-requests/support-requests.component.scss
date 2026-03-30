@@ -348,3 +348,11 @@
         }
     }
 }
+
+:host ::ng-deep .pac-container {
+    z-index: 1100 !important;
+    border: 1px solid var(--admin-line, #d7dee8);
+    border-radius: 12px;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
+    font-family: inherit;
+}
