@@ -1,8 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { BASE_PATH_API } from '../../shared/services/variables';
 import { AdminListResponse, AdminSupportMessage, AdminSupportRequest, SupportMessageStatus, SupportRequestStatus, UpdateSupportMessageDto, UpdateSupportRequestDto } from '../types/support-request.types';
+
+type AdminSupportRequestResponse = Omit<AdminSupportRequest, 'supportCount'> & {
+    supportCount?: number;
+};
 
 @Injectable({
     providedIn: 'root'
@@ -23,11 +27,20 @@ export class AdminSupportRequestService {
     ): Observable<AdminListResponse<AdminSupportRequest>> {
         const params: any = { page, limit, sortBy, sortOrder };
         if (status) params.status = status;
-        return this.http.get<AdminListResponse<AdminSupportRequest>>(`${this.apiUrl}/admin/requests/list`, { params });
+        return this.http
+            .get<AdminListResponse<AdminSupportRequestResponse>>(`${this.apiUrl}/admin/requests/list`, { params })
+            .pipe(
+                map(response => ({
+                    ...response,
+                    items: response.items.map(item => this.normalizeRequest(item)),
+                }))
+            );
     }
 
     public getRequest(requestId: number): Observable<AdminSupportRequest & { messages: AdminSupportMessage[] }> {
-        return this.http.get<AdminSupportRequest & { messages: AdminSupportMessage[] }>(`${this.apiUrl}/admin/requests/${requestId}`);
+        return this.http
+            .get<AdminSupportRequestResponse & { messages: AdminSupportMessage[] }>(`${this.apiUrl}/admin/requests/${requestId}`)
+            .pipe(map(response => ({ ...response, ...this.normalizeRequest(response) })));
     }
 
     public approveRequest(requestId: number): Observable<{ success: boolean }> {
@@ -39,7 +52,9 @@ export class AdminSupportRequestService {
     }
 
     public updateRequest(requestId: number, data: UpdateSupportRequestDto): Observable<AdminSupportRequest> {
-        return this.http.patch<AdminSupportRequest>(`${this.apiUrl}/admin/requests/${requestId}`, data);
+        return this.http
+            .patch<AdminSupportRequestResponse>(`${this.apiUrl}/admin/requests/${requestId}`, data)
+            .pipe(map(response => this.normalizeRequest(response)));
     }
 
     // Support Messages
@@ -85,5 +100,12 @@ export class AdminSupportRequestService {
 
     public deleteMessage(messageId: number): Observable<{ success: boolean }> {
         return this.http.delete<{ success: boolean }>(`${this.apiUrl}/admin/messages/${messageId}`);
+    }
+
+    private normalizeRequest(request: AdminSupportRequestResponse): AdminSupportRequest {
+        return {
+            ...request,
+            supportCount: request.supportCount ?? request.comments ?? 0,
+        };
     }
 }

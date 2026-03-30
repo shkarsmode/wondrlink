@@ -40,6 +40,7 @@ export interface AdminSupportRequest {
     comfortZones?: string[];
     additionalNote?: string;
     hearts: number;
+    supportCount: number;
     shares: number;
     comments: number;
     lat?: number;
