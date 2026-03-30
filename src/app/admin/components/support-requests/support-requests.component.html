@@ -63,7 +63,7 @@
                     <th>Age</th>
                     <th>Status</th>
                     <th>Hearts</th>
-                    <th>Comments</th>
+                    <th>Support Count</th>
                     <th>Created</th>
                     <th>Actions</th>
                 </tr>
@@ -92,7 +92,7 @@
                         </mat-form-field>
                     </td>
                     <td>{{ req.hearts }}</td>
-                    <td>{{ req.comments }}</td>
+                    <td>{{ req.supportCount }}</td>
                     <td>{{ req.createdAt | date: 'short' }}</td>
                     <td class="actions" (click)="$event.stopPropagation()">
                         <button
