@@ -1,5 +1,5 @@
 // src/app/services/submission.service.ts
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BASE_PATH_API } from '../../shared/services/variables';
@@ -48,7 +48,25 @@ export class SubmissionService {
     }
 
     public getAll(params?: SubmissionListParams): Observable<SubmissionListResponse> {
-        return this.http.get<SubmissionListResponse>(`${this.apiUrl}`, { params: params as any });
+        let httpParams = new HttpParams();
+
+        if (params?.page) {
+            httpParams = httpParams.set('page', String(params.page));
+        }
+
+        if (params?.limit) {
+            httpParams = httpParams.set('limit', String(params.limit));
+        }
+
+        if (params?.formType) {
+            httpParams = httpParams.set('formType', params.formType);
+        }
+
+        if (params?.q?.trim()) {
+            httpParams = httpParams.set('q', params.q.trim());
+        }
+
+        return this.http.get<SubmissionListResponse>(`${this.apiUrl}`, { params: httpParams });
     }
 
     // getById(id: number): Observable<Submission> {

@@ -40,8 +40,7 @@
 }
 
 .filters-card,
-.list-card,
-.stat-card {
+.list-card {
     border: 1px solid var(--admin-line, #d7dee8);
     background: rgba(255, 255, 255, 0.96);
     box-shadow: 0 14px 30px rgba(15, 23, 42, 0.05);
@@ -81,36 +80,6 @@
 
     .mat-mdc-form-field {
         width: 100%;
-    }
-}
-
-.stats-row {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 14px;
-}
-
-.stat-card {
-    padding: 18px 20px;
-    display: grid;
-    gap: 6px;
-
-    .stat-label {
-        color: var(--admin-muted, #697b92);
-        font-size: 12px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-    }
-
-    strong {
-        font-size: 28px;
-        letter-spacing: -0.04em;
-    }
-
-    .stat-hint {
-        color: var(--admin-muted, #697b92);
-        font-size: 13px;
     }
 }
 
@@ -323,10 +292,6 @@ mat-paginator {
 
 @media (max-width: 980px) {
     .filters-card {
-        grid-template-columns: 1fr;
-    }
-
-    .stats-row {
         grid-template-columns: 1fr;
     }
 
