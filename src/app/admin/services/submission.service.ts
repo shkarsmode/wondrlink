@@ -19,6 +19,20 @@ export interface Submission {
     updatedAt?: string;
 }
 
+export interface SubmissionListParams {
+    page?: number;
+    limit?: number;
+    formType?: FormType;
+    q?: string;
+}
+
+export interface SubmissionListResponse {
+    items: Submission[];
+    total: number;
+    page: number;
+    limit: number;
+}
+
 
 @Injectable({
     providedIn: 'root'
@@ -33,8 +47,8 @@ export class SubmissionService {
         return this.http.post<Submission>(`${this.apiUrl}`, submission);
     }
 
-    public getAll(params?: { page?: number; limit?: number; formType?: FormType; q?: string }): Observable<Submission[]> {
-        return this.http.get<Submission[]>(`${this.apiUrl}`, { params: params as any });
+    public getAll(params?: SubmissionListParams): Observable<SubmissionListResponse> {
+        return this.http.get<SubmissionListResponse>(`${this.apiUrl}`, { params: params as any });
     }
 
     // getById(id: number): Observable<Submission> {

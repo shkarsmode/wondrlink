@@ -3,66 +3,147 @@
         <div>
             <span class="eyebrow">Inbound Forms</span>
             <h1>Submissions</h1>
-            <p>Review captured form submissions with a cleaner preview of the most important fields.</p>
+            <p>Review partner inquiries and other inbound forms with cleaner previews, search, and real pagination.</p>
         </div>
+        <button mat-stroked-button color="primary" type="button" (click)="refresh()">Refresh</button>
     </div>
+
+    <section class="filters-card">
+        <div class="filters-card__search">
+            <span class="material-symbols-outlined" aria-hidden="true">search</span>
+            <input
+                type="search"
+                [formControl]="filterForm.controls.q"
+                placeholder="Search name, organization, email, source page, or message" />
+        </div>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Form type</mat-label>
+            <mat-select [formControl]="filterForm.controls.formType">
+                <mat-option value="">All form types</mat-option>
+                <mat-option *ngFor="let type of formTypes" [value]="type">{{ type }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <button mat-button type="button" (click)="clearFilters()">Clear filters</button>
+    </section>
+
+    <section class="stats-row">
+        <article class="stat-card">
+            <span class="stat-label">Total</span>
+            <strong>{{ total }}</strong>
+            <span class="stat-hint">matching submissions</span>
+        </article>
+        <article class="stat-card">
+            <span class="stat-label">Showing</span>
+            <strong>{{ getVisibleCount() }}</strong>
+            <span class="stat-hint">rows on this page</span>
+        </article>
+        <article class="stat-card">
+            <span class="stat-label">Page</span>
+            <strong>{{ page }}</strong>
+            <span class="stat-hint">size {{ limit }}</span>
+        </article>
+    </section>
 
     <section class="list-card">
         <div class="list-card__header">
             <div>
                 <h2>Latest submissions</h2>
-                <span class="muted">Includes the incoming metadata and any uploaded logo.</span>
+                <span class="muted">Most recent forms first. Open any row for the full JSON payload.</span>
             </div>
         </div>
 
-        <div class="table-shell">
-            <table mat-table [dataSource]="dataSource" class="submissions-table mat-elevation-z2">
+        <div class="loading-state" *ngIf="loading">
+            <mat-spinner diameter="36"></mat-spinner>
+            <p>Loading submissions…</p>
+        </div>
+
+        <div class="empty-state" *ngIf="!loading && !dataSource.data.length">
+            <span class="material-symbols-outlined" aria-hidden="true">inbox</span>
+            <h3>No submissions found</h3>
+            <p>Try changing the search text or resetting the form-type filter.</p>
+        </div>
+
+        <div class="table-shell" *ngIf="!loading && dataSource.data.length">
+            <table mat-table [dataSource]="dataSource" class="submissions-table">
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef>ID</th>
-                    <td mat-cell *matCellDef="let row" [attr.data-label]="'ID'">{{ row.id }}</td>
+                    <td mat-cell *matCellDef="let row" [attr.data-label]="'ID'">
+                        <span class="mono">#{{ row.id }}</span>
+                    </td>
                 </ng-container>
 
-                <ng-container matColumnDef="formType">
-                    <th mat-header-cell *matHeaderCellDef>Form Type</th>
-                    <td mat-cell *matCellDef="let row" [attr.data-label]="'Form Type'">{{ row.formType }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="createdAt">
-                    <th mat-header-cell *matHeaderCellDef>Created</th>
-                    <td mat-cell *matCellDef="let row" [attr.data-label]="'Created'">{{ asDate(row.createdAt) }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="data">
-                    <th mat-header-cell *matHeaderCellDef>Data</th>
-                    <td mat-cell *matCellDef="let row" [attr.data-label]="'Data'">
-                        <div class="data-preview">
-                            <div><b>Email</b>: {{ row.data['email'] }}</div>
-                            <div><b>Name</b>: {{ row.data['firstName'] ?? row.data['contactPerson'] }}</div>
-                            <button mat-stroked-button color="primary" (click)="openJson(row)">More</button>
+                <ng-container matColumnDef="submission">
+                    <th mat-header-cell *matHeaderCellDef>Submission</th>
+                    <td mat-cell *matCellDef="let row" [attr.data-label]="'Submission'">
+                        <div class="submission-main">
+                            <div class="submission-main__header">
+                                <span class="form-pill">{{ row.formType }}</span>
+                                <span class="source-pill" *ngIf="getSourcePage(row)">/{{ getSourcePage(row) }}</span>
+                            </div>
+                            <strong>{{ getPrimaryName(row) }}</strong>
+                            <span *ngIf="getSecondaryLabel(row)">{{ getSecondaryLabel(row) }}</span>
+                            <a *ngIf="getEmail(row) as email" class="submission-link" [href]="'mailto:' + email">{{ email }}</a>
                         </div>
                     </td>
                 </ng-container>
 
-                <ng-container matColumnDef="img">
-                    <th mat-header-cell *matHeaderCellDef class="img-col">Logo</th>
-                    <td mat-cell *matCellDef="let row" class="img-col" [attr.data-label]="'Logo'">
-                        <ng-container *ngIf="row.data?.logoUrl as logo; else noLogo">
+                <ng-container matColumnDef="details">
+                    <th mat-header-cell *matHeaderCellDef>Details</th>
+                    <td mat-cell *matCellDef="let row" [attr.data-label]="'Details'">
+                        <div class="details-grid">
+                            <div class="detail-chip" *ngIf="getCity(row)">
+                                <span class="material-symbols-outlined" aria-hidden="true">location_on</span>
+                                <span>{{ getCity(row) }}</span>
+                            </div>
+                            <div class="detail-chip" *ngIf="getMessage(row) as message">
+                                <span class="material-symbols-outlined" aria-hidden="true">chat</span>
+                                <span>{{ message }}</span>
+                            </div>
                             <a
                                 class="logo-thumb"
+                                *ngIf="getLogoUrl(row) as logo"
                                 [href]="logo"
                                 target="_blank"
                                 rel="noopener"
-                                [attr.aria-label]="'Open logo for ' + (row.data['organizationName'] || row.id)">
+                                [attr.aria-label]="'Open logo for submission ' + row.id">
                                 <img [src]="logo" alt="" />
                             </a>
-                        </ng-container>
-                        <ng-template #noLogo>—</ng-template>
+                        </div>
                     </td>
                 </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="['id','formType','createdAt','data','img']"></tr>
-                <tr mat-row *matRowDef="let row; columns: ['id','formType','createdAt','data','img']"></tr>
+                <ng-container matColumnDef="createdAt">
+                    <th mat-header-cell *matHeaderCellDef>Created</th>
+                    <td mat-cell *matCellDef="let row" [attr.data-label]="'Created'">
+                        {{ asDate(row.createdAt) }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let row" [attr.data-label]="'Actions'">
+                        <div class="action-stack">
+                            <button mat-stroked-button color="primary" type="button" (click)="openJson(row)">Open</button>
+                            <button mat-button type="button" (click)="copyEmail(getEmail(row))" [disabled]="!getEmail(row)">Copy email</button>
+                            <button mat-button type="button" (click)="exportRow(row)">Export</button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
             </table>
         </div>
+
+        <mat-paginator
+            *ngIf="!loading && total > limit"
+            [length]="total"
+            [pageIndex]="page - 1"
+            [pageSize]="limit"
+            [pageSizeOptions]="pageSizeOptions"
+            (page)="onPage($event)">
+        </mat-paginator>
     </section>
 </div>

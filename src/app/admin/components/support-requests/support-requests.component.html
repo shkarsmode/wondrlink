@@ -252,6 +252,10 @@
                             <label>Created</label>
                             <span>{{ selectedRequest.createdAt | date: 'medium' }}</span>
                         </div>
+                        <div class="detail-item">
+                            <label>Email Confirmed</label>
+                            <span>{{ selectedRequest.verifiedAt ? (selectedRequest.verifiedAt | date: 'medium') : 'Not yet' }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -355,7 +359,12 @@
                     <div class="form-grid">
                         <div class="form-group full-width">
                             <label>Additional Note</label>
-                            <textarea [(ngModel)]="editForm.additionalNote" class="form-control" rows="4"></textarea>
+                            <textarea
+                                [(ngModel)]="editForm.additionalNote"
+                                class="form-control"
+                                rows="4"
+                                [attr.maxlength]="additionalNoteMaxLength"></textarea>
+                            <small class="field-hint">{{ (editForm.additionalNote || '').length }}/{{ additionalNoteMaxLength }}</small>
                         </div>
                     </div>
                 </div>

@@ -319,6 +319,13 @@
     .form-control {
         width: 100%;
     }
+
+    .field-hint {
+        color: var(--admin-muted, #697b92);
+        font-size: 12px;
+        line-height: 1.4;
+        text-align: right;
+    }
 }
 
 @media (max-width: 720px) {

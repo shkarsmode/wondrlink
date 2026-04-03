@@ -19,6 +19,7 @@ const GOOGLE_AUTOCOMPLETE_ATTR = 'data-google-autocomplete';
     styleUrls: ['./support-requests.component.scss']
 })
 export class AdminSupportRequestsComponent implements OnInit, OnDestroy {
+    readonly additionalNoteMaxLength = 2000;
     private adminSupportService = inject(AdminSupportRequestService);
     private adminDialog = inject(AdminDialogService);
     private zone = inject(NgZone);
@@ -140,6 +141,24 @@ export class AdminSupportRequestsComponent implements OnInit, OnDestroy {
 
     saveChanges(): void {
         if (!this.selectedRequest) return;
+
+        if ((this.editForm.additionalNote?.length ?? 0) > this.additionalNoteMaxLength) {
+            void this.adminDialog.notice({
+                tone: 'warning',
+                icon: 'edit_note',
+                title: 'Additional note is too long',
+                message: `Keep the note under ${this.additionalNoteMaxLength} characters.`,
+                confirmText: 'Close',
+            });
+            return;
+        }
+
+        if (typeof this.editForm.additionalNote === 'string') {
+            this.editForm = {
+                ...this.editForm,
+                additionalNote: this.editForm.additionalNote.trim().slice(0, this.additionalNoteMaxLength),
+            };
+        }
         
         this.saving = true;
         this.adminSupportService.updateRequest(this.selectedRequest.id, this.editForm).subscribe({
