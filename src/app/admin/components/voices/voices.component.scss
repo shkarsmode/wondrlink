@@ -57,6 +57,13 @@
     font-weight: 600;
 }
 
+.page-head__actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
 .list-card {
     border: 1px solid var(--line);
     border-radius: 14px;

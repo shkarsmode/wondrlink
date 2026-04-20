@@ -19,9 +19,9 @@ import { Router } from '@angular/router';
 import { ChipInputComponent } from "src/app/shared/components/chip-input/chip-input.component";
 import { ParsedAdministrativeAddress, formatAdministrativeLine, parseAdministrativeAddress } from 'src/app/shared/helpers/google-parser.helper';
 import { MaterialModule } from 'src/app/shared/materials/material.module';
-import { IVoice, VoiceSourceType, VoiceStatus, VoicesListResponse } from '../../../shared/interfaces/voices';
 import { CloudinaryService } from "src/app/shared/services/cloudinary.service";
 import { UserService } from "src/app/shared/services/user.service";
+import { IVoice, VoiceSourceType, VoiceStatus, VoicesListResponse } from '../../../shared/interfaces/voices';
 import { AdminDialogService } from '../../services/admin-dialog.service';
 import { VoicesService } from '../../services/voices.service';
 
@@ -60,6 +60,7 @@ export class VoicesComponent {
     public loading = signal(false);
     public items = signal<IVoice[]>([]);
     public total = signal(0);
+    public reindexing = signal(false);
 
     private lastFocusedEl: HTMLElement | null = null;
     public previewIndex = signal<number | null>(null);
@@ -191,6 +192,18 @@ export class VoicesComponent {
             }
         } finally {
             this.loading.set(false);
+        }
+    }
+
+    public async reindex() {
+        this.reindexing.set(true);
+        try {
+            await this.svc.reindexSuggest().toPromise();
+            this.snackBar.open('Suggest index rebuilt', '', { duration: 3000 });
+        } catch {
+            this.snackBar.open('Failed to rebuild suggest index', '', { duration: 5000 });
+        } finally {
+            this.reindexing.set(false);
         }
     }
 

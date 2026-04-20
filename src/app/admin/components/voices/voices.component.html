@@ -5,7 +5,20 @@
             <h1>Voices</h1>
             <p>Review voice submissions, moderate gallery status, and open fast editing for tags, images, and linked support sources.</p>
         </div>
-        <div class="page-stat">{{ total() }} total</div>
+        <div class="page-head__actions">
+            <div class="page-stat">{{ total() }} total</div>
+            <button
+                class="admin-btn admin-btn--ghost"
+                [disabled]="reindexing()"
+                (click)="reindex()"
+                type="button">
+                @if (reindexing()) {
+                    Rebuilding…
+                } @else {
+                    Rebuild Suggest Index
+                }
+            </button>
+        </div>
     </div>
 
     <section class="list-card">

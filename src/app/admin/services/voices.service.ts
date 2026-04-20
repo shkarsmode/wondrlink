@@ -81,5 +81,12 @@ export class VoicesService {
 
     public updateVoiceImage(id: number, imgUrl: string) {
         return this.http.patch<{ affected: number }>(`${this.basePathApi}/voices/${id}/image`, { img: imgUrl });
-      }
+    }
+
+    public reindexSuggest(): Observable<{ ok: boolean }> {
+        return this.http.post<{ ok: boolean }>(
+            `${this.basePathApi}/${this.path}/suggest/reindex`,
+            {}
+        );
+    }
 }
